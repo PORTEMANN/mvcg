@@ -1,0 +1,12 @@
+{
+  "id": "ckm_row1",
+  "vintage": "PDG-2026-declare",
+  "source": "extrait déclaré RPP — pas un fetch pdgLive",
+  "quantity": "|Vud|^2+|Vus|^2+|Vub|^2",
+  "dimension": "1",
+  "packet": "1",
+  "sum": 0.9984,
+  "u": 0.0007,
+  "unitarity": 1.0,
+  "note": "1re ligne CKM. 2.3σ cité PDG 2026 sous ces u."
+}

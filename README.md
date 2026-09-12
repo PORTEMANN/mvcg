@@ -44,6 +44,20 @@ choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
 | O15 | ω_e(H₂), oscillateur harmonique k = 510 N/m | 0,10 | **S+** | 5,8 % |
 | O16 | γ(Cu), levier d'O12 activé (m\* = 1,38 m_e déclarée) | 0,10 | **S+** | 1,0 % |
 
+Contacts complémentaires (même discipline, hors série O) :
+
+| Contact | Règle déclarée | θ gelé | Mot | δ |
+|---|---|---|---|---|
+| NMR hélice | ³J(HN,Hα) Karplus, φ = −60°, réf. typique « pas un PDB » | 0,10 | **S+** | 2,7 % |
+| NMR brin | même loi, φ = −120° — la loi devient une carte | 0,10 | P | 16,1 % |
+| CKM | \|V_ud\|²+\|V_us\|²+\|V_ub\|² = 1, GUM decide=U k=2 | 7e−4 | P | 1,6e−3 |
+
+La paire NMR pèse une même loi sur deux conformations (mêmes
+coefficients gelés, deux mots) ; CKM est le premier contact de
+particules — P au cheveu du S+ (δ/U = 1,14). Doctrines :
+[`docs/NMR-CONTACT-OUVERT.md`](docs/NMR-CONTACT-OUVERT.md),
+[`docs/CKM-CONTACT-OUVERT.md`](docs/CKM-CONTACT-OUVERT.md).
+
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7
 généralise le geste à un paramètre effectif phénoménologique. La
@@ -59,6 +73,7 @@ son levier » passe de la grille (O1→O6) au paramètre phénoménologique
 doctrine : [`docs/O1-CONTACT-OUVERT.md`](docs/O1-CONTACT-OUVERT.md) …
 [`docs/O16-CONTACT-OUVERT.md`](docs/O16-CONTACT-OUVERT.md). Artefacts
 gelés et audit rejouable : `examples/registre/O{1..16}.{bits,units,metric,cost}.json`.
+La méthode complète : [`docs/METHODE-PESEE.md`](docs/METHODE-PESEE.md).
 Classement par fibre (packet, dimension) et invariance sous balayage :
 [`docs/VERDICTS-FIBRES.md`](docs/VERDICTS-FIBRES.md).
 

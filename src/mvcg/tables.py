@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -15,7 +16,11 @@ def load_table(name: str) -> dict[str, Any]:
     path = TABLES / name
     if not path.exists():
         raise FileNotFoundError(f"table absente: {path}")
-    return json.loads(path.read_text(encoding="utf-8"))
+    raw = path.read_bytes()
+    doc = json.loads(raw.decode("utf-8"))
+    doc["_file"] = name
+    doc["_sha256"] = hashlib.sha256(raw).hexdigest()
+    return doc
 
 
 def h2plus_de() -> dict[str, Any]:

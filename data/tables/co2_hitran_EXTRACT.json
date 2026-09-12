@@ -1,0 +1,15 @@
+{
+  "id": "co2_hitran_extract",
+  "vintage": "HITRAN-declare-extrait",
+  "source": "positions usuelles vide — pas un dump HITRANonline",
+  "medium": "vacuum",
+  "T_ref_K": 296,
+  "species": "12C16O2",
+  "dimension": "cm-1",
+  "packet": "si",
+  "lines": [
+    {"tag": "nu3_origin", "nu_cm-1": 2349.143, "note": "origine de bande ν3 usuelle"},
+    {"tag": "nu2_origin", "nu_cm-1": 667.380, "note": "origine de bande ν2 usuelle"}
+  ],
+  "note": "S = position de catalogue vs centre de bande LITERATURE. Pas S_ij."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "karplus_peptide",
+  "vintage": "Vuister-Bax-1993-declare",
+  "source": "3J(HN,HA)=6.51 cos^2(φ-60)-1.76 cos(φ-60)+1.60 — coefficients déclarés",
+  "dimension": "Hz",
+  "packet": "si",
+  "A": 6.51,
+  "B": -1.76,
+  "C": 1.60,
+  "offset_deg": 60.0,
+  "phi_helix_deg": -60.0,
+  "phi_sheet_deg": -120.0,
+  "J_helix_typical_Hz": 4.0,
+  "J_sheet_typical_Hz": 8.5,
+  "note": "θ=φ-60°. Tables typical = ordre de grandeur, pas un PDB."
+}

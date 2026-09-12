@@ -710,6 +710,96 @@ def _o16_cu_gamma_eff() -> tuple[float, dict]:
     }
 
 
+def _karplus_helix() -> tuple[float, dict]:
+    """Contact ouvert NMR-Karplus hélice — ³J par la loi de Karplus.
+
+    Règle déclarée AVANT le premier run : ³J(φ) = A cos²(φ−60°) +
+    B cos(φ−60°) + C, coefficients gelés de la table (Vuister-Bax
+    déclarés), φ_helix = −60° de la table. La référence
+    J_helix_typical = 4,0 Hz est un ORDRE DE GRANDEUR déclaré (« pas
+    un PDB »), pas une mesure de référence — c'est la dette attendue
+    du contact. Aucun ajustement des coefficients sur les références
+    typiques. θ = 0,10 rel gelé avant run. Estimation pré-run
+    honnête : J ≈ 4,11 vs 4,0 → ~2,7 % → S+ attendu ; la référence
+    étant grossière, le suspense porte sur la dette, pas sur le mot.
+    """
+    from mvcg.karplus import j_hn_ha, peptide_doc
+
+    t = peptide_doc()
+    j = j_hn_ha(float(t["phi_helix_deg"]), t)
+    return j, {
+        "table": "karplus_peptide_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "loi de Karplus, coefficients gelés",
+        "rule": "3J = A cos^2(phi-60) + B cos(phi-60) + C",
+        "phi_deg": float(t["phi_helix_deg"]),
+        "A": float(t["A"]), "B": float(t["B"]), "C": float(t["C"]),
+        "J_ref_Hz": float(t["J_helix_typical_Hz"]),
+        "ansatz": "conformation hélice, coefficients peptide déclarés",
+        "lever": "coefficients<-autre-parametrisation",
+        "unit_raw": "Hz",
+    }
+
+
+def _karplus_sheet() -> tuple[float, dict]:
+    """Contact ouvert NMR-Karplus brin — même loi, autre conformation.
+
+    Règle déclarée AVANT le premier run : mêmes coefficients gelés,
+    φ_sheet = −120°. La référence J_sheet_typical = 8,5 Hz est un
+    ordre de grandeur déclaré. Avec la fibre hélice, la loi devient
+    une carte : deux conformations, deux mots attendus différents —
+    l'estimation pré-run dit ~16 %, c'est-à-dire la zone P [θ, 2θ] :
+    suspense réel au bord de la zone S− (20 %). θ = 0,10 gelé avant
+    run ; jamais recalibré sur la référence.
+    """
+    from mvcg.karplus import j_hn_ha, peptide_doc
+
+    t = peptide_doc()
+    j = j_hn_ha(float(t["phi_sheet_deg"]), t)
+    return j, {
+        "table": "karplus_peptide_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "loi de Karplus, coefficients gelés",
+        "rule": "3J = A cos^2(phi-60) + B cos(phi-60) + C",
+        "phi_deg": float(t["phi_sheet_deg"]),
+        "A": float(t["A"]), "B": float(t["B"]), "C": float(t["C"]),
+        "J_ref_Hz": float(t["J_sheet_typical_Hz"]),
+        "ansatz": "conformation brin, mêmes coefficients",
+        "lever": "coefficients<-autre-parametrisation",
+        "unit_raw": "Hz",
+    }
+
+
+def _ckm_row1() -> tuple[float, dict]:
+    """Contact ouvert CKM — l'unitarité de la première ligne.
+
+    Règle déclarée AVANT le premier run : la première ligne de la
+    matrice CKM est unitaire de par la définition même du modèle —
+    |Vud|²+|Vus|²+|Vub|² = 1. mu_loc = somme déclarée de la table
+    (extrait PDG déclaré, pas un fetch pdgLive), mu_ref = 1.0
+    (identité du modèle, jamais ajustée). θ : decide=U, k=2 sur
+    u = 0,0007 déclarée → U = 0,0014 ; le contact porte θ = 0,0007.
+    Estimation pré-run honnête : δ = 0,0016, soit 2,3 sigma —
+    U < δ ≤ 2U → P attendu, au cheveu du S+ (δ/U = 1,14) : suspense
+    réel. Levier : somme<-autres entrées (Vus d'autres désintégrations).
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("ckm_row1_LITERATURE.json")
+    s = float(t["sum"])
+    return s, {
+        "table": "ckm_row1_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "somme |Vud|^2+|Vus|^2+|Vub|^2, extrait declare",
+        "rule": "somme = 1 (unitarite de la 1re ligne)",
+        "u_sum": float(t["u"]),
+        "unitarity_ref": float(t["unitarity"]),
+        "ansatz": "3 generations, unitarite du modèle",
+        "lever": "somme<-autres-entrees",
+        "unit_raw": "1",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -787,6 +877,9 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o14_tk_window": _o14_tk_window,
     "o15_h2_harmonic": _o15_h2_harmonic,
     "o16_cu_gamma_eff": _o16_cu_gamma_eff,
+    "karplus_helix": _karplus_helix,
+    "karplus_sheet": _karplus_sheet,
+    "ckm_row1": _ckm_row1,
 }
 
 CONTACTS: list[Contact] = [
@@ -1030,6 +1123,30 @@ CONTACTS: list[Contact] = [
         "o16_cu_gamma_eff",
         "ouverte", None, "O16",
     ),
+    Contact(
+        "NMR_Karplus_Helix", "micro", "pred", "si", "Hz", "rel", 0.10,
+        4.0, "coefficients<-autre-parametrisation", "—",
+        "3J(HN,Ha) helice par loi de Karplus (coefficients gelés) = ordre de grandeur typique declare",
+        "contact ouvert NMR : reference typique 'pas un PDB' declaree, dette attendue ; theta=0.10 fige avant run",
+        "karplus_helix",
+        "ouverte", None, "NMR",
+    ),
+    Contact(
+        "NMR_Karplus_Sheet", "micro", "pred", "si", "Hz", "rel", 0.10,
+        8.5, "coefficients<-autre-parametrisation", "—",
+        "3J(HN,Ha) brin par même loi de Karplus = ordre de grandeur typique declare",
+        "contact ouvert NMR : meme loi, autre conformation (carte) ; estimation pre-run zone P, suspense reel au bord S-",
+        "karplus_sheet",
+        "ouverte", None, "NMR",
+    ),
+    Contact(
+        "CKM_Row1_Unitarity", "micro", "pred", "1", "1", "abs", 0.0007,
+        1.0, "somme<-autres-entrees", "—",
+        "|Vud|^2+|Vus|^2+|Vub|^2 = 1 (unitarite de la 1re ligne)",
+        "contact ouvert CKM : somme declaree PDG, decide=U k=2 ; suspense reel δ/U=1.14 au cheveu du S+",
+        "ckm_row1",
+        "ouverte", None, "CKM",
+    ),
 ]
 
 # GUM — lignes B de table seulement. Pas d'u_B « erreur de modèle ».
@@ -1048,6 +1165,11 @@ _GUM["P20_H2plus_LCAO"] = {
     "decide": "theta",
     "k": 2,
     "lines": [{"name": "De_table", "type": "B", "u": 0.0005, "note": "eV table ; pas l'erreur LCAO"}],
+}
+_GUM["CKM_Row1_Unitarity"] = {
+    "decide": "U",
+    "k": 2,
+    "lines": [{"name": "sum_PDG", "type": "B", "u": 0.0007}],
 }
 for _c in CONTACTS:
     if _GUM.get(_c.id):
