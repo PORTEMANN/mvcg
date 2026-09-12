@@ -16,6 +16,8 @@ Si le dépôt GitHub n’est pas `PORTEMANN/mvcg`, remplacer l’OWNER/REPO dans
 - Lecteur académique : [`docs/NOTE-DIFFERENCIATION.md`](docs/NOTE-DIFFERENCIATION.md)
 - AI Act / normes (piste, pas notification) : [`docs/AI-ACT.md`](docs/AI-ACT.md)
 - Capot discret ↔ continu : [`docs/DISCRET-CONTINU.md`](docs/DISCRET-CONTINU.md)
+- Justesse des pesées : [`docs/JUSTESSE.md`](docs/JUSTESSE.md)
+- Incertitude / métrologie quantique : [`docs/METROLOGIE-QUANTIQUE.md`](docs/METROLOGIE-QUANTIQUE.md)
 
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.
