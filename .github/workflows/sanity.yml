@@ -1,0 +1,38 @@
+name: sanity
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fichiers que les tiers doivent voir
+        run: |
+          set -e
+          for f in \
+            LICENSE \
+            README.md \
+            pyproject.toml \
+            requirements.txt \
+            docs/VULGARISATION.md \
+            docs/NOTE-INGENIEUR.md \
+            docs/NOTE-DIFFERENCIATION.md \
+            docs/PORTES-METIERS.md \
+            data/tables/he_corr_LITERATURE-2018.json \
+            data/tables/h2plus_De_LITERATURE-2018.json \
+            data/tables/codata2018_extract.json \
+            src/mvcg/met_lib.py \
+            src/mvcg/registers.py
+          do
+            test -f "$f" || { echo "MANQUE $f"; exit 1; }
+          done
+          grep -q "NOTE-DIFFERENCIATION" README.md
+          grep -q "VULGARISATION" README.md

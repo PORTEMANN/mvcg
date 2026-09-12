@@ -1,0 +1,656 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+\geometry{margin=22mm,top=24mm,bottom=26mm}
+\setstretch{1.12}
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.25em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.25em,topsep=0.35em}
+\titleformat{\section}{\large\bfseries\sffamily}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\normalsize\bfseries\sffamily}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily}{\thesubsubsection}{0.7em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\sffamily\footnotesize Note d'ingénierie --- structure efficiente}
+\rhead{\sffamily\footnotesize Machine de verdict}
+\cfoot{\sffamily\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  pdftitle={Structure efficiente d'une machine de verdict},
+  pdfauthor={Note d'ingénierie}
+}
+
+\newcommand{\Mhat}{\hat{M}}
+\newcommand{\Mtwo}{\mathcal{M}_{2}}
+\newcommand{\Nbar}{\overline{\mathbb{N}}}
+\newcommand{\Nempty}{\overline{\mathbb{N}}_{\varnothing}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem{regle}{Règle}
+\newtheorem{exigence}{Exigence}
+
+\title{\sffamily\bfseries Structure efficiente d'une machine de verdict\\[0.35em]
+\large Reformulation d'ingénierie --- interfaces, protocoles, hors-périmètre}
+\author{Note technique --- reformulation externe du corpus public PORTEMANN\\
+\normalsize Lecture du 11 septembre 2026. Document de spécification, non une évaluation de la physique sous-jacente.}
+\date{11 septembre 2026}
+
+\begin{document}
+\maketitle
+\vspace{-1.2em}
+\noindent\textit{Statut.} Spécification d'architecture. Ne revendique aucun résultat phénoménologique. Les objets unificateurs (vide hydrodynamique, \(E_8\), conscience comme viscosité, réacteur) sont hors périmètre.
+
+\tableofcontents
+\vspace{0.6em}
+
+\section{Objet et non-objet}
+
+\subsection{Objet}
+Reformuler le programme dit \emph{Machine Noétique} comme une \textbf{machine de verdict} à trois produits découplés. La structure efficiente n'est pas l'unification. C'est la plus petite chaîne qui :
+\begin{enumerate}
+  \item prend des données figées et une structure candidate ;
+  \item rend un verdict rejouable ;
+  \item facture le coût de fermeture de ce verdict ;
+  \item expose un instrument d'acquisition dont les invariants sont des formules fermées.
+\end{enumerate}
+
+\subsection{Non-objet}
+Hors spécification : dérivation d'une équation maîtresse unique, pont \(120\leftrightarrow E_8\), \(Z_{\max}=180\), neurone comme signature de conscience, champ d'intention, normalisation réglementaire, discours industriel. Ces éléments peuvent exister comme dépôts satellites. Ils n'entrent pas dans les interfaces du cœur.
+
+\subsection{Critère d'optimalité}
+Une version \(n+1\) est meilleure qu'une version \(n\) si et seulement si :
+\begin{equation}
+  \text{card}(\text{cœur gelé}) \downarrow
+  \quad\text{et}\quad
+  \text{replay tiers} \uparrow
+  \quad\text{et}\quad
+  d_{\mathrm{reg}} \text{ publié n'est pas retouché après mesure.}
+\end{equation}
+Le volume de chantiers n'est pas une fonction objectif.
+
+\section{Architecture cible --- trois produits}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}llp{72mm}@{}}
+\toprule
+\textbf{Produit} & \textbf{Opérateur} & \textbf{Contrat} \\
+\midrule
+\textsc{Verdict} & \(\Mhat\) & \((D,S,L)\mapsto V\) \\
+\textsc{Métrologie} & \(\Mtwo\) & \((F,\pi,\rho)\mapsto(d,\kappa,\sqsubseteq)\) \\
+\textsc{Acquisition} & \(\mathrm{ASH}\) & \(x|_{W}\mapsto (R_c,R_{\mathrm{top}},R_{\mathrm{dyn}},E_{1..n})\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Les trois produits communiquent par artefacts hachés, jamais par vocabulaire partagé. Un invariant ASH n'est pas une « pression du vide ». Un coût \(d\) n'est pas une entropie physique. Un verdict \(V\) n'est pas une preuve d'unification.
+
+\subsection{Produit V --- opérateur de verdict}
+
+\begin{definition}[Opérateur de verdict]
+\[
+\Mhat : \mathcal{D}\times\mathcal{S}\times\mathcal{L}\longrightarrow
+\{\mathrm{succès},\mathrm{partiel},\mathrm{échec}\}
+\]
+où \(D\in\mathcal{D}\) est un jeu de données figé (empreinte SHA-256), \(S\in\mathcal{S}\) une structure candidate sans paramètre ajusté hors de \(D\), \(L\in\mathcal{L}\) un levier : mécanisme retiré pour l'épreuve d'effondrement.
+\end{definition}
+
+\begin{regle}[Quatre invariants opérationnels]
+\begin{enumerate}
+  \item \textbf{Zéro ajustement.} Tout nombre absent de \(D\) est dérivé ou le chantier est reclassé \emph{modèle}.
+  \item \textbf{Levier.} \(V=\mathrm{succès}\) n'est publié que si la suppression de \(L\) fait chuter le résultat sous le seuil du protocole.
+  \item \textbf{Invariance réplicable.} Script, JSON de verdict et figure portent une empreinte. Le replay doit la retrouver.
+  \item \textbf{Échec publié.} Un \(\mathrm{échec}\) a le même schéma d'artefact qu'un \(\mathrm{succès}\).
+\end{enumerate}
+\end{regle}
+
+Le produit V ne contient pas de grille musicale, pas de plans « noétiques », pas d'équation de fluide. Il contient un protocole de chantier, une table de critères \emph{externes} (section~\ref{sec:metriques}) et une sortie \(V\).
+
+\subsection{Produit M2 --- métrologie de fermeture}
+
+\begin{definition}[Coût de fermeture]
+Une frontière \(F\) reçoit
+\[
+d(F)\in\Nempty=\mathbb{N}\cup\{\infty,\varnothing\}.
+\]
+Convention : \(\varnothing\neq 0\). Une clôture d'hygiène est hors mesure, pas un équilibre.
+\end{definition}
+
+Classes : équilibre \(d=0\) ; déficit \(0<d<\infty\) ; non contraint \(d=\infty\) ; hors-domaine \(d=\varnothing\) ; famille \(d=d(\theta)\).
+
+Trois structures, et seulement celles-là :
+\begin{align}
+  (\Nbar,+,0) &\quad \text{monoïde des coûts, \(\infty\) absorbant,} \\
+  \oplus &\quad \text{conjonction de chantiers déclarés indépendants,} \\
+  \sqsubseteq &\quad \text{ordre de dépendance de fermeture sur \(\mathcal{F}\).}
+\end{align}
+
+Deux tarifs distincts, deux symboles :
+\begin{align}
+  d_{\mathrm{reg}}(F) &\quad \text{étiquette de registre (déficit déclaré),} \\
+  d_{\mathrm{circ}}(\rho) &\quad \text{coût de réalisation (unités, rang, comparateurs).}
+\end{align}
+L'homomorphisme
+\[
+d_{\mathrm{circ}}(t^{m}\circ t^{k})=d_{\mathrm{circ}}(t^{m})+d_{\mathrm{circ}}(t^{k})
+\]
+n'est exigé que sur \(d_{\mathrm{circ}}\) et sur une famille de tâches explicitement listée. Il n'est pas étendu par analogie à \(d_{\mathrm{reg}}\).
+
+\subsection{Produit ASH --- acquisition}
+
+\begin{definition}[Analyseur à formules fermées]
+Pour une fenêtre \(W\) d'un signal \(x\),
+\[
+\mathrm{ASH}(x|_{W};\,f_0,N_{\mathrm{oct}},\tau)
+=
+\bigl(R_c,\,R_{\mathrm{top}},\,R_{\mathrm{dyn}},\,E_{1..n}\bigr).
+\]
+Les grandeurs \(f_0\), \(N_{\mathrm{oct}}\), \(\tau\) sont des \textbf{paramètres de domaine déclarés}, pas des théorèmes.
+\end{definition}
+
+Contrat d'instrument :
+\begin{itemize}
+  \item complexité \(O(1)\) par fenêtre après précompute de la grille ;
+  \item aucun poids appris ;
+  \item tout invariant d'amplitude doit être testé en gain (leçon \(Re_N\)) ;
+  \item API sans lexique unificateur.
+\end{itemize}
+
+\section{Interfaces}
+
+\subsection{Contrats d'artefacts}
+Chaque exécution produit un objet JSON minimal :
+\begin{verbatim}
+{
+  "product": "V|M2|ASH",
+  "id": "Pxx|Fxx|SIG-xx",
+  "inputs_sha256": "...",
+  "script_sha256": "...",
+  "protocol": "VERD-1.0 | MET-LIB-1.5 | ASH-INST-1.2",
+  "output": { },
+  "output_sha256": "..."
+}
+\end{verbatim}
+Pas de champ narratif dans l'objet de verdict. La narration vit dans une note datée, séparée.
+
+\subsection{Composition autorisée}
+\[
+(D,S,L)
+\ \xrightarrow{\Mhat}\
+V
+\ \xrightarrow{\mathrm{A4}}
+F
+\ \xrightarrow{\Mtwo}\
+\bigl(d_{\mathrm{reg}},\kappa,\sqsubseteq\bigr).
+\]
+ASH n'alimente \(\Mhat\) que si le signal et le contexte sont un \(D\) figé. Un invariant ASH n'est jamais un \(S\).
+
+\subsection{Composition interdite}
+\begin{itemize}
+  \item injecter \(d_{\mathrm{circ}}\) dans une interprétation physique ;
+  \item injecter \(E_{1..n}\) dans une équation de fluide ;
+  \item relire un verdict de succes comme confirmation d'un satellite unificateur.
+\end{itemize}
+
+\section{Protocole MÉT-LIB-1.5 --- typage antérieur au coût}
+\label{sec:metlib}
+
+C'est le seul changement de protocole qui rend L5 tuable.
+
+\begin{exigence}[Gel des bits de typage]
+Avant toute exécution de \(d\), le registre écrit et hache :
+\begin{equation}
+  \texttt{phys}\in\{0,1\},
+  \quad
+  \texttt{orig}\in\{\mathrm{pred},\mathrm{thm},\mathrm{proto}\},
+  \quad
+  \hat\kappa\in K.
+\end{equation}
+Après lecture de \(d\), ces trois bits sont immutables. Toute retouche est un B3-FAIL de protocole, pas une mise à jour de science.
+\end{exigence}
+
+Origine opérationnelle :
+\begin{itemize}
+  \item \(\mathrm{pred}\) : l'énoncé gelé \emph{avant} script prédisait \(d=0\) sans citer un théorème déjà listé dans le fichier de conventions ;
+  \item \(\mathrm{thm}\) : l'équilibre est la citation d'un théorème nommé et daté ;
+  \item \(\mathrm{proto}\) : l'équilibre est un effet de harnais ou de batterie.
+\end{itemize}
+
+\subsection{Loi L5 --- forme ingénieur}
+\[
+\mathrm{L5}:\
+\forall F\ \text{avec}\ \texttt{phys}=1\ \text{et}\ F\ \text{postérieure à l'armement}:
+\ d(F)\neq 0
+\ \lor\
+\texttt{orig}(F)\neq\mathrm{pred}.
+\]
+Tueur calculable :
+\begin{equation}
+\mathrm{Kill}(F)
+=
+[\texttt{phys}=1]
+\land
+[\texttt{nouvelle}=1]
+\land
+[\texttt{mesurée}=1]
+\land
+[d(F)=0]
+\land
+[\texttt{orig}=\mathrm{pred}].
+\end{equation}
+Les cinq bits sont lus dans le JSON. Aucun comité.
+
+\subsection{Adversaire obligatoire}
+Une campagne dont la fonction objectif est \(\mathrm{Kill}(F)=1\) doit exister dans le dépôt. Les familles à déficit forcé par construction (parité, tri, tente itérée sous tarif \(2^{j}\)) ne sont pas des adversaires de L5.
+
+\section{Cœur gelé}
+\label{sec:coeur}
+
+Le cœur tient dans une image unique (conteneur), une graine, cinq exécutables, un fichier \texttt{SHASUMS}. Rien d'autre n'est « la machine ».
+
+\begin{center}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}clp{85mm}@{}}
+\toprule
+\textbf{\#} & \textbf{Script} & \textbf{Rôle} \\
+\midrule
+C1 & banc de jauge minimal & \(\Mhat\) sur un \(D\) public, levier documenté \\
+C2 & un chantier phénomène & même schéma, métrique externe section~\ref{sec:metriques} \\
+C3 & \texttt{m2\_circ} & homomorphisme \(d_{\mathrm{circ}}\) sur une famille finie \\
+C4 & \texttt{m2\_reg} & extraction \(d_{\mathrm{reg}}\) + \(\mathrm{Kill}\) MÉT-LIB-1.5 \\
+C5 & \texttt{ash\_bench} & invariants + test de gain + baseline spectrale \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Budget d'exécution cible : \(\le 30\) minutes CPU standard, zéro GPU requis. Un chantier qui casse ce budget sort du cœur et redevient satellite.
+
+\begin{regle}[Admission]
+Un sixième script n'entre dans le cœur que si :
+\begin{enumerate}
+  \item les cinq précédents ont un replay publié par un compte distinct de l'auteur ;
+  \item sa ligne « nôtre / littérature / écart » est remplie ;
+  \item son \(d_{\mathrm{reg}}\) et ses bits MÉT-LIB-1.5 sont gelés \emph{a priori}.
+\end{enumerate}
+\end{regle}
+
+\section{Métriques externes}
+\label{sec:metriques}
+
+Interdiction des scores \(k/k\) comme fonction objectif. Chaque script du cœur publie une ligne :
+
+{\small
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{22mm}p{32mm}p{62mm}p{28mm}@{}}
+\toprule
+\textbf{Script} & \textbf{Nôtre} & \textbf{Référence} & \textbf{Écart} \\
+\midrule
+C1 jauge & grandeur calculée & valeur de littérature, unités déclarées & relatif ou exact \\
+C2 phénomène & métrique du domaine & jeu public complet, pas un sous-échantillon ad hoc & RMS / taux \\
+C3 circuit & \(d_{\mathrm{circ}}\) mesuré & borne connue (Telgarsky, rang, \(\lceil\log_2 n!\rceil\)) & ratio \\
+C4 registre & cohérence table / JSON & --- & \(0\) défaut L1 \\
+C5 ASH & F1 / latence / gain & STFT ou CWT, même fenêtre & \(\Delta\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+Si la colonne « référence » est vide, le script n'est pas dans le cœur.
+
+\section{Surface de coût --- statut d'ingénierie}
+
+Pour une tâche d'oscillation \(t^{m}\) factorisée en \(k\) blocs \(t^{j_i}\) avec \(\sum j_i=m\), le tarif
+\begin{equation}
+  d_{\mathrm{circ}}(m,k)=\sum_{i=1}^{k}2^{j_i}
+\end{equation}
+donne \(d^{*}(m)=2m\) par convexité de \(2^{j}\) sur les partitions en parts \(\{1,2\}\). Ce n'est pas une géométrie de la nature. C'est un prix.
+
+\begin{exigence}[Double tarif]
+Le cœur publie la même surface sous au moins un tarif alternatif, par exemple \(d_{\mathrm{alt}}(t^{j})=j\). Si l'optimum change, le rapport le dit en une phrase : l'optimum est une propriété du tarif, pas de la tâche.
+\end{exigence}
+
+\section{Hors périmètre --- satellites}
+
+Les dépôts suivants, s'ils existent, portent l'étiquette \texttt{SATELLITE} et n'apparaissent pas dans le graphe d'appel du cœur :
+\begin{itemize}
+  \item formalisme de fluide à torsion et mémoire fractionnaire ;
+  \item constructions KO-6 au-delà des axiomes déjà retractés ;
+  \item ponts exceptionnels de type Lie / racines ;
+  \item lectures cognitives ou industrielles des invariants ASH ;
+  \item toute page dont le critère de succès n'est pas une métrique de la section~\ref{sec:metriques}.
+\end{itemize}
+Un satellite peut citer le cœur. Le cœur ne cite pas un satellite.
+
+\section{Gouvernance minimale}
+
+{\small
+\begin{tabular}{@{}p{38mm}p{115mm}@{}}
+\toprule
+\textbf{Fichier} & \textbf{Fonction} \\
+\midrule
+\texttt{CONVENTIONS.md} &
+unités, jauges, définitions datées ; seul lieu des théorèmes citables pour \texttt{orig=thm} \\
+\texttt{PROTOCOLES.md} &
+VERD-1.0, MET-LIB-1.5, ASH-INST-1.2 \\
+\texttt{REGISTRE.json} &
+frontières, bits gelés, \(d\), SHA \\
+\texttt{SHASUMS.txt} &
+empreintes du cœur \\
+\texttt{ERRATA.md} &
+T3, \(Re_N\), et tout B3-FAIL futur \\
+\bottomrule
+\end{tabular}
+}
+
+\vspace{0.6em}
+Règle d'écriture : un mot, un objet. \emph{Liberté} ne désigne que \(d_{\mathrm{reg}}\) ou \(d_{\mathrm{circ}}\), jamais un état mental. \emph{Pression} ne désigne que \(R_c\) comme énergie de bande, jamais un tenseur d'Einstein.
+
+\section{Plan d'implémentation --- 90 jours}
+
+\begin{enumerate}
+  \item \(J_1\)--\(J_{15}\). Scinder les README en trois produits. Marquer les satellites. Extraire le cœur à cinq scripts.
+  \item \(J_{16}\)--\(J_{30}\). Implémenter MÉT-LIB-1.5 : bits antérieurs, immutabilité, fonction \(\mathrm{Kill}\).
+  \item \(J_{31}\)--\(J_{45}\). Image conteneur. Replay documenté en une page. Budget 30 minutes.
+  \item \(J_{46}\)--\(J_{60}\). Remplir les cinq lignes « nôtre / référence / écart ». Ouvrir une issue publique \texttt{replay}.
+  \item \(J_{61}\)--\(J_{75}\). Campagne adversaire L5. Double tarif de surface.
+  \item \(J_{76}\)--\(J_{90}\). Gel : aucun satellite dans les notes du cœur. Publication d'un ERRATUM unique pour tout ce qui était vendu comme établi et qui redevient satellite.
+\end{enumerate}
+
+\section{Invariants formels --- MVC-G}
+\label{sec:invariants}
+
+Nom de configuration : \textbf{MVC-G} (machine de verdict à coût gelé).
+Un invariant est une assertion $I$ munie d'un domaine $\mathrm{dom}(I)$ et d'un tueur $\mathrm{Kill}(I)$.
+Si $\mathrm{Kill}(I)$ est observé sur un artefact du cœur, $I$ sort du cœur ou le cœur est en B3-FAIL.
+
+\subsection{Espace d'état}
+
+Objets :
+\begin{align*}
+D &\in \mathcal{D} && \text{données figées, empreinte } \sigma(D),\\
+S &\in \mathcal{S} && \text{structure candidate},\\
+L &\in \mathcal{L} && \text{levier retiré pour l'épreuve},\\
+V &\in \{S^{+},P,S^{-}\} && \text{succès, partiel, échec},\\
+F &\in \mathcal{F} && \text{frontière de registre},\\
+\pi &\in \Pi && \text{protocole nommé},\\
+\rho &\in \mathcal{R} && \text{réalisation (circuit, rang, réseau)},\\
+d_{\mathrm{reg}} &\in \Nempty && \text{coût de registre},\\
+d_{\mathrm{circ}} &\in \Nbar && \text{coût de réalisation}.
+\end{align*}
+Bits MÉT-LIB, écrits avant $d$ :
+\[
+b_{\mathrm{phys}}\in\{0,1\},\quad
+b_{\mathrm{orig}}\in\{\mathrm{pred},\mathrm{thm},\mathrm{proto}\},\quad
+\hat\kappa\in K.
+\]
+
+\subsection{Famille V --- verdict}
+
+\paragraph{I-V1 (typage).}
+$\Mhat:\mathcal{D}\times\mathcal{S}\times\mathcal{L}\to\{S^{+},P,S^{-}\}$.
+Tueur : une sortie hors de ces trois symboles, ou une entrée sans $\sigma(D)$.
+
+\paragraph{I-V2 (zéro ajustement).}
+Soit $\mathrm{Free}(S)$ l'ensemble des nombres de $S$ absents de $D$.
+\[
+\mathrm{Free}(S)=\emptyset
+\quad\text{ou}\quad
+V\text{ n'est pas publié comme }S^{+}.
+\]
+Tueur : un scalaire de $S$ choisi pour coller $D$ après lecture de $D$.
+
+\paragraph{I-V3 (levier).}
+Si $V=S^{+}$ sous $(D,S,L)$, alors
+\[
+\Mhat(D,S,\varnothing)=S^{-}
+\quad\text{ou}\quad
+\text{la métrique externe passe sous le seuil de }\pi.
+\]
+Tueur : succès inchangé après ablation de $L$.
+
+\paragraph{I-V4 (replay).}
+\[
+\sigma(\mathrm{script})\cdot\sigma(D)\cdot\sigma(\pi)
+\;\longrightarrow\;
+\sigma(V)\ \text{identique}.
+\]
+Tueur : deux exécutions conformes, deux empreintes $V$.
+
+\paragraph{I-V5 (symétrie d'échec).}
+Le schéma d'artefact de $S^{-}$ est celui de $S^{+}$.
+Tueur : échec sans JSON, sans SHA, ou relégué à une note narrative.
+
+\paragraph{I-V6 (référence externe).}
+Tout $S^{+}$ du cœur exhibe une ligne
+$(\mu_{\mathrm{loc}},\mu_{\mathrm{ref}},\delta)$.
+Tueur : colonne référence vide.
+
+\subsection{Famille M2 --- coût}
+
+\paragraph{I-M1 (séparation des tarifs).}
+$d_{\mathrm{reg}}$ et $d_{\mathrm{circ}}$ sont deux fonctions.
+Aucune identité $d_{\mathrm{reg}}=d_{\mathrm{circ}}$ n'est un axiome.
+Tueur : un rapport qui les additionne ou les substitue.
+
+\paragraph{I-M2 (vide n'est pas zéro).}
+$\varnothing\neq 0$.
+Une clôture d'hygiène a $d_{\mathrm{reg}}=\varnothing$, pas $d_{\mathrm{reg}}=0$.
+Tueur : F18 (ou analogue) enregistré en équilibre.
+
+\paragraph{I-M3 (monoïde).}
+$(\Nbar,+,0)$ est un monoïde commutatif, $\infty$ absorbant :
+$n+\infty=\infty$.
+Tueur : une règle de calcul publiée qui viole l'associativité ou l'absorption.
+
+\paragraph{I-M4 (additivité déclarée).}
+Si $A,B$ sont déclarés indépendants \emph{avant} mesure,
+\[
+d_{\mathrm{reg}}(A\oplus B)=d_{\mathrm{reg}}(A)+d_{\mathrm{reg}}(B).
+\]
+Tueur : écart après exécution. L'indépendance posée \emph{après} $d$ ne compte pas.
+
+\paragraph{I-M5 (homomorphisme de circuit).}
+Sur une famille $\mathcal{T}$ listée dans \texttt{CONVENTIONS.md},
+\[
+d_{\mathrm{circ}}(t^{m}\circ t^{k})=d_{\mathrm{circ}}(t^{m})+d_{\mathrm{circ}}(t^{k}).
+\]
+Tueur : un couple $(m,k)\in\mathcal{T}$ où l'égalité tombe.
+Hors $\mathcal{T}$, l'égalité n'est pas exigée.
+
+\paragraph{I-M6 (ordre).}
+$\sqsubseteq$ est un préordre acyclique sur $\mathcal{F}$.
+Tueur : un cycle dans \texttt{REGISTRE.json}.
+
+\paragraph{I-M7 (surface = tarif).}
+Sous $d_{\mathrm{circ}}(t^{j})=2^{j}$ et $\sum j_{i}=m$,
+$d^{*}(m)=2m$ pour les partitions en parts $\{1,2\}$.
+Le cœur publie au moins un tarif alternatif $d_{\mathrm{alt}}(t^{j})=j$.
+Tueur : présenter $d^{*}=2m$ comme indépendant du tarif.
+
+\paragraph{I-M8 (plancher).}
+Pour une tâche $\tau$ munie d'une borne de littérature $B(\tau)$,
+\[
+d_{\mathrm{circ}}(\tau)\ge B(\tau).
+\]
+Tueur : une réalisation publiée sous $B(\tau)$ qui passe le protocole de $\tau$.
+
+\subsection{Famille G --- gel MÉT-LIB-1.5}
+
+\paragraph{I-G1 (antériorité).}
+$(b_{\mathrm{phys}},b_{\mathrm{orig}},\hat\kappa)$ sont écrits et hachés
+avant l'appel qui produit $d$.
+Tueur : horodatage de $d$ antérieur à celui des bits.
+
+\paragraph{I-G2 (immutabilité).}
+Après lecture de $d$, les trois bits sont constants.
+Tueur : diff de registre sur ces champs post-mesure.
+
+\paragraph{I-G3 (L5 calculable).}
+\[
+\mathrm{L5}\equiv
+\neg\mathrm{Kill},\qquad
+\mathrm{Kill}(F)
+=
+[b_{\mathrm{phys}}=1]
+\land
+[b_{\mathrm{nouvelle}}=1]
+\land
+[b_{\mathrm{mesurée}}=1]
+\land
+[d_{\mathrm{reg}}(F)=0]
+\land
+[b_{\mathrm{orig}}=\mathrm{pred}].
+\]
+Tueur de l'invariant : un $F$ du cœur avec $\mathrm{Kill}(F)=1$ et L5 encore affichée.
+
+\paragraph{I-G4 (adversaire).}
+Il existe dans le dépôt une campagne dont la fonction objectif est $\mathrm{Kill}=1$.
+Une famille à déficit forcé par construction n'est pas cet adversaire.
+Tueur : seule batterie L5 = parité / tri / tentes sous tarif $2^{j}$.
+
+\subsection{Famille A --- acquisition}
+
+\paragraph{I-A1 (signature).}
+\[
+\mathrm{ASH}(x|_{W};f_{0},N_{\mathrm{oct}},\tau)
+=
+(R_{c},R_{\mathrm{top}},R_{\mathrm{dyn}},E_{1..n}).
+\]
+$(f_{0},N_{\mathrm{oct}},\tau)$ sont des paramètres de domaine, éléments de $D$, pas des théorèmes.
+Tueur : les présenter comme dérivés d'un T1 du satellite.
+
+\paragraph{I-A2 (sans poids).}
+Aucun paramètre d'ASH n'est appris sur une perte.
+Tueur : un fit, une rétropropagation, une grille choisie sur le jeu d'épreuve.
+
+\paragraph{I-A3 (stabilité de gain).}
+Si $R$ est déclaré invariant d'amplitude,
+\[
+R(\lambda x)=R(x)\qquad(\lambda>0\ \text{dans le domaine déclaré}).
+\]
+Tueur : dérive sous gain (cas $Re_{N}$).
+
+\paragraph{I-A4 (baseline).}
+Toute publication ASH du cœur compare $R$ à STFT ou CWT sur la même fenêtre.
+Tueur : score interne seul.
+
+\paragraph{I-A5 (lexique).}
+L'API n'expose aucun mot du satellite (vide, koïlon, noétique, conscience).
+Tueur : un identifiant d'interface dans cette liste.
+
+\subsection{Famille C --- architecture}
+
+\paragraph{I-C1 (découplage).}
+Le graphe d'appel du cœur n'a pas d'arc vers un nœud \texttt{SATELLITE}.
+Tueur : import, citation opératoire, ou $S$ définie dans un satellite.
+
+\paragraph{I-C2 (cardinal).}
+Le cœur a au plus cinq exécutables tant qu'un replay tiers n'existe pas pour chacun.
+Tueur : sixième script dans l'image sans replay.
+
+\paragraph{I-C3 (budget).}
+Une exécution du cœur tient en $\le 30$ minutes CPU standard, sans GPU requis.
+Tueur : dépendance GPU ou dépassement non documenté comme satellite.
+
+\paragraph{I-C4 (un mot, un objet).}
+\emph{Liberté} désigne $d_{\mathrm{reg}}$ ou $d_{\mathrm{circ}}$.
+\emph{Pression} désigne $R_{c}$ comme énergie de bande.
+Tueur : un troisième référent pour l'un de ces deux mots dans une note du cœur.
+
+\paragraph{I-C5 (optimalité).}
+Une révision $n+1$ est admissible seulement si
+\[
+|\text{cœur}|_{n+1}\le |\text{cœur}|_{n}
+\quad\text{ou}\quad
+\#\text{replays tiers}\uparrow
+\quad\text{et}\quad
+\text{I-G2 tient}.
+\]
+Tueur : plus de chantiers, mêmes $k/k$, bits retouchés.
+
+\subsection{Table de tueurs --- vue condensée}
+
+{\small
+\begin{center}
+\begin{tabular}{@{}llp{78mm}@{}}
+\toprule
+\textbf{I} & \textbf{Produit} & \textbf{Tueur} \\
+\midrule
+I-V2 & V & scalaire ajusté après lecture de $D$ \\
+I-V3 & V & succès sans chute après ablation du levier \\
+I-V4 & V & replay à empreinte différente \\
+I-M2 & M2 & $\varnothing$ enregistré comme $0$ \\
+I-M5 & M2 & homomorphisme cassé sur $\mathcal{T}$ \\
+I-M7 & M2 & $d^{*}=2m$ vendu hors tarif \\
+I-G2 & G & retouche de $b_{\mathrm{phys}}$ ou $b_{\mathrm{orig}}$ après $d$ \\
+I-G3 & G & $\mathrm{Kill}=1$ et L5 affichée \\
+I-A3 & A & invariant d'amplitude instable au gain \\
+I-C1 & C & arc cœur $\to$ satellite \\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+\subsection{Invariant directeur}
+
+\[
+\boxed{\;
+\mathrm{MVC\text{-}G}
+\;=\;
+\Mhat \;\times\; \Mtwo \;\times\; \mathrm{ASH}
+\quad\text{sous gel I-G1--I-G4, hors satellite.}
+\;}
+\]
+Tout ajout qui n'est pas un facteur de ce produit, ou qui viole le gel, n'est pas une optimisation de la machine. C'est une autre machine.
+
+\section{État des lieux --- ce qui est déjà conforme}
+
+Le corpus public fournit déjà, et c'est à conserver :
+\begin{itemize}
+  \item l'idée d'opérateur \(\Mhat\) plutôt que d'un modèle fitté ;
+  \item la publication d'échecs (T3, \(Re_N\), règles EEG, inversion M1) ;
+  \item la distinction \(\varnothing\neq 0\) ;
+  \item un premier homomorphisme exécuté sur une famille de circuits ;
+  \item un certificat de plancher (copie, rang) séparé du simple comptage.
+\end{itemize}
+La structure efficiente consiste à \textbf{garder cela et rien que cela}, puis à rendre L5 calculable et les métriques externes obligatoires.
+
+\section{Clause finale}
+
+Cette note ne valide aucun chantier phénoménologique. Elle spécifie la forme sous laquelle une machine de verdict peut être auditée. Si une unification existe, elle devra entrer par un satellite, puis par C2, avec une référence de littérature et un \(d\) gelé \emph{a priori}. Tant que ce chemin n'est pas pris, l'unification n'est pas une fonction de la machine.
+
+\vspace{1.2em}
+{\small
+\noindent
+References de lecture (corpus public, 11/09/2026).
+Depots:
+\texttt{noetic-machine-complete},
+\texttt{noetic-ash},
+\texttt{spectral-triple-minimality}.
+Notes:
+\texttt{m2-note-metrologie-liberte.md},
+\texttt{a4-a5-note-registre-conjecture.md}.
+La presente specification n'est pas un document de l'auteur du corpus.
+}
+
+\end{document}

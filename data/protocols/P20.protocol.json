@@ -1,0 +1,17 @@
+{
+  "protocol": "NOETIC-P-0.1",
+  "id": "P20_H2plus",
+  "campaign": "P20",
+  "s": "De(H2+, LCAO 1s, R=2 a0) = table DEMO-2026",
+  "packet": "si",
+  "dimension": "eV",
+  "delta_kind": "rel",
+  "theta": 0.05,
+  "sigma": 0.01,
+  "lever": "R←Re | zeta←opt",
+  "register": "micro",
+  "orig": "pred",
+  "table": "h2plus_De_DEMO-2026.json",
+  "solver": "mvcg.h2plus.lcao_1s",
+  "note": "gabarit d'import — pas le JSON du dépôt noetic-machine-complete"
+}

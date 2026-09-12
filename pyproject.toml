@@ -1,0 +1,21 @@
+[project]
+name = "mvcg"
+version = "0.1.0"
+description = "Machine de verdict à coût gelé — registre MÉT-LIB-1.5"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+ots = ["opentimestamps>=0.4.5"]
+
+[project.scripts]
+mvcg = "mvcg.met_lib:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

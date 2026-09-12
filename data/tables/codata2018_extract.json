@@ -1,0 +1,14 @@
+{
+  "id": "codata2018_extract",
+  "vintage": "CODATA-2018",
+  "source": "extrait déclaré — pas un fetch NIST live",
+  "constants": {
+    "Rydberg_eV": 13.605693122994,
+    "Hartree_eV": 27.211386245988,
+    "e_C": 1.602176634e-19,
+    "h_Js": 6.62607015e-34,
+    "hbar_Js": 1.054571817e-34,
+    "c_ms": 299792458.0,
+    "alpha": 7.2973525693e-3
+  }
+}

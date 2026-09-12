@@ -1,0 +1,12 @@
+{
+  "id": "h2o_dipole",
+  "vintage": "LITERATURE-2018",
+  "source": "moment dipolaire H2O gaz ; pas un dump CCCBDB",
+  "doi_or_ref": "valeur compilée déclarée 1.8546 D",
+  "species": "H2O",
+  "quantity": "mu_dipole",
+  "dimension": "D",
+  "packet": "si",
+  "value": 1.8546,
+  "ansatz_point_charge": 1.50
+}

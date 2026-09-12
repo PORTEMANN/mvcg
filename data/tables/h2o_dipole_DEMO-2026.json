@@ -1,0 +1,12 @@
+{
+  "id": "h2o_dipole",
+  "vintage": "DEMO-2026",
+  "source": "constante déclarée — pas CCCBDB live",
+  "species": "H2O",
+  "quantity": "mu_dipole",
+  "dimension": "D",
+  "packet": "si",
+  "value": 1.8546,
+  "ansatz_point_charge": 1.50,
+  "note": "P21 : ansatz charges ponctuelles vs table."
+}

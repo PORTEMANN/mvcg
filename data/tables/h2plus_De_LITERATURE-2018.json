@@ -1,0 +1,12 @@
+{
+  "id": "h2plus_De",
+  "vintage": "LITERATURE-2018",
+  "source": "valeur expérimentale usuelle De(H2+) ; pas un dump CCCBDB",
+  "doi_or_ref": "Herzberg / Huber, Constants of Diatomic Molecules (extrait déclaré)",
+  "species": "H2+",
+  "quantity": "De",
+  "dimension": "eV",
+  "packet": "si",
+  "value": 2.6508,
+  "sha256_note": "figer ce fichier ; changer value = autre D"
+}

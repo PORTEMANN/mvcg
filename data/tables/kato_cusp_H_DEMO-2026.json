@@ -1,0 +1,12 @@
+{
+  "id": "kato_cusp_H",
+  "vintage": "DEMO-2026",
+  "source": "condition de Kato 1s hydrogène — Z=1",
+  "species": "H",
+  "quantity": "cusp",
+  "dimension": "1",
+  "packet": "1",
+  "value": -1.0,
+  "ansatz_gaussian": 0.0,
+  "note": "P30 : (1/ψ) ∂rψ |_{0} = -Z. Gaussienne lisse → 0."
+}

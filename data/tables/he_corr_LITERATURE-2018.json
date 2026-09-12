@@ -1,0 +1,13 @@
+{
+  "id": "he_corr",
+  "vintage": "LITERATURE-2018",
+  "source": "He non-relativiste : E_HF lim. base vs E exact Hylleraas",
+  "doi_or_ref": "E_exact ≈ -2.903724 Ha ; E_HF ≈ -2.861680 Ha (limite HF)",
+  "species": "He",
+  "quantity": "E_corr",
+  "dimension": "Ha",
+  "packet": "si",
+  "value": -0.042044,
+  "E_HF_Ha": -2.861680,
+  "E_exact_Ha": -2.903724
+}

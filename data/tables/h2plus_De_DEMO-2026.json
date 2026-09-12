@@ -1,0 +1,12 @@
+{
+  "id": "h2plus_De",
+  "vintage": "DEMO-2026",
+  "source": "constante déclarée — pas un dump CCCBDB live",
+  "species": "H2+",
+  "quantity": "De",
+  "dimension": "eV",
+  "packet": "si",
+  "value": 2.6508,
+  "ansatz_lcao_1s": 1.76,
+  "note": "μ_ref = value ; μ_loc LCAO 1s pauvre = ansatz_lcao_1s. Remplacer par extrait CCCBDB gelé."
+}
