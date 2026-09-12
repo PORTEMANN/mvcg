@@ -1,0 +1,18 @@
+{
+  "id": "bec_sound",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs usuelles condensats de 87Rb, propagation du son (regime Bogolioubov)",
+  "doi_or_ref": "Andrews et al., Phys. Rev. Lett. 79 (1997) 553 (extrait declare)",
+  "species": "87Rb BEC",
+  "quantity": "vitesse du son vs densite du nuage",
+  "dimension": "m/s",
+  "packet": "si",
+  "value": 0.0011,
+  "params": {
+    "mass_87Rb_u": 86.909187,
+    "a_s_100a0_nm": 5.291772,
+    "n_cloud_m-3": 3e19,
+    "c_observed_m_s": 0.0011
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

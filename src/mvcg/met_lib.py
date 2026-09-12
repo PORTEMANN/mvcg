@@ -520,9 +520,9 @@ def main(argv: Optional[list[str]] = None) -> int:
     u = sub.add_parser("upgrade-btc", help="upgrade OTS + vérif attestation de bloc")
     u.add_argument("--id", required=True)
 
-    un = sub.add_parser("units", help="geler le paquet d'unités (hl|gauss|si)")
+    un = sub.add_parser("units", help="geler le paquet d'unités (hl|gauss|si|1)")
     un.add_argument("--id", required=True)
-    un.add_argument("--packet", required=True, choices=("hl", "gauss", "si"))
+    un.add_argument("--packet", required=True, choices=("hl", "gauss", "si", "1"))
     un.add_argument("--vintage", default="unspecified")
     un.add_argument("--hbar", type=float, default=1.0)
     un.add_argument("--c", type=float, default=1.0)

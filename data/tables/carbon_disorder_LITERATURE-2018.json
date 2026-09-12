@@ -1,0 +1,17 @@
+{
+  "id": "carbon_disorder",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs textbook usuelles Tuinstra-Koenig / Ferrari (phase 1)",
+  "doi_or_ref": "Tuinstra & Koenig, J. Chem. Phys. 53 (1970) 1126 ; Ferrari & Robertson (2004) (extraits declares)",
+  "species": "C (suie / nanographite)",
+  "quantity": "rapport Raman ID/IG vs taille de domaine La (phase 1, La ~ 3 nm)",
+  "dimension": "1",
+  "packet": "1",
+  "value": 1.2,
+  "params": {
+    "TK_C_lambda514_nm": 4.4,
+    "La_observed_nm": 3.0,
+    "ID_IG_observed": 1.2
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

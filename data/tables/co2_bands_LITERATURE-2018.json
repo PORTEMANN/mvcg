@@ -1,0 +1,18 @@
+{
+  "id": "co2_bands",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs textbook usuelles bandes IR/Raman de CO et CO2",
+  "doi_or_ref": "Herzberg, Infrared and Raman Spectra of Polyatomic Molecules (extrait déclare)",
+  "species": "CO, CO2",
+  "quantity": "bandes vibrationnelles (nu01 CO ; nu2, nu3 CO2, isotopologue 13C)",
+  "dimension": "cm^-1",
+  "packet": "1",
+  "value": 2349.3,
+  "bands": {
+    "CO_nu01_cm-1": 2170.2,
+    "CO2_nu2_cm-1": 667.379,
+    "CO2_nu3_cm-1": 2349.3,
+    "CO2_nu3_13C_cm-1": 2273.7
+  },
+  "sha256_note": "figer ce fichier ; changer bands = autre D"
+}

@@ -138,6 +138,221 @@ def _p27_he_table() -> tuple[float, dict]:
     return float(t["value"]), {"table": t["vintage"], "note": "tautologie table"}
 
 
+def _fd_h1s_ha(n: int, r_max: float) -> float:
+    """E_1s(H) en Ha par différences finies 2e ordre, Dirichlet aux deux bords."""
+    import numpy as np
+
+    h = r_max / (n + 1)
+    r = np.arange(1, n + 1) * h
+    V = -1.0 / r
+    main = 1.0 / (h * h) + V
+    off = -1.0 / (2.0 * h * h)
+    H = (
+        np.diag(main)
+        + np.diag(np.full(n - 1, off), 1)
+        + np.diag(np.full(n - 1, off), -1)
+    )
+    return float(np.linalg.eigvalsh(H)[0])
+
+
+def _o1_grid_h1s() -> tuple[float, dict]:
+    """Contact ouvert O1 — E_1s(H) par différences finies sur grille déclarée.
+
+    Paramètres choisis avant le premier run : n=200, r_max=25 a0,
+    différences finies 2e ordre, conditions de Dirichlet. L'erreur de
+    discrétisation n'est PAS connue d'avance : c'est la pesée qui la dit.
+    """
+    from mvcg.tables import load_table
+
+    n, r_max = 200, 25.0
+    e1_ha = _fd_h1s_ha(n, r_max)
+    t = load_table("codata2018_extract.json")
+    return e1_ha, {
+        "table": "codata2018_extract.json",
+        "vintage": t["vintage"],
+        "method": "differences finies 2e ordre, Dirichlet",
+        "n": n,
+        "r_max": r_max,
+        "h": r_max / (n + 1),
+        "ansatz": "grille uniforme (la grille est l'ansatz)",
+        "lever": "grille<-raffiner",
+        "unit_raw": "Ha",
+    }
+
+
+def _o2_co2_nu3() -> tuple[float, dict]:
+    """Contact ouvert O2 — ν₃(CO₂) par transfert de constante de force.
+
+    Règle déclarée AVANT le premier run : k_r(C=O du CO₂) := k(CO),
+    extraite de la bande CO de la table par le modèle diatomique
+    harmonique (k = μω², μ = m_C·m_O/(m_C+m_O)). Puis
+    ν₃^harm = sqrt(2k_r/m_O)/(2πc). La bande ν₃ du CO₂ NE DOIT JAMAIS
+    entrer dans le calcul : c'est l'anti-tautologie du contact.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    amu = 1.66053906660e-27  # kg, déclarée locale
+    c_cm = 2.99792458e10  # cm/s, exact
+    m_C = 12.0 * amu  # masses conventionnelles déclarées
+    m_O = 16.0 * amu
+    mu_co = m_C * m_O / (m_C + m_O)
+    t = load_table("co2_bands_LITERATURE-2018.json")
+    bands = t["bands"]
+    nu_co = float(bands["CO_nu01_cm-1"])
+    omega_co = 2.0 * math.pi * c_cm * nu_co
+    k = mu_co * omega_co**2
+    nu3 = math.sqrt(2.0 * k / m_O) / (2.0 * math.pi * c_cm)
+    return nu3, {
+        "table": "co2_bands_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "VFF 1D harmonique, k_r transferee de CO",
+        "rule": "k_r(C=O CO2) := k(CO)",
+        "k_r_N_per_m": k,
+        "nu_tilde_CO_cm-1": nu_co,
+        "mu_CO_amu": mu_co / amu,
+        "m_O_amu": 16.0,
+        "ansatz": "transfert de constante de force (diatomique -> triatomique)",
+        "lever": "k<-autre-liaison",
+        "unit_raw": "cm^-1",
+    }
+
+
+def _o3_carbon_d_raman() -> tuple[float, dict]:
+    """Contact ouvert O3 — bande D du graphite par chaîne 1D à forces égales.
+
+    Règle déclarée AVANT le premier run : le graphite est une chaîne 1D
+    diatomique de carbone (maille A-B, constantes k1 intra / k2 inter) ;
+    la bande G = mode optique au centre de zone (ω² = 2(k1+k2)/m), la
+    bande D = bord de zone (ω² = 2·max(k1,k2)/m, modes dégénérés).
+    Transfert déclaré : k2 := k1 (égalisation) — le rapport vaut alors
+    D/G = 1/√2. La bande D observée NE DOIT JAMAIS entrer dans le
+    calcul : anti-tautologie du contact (seule G pilote la prédiction).
+    D est le mode activé par le désordre : c'est lui qui distingue
+    graphite (interdit, faible) et amorphe (permis) — le contact dit
+    quelque chose sur cette frontière.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("carbon_raman_LITERATURE-2018.json")
+    bands = t["bands"]
+    g_obs = float(bands["graphite_G_cm-1"])
+    ratio = 1.0 / (2.0 ** 0.5)  # D/G à k2 = k1 : sqrt(max/(k1+k2))
+    d_pred = g_obs * ratio
+    return d_pred, {
+        "table": "carbon_raman_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "chaine 1D diatomique, egalisation k2 := k1",
+        "rule": "D = G / sqrt(2)",
+        "k2_over_k1": 1.0,
+        "G_obs_cm-1": g_obs,
+        "D_over_G": ratio,
+        "ansatz": "chaine diatomique 1D a constantes de force egales",
+        "lever": "k<-desegaliser",
+        "unit_raw": "cm^-1",
+    }
+
+
+def _o4_tk_id_ig() -> tuple[float, dict]:
+    """Contact ouvert O4 — I_D/I_G par la loi de Tuinstra–Koenig.
+
+    Règle déclarée AVANT le premier run : en phase 1 (domaines
+    cristallins de quelques nm), I_D/I_G = C(λ)/L_a — chaque domaine
+    contribue au D par ses bords et au G par son aire. C(λ = 514 nm)
+    = 4,4 nm (constante empirique de la table), L_a = 3,0 nm (taille
+    de domaine déclarée de l'échantillon suie/nanographite, dans la
+    fenêtre de validité). Le rapport I_D/I_G observé NE DOIT JAMAIS
+    entrer dans le calcul : anti-tautologie du contact (seuls C et L_a
+    pilotent la prédiction).
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("carbon_disorder_LITERATURE-2018.json")
+    p = t["params"]
+    c_lambda = float(p["TK_C_lambda514_nm"])
+    la = float(p["La_observed_nm"])
+    pred = c_lambda / la
+    return pred, {
+        "table": "carbon_disorder_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "loi de Tuinstra-Koenig, phase 1",
+        "rule": "ID/IG = C(lambda)/La",
+        "C_lambda514_nm": c_lambda,
+        "La_nm": la,
+        "ansatz": "activation du D proportionnelle aux bords de domaine",
+        "lever": "La<-recalibrer",
+        "unit_raw": "1",
+    }
+
+
+def _o5_bec_sound() -> tuple[float, dict]:
+    """Contact ouvert O5 — vitesse du son d'un condensat de Bose.
+
+    Règle déclarée AVANT le premier run : régime de Bogolioubov pour un
+    gaz dilué, c = sqrt(g n / m) avec g = 4 pi hbar^2 a_s / m, soit
+    c = (hbar/m) sqrt(4 pi a_s n). Paramètres déclarés : masse du 87Rb,
+    longueur de diffusion a_s = 100 a0, densité caractéristique du
+    nuage n = 3e19 m^-3 (paramètre le moins contraint d'un nuage
+    inhomogène — c'est là que vit le levier, documenté avant le run).
+    La vitesse observée NE DOIT JAMAIS entrer dans le calcul :
+    anti-tautologie du contact.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    hbar = 1.054571817e-34  # J s (h exact / 2 pi)
+    amu = 1.66053906660e-27  # kg, déclarée locale
+    t = load_table("bec_sound_LITERATURE-2018.json")
+    p = t["params"]
+    m = float(p["mass_87Rb_u"]) * amu
+    a_s = float(p["a_s_100a0_nm"]) * 1e-9
+    n = float(p["n_cloud_m-3"])
+    g = 4.0 * math.pi * hbar**2 * a_s / m
+    c = math.sqrt(g * n / m)
+    return c, {
+        "table": "bec_sound_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "Bogolioubov dilue, c = sqrt(g n / m)",
+        "rule": "c = (hbar/m) sqrt(4 pi a_s n)",
+        "g_J_m3": g,
+        "a_s_m": a_s,
+        "n_m-3": n,
+        "m_kg": m,
+        "ansatz": "condensat homogene, interactions de contact, T = 0",
+        "lever": "n<-profil",
+        "unit_raw": "m/s",
+    }
+
+
+def _o6_grid_h1s_refined() -> tuple[float, dict]:
+    """Contact ouvert O6 — E_1s(H) par la grille raffinée (levier d'O1).
+
+    Même protocole qu'O1, même table (R∞ CODATA-2018), même chaîne
+    Ha→eV, MÊME θ = 1e-3 gelé : le levier grille←raffiner est activé
+    (n = 1600 au lieu de 200, r_max inchangé). L'erreur de
+    discrétisation à n = 1600 n'est pas connue d'avance : seul son
+    ordre (O(h²), h ÷ 8) est prédit. C'est le run qui dit le mot.
+    """
+    from mvcg.tables import load_table
+
+    n, r_max = 1600, 25.0
+    e1_ha = _fd_h1s_ha(n, r_max)
+    t = load_table("codata2018_extract.json")
+    return e1_ha, {
+        "table": "codata2018_extract.json",
+        "vintage": t["vintage"],
+        "method": "differences finies 2e ordre, Dirichlet (grille raffinee)",
+        "n": n,
+        "r_max": r_max,
+        "h": r_max / (n + 1),
+        "ansatz": "grille uniforme raffinee (le levier d'O1, active)",
+        "lever": "grille<-raffiner (actif)",
+        "unit_raw": "Ha",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -199,6 +414,12 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "p35_sigma": _p35_sigma_as_spike,
     "p27_hf": _p27_he_hf,
     "p27_tab": _p27_he_table,
+    "o1_grid_h1s": _o1_grid_h1s,
+    "o2_co2_nu3": _o2_co2_nu3,
+    "o3_carbon_d_raman": _o3_carbon_d_raman,
+    "o4_tk_id_ig": _o4_tk_id_ig,
+    "o5_bec_sound": _o5_bec_sound,
+    "o6_grid_h1s_refined": _o6_grid_h1s_refined,
 }
 
 CONTACTS: list[Contact] = [
@@ -314,6 +535,54 @@ CONTACTS: list[Contact] = [
         "montre que CE μ ignore H0 — un vrai contact H0 serait H(z) vs donnée",
         "frw_shoes",
     ),
+    Contact(
+        "O1_Grille_H1s", "micro", "pred", "si", "eV", "rel", 1e-3,
+        -13.605693122994, "grille←raffiner", "—",
+        "E_1s(H) par différences finies (n=200, r_max=25) = R_∞ CODATA-2018",
+        "contact ouvert O1 : le mot n'était pas connu avant le gel du protocole",
+        "o1_grid_h1s",
+        "ouverte", None, "O1",
+    ),
+    Contact(
+        "O2_CO2_nu3", "micro", "pred", "1", "cm^-1", "rel", 0.10,
+        2349.3, "k<-autre-liaison", "—",
+        "nu3(CO2) VFF a k transferee de CO = bande IR observee (12CO2)",
+        "contact ouvert O2 : transfert declare, mot inconnu au gel ; theta=0.10 fige avant run (labo + modele 1D grossier)",
+        "o2_co2_nu3",
+        "ouverte", None, "O2",
+    ),
+    Contact(
+        "O3_Carbon_D_Raman", "micro", "pred", "1", "cm^-1", "rel", 0.10,
+        1350.0, "k<-desegaliser", "—",
+        "bande D(graphite) = bande G / sqrt(2) (chaine 1D k2=k1) = bande D observee",
+        "contact ouvert O3 : egalisation declaree, mot inconnu au gel ; theta=0.10 fige avant run (tol. labo + modele 1D grossier)",
+        "o3_carbon_d_raman",
+        "ouverte", None, "O3",
+    ),
+    Contact(
+        "O4_TK_ID_IG", "micro", "pred", "1", "1", "rel", 0.10,
+        1.2, "La<-recalibrer", "—",
+        "ID/IG(suie, La=3nm) = C(514nm)/La = rapport Raman observe",
+        "contact ouvert O4 : loi Tuinstra-Koenig declaree, mot inconnu au gel ; theta=0.10 fige avant run (rapport d'intensites inter-labo)",
+        "o4_tk_id_ig",
+        "ouverte", None, "O4",
+    ),
+    Contact(
+        "O5_BEC_Sound", "micro", "pred", "si", "m/s", "rel", 0.05,
+        0.0011, "n<-profil", "—",
+        "c(son, 87Rb) = sqrt(4 pi hbar^2 a_s n / m^2) = vitesse du son observee",
+        "contact ouvert O5 : Bogolioubov declare, mot inconnu au gel ; theta=0.05 fige avant run (accord inter-labo + incertitude de densite du nuage)",
+        "o5_bec_sound",
+        "ouverte", None, "O5",
+    ),
+    Contact(
+        "O6_Grille_H1s_Raffine", "micro", "pred", "si", "eV", "rel", 1e-3,
+        -13.605693122994, "grille<-raffiner (actif)", "—",
+        "E_1s(H) par differences finies (n=1600, r_max=25) = R_inf CODATA-2018",
+        "contact ouvert O6 : le levier d'O1 active, theta=1e-3 INCHANGE (seuil gelé d'O1) ; mot inconnu au gel",
+        "o6_grid_h1s_refined",
+        "ouverte", None, "O6",
+    ),
 ]
 
 # GUM — lignes B de table seulement. Pas d'u_B « erreur de modèle ».
@@ -340,7 +609,7 @@ for _c in CONTACTS:
 from mvcg.h2plus import HA_TO_EV
 
 for _c in CONTACTS:
-    if _c.id == "P20_H2plus_LCAO":
+    if _c.id in ("P20_H2plus_LCAO", "O1_Grille_H1s", "O6_Grille_H1s_Raffine"):
         _c.chain = [{
             "tau": "energy",
             "src": "Ha",
