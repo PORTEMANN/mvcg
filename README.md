@@ -19,9 +19,9 @@ Si le dépôt GitHub n’est pas `PORTEMANN/mvcg`, remplacer l’OWNER/REPO dans
 - Justesse des pesées : [`docs/JUSTESSE.md`](docs/JUSTESSE.md)
 - Incertitude / métrologie quantique : [`docs/METROLOGIE-QUANTIQUE.md`](docs/METROLOGIE-QUANTIQUE.md)
 
-## Contacts ouverts (série O1 → O6)
+## Contacts ouverts (série O1 → O16)
 
-Six pesées dont le mot est **découvert après le gel du protocole** — θ
+Seize pesées dont le mot est **découvert après le gel du protocole** — θ
 figé, table vintage, anti-tautologie, levier directionnel — jamais
 choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
 
@@ -39,13 +39,26 @@ choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
 | O10 | ν(C=O PMMA), transfert de force (étalon) | 0,10 | **S+** | 0,6 % |
 | O11 | ξ longueur de guérison du condensat | 0,10 | **S+** | 9,0 % |
 | O12 | γ(Cu), Sommerfeld masse libre | 0,10 | S− | 26,8 % |
+| O13 | ν₃(¹³CO₂), loi des masses depuis ν₃(¹²CO₂) | 0,10 | **S+** | 1,0 % |
+| O14 | I_D/I_G charbon graphitisé, TK dans sa fenêtre | 0,10 | **S+** | 2,2 % |
+| O15 | ω_e(H₂), oscillateur harmonique k = 510 N/m | 0,10 | **S+** | 5,8 % |
+| O16 | γ(Cu), levier d'O12 activé (m\* = 1,38 m_e déclarée) | 0,10 | **S+** | 1,0 % |
 
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7
-généralise le geste à un paramètre effectif phénoménologique. Chaque
+généralise le geste à un paramètre effectif phénoménologique. La
+paire O4 → O14 pèse une même loi des deux côtés de sa frontière
+(S− à 3 nm, S+ à 10 nm) : le verdict est une mesure locale dans le
+plan des paramètres. O13 sépare table et règle (la référence est
+portée, jamais lue) ; O15 protocolise l'honnêteté de la comparaison
+(référence choisie avant le run, quand le mot est encore inconnu) ;
+la paire O12 → O16 active le levier d'O12 (masse effective déclarée,
+jamais dérivée de la référence) — la démonstration « chaque échec a
+son levier » passe de la grille (O1→O6) au paramètre phénoménologique
+(O3→O7) au paramètre de théorie effective. Chaque
 doctrine : [`docs/O1-CONTACT-OUVERT.md`](docs/O1-CONTACT-OUVERT.md) …
-[`docs/O12-CONTACT-OUVERT.md`](docs/O12-CONTACT-OUVERT.md). Artefacts
-gelés et audit rejouable : `examples/registre/O{1..12}.{bits,units,metric,cost}.json`.
+[`docs/O16-CONTACT-OUVERT.md`](docs/O16-CONTACT-OUVERT.md). Artefacts
+gelés et audit rejouable : `examples/registre/O{1..16}.{bits,units,metric,cost}.json`.
 
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.
@@ -169,7 +182,7 @@ comme contact. Un contact sans table vintage n’est pas un contact.
 
 Un contact **ouvert** ajoute la discipline du gel *avant* le premier
 run : la machine risque un mot (S+, P ou S−) au lieu de le choisir —
-voir la série O1 → O6 ci-dessus. Ajouter le sien = sa molécule, sa
+voir la série O1 → O16 ci-dessus. Ajouter le sien = sa molécule, sa
 table, son θ gelé : c'est le seul signal d'appropriation.
 
 ## Hors périmètre

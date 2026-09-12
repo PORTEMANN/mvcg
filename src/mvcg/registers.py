@@ -567,6 +567,148 @@ def _o12_cu_gamma() -> tuple[float, dict]:
     }
 
 
+def _o13_co2_isotopologue() -> tuple[float, dict]:
+    """Contact ouvert O13 — bande ν₃ du 13CO2 par la loi des masses.
+
+    Règle déclarée AVANT le premier run : isotopologue plus lourd,
+    fréquence réduite par la masse réduite, nu(13) = nu(12)·√(μ12/μ13),
+    μ = m_C·m_O/(m_C+m_O), masses conventionnelles 12/16 et 13/16.
+    La bande cible du 13CO2 (2273,7 cm⁻¹) NE DOIT JAMAIS entrer dans
+    le calcul : seule la bande du 12CO2 pilote (règle isotopique).
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    t = load_table("co2_bands_LITERATURE-2018.json")
+    bands = t["bands"]
+    nu12 = float(bands["CO2_nu3_cm-1"])
+    mu12 = 12.0 * 16.0 / (12.0 + 16.0)
+    mu13 = 13.0 * 16.0 / (13.0 + 16.0)
+    nu13 = nu12 * math.sqrt(mu12 / mu13)
+    return nu13, {
+        "table": "co2_bands_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "loi des masses (isotopologue), masse reduite",
+        "rule": "nu(13CO2) = nu(12CO2) * sqrt(mu12/mu13)",
+        "mu12_amu": mu12,
+        "mu13_amu": mu13,
+        "nu_12CO2_cm-1": nu12,
+        "ansatz": "deplacement isotopique, constante de force inchangee",
+        "lever": "k<-anharmonicite",
+        "unit_raw": "cm^-1",
+    }
+
+
+def _o14_tk_window() -> tuple[float, dict]:
+    """Contact ouvert O14 — loi de Tuinstra–Koenig DANS sa fenêtre.
+
+    Pendant d'O4 : même loi, autre échantillon. Règle déclarée AVANT
+    le premier run : I_D/I_G = C(λ)/L_a avec C = 4,4 nm (même constante
+    empirique) et L_a = 10 nm (charbon graphitisé, cœur de la fenêtre
+    de phase 1). Le rapport observé NE DOIT JAMAIS entrer dans le
+    calcul. Avec O4, la loi devient une carte : échec à 3 nm, test à
+    10 nm.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("carbon_tk_window_LITERATURE-2018.json")
+    p = t["params"]
+    c_lambda = float(p["TK_C_lambda514_nm"])
+    la = float(p["La_nm"])
+    pred = c_lambda / la
+    return pred, {
+        "table": "carbon_tk_window_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "loi de Tuinstra-Koenig, phase 1 (fenetre)",
+        "rule": "ID/IG = C(lambda)/La, La = 10 nm",
+        "C_lambda514_nm": c_lambda,
+        "La_nm": la,
+        "ansatz": "activation du D proportionnelle aux bords de domaine",
+        "lever": "La<-recalibrer",
+        "unit_raw": "1",
+    }
+
+
+def _o15_h2_harmonic() -> tuple[float, dict]:
+    """Contact ouvert O15 — constante harmonique du H2 par force déclarée.
+
+    Règle déclarée AVANT le premier run : oscillateur harmonique,
+    nu_harm = sqrt(k/mu)/(2 pi c), k = 510 N/m (constante de force de
+    Morse au minimum, valeur usuelle déclarée), mu = m_H/2. Comparaison
+    HONNÊTE : contre omega_e = 4401,2 cm⁻¹ (constante HARMONIQUE
+    expérimentale), pas contre le fondamental anharmonique (4160).
+    La cible omega_e NE DOIT JAMAIS entrer dans le calcul.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    amu = 1.66053906660e-27
+    c_cm = 2.99792458e10
+    t = load_table("h2_vibration_LITERATURE-2018.json")
+    p = t["params"]
+    k = float(p["k_H2_N_per_m"])
+    m_h = 1.007825 * amu
+    mu = m_h / 2.0
+    omega = math.sqrt(k / mu)
+    nu_harm = omega / (2.0 * math.pi * c_cm)
+    return nu_harm, {
+        "table": "h2_vibration_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "oscillateur harmonique, k de Morse declaree",
+        "rule": "nu_harm = sqrt(k/mu)/(2 pi c), mu = m_H/2",
+        "k_N_per_m": k,
+        "mu_amu": mu / amu,
+        "ansatz": "harmonique pur ; l'anharmonicite est la dette attendue",
+        "lever": "k<-morse",
+        "unit_raw": "cm^-1",
+    }
+
+
+def _o16_cu_gamma_eff() -> tuple[float, dict]:
+    """Contact ouvert O16 — levier d'O12 activé : masse effective.
+
+    Règle déclarée AVANT le premier run : même modèle de Sommerfeld
+    qu'O12, même densité, mais la masse déclarée est la masse
+    effective de bande m* = 1,38 m_e (valeur des solides, Ashcroft-
+    Mermin), JAMAIS dérivée de la référence (γ_ref/γ_modèle = 1,37
+    serait circulaire : la référence entrerait dans le calcul).
+    γ ∝ m : γ(m*) = γ(m_e libre, O12) × 1,38. La mesure du cuivre
+    NE DOIT JAMAIS entrer dans le calcul. Estimation pré-run honnête :
+    δ ≈ 1 % — suspense faible assumé au gel : c'est le pendant
+    disciplinaire d'O7 (chaque échec a son levier activé, θ jamais
+    déplacé).
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    hbar = 1.054571817e-34
+    k_B = 1.380649e-23
+    m_e = 9.1093837015e-31  # kg, déclarée locale
+    m_star_over_me = 1.38  # déclarée (bande), pas calculée depuis gamma_ref
+    t = load_table("cu_gamma_LITERATURE-2018.json")
+    p = t["params"]
+    n = float(p["n_e_m-3"])
+    m_eff = m_star_over_me * m_e
+    e_f = hbar**2 * (3.0 * math.pi**2 * n) ** (2.0 / 3.0) / (2.0 * m_eff)
+    gamma = math.pi**2 * k_B**2 * n / (2.0 * e_f)
+    return gamma, {
+        "table": "cu_gamma_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "Sommerfeld, masse effective declaree (bande)",
+        "rule": "gamma = pi^2 kB^2 n / (2 E_F), E_F a m* = 1.38 m_e",
+        "E_F_J": e_f,
+        "E_F_eV": e_f / 1.602176634e-19,
+        "n_m-3": n,
+        "m_star_over_me": m_star_over_me,
+        "ansatz": "gaz d'electrons, masse de bande (levier d'O12 active)",
+        "lever": "m<-masse-effective (active, 1.38 m_e)",
+        "unit_raw": "J m^-3 K^-2",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -640,6 +782,10 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o10_carbonyl": _o10_carbonyl,
     "o11_bec_healing": _o11_bec_healing,
     "o12_cu_gamma": _o12_cu_gamma,
+    "o13_co2_isotopologue": _o13_co2_isotopologue,
+    "o14_tk_window": _o14_tk_window,
+    "o15_h2_harmonic": _o15_h2_harmonic,
+    "o16_cu_gamma_eff": _o16_cu_gamma_eff,
 }
 
 CONTACTS: list[Contact] = [
@@ -850,6 +996,38 @@ CONTACTS: list[Contact] = [
         "contact ouvert O12 : masse libre declaree, mot inconnu au gel ; theta=0.10 fige avant run",
         "o12_cu_gamma",
         "ouverte", None, "O12",
+    ),
+    Contact(
+        "O13_CO2_Isotopologue", "micro", "pred", "1", "cm^-1", "rel", 0.10,
+        2273.7, "k<-anharmonicite", "—",
+        "nu3(13CO2) par loi des masses depuis nu3(12CO2) = bande isotopologue observee",
+        "contact ouvert O13 : isotopie declaree, mot inconnu au gel ; theta=0.10 fige avant run",
+        "o13_co2_isotopologue",
+        "ouverte", None, "O13",
+    ),
+    Contact(
+        "O14_TK_Fenetre", "micro", "pred", "1", "1", "rel", 0.10,
+        0.45, "La<-recalibrer", "—",
+        "ID/IG(charbon graphitise, La=10nm) = C(514nm)/La = rapport observe",
+        "contact ouvert O14 : TK dans sa fenetre (pendant d'O4), mot inconnu au gel ; theta=0.10 fige avant run",
+        "o14_tk_window",
+        "ouverte", None, "O14",
+    ),
+    Contact(
+        "O15_H2_Harmonique", "micro", "pred", "1", "cm^-1", "rel", 0.10,
+        4401.2, "k<-morse", "—",
+        "omega_e(H2) par oscillateur harmonique a k=510 N/m declaree",
+        "contact ouvert O15 : harmonique pur declare (comparaison vs omega_e, pas vs le fondamental), mot inconnu au gel",
+        "o15_h2_harmonic",
+        "ouverte", None, "O15",
+    ),
+    Contact(
+        "O16_Cu_Gamma_Eff", "micro", "pred", "si", "J m^-3 K^-2", "rel", 0.10,
+        96.6, "m<-masse-effective (active)", "—",
+        "gamma(Cu, Sommerfeld masse effective 1.38 m_e declaree) = chaleur specifique electronique mesuree",
+        "contact ouvert O16 : levier d'O12 active (pendant disciplinaire d'O7), m* declaree jamais derivee de la reference ; theta=0.10 fige avant run",
+        "o16_cu_gamma_eff",
+        "ouverte", None, "O16",
     ),
 ]
 

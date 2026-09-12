@@ -1,0 +1,17 @@
+{
+  "id": "h2_vibration",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs textbook H2 : constante de force de Morse au minimum, constante harmonique",
+  "doi_or_ref": "Huber & Herzberg, Constants of Diatomic Molecules (extrait declare)",
+  "species": "H2",
+  "quantity": "constante harmonique omega_e vs oscillateur harmonique a k declaree",
+  "dimension": "cm^-1",
+  "packet": "1",
+  "value": 4401.2,
+  "params": {
+    "k_H2_N_per_m": 510.0,
+    "omega_e_cm-1": 4401.2,
+    "note": "comparaison harmonique (modele) vs harmonique (omega_e) ; le fondamental anharmonique est 4160 cm^-1, hors contrat ici"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "carbon_tk_window",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs textbook phase 1 : charbon graphitise, domaines de 10 nm",
+  "doi_or_ref": "Tuinstra & Koenig (1970) ; Ferrari & Robertson (2004) (extraits declares)",
+  "species": "C (charbon graphitise)",
+  "quantity": "rapport Raman ID/IG a La = 10 nm (fenetre de validite de la phase 1)",
+  "dimension": "1",
+  "packet": "1",
+  "value": 0.45,
+  "params": {
+    "TK_C_lambda514_nm": 4.4,
+    "La_nm": 10.0,
+    "ID_IG_observed": 0.45
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
