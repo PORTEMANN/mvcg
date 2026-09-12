@@ -9,6 +9,7 @@ macro  — bilans (H^2, Ω, vintage H0)
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Callable
 
 import numpy as np
@@ -1065,9 +1066,11 @@ for _c in CONTACTS:
 
 
 def run_contact(c: Contact) -> dict[str, Any]:
+    from mvcg.archive import source_sha
     from mvcg.runner import execute
 
     mu_loc, extra = execute(RUNNERS[c.runner], chain=c.chain)
+    extra = {**extra, "runner_sha256": source_sha(RUNNERS[c.runner])}
     delta = _delta(mu_loc, c.mu_ref, c.delta_kind)
     if c.gum:
         from mvcg.gum import apply_gum
@@ -1121,8 +1124,12 @@ def run_contact(c: Contact) -> dict[str, Any]:
     }
 
 
-def run_registers() -> dict[str, Any]:
+def run_registers(archive: Path | None = None) -> dict[str, Any]:
     rows = [run_contact(c) for c in CONTACTS]
+    if archive is not None:
+        from mvcg.archive import append_traces
+
+        append_traces(rows, Path(archive))
     by = {r: [x for x in rows if x["register"] == r] for r in REGISTERS}
     return {
         "protocol": "MVC-G-REGISTRES-0.1",
