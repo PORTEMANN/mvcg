@@ -1,7 +1,11 @@
-# Quickstart — deux pesées en 10 minutes
+# Quickstart — deux pesées en 10 minutes (+ une sous le capot)
 
 Prérequis : Python 3.11+, `numpy`. Aucune autre dépendance (l'ancre
 OpenTimestamps est optionnelle ; ici `--offline`).
+
+Les exemples 1 et 2 sont le cœur : 10 minutes, un S+ et un S−.
+L'exemple 3 (5 min de plus, optionnel) ouvre le capot : tare, chaîne
+typée, calibre.
 
 ```bash
 cd mvcg                      # dossier dézippé ou cloné
@@ -86,6 +90,55 @@ machine le dit avec les mêmes formules qu'un succès. C'est un *succès de
 protocole* : un S− honnête vaut plus qu'un S+ raccommodé. Le levier gelé
 (`ansatz<-table`) dit ce qu'il faudrait changer pour que le mot bascule :
 enrichir l'ansatz, jamais déplacer θ.
+
+## Exemple 3 (optionnel) — sous le capot : tare, chaîne typée, calibre (5 min)
+
+Le même contact H₂⁺, vu par les trois bascules du capot
+(`docs/DISCRET-CONTINU.md`). Le runner rend μ en Ha *avec la tare déjà
+ôtée* ; la chaîne transporte Ha → eV ; le calibre est un poids étalon
+déclaré avant le run.
+
+```bash
+python3 - <<'PY'
+from mvcg.registers import run_registers
+
+by = {r["id"]: r for r in run_registers()["rows"]}
+r = by["P20_H2plus_LCAO"]
+print("mu_raw  =", round(r["extra"]["mu_raw"], 6), "Ha  (tare déjà ôtée dans le runner)")
+print("chaîne  = k", round(r["extra"]["chain"]["k"], 6),
+      r["extra"]["chain"]["src"], "->", r["extra"]["chain"]["dst"],
+      "| kill:", r["extra"]["chain"]["kill"])
+print("mu_loc  =", round(r["mu_loc"], 4), "eV ; tare =", r["tare"],
+      "Ha ; calibre =", r["caliber"])
+g = r["extra"]["gum"]
+print("gum     = u_c", g["uc"], "U", g["U"], "decide", g["decide"])
+print("mot     =", r["verdict"], "| delta =", round(r["delta"], 4))
+PY
+```
+
+Attendu (valeurs réelles) :
+
+```
+mu_raw  = 0.053771 Ha  (tare déjà ôtée dans le runner)
+chaîne  = k 27.211386 Ha -> eV | kill: None
+mu_loc  = 1.4632 eV ; tare = -0.5 Ha ; calibre = labo
+gum     = u_c 0.0005 U 0.001 decide theta
+mot     = S- | delta = 0.448
+```
+
+Trois règles du capot, visibles ligne par ligne :
+
+1. **La tare reste dans le runner** (`-0.5` Ha = plateau vide, atomes
+   séparés). La chaîne vient *après* — la soustraire une deuxième fois
+   serait un double zéro.
+2. **La chaîne est typée** : une 1-cellule `{τ=energy, src=Ha, dst=eV, k}`,
+   vérifiée avant usage. Une rupture de τ ou de branche force **S−** —
+   jamais de verdict sur la mauvaise fibre (test
+   `test_chain_kill_forces_sminus`).
+3. **Le calibre est un poids étalon, pas un levier** : `labo` déclare la
+   classe de θ *avant* le run ; il ne recalcule jamais le verdict.
+   Le budget GUM ne comptabilise que la ligne de table
+   (`u_c = 0.0005` eV, `U = 2·u_c`), jamais une « erreur de modèle ».
 
 ## Ensuite
 
