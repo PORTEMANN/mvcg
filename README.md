@@ -19,6 +19,27 @@ Si le dépôt GitHub n’est pas `PORTEMANN/mvcg`, remplacer l’OWNER/REPO dans
 - Justesse des pesées : [`docs/JUSTESSE.md`](docs/JUSTESSE.md)
 - Incertitude / métrologie quantique : [`docs/METROLOGIE-QUANTIQUE.md`](docs/METROLOGIE-QUANTIQUE.md)
 
+## Contacts ouverts (série O1 → O6)
+
+Six pesées dont le mot est **découvert après le gel du protocole** — θ
+figé, table vintage, anti-tautologie, levier directionnel — jamais
+choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
+
+| Contact | Règle déclarée | θ gelé | Mot | δ |
+|---|---|---|---|---|
+| O1 | E_1s(H), différences finies n=200 | 1e−3 | S− | 3,8e−3 |
+| O2 | ν₃(CO₂), constante de force transférée du CO | 0,10 | P | 14,5 % |
+| O3 | bande D graphite, chaîne 1D k₂ = k₁ | 0,10 | P | 17,2 % |
+| O4 | I_D/I_G, loi Tuinstra–Koenig C/L_a | 0,10 | S− | 22,2 % |
+| O5 | c(son) condensat ⁸⁷Rb, Bogolioubov | 0,05 | P | 6,2 % |
+| O6 | E_1s(H), grille raffinée n=1600, θ inchangé | 1e−3 | **S+** | 6,1e−5 |
+
+La paire O1 → O6 est la démonstration : même objet, même référence,
+même θ, seul le levier écrit au moment de l'échec a bougé. Chaque
+doctrine : [`docs/O1-CONTACT-OUVERT.md`](docs/O1-CONTACT-OUVERT.md) …
+[`docs/O6-CONTACT-OUVERT.md`](docs/O6-CONTACT-OUVERT.md). Artefacts
+gelés et audit rejouable : `examples/registre/O{1..6}.{bits,units,metric,cost}.json`.
+
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.
 
@@ -73,7 +94,8 @@ le gel scientifique est incomplet.
 | `docs/INVARIANTS-MATH.md` | énoncés mathématiques, domaines, tueurs |
 | `docs/CONTACTS-PHENOMENOLOGIQUES.md` | physique, chimie, ingénierie, biologie — contacts encore admissibles |
 | `examples/registre/F22.*` | gel réel + preuve OTS pending |
-| `tests/` | G1/G2 offline, OTS live, upgrade pending |
+| `examples/registre/O{1..6}.*` | contacts ouverts gelés offline, audit [HOLD] I-G1 / I-G2 |
+| `tests/` | G1/G2 offline, OTS live, upgrade pending, contacts ouverts O1–O6 |
 
 ## Installer
 
@@ -89,6 +111,9 @@ Le reste est la bibliothèque standard.
 
 ```bash
 export PYTHONPATH=src
+
+# trois registres (micro / meso / macro) + contacts ouverts O1–O6 :
+python3 -m mvcg registers
 
 python3 -m mvcg --root registre freeze --id F1 --phys 1 --orig pred --kappa deficit
 python3 -m mvcg --root registre units --id F1 --packet hl --vintage convention
@@ -134,6 +159,11 @@ Solveurs livrés (maquettes) : LCAO H₂⁺ (`h2plus.py`), cusp Kato 1s, tables
 `data/tables/*LITERATURE-2018.json`. Le dossier
 `docs/CONTACTS-PHENOMENOLOGIQUES.md` liste ce qui *peut* encore entrer
 comme contact. Un contact sans table vintage n’est pas un contact.
+
+Un contact **ouvert** ajoute la discipline du gel *avant* le premier
+run : la machine risque un mot (S+, P ou S−) au lieu de le choisir —
+voir la série O1 → O6 ci-dessus. Ajouter le sien = sa molécule, sa
+table, son θ gelé : c'est le seul signal d'appropriation.
 
 ## Hors périmètre
 
