@@ -59,6 +59,8 @@ son levier » passe de la grille (O1→O6) au paramètre phénoménologique
 doctrine : [`docs/O1-CONTACT-OUVERT.md`](docs/O1-CONTACT-OUVERT.md) …
 [`docs/O16-CONTACT-OUVERT.md`](docs/O16-CONTACT-OUVERT.md). Artefacts
 gelés et audit rejouable : `examples/registre/O{1..16}.{bits,units,metric,cost}.json`.
+Classement par fibre (packet, dimension) et invariance sous balayage :
+[`docs/VERDICTS-FIBRES.md`](docs/VERDICTS-FIBRES.md).
 
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.

@@ -12,6 +12,7 @@ import math
 from typing import Any
 
 HA_TO_EV = 27.211386245988  # CODATA-2018 déclaré
+EV_TO_CM1 = 8065.5439373494  # hc / e  (déclaré, pas un fetch)
 
 
 def lcao_1s(R: float = 2.0) -> dict[str, Any]:
@@ -38,6 +39,7 @@ def lcao_1s(R: float = 2.0) -> dict[str, Any]:
         "E": E,
         "De_Ha": De_ha,
         "De_eV": De_ha * HA_TO_EV,
+        "De_cm-1": De_ha * HA_TO_EV * EV_TO_CM1,
         "formula": "Lowe 7-88..90",
         "tare_Ha": tare_ha,
         "tare_note": "E(H)=-1/2  (plateau vide = atomes séparés)",
