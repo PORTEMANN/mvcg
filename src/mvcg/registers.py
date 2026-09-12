@@ -800,6 +800,96 @@ def _ckm_row1() -> tuple[float, dict]:
     }
 
 
+def _amu_wp20() -> tuple[float, dict]:
+    """Contact ouvert AMU-WP20 — l'écart porté, seconde identification.
+
+    Règle déclarée AVANT le premier run : même objet, même étalonnage
+    de la doctrine AMU (l'écart normalisé : θ = u_delta déclarée,
+    decide=U, k=1 — l'étalonnage fait partie du protocole et se
+    justifie par la nature de l'objet, jamais par le mot attendu).
+    μ_loc = Δ déclaré de la table (exp − SM(WP20), identification
+    dispersive e+e-), porté, pas reconstruit — la table ne porte pas
+    a_exp seul. μ_ref = identité 0 (jamais ajustée). L'identification lattice est
+    déclarée ici comme identification sœur (honnêteté O15 généralisée) :
+    elle aura droit à son contact séparé si elle est montée.
+    Estimation pré-run honnête : δ = 279, U = 76 → δ/U = 3,67 →
+    S− attendu, net (le mot reste S− jusqu'à k = 3). Le contraste entre les deux identifications sera
+    porté par le protocole, jamais choisi.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("amu_wp20_LITERATURE.json")
+    return float(t["delta_exp_minus_wp20"]), {
+        "table": "amu_wp20_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "écart déclaré, porté (pas calculé depuis a_exp seul)",
+        "rule": "a_exp - a_SM(WP20) vs identité 0",
+        "u_delta": float(t["u_delta"]),
+        "ansatz": "SM complet, identification dispersive déclarée",
+        "lever": "HVP←lattice (autre id, contact séparé : HVP_LO_lat_vs_ee)",
+        "unit_raw": "1e-11",
+    }
+
+
+def _hvp_lo_lat_ee() -> tuple[float, dict]:
+    """Contact ouvert HVP_LO — deux fabrications du même terme.
+
+    Règle déclarée AVANT le premier run : μ_loc = |lat_WP25 − ee_WP20|,
+    les deux valeurs de la table ; μ_ref = identité 0 (deux
+    fabrications du même terme devraient coïncider). θ : decide=U,
+    k=2 standard machine — l'objet est un écart entre deux
+    fabrications, non un écart exp−théorie : l'étalonnage k=1 de la
+    paire AMU ne s'applique pas ici (l'étalonnage se justifie par la
+    nature de l'objet). R identité déclarée (indépendance assumée) ;
+    CMD-3 hors moyenne ee déclaré. Estimation pré-run honnête :
+    δ = 201, u_c = √(61²+40²) ≈ 72,9, U(k=2) = 145,8 → δ/U = 1,38 →
+    P attendu AU CHEVEU du S− (à k=1 : δ/U = 2,76 → S−). Suspense
+    réel sur k — déclaré ici, avant le run.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("hvp_lo_LITERATURE.json")
+    return abs(float(t["lat_wp25"]) - float(t["ee_wp20"])), {
+        "table": "hvp_lo_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "écart entre deux fabrications déclarées du même terme",
+        "rule": "a_HVP_LO(WP25 lat) = a_HVP_LO(WP20 ee)",
+        "lat": float(t["lat_wp25"]), "ee": float(t["ee_wp20"]),
+        "u_lat": float(t["u_lat"]), "u_ee": float(t["u_ee"]),
+        "ansatz": "un seul terme HVP LO ; les deux fabrications devraient coïncider",
+        "lever": "ee←autre-moyenne (CMD-3 déjà hors, déclaré)",
+        "unit_raw": "1e-11",
+    }
+
+
+def _hlbl_lat_pheno() -> tuple[float, dict]:
+    """Contact ouvert HLbL — deux fabrications du même terme.
+
+    Règle déclarée AVANT le premier run : μ_loc = |lat − pheno|,
+    mêmes vintage WP25 déclarés ; μ_ref = identité 0. θ : decide=U,
+    k=2 standard machine (même raison que HVP_LO). R identité
+    déclarée. La note de la mouture 6 annonçait « k=2 → P » : erreur
+    arithmétique corrigée dans la table (19,2 ≤ 25,2). Estimation
+    pré-run honnête : δ = 19,2, u_c = √(9²+8,8²) ≈ 12,6, U(k=2) =
+    25,2 → δ/U = 0,76 → S+ attendu (à k=1 : δ/U = 1,53 → P).
+    Suspense déclaré — le mot appartient au k gelé, pas à l'envie.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("hlbl_LITERATURE.json")
+    return abs(float(t["lat"]) - float(t["pheno"])), {
+        "table": "hlbl_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "écart entre deux fabrications déclarées du même terme",
+        "rule": "a_HLbL(lat WP25) = a_HLbL(pheno WP25)",
+        "lat": float(t["lat"]), "pheno": float(t["pheno"]),
+        "u_lat": float(t["u_lat"]), "u_pheno": float(t["u_pheno"]),
+        "ansatz": "un seul terme HLbL ; les deux fabrications devraient coïncider",
+        "lever": "lat←autre-ensemble (jamais pheno, jamais θ)",
+        "unit_raw": "1e-11",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -880,6 +970,9 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "karplus_helix": _karplus_helix,
     "karplus_sheet": _karplus_sheet,
     "ckm_row1": _ckm_row1,
+    "amu_wp20": _amu_wp20,
+    "hvp_lo_lat_ee": _hvp_lo_lat_ee,
+    "hlbl_lat_pheno": _hlbl_lat_pheno,
 }
 
 CONTACTS: list[Contact] = [
@@ -1147,6 +1240,30 @@ CONTACTS: list[Contact] = [
         "ckm_row1",
         "ouverte", None, "CKM",
     ),
+    Contact(
+        "AMU_exp_minus_WP20", "macro", "pred", "1", "1e-11", "abs", 76.0,
+        0.0, "HVP<-lattice (autre id)", "identification lattice : contact separe si monte",
+        "a_exp - a_SM(WP20) = 0  (identification dispersive declaree)",
+        "contact ouvert g-2 : etalonnage ecart normalise (theta=76=u_delta, decide=U k=1), identification dispersive declaree ; mot attendu S- net (d/U=3,67), robuste jusqu'a k=3",
+        "amu_wp20",
+        "ouverte", None, "g-2",
+    ),
+    Contact(
+        "HVP_LO_lat_vs_ee", "macro", "pred", "1", "1e-11", "abs", 72.9,
+        0.0, "ee<-autre-moyenne", "voir AMU_exp_minus_WP20",
+        "a_HVP_LO(WP25 lat) = a_HVP_LO(WP20 ee)",
+        "contact ouvert g-2 : deux fabrications du meme terme, decide=U k=2 ; P attendu AU CHEVEU du S- (d/U=1,38 ; S- a k=1) — suspense declare",
+        "hvp_lo_lat_ee",
+        "ouverte", None, "g-2",
+    ),
+    Contact(
+        "HLbL_lat_vs_pheno", "macro", "pred", "1", "1e-11", "abs", 12.6,
+        0.0, "lat<-autre-ensemble", "voir HVP_LO_lat_vs_ee",
+        "a_HLbL(lat WP25) = a_HLbL(pheno WP25)",
+        "contact ouvert g-2 : deux fabrications du meme terme, decide=U k=2 ; S+ attendu (d/U=0,76 ; P a k=1) — suspense declare ; note mouture 6 « k=2 -> P » corrigee",
+        "hlbl_lat_pheno",
+        "ouverte", None, "g-2",
+    ),
 ]
 
 # GUM — lignes B de table seulement. Pas d'u_B « erreur de modèle ».
@@ -1170,6 +1287,29 @@ _GUM["CKM_Row1_Unitarity"] = {
     "decide": "U",
     "k": 2,
     "lines": [{"name": "sum_PDG", "type": "B", "u": 0.0007}],
+}
+_GUM["AMU_exp_minus_WP20"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [{"name": "delta_WP20", "type": "B", "u": 76.0}],
+}
+_GUM["HVP_LO_lat_vs_ee"] = {
+    "decide": "U",
+    "k": 2,
+    "lines": [
+        {"name": "lat_WP25", "type": "B", "u": 61.0},
+        {"name": "ee_WP20", "type": "B", "u": 40.0},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["HLbL_lat_vs_pheno"] = {
+    "decide": "U",
+    "k": 2,
+    "lines": [
+        {"name": "lat", "type": "B", "u": 9.0},
+        {"name": "pheno", "type": "B", "u": 8.8},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
 }
 for _c in CONTACTS:
     if _GUM.get(_c.id):

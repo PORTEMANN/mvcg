@@ -1,0 +1,12 @@
+{
+  "id": "hvp_lo",
+  "vintage": "WP20-ee-vs-WP25-lattice-declare",
+  "source": "extraits White Papers déclarés — pas un fetch INSPIRE",
+  "dimension": "1e-11",
+  "packet": "1",
+  "lat_wp25": 7132.0,
+  "u_lat": 61.0,
+  "ee_wp20": 6931.0,
+  "u_ee": 40.0,
+  "note": "HVP LO : deux fabrications du même terme — réseau WP25 vs dispersif WP20 ; CMD-3 hors moyenne ee déclaré ; R identité déclarée (indépendance assumée)"
+}

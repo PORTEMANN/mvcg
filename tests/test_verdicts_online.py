@@ -26,8 +26,8 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 34)  # série en ligne au 2026-09-12
-        self.assertEqual(len(idx["fibres"]), 10)
+        self.assertEqual(idx["n"], 37)  # série en ligne au 2026-09-12
+        self.assertEqual(len(idx["fibres"]), 11)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
         self.assertEqual(by[("1", "cm^-1")]["counts"],
@@ -42,6 +42,12 @@ class TestVerdictsOnline(unittest.TestCase):
                          {"S+": 1, "P": 1, "S-": 0})
         self.assertIn("NMR_Karplus_Helix", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Sheet", by[("si", "Hz")]["ids"])
+        # Le complexe g-2 : les trois couleurs dans une même fibre.
+        self.assertEqual(by[("1", "1e-11")]["counts"],
+                         {"S+": 1, "P": 1, "S-": 1})
+        self.assertIn("AMU_exp_minus_WP20", by[("1", "1e-11")]["ids"])
+        self.assertIn("HVP_LO_lat_vs_ee", by[("1", "1e-11")]["ids"])
+        self.assertIn("HLbL_lat_vs_pheno", by[("1", "1e-11")]["ids"])
         # CKM apporte le seul P de la fibre sans dimension.
         self.assertEqual(by[("1", "1")]["counts"],
                          {"S+": 4, "P": 1, "S-": 6})
@@ -101,6 +107,27 @@ class TestVerdictsOnline(unittest.TestCase):
             # S- partout sous θ seul.
             self.assertAlmostEqual(r["delta"], 0.0016000000000000458,
                                    places=12)
+
+    def test_g2_contacts_sweep(self) -> None:
+        # Balayage de la fibre g-2. AMU WP20 : S- invariant. HVP et
+        # HLbL : deux instruments, deux mots figés — le balayage
+        # (θ seul) dit S- pour HVP et P pour HLbL, pendant que le
+        # home (GUM k=2) dit P et S+ : exactement le suspense sur k
+        # déclaré au gel.
+        st = street_sweep("AMU_exp_minus_WP20")
+        licites = [r for r in st["rows"] if not r["units_kill"]]
+        self.assertEqual(len(licites), 4)
+        self.assertEqual(st["home_verdict"], "S-")
+        for r in licites:
+            self.assertEqual(r["verdict"], "S-")
+        for cid, home, sweep in (("HVP_LO_lat_vs_ee", "P", "S-"),
+                                 ("HLbL_lat_vs_pheno", "S+", "P")):
+            st = street_sweep(cid)
+            licites = [r for r in st["rows"] if not r["units_kill"]]
+            self.assertEqual(len(licites), 4, f"{cid}: units_kill inattendu")
+            self.assertEqual(st["home_verdict"], home)
+            for r in licites:
+                self.assertEqual(r["verdict"], sweep)
 
 
 if __name__ == "__main__":

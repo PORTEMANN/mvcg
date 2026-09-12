@@ -17,8 +17,6 @@ from mvcg.registers import run_registers
 
 # Modes possibles, en attente d'extrait déclaré. « sans μ » = étiquette.
 CANDIDATES: list[dict[str, Any]] = [
-    {"id": "AMU_exp_minus_EE", "family": "g-2", "s": "a_exp=a_SM(HVP e+e-)",
-     "note": "sans μ"},
     {"id": "H0_Hz_SNe", "family": "cosmo", "s": "H(z) = donnee SNe",
      "note": "sans μ"},
     {"id": "HVP_CMD3_vs_KLOE", "family": "g-2", "s": "sigma_pipi CMD-3=KLOE",
@@ -40,7 +38,7 @@ _FAMILY_RULES = [
     ("Kato", "atome"), ("FRW", "cosmo"), ("H0_", "cosmo"),
     ("AMU", "g-2"), ("dice", "imagerie"), ("DIRAC", "unités"),
     ("Dirac", "unités"), ("F22", "unités"), ("F30", "unités"),
-    ("Karplus", "NMR"), ("CKM", "CKM"),
+    ("Karplus", "NMR"), ("CKM", "CKM"), ("HVP", "g-2"), ("HLbL", "g-2"),
 ]
 
 

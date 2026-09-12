@@ -1,0 +1,10 @@
+{
+  "id": "amu_wp20",
+  "vintage": "WP20-declare",
+  "source": "ordre de grandeur Δa_μ exp−SM(WP20) — extrait déclaré, pas un recalcul QED",
+  "dimension": "1e-11",
+  "packet": "1",
+  "delta_exp_minus_wp20": 279.0,
+  "u_delta": 76.0,
+  "note": "extrait déclaré WP20 (identification dispersive e+e-) ; 279(76), écart ~3,7 u_delta ; la table ne porte pas a_exp seul — reconstruction impossible, et c'est voulu"
+}

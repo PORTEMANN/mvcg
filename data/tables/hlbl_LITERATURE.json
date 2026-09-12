@@ -1,0 +1,12 @@
+{
+  "id": "hlbl",
+  "vintage": "WP25-HLbL-declare",
+  "source": "HLbL lattice vs pheno WP25 — extraits déclarés",
+  "dimension": "1e-11",
+  "packet": "1",
+  "lat": 122.5,
+  "u_lat": 9.0,
+  "pheno": 103.3,
+  "u_pheno": 8.8,
+  "note": "deux fabrications du même terme HLbL (lattice vs pheno, même vintage WP25) ; R identité déclarée ; la note de la mouture 6 annonçait « k=2 → P » — erreur arithmétique corrigée ici : 19,2 ≤ 25,2 (U à k=2)"
+}
