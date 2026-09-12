@@ -59,17 +59,23 @@ def _delta(mu_loc: float, mu_ref: float, kind: str) -> float:
     raise ValueError("delta_kind ∈ {abs, rel}")
 
 
-def _verdict(delta: float, theta: float, sigma: float | None = None) -> str:
+def _adc(delta: float, thr: float) -> str:
+    """Convertisseur 3 niveaux : on tranche, on n'explique pas."""
     if not math.isfinite(delta):
         return "S-"
-    th = float(theta)
-    if sigma is not None:
-        th = max(th, float(sigma))
-    if delta <= th:
+    if delta <= thr:
         return "S+"
-    if delta <= 2.0 * th:
+    if delta <= 2.0 * thr:
         return "P"
     return "S-"
+
+
+def _verdict(delta: float, theta: float, sigma: float | None = None) -> str:
+    th = float(theta)
+    if sigma is not None:
+        # héritage max(θ, σ) — à ne plus étendre (voir DISCRET-CONTINU, capot C)
+        th = max(th, float(sigma))
+    return _adc(delta, th)
 
 
 def build_metric(

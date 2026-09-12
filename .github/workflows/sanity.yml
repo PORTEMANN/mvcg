@@ -26,6 +26,10 @@ jobs:
             docs/NOTE-INGENIEUR.md \
             docs/NOTE-DIFFERENCIATION.md \
             docs/PORTES-METIERS.md \
+            docs/DISCRET-CONTINU.md \
+            docs/BALANCE.md \
+            src/mvcg/balance.py \
+            src/mvcg/gum.py \
             data/tables/he_corr_LITERATURE-2018.json \
             data/tables/h2plus_De_LITERATURE-2018.json \
             data/tables/codata2018_extract.json \

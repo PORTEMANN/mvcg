@@ -10,12 +10,12 @@ Si le dépôt GitHub n’est pas `PORTEMANN/mvcg`, remplacer l’OWNER/REPO dans
 
 **Commencer ici**
 
-- Deux pesées en 10 minutes : [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 - Tiers, une page : [`docs/VULGARISATION.md`](docs/VULGARISATION.md)
 - Faire tourner : [`docs/NOTE-INGENIEUR.md`](docs/NOTE-INGENIEUR.md)
 - Quatre métiers : [`docs/PORTES-METIERS.md`](docs/PORTES-METIERS.md)
 - Lecteur académique : [`docs/NOTE-DIFFERENCIATION.md`](docs/NOTE-DIFFERENCIATION.md)
 - AI Act / normes (piste, pas notification) : [`docs/AI-ACT.md`](docs/AI-ACT.md)
+- Capot discret ↔ continu : [`docs/DISCRET-CONTINU.md`](docs/DISCRET-CONTINU.md)
 
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.
@@ -43,11 +43,12 @@ de l’ancienne mouture.
 
 ## Archive, pas dépendance
 
-Un corpus historique de l’auteur (chantiers P0–P48, séries A/M/E) vit dans
-un dépôt séparé. Ce dépôt **ne l’importe pas** à l’exécution et ne pointe
-pas vers lui : aucun badge, aucune dépendance, aucun lien automatique.
-Un protocole local (`data/protocols/`) peut *citer* un chantier P ;
-il ne télécharge rien.
+Le corpus historique (P0–P48, série A, corridor E, SHA) vit dans
+[`PORTEMANN/noetic-machine-complete`](https://github.com/PORTEMANN/noetic-machine-complete).
+Ce zip **ne l’importe pas** à l’exécution. Un protocole local
+(`data/protocols/`) peut *citer* un chantier P ; il ne télécharge rien.
+
+Banc SU(2) : [`PORTEMANN/noetic-machine`](https://github.com/PORTEMANN/noetic-machine).
 
 `--publish` écrit `*.D.json` et en scelle le SHA dans G1. Sans dossier,
 le gel scientifique est incomplet.

@@ -5,7 +5,7 @@ CI : `.github/workflows/tests.yml`.
 `opentimestamps` est optionnel (ancre calendrier). Sans lui, les tests OTS sont skippés.
 
 ```bash
-cd mvcg               # ou le dossier dézippé
+cd mvcg-repo          # ou le dossier dézippé
 export PYTHONPATH=src
 python3 -m unittest discover -s tests -q
 # attendu : OK, quelques skipped si pas d'OTS
@@ -102,5 +102,6 @@ Portes physicien / chimiste / cosmologue / neurologue : `docs/PORTES-METIERS.md`
 
 ## Archive
 
-Les campagnes historiques P0–P48 vivent dans un dépôt séparé de l’auteur,
-sans lien depuis ce dépôt. Ce dépôt ne les télécharge pas.
+Les campagnes historiques P0–P48 :
+<https://github.com/PORTEMANN/noetic-machine-complete>  
+Ce dépôt ne les télécharge pas.

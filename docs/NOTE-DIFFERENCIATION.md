@@ -46,8 +46,7 @@ Si un texte du web mélange ces genres, c’est **un autre document**. Le prése
 ## Pour citer
 
 Citer **ce** dépôt pour le protocole de verdict et les contacts exécutables.  
-Citer le dépôt d’archive historique de l’auteur (hors présent dépôt, sans
-lien automatique) pour les chantiers P/A/M/E.  
+Citer `noetic-machine-complete` pour l’archive historique des chantiers P/A/M/E.  
 Ne pas citer l’un pour les conclusions de l’autre.
 
 Date de cette note : 2026-09-12. Elle fait partie du zip publié.

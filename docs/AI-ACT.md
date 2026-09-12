@@ -21,8 +21,9 @@ Il peut servir de *piste* pour une exigence déjà nommée ailleurs : **preuve e
 - OAuth GitHub comme preuve d’identité réglementaire ;  
 - le corpus noétique / l’inspiration théosophique comme fondement d’une clause.
 
-Les directions s’écrivent dans un registre de normalisation distinct de
-l’auteur (N1, NORM-MACH-1.0 : D1 DCC, D2 CWA art. 15, D3 prEN JTC 21,
+Les directions s’écrivent dans
+[`PORTEMANN/noetic-normes`](https://github.com/PORTEMANN/noetic-normes)
+(NORM-MACH-1.0, registre N1 : D1 DCC, D2 CWA art. 15, D3 prEN JTC 21,
 D4 OIML, D5 ASH-MACH, D6 table AI Act art. 9–15). D6 est **fermée** comme
 table d’écarts, pas comme notification au JOUE.
 

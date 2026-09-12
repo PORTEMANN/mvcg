@@ -38,6 +38,10 @@ class Contact:
     statut: str = "ouverte"
     expected: str | None = None
     campaign: str = ""
+    gum: dict | None = None
+    caliber: str = ""
+    tare_note: str = ""
+    chain: list | None = None
 
 
 def _h1s_rydberg() -> tuple[float, dict]:
@@ -77,12 +81,15 @@ def _p20_h2plus_lcao() -> tuple[float, dict]:
 
     t = h2plus_de()
     sol = lcao_1s(2.0)
-    return float(sol["De_eV"]), {
+    return float(sol["De_Ha"]), {
         "table": t["vintage"],
         "mu_ref_table": t["value"],
         "ansatz": "LCAO 1s Lowe R=2",
         "S": sol["S"],
         "E": sol["E"],
+        "tare_Ha": sol["tare_Ha"],
+        "caliber": "labo",
+        "unit_raw": "Ha",
     }
 
 
@@ -108,10 +115,20 @@ def _p30_kato_exact() -> tuple[float, dict]:
 
 
 def _p27_he_hf() -> tuple[float, dict]:
+    from mvcg.balance import after_tare
     from mvcg.tables import he_corr
 
     t = he_corr()
-    return 0.0, {"table": t["vintage"], "E_HF": t["E_HF_Ha"], "method": "HF"}
+    raw = float(t["E_HF_Ha"])
+    tare = float(t["E_HF_Ha"])
+    return after_tare(raw, tare), {
+        "table": t["vintage"],
+        "E_HF": t["E_HF_Ha"],
+        "method": "HF",
+        "tare_Ha": tare,
+        "tare_note": "plateau vide = déterminant HF",
+        "caliber": "labo",
+    }
 
 
 def _p27_he_table() -> tuple[float, dict]:
@@ -299,11 +316,52 @@ CONTACTS: list[Contact] = [
     ),
 ]
 
+# GUM — lignes B de table seulement. Pas d'u_B « erreur de modèle ».
+_GUM = {c.id: None for c in CONTACTS}
+_GUM["H1s_Rydberg"] = {
+    "decide": "U",
+    "k": 2,
+    "lines": [{"name": "Rinf_CODATA2018", "type": "B", "u": 1.9e-12, "note": "u_rel R_∞"}],
+}
+_GUM["P27_He_HF"] = {
+    "decide": "U",
+    "k": 2,
+    "lines": [{"name": "Ecorr_table", "type": "B", "u": 1e-6, "note": "Ha, table Hylleraas"}],
+}
+_GUM["P20_H2plus_LCAO"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "De_table", "type": "B", "u": 0.0005, "note": "eV table ; pas l'erreur LCAO"}],
+}
+for _c in CONTACTS:
+    if _GUM.get(_c.id):
+        _c.gum = _GUM[_c.id]
+
+from mvcg.h2plus import HA_TO_EV
+
+for _c in CONTACTS:
+    if _c.id == "P20_H2plus_LCAO":
+        _c.chain = [{
+            "tau": "energy",
+            "src": "Ha",
+            "dst": "eV",
+            "k": HA_TO_EV,
+        }]
+
 
 def run_contact(c: Contact) -> dict[str, Any]:
-    mu_loc, extra = RUNNERS[c.runner]()
+    from mvcg.runner import execute
+
+    mu_loc, extra = execute(RUNNERS[c.runner], chain=c.chain)
     delta = _delta(mu_loc, c.mu_ref, c.delta_kind)
-    verdict = _verdict(delta, c.theta)
+    if c.gum:
+        from mvcg.gum import apply_gum
+
+        g = apply_gum(delta, c.theta, c.gum)
+        verdict = g["verdict"]
+        extra = {**extra, "gum": g}
+    else:
+        verdict = _verdict(delta, c.theta)
     units_kill = None
     try:
         U = parse_units(
@@ -315,6 +373,12 @@ def run_contact(c: Contact) -> dict[str, Any]:
         U = None
         packet = c.packet
         units_kill = str(exc)
+        verdict = "S-"
+    chain_kill = extra.get("chain_kill")
+    if chain_kill:
+        # μ est en unités brutes : le mot serait calculé sur la mauvaise fibre.
+        if not units_kill:
+            units_kill = f"chain: {chain_kill}"
         verdict = "S-"
     return {
         "id": c.id,
@@ -331,7 +395,10 @@ def run_contact(c: Contact) -> dict[str, Any]:
         "packet": packet,
         "note": c.note,
         "extra": extra,
+        "caliber": extra.get("caliber") or c.caliber,
+        "tare": extra.get("tare_Ha") or extra.get("tare"),
         "units_kill": units_kill,
+        "chain_kill": chain_kill,
         "statut": c.statut,
         "expected": c.expected,
         "campaign": c.campaign,

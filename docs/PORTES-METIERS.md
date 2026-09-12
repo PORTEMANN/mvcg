@@ -166,4 +166,4 @@ python3 -m mvcg --root /tmp/mvcg-rep campaign
 
 - Un mot par contact, un `packet` par ligne.  
 - Micro / méso / macro = classeurs, pas des laboratoires.  
-- Archive historique : dépôt séparé de l’auteur, sans lien ici — pas une dépendance.
+- Archive historique : <https://github.com/PORTEMANN/noetic-machine-complete> — pas une dépendance.

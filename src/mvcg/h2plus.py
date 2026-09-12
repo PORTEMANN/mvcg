@@ -22,7 +22,12 @@ def lcao_1s(R: float = 2.0) -> dict[str, Any]:
     H_ab = -S / 2.0 - math.exp(-R) * (1.0 + R)
     E_elec = (H_aa + H_ab) / (1.0 + S)
     E = E_elec + 1.0 / R
-    De_ha = -0.5 - E
+    tare_ha = -0.5  # H séparé + proton nu (énergie du plateau vide)
+    from mvcg.balance import after_tare
+
+    # after_tare(-E, -tare_ha) = (-E) - 0.5 : le signe de la tare est déjà
+    # porté par l'argument (-tare_ha = +0.5). Ne pas « simplifier » en -E + tare_ha.
+    De_ha = after_tare(-E, -tare_ha)
     return {
         "R_bohr": R,
         "zeta": 1.0,
@@ -34,4 +39,7 @@ def lcao_1s(R: float = 2.0) -> dict[str, Any]:
         "De_Ha": De_ha,
         "De_eV": De_ha * HA_TO_EV,
         "formula": "Lowe 7-88..90",
+        "tare_Ha": tare_ha,
+        "tare_note": "E(H)=-1/2  (plateau vide = atomes séparés)",
+        "caliber": "labo",
     }

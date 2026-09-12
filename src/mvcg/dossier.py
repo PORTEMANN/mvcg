@@ -27,4 +27,7 @@ def canonical_d(doc: dict[str, Any]) -> dict[str, Any]:
         "orig": str(doc.get("orig", "")),
         "table": doc.get("table"),
         "chain": doc.get("chain"),
+        "gum": doc.get("gum"),
+        "tare": doc.get("tare"),
+        "caliber": doc.get("caliber"),
     }
