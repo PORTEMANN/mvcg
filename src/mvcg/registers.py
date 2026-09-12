@@ -353,6 +353,220 @@ def _o6_grid_h1s_refined() -> tuple[float, dict]:
     }
 
 
+def _o7_carbon_d_lever() -> tuple[float, dict]:
+    """Contact ouvert O7 — levier d'O3 activé (k₂/k₁ = 3 déclaré).
+
+    Même modèle que O3 (chaîne 1D diatomique, G du graphite pilote la
+    prédiction, la bande D observée ne participe JAMAIS au calcul),
+    MÊME θ = 0,10 gelé. Le levier k<-desegaliser est activé : le
+    rapport effectif r = k2/k1 = 3,0 est déclaré dans une table
+    vintage dédiée (paramètre effectif du modèle 1D — pas une
+    constante mesurée ; c'est écrit dans la table). D = G·√(r/(1+r)).
+    Seul r a bougé : le seuil et la référence sont ceux d'O3.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    t = load_table("carbon_raman_LITERATURE-2018.json")
+    tf = load_table("carbon_raman_forces_LITERATURE-2018.json")
+    bands = t["bands"]
+    g_obs = float(bands["graphite_G_cm-1"])
+    r = float(tf["params"]["k2_over_k1"])
+    ratio = math.sqrt(max(1.0, r) / (1.0 + r))
+    d_pred = g_obs * ratio
+    return d_pred, {
+        "table": "carbon_raman_LITERATURE-2018.json",
+        "table_forces": "carbon_raman_forces_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "chaine 1D diatomique, levier k<-desegaliser (actif)",
+        "rule": "D = G * sqrt(r/(1+r)), r = k2/k1 = 3",
+        "k2_over_k1": r,
+        "G_obs_cm-1": g_obs,
+        "D_over_G": ratio,
+        "ansatz": "parametre effectif inter/intra declare (non mesure)",
+        "lever": "k<-desegaliser (actif)",
+        "unit_raw": "cm^-1",
+    }
+
+
+def _o8_bec_tc() -> tuple[float, dict]:
+    """Contact ouvert O8 — T_c d'un gaz de Bose (condensat idéal).
+
+    Règle déclarée AVANT le premier run : gaz de Bose idéal dilué,
+    T_c = (2 pi hbar^2 / m k_B) (n / 2,612)^{2/3}. Paramètres déclarés :
+    masse 87Rb, densité n = 3e19 m^-3 (même nuage déclaré qu'O5).
+    La T_c observée NE DOIT JAMAIS entrer dans le calcul. Suspense réel :
+    les interactions déplacent T_c de quelques % à plus de 10 % selon
+    les mesures.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    hbar = 1.054571817e-34
+    k_B = 1.380649e-23  # exact
+    amu = 1.66053906660e-27
+    t = load_table("bec_tc_LITERATURE-2018.json")
+    p = t["params"]
+    m = float(p["mass_87Rb_u"]) * amu
+    n = float(p["n_cloud_m-3"])
+    tc_k = (2.0 * math.pi * hbar**2 / (m * k_B)) * (n / 2.612) ** (2.0 / 3.0)
+    tc_nk = tc_k * 1e9
+    return tc_nk, {
+        "table": "bec_tc_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "gaz de Bose ideal, transition en n^(2/3)",
+        "rule": "Tc = (2 pi hbar^2 / m kB) (n/2.612)^(2/3)",
+        "Tc_K": tc_k,
+        "n_m-3": n,
+        "ansatz": "condensat ideal, interactions negligees",
+        "lever": "n<-densite-effective",
+        "unit_raw": "nK",
+    }
+
+
+def _o9_h2o_pauling() -> tuple[float, dict]:
+    """Contact ouvert O9 — moment dipolaire de H2O par électronégativités.
+
+    Règle déclarée AVANT le premier run : charge partielle d'après
+    l'échelle de Pauling, q = (chi_O - chi_H) / 2,25 (en e), géométrie
+    déclarée (r_OH = 0,958 Å, angle 104,5°), mu = 2 q r cos(angle/2).
+    Le moment observé NE DOIT JAMAIS entrer dans le calcul.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    e_A_to_D = 4.80320427  # 1 e·Å en D, déclarée locale
+    t = load_table("h2o_pauling_LITERATURE-2018.json")
+    p = t["params"]
+    q = (float(p["chi_O"]) - float(p["chi_H"])) / float(p["pauling_scale_eV"])
+    r = float(p["r_OH_A"])
+    ang = math.radians(float(p["angle_deg"]))
+    mu_eA = 2.0 * q * r * math.cos(ang / 2.0)
+    mu_d = mu_eA * e_A_to_D
+    return mu_d, {
+        "table": "h2o_pauling_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "charges partielles par electronegativite de Pauling",
+        "rule": "q = dChi/2.25 ; mu = 2 q r cos(angle/2)",
+        "q_e": q,
+        "r_OH_A": r,
+        "angle_deg": float(p["angle_deg"]),
+        "ansatz": "ionicite d'echelle, polarisation negligee",
+        "lever": "q<-polarisation",
+        "unit_raw": "D",
+    }
+
+
+def _o10_carbonyl() -> tuple[float, dict]:
+    """Contact ouvert O10 — bande carbonyle du PMMA par transfert de force.
+
+    Règle déclarée AVANT le premier run : k(C=O ester) := k(C=O
+    formaldehyde), extraite par le modele harmonique k = mu omega^2
+    (mu identique : liaisons C=O de memes atomes) ; nu_ester =
+    sqrt(k/mu)/(2 pi c). La bande PMMA observée NE DOIT JAMAIS entrer
+    dans le calcul. Suspense minimal assumé au gel : le transfert entre
+    liaisons de memes atomes est le cas le plus favorable du geste O2.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    amu = 1.66053906660e-27
+    c_cm = 2.99792458e10
+    t = load_table("pmma_carbonyl_LITERATURE-2018.json")
+    p = t["params"]
+    nu_ch2o = float(p["nu_CH2O_cm-1"])
+    m_c = 12.0 * amu
+    m_o = 16.0 * amu
+    mu = m_c * m_o / (m_c + m_o)
+    omega = 2.0 * math.pi * c_cm * nu_ch2o
+    k = mu * omega**2
+    nu_ester = math.sqrt(k / mu) / (2.0 * math.pi * c_cm)
+    return nu_ester, {
+        "table": "pmma_carbonyl_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "transfert de constante de force CH2O -> ester",
+        "rule": "k(C=O ester) := k(C=O CH2O)",
+        "k_r_N_per_m": k,
+        "nu_CH2O_cm-1": nu_ch2o,
+        "ansatz": "liaisons de memes atomes : masse reduite identique",
+        "lever": "k<-conjugaison",
+        "unit_raw": "cm^-1",
+    }
+
+
+def _o11_bec_healing() -> tuple[float, dict]:
+    """Contact ouvert O11 — longueur de guérison du condensat.
+
+    Règle déclarée AVANT le premier run : Bogolioubov, xi =
+    1/sqrt(8 pi n a_s). Paramètres déclarés : n = 3e19 m^-3,
+    a_s = 100 a0 (même nuage qu'O5). La valeur observée NE DOIT JAMAIS
+    entrer dans le calcul.
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    t = load_table("bec_healing_LITERATURE-2018.json")
+    p = t["params"]
+    n = float(p["n_cloud_m-3"])
+    a_s = float(p["a_s_100a0_nm"]) * 1e-9
+    xi_m = 1.0 / math.sqrt(8.0 * math.pi * n * a_s)
+    xi_um = xi_m * 1e6
+    return xi_um, {
+        "table": "bec_healing_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "Bogolioubov, longueur de guerison",
+        "rule": "xi = 1/sqrt(8 pi n a_s)",
+        "xi_m": xi_m,
+        "n_m-3": n,
+        "a_s_m": a_s,
+        "ansatz": "condensat homogene, interactions de contact",
+        "lever": "n<-densite-effective",
+        "unit_raw": "um",
+    }
+
+
+def _o12_cu_gamma() -> tuple[float, dict]:
+    """Contact ouvert O12 — chaleur spécifique électronique du cuivre.
+
+    Règle déclarée AVANT le premier run : modèle de Sommerfeld avec
+    masse LIBRE, gamma = pi^2 k_B^2 n / (2 E_F), E_F = hbar^2
+    (3 pi^2 n)^{2/3} / (2 m_e). La mesure du cuivre NE DOIT JAMAIS
+    entrer dans le calcul. Estimation pré-run honnête : le modèle à
+    masse libre sous-estime gamma (~27 % d'écart) — c'est le S-
+    historique qui a révélé la masse effective. Levier :
+    m <- masse effective (1,38 m_e dans les solides).
+    """
+    import math
+
+    from mvcg.tables import load_table
+
+    hbar = 1.054571817e-34
+    k_B = 1.380649e-23
+    m_e = 9.1093837015e-31  # kg, déclarée locale
+    t = load_table("cu_gamma_LITERATURE-2018.json")
+    p = t["params"]
+    n = float(p["n_e_m-3"])
+    e_f = hbar**2 * (3.0 * math.pi**2 * n) ** (2.0 / 3.0) / (2.0 * m_e)
+    gamma = math.pi**2 * k_B**2 * n / (2.0 * e_f)
+    return gamma, {
+        "table": "cu_gamma_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "Sommerfeld, masse libre",
+        "rule": "gamma = pi^2 kB^2 n / (2 E_F)",
+        "E_F_J": e_f,
+        "E_F_eV": e_f / 1.602176634e-19,
+        "n_m-3": n,
+        "ansatz": "gaz d'electrons libres, masse = m_e",
+        "lever": "m<-masse-effective",
+        "unit_raw": "J m^-3 K^-2",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -420,6 +634,12 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o4_tk_id_ig": _o4_tk_id_ig,
     "o5_bec_sound": _o5_bec_sound,
     "o6_grid_h1s_refined": _o6_grid_h1s_refined,
+    "o7_carbon_d_lever": _o7_carbon_d_lever,
+    "o8_bec_tc": _o8_bec_tc,
+    "o9_h2o_pauling": _o9_h2o_pauling,
+    "o10_carbonyl": _o10_carbonyl,
+    "o11_bec_healing": _o11_bec_healing,
+    "o12_cu_gamma": _o12_cu_gamma,
 }
 
 CONTACTS: list[Contact] = [
@@ -582,6 +802,54 @@ CONTACTS: list[Contact] = [
         "contact ouvert O6 : le levier d'O1 active, theta=1e-3 INCHANGE (seuil gelé d'O1) ; mot inconnu au gel",
         "o6_grid_h1s_refined",
         "ouverte", None, "O6",
+    ),
+    Contact(
+        "O7_Carbon_D_Levier", "micro", "pred", "1", "cm^-1", "rel", 0.10,
+        1350.0, "k<-desegaliser (actif)", "—",
+        "bande D(graphite) = G * sqrt(r/(1+r)), r=3 (levier d'O3 active) = bande D observee",
+        "contact ouvert O7 : levier d'O3 active, theta=0.10 INCHANGE (seuil gelé d'O3) ; mot inconnu au gel",
+        "o7_carbon_d_lever",
+        "ouverte", None, "O7",
+    ),
+    Contact(
+        "O8_BEC_Tc", "micro", "pred", "si", "nK", "rel", 0.10,
+        170.0, "n<-densite-effective", "—",
+        "Tc(gaz de Bose ideal, 87Rb, n=3e19) = temperature critique observee",
+        "contact ouvert O8 : gaz ideal declare, mot inconnu au gel ; theta=0.10 fige avant run (Tc inter-labo ~10 %)",
+        "o8_bec_tc",
+        "ouverte", None, "O8",
+    ),
+    Contact(
+        "O9_H2O_Pauling", "micro", "pred", "si", "D", "rel", 0.10,
+        1.8546, "q<-polarisation", "—",
+        "mu(H2O) charges d'electronegativite Pauling = moment dipolaire observe",
+        "contact ouvert O9 : echelle Pauling declaree, mot inconnu au gel ; theta=0.10 fige avant run",
+        "o9_h2o_pauling",
+        "ouverte", None, "O9",
+    ),
+    Contact(
+        "O10_PMMA_Carbonyl", "micro", "pred", "1", "cm^-1", "rel", 0.10,
+        1735.0, "k<-conjugaison", "—",
+        "nu(C=O ester PMMA) par transfert de force depuis CH2O = bande observee",
+        "contact ouvert O10 : transfert memes atomes, suspense minimal assume au gel ; theta=0.10 fige avant run",
+        "o10_carbonyl",
+        "ouverte", None, "O10",
+    ),
+    Contact(
+        "O11_BEC_Healing", "micro", "pred", "si", "um", "rel", 0.10,
+        0.55, "n<-densite-effective", "—",
+        "xi(guerison, 87Rb) = 1/sqrt(8 pi n a_s) = taille observee",
+        "contact ouvert O11 : Bogolioubov declare, mot inconnu au gel ; theta=0.10 fige avant run",
+        "o11_bec_healing",
+        "ouverte", None, "O11",
+    ),
+    Contact(
+        "O12_Cu_Gamma", "micro", "pred", "si", "J m^-3 K^-2", "rel", 0.10,
+        96.6, "m<-masse-effective", "—",
+        "gamma(Cu, Sommerfeld masse libre) = chaleur specifique electronique mesuree",
+        "contact ouvert O12 : masse libre declaree, mot inconnu au gel ; theta=0.10 fige avant run",
+        "o12_cu_gamma",
+        "ouverte", None, "O12",
     ),
 ]
 

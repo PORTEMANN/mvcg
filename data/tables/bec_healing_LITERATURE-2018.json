@@ -1,0 +1,17 @@
+{
+  "id": "bec_healing",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs usuelles condensats de 87Rb, longueur de guerison",
+  "doi_or_ref": "Pitaevskii & Stringari, Bose-Einstein Condensation (extrait declare)",
+  "species": "87Rb BEC",
+  "quantity": "longueur de guerison xi = 1/sqrt(8 pi n a_s)",
+  "dimension": "um",
+  "packet": "si",
+  "value": 0.55,
+  "params": {
+    "n_cloud_m-3": 3e19,
+    "a_s_100a0_nm": 5.291772,
+    "xi_observed_um": 0.55
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

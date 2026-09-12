@@ -33,12 +33,19 @@ choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
 | O4 | I_D/I_G, loi Tuinstra–Koenig C/L_a | 0,10 | S− | 22,2 % |
 | O5 | c(son) condensat ⁸⁷Rb, Bogolioubov | 0,05 | P | 6,2 % |
 | O6 | E_1s(H), grille raffinée n=1600, θ inchangé | 1e−3 | **S+** | 6,1e−5 |
+| O7 | bande D, levier k₂/k₁ = 3 activé, θ inchangé | 0,10 | **S+** | 1,4 % |
+| O8 | T_c gaz de Bose idéal | 0,10 | **S+** | 5,0 % |
+| O9 | μ(H₂O) par électronégativités Pauling | 0,10 | S− | 67,4 % |
+| O10 | ν(C=O PMMA), transfert de force (étalon) | 0,10 | **S+** | 0,6 % |
+| O11 | ξ longueur de guérison du condensat | 0,10 | **S+** | 9,0 % |
+| O12 | γ(Cu), Sommerfeld masse libre | 0,10 | S− | 26,8 % |
 
 La paire O1 → O6 est la démonstration : même objet, même référence,
-même θ, seul le levier écrit au moment de l'échec a bougé. Chaque
+même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7
+généralise le geste à un paramètre effectif phénoménologique. Chaque
 doctrine : [`docs/O1-CONTACT-OUVERT.md`](docs/O1-CONTACT-OUVERT.md) …
-[`docs/O6-CONTACT-OUVERT.md`](docs/O6-CONTACT-OUVERT.md). Artefacts
-gelés et audit rejouable : `examples/registre/O{1..6}.{bits,units,metric,cost}.json`.
+[`docs/O12-CONTACT-OUVERT.md`](docs/O12-CONTACT-OUVERT.md). Artefacts
+gelés et audit rejouable : `examples/registre/O{1..12}.{bits,units,metric,cost}.json`.
 
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.

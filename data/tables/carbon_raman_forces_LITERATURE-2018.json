@@ -1,0 +1,16 @@
+{
+  "id": "carbon_raman_forces",
+  "vintage": "LITERATURE-2018",
+  "source": "parametre effectif du levier d'O3 declare a priori",
+  "doi_or_ref": "ordre de grandeur solides lamellaires : liaisons inter-molles devant liaisons intra (extrait declare)",
+  "species": "C (graphite)",
+  "quantity": "rapport effectif de constantes de force inter/intra (modele chaine 1D)",
+  "dimension": "1",
+  "packet": "1",
+  "value": 3.0,
+  "params": {
+    "k2_over_k1": 3.0,
+    "note_r": "parametre effectif du modele 1D ; pas une constante mesuree"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

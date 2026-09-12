@@ -1,0 +1,20 @@
+{
+  "id": "h2o_pauling",
+  "vintage": "LITERATURE-2018",
+  "source": "echelle d'electronegativite de Pauling, geometrie H2O usuelle",
+  "doi_or_ref": "Pauling, The Nature of the Chemical Bond (extrait declare)",
+  "species": "H2O",
+  "quantity": "moment dipolaire par charges partielles d'electronegativite",
+  "dimension": "D",
+  "packet": "si",
+  "value": 1.8546,
+  "params": {
+    "chi_O": 3.44,
+    "chi_H": 2.20,
+    "pauling_scale_eV": 2.25,
+    "r_OH_A": 0.958,
+    "angle_deg": 104.5,
+    "mu_observed_D": 1.8546
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

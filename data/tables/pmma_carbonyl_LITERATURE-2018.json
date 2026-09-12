@@ -1,0 +1,16 @@
+{
+  "id": "pmma_carbonyl",
+  "vintage": "LITERATURE-2018",
+  "source": "bandes carbonyle usuelles : formaldéhyde gazeux, ester de PMMA",
+  "doi_or_ref": "Socrates, Infrared Characteristic Group Frequencies (extrait declare)",
+  "species": "CH2O, PMMA (ester)",
+  "quantity": "bande C=O : transfert de constante de force entre liaisons de memes atomes",
+  "dimension": "cm^-1",
+  "packet": "1",
+  "value": 1735.0,
+  "params": {
+    "nu_CH2O_cm-1": 1746.0,
+    "nu_PMMA_cm-1": 1735.0
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

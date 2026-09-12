@@ -1,0 +1,17 @@
+{
+  "id": "cu_gamma",
+  "vintage": "LITERATURE-2018",
+  "source": "cuivre metallique usuel : densite electronique, chaleur specifique electronique",
+  "doi_or_ref": "Kittel, Introduction to Solid State Physics (extrait declare)",
+  "species": "Cu",
+  "quantity": "coefficient gamma de la chaleur specifique electronique (Sommerfeld, masse libre)",
+  "dimension": "J m^-3 K^-2",
+  "packet": "si",
+  "value": 96.6,
+  "params": {
+    "n_e_m-3": 8.47e28,
+    "gamma_observed": 96.6,
+    "note": "gamma mesure du Cuivre ; le modele a masse libre sous-estime (masse effective)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

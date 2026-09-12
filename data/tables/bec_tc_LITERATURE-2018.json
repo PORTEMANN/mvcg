@@ -1,0 +1,17 @@
+{
+  "id": "bec_tc",
+  "vintage": "LITERATURE-2018",
+  "source": "valeurs usuelles condensats de 87Rb, temperature critique de condensation",
+  "doi_or_ref": "Anderson et al., Science 269 (1995) 198 ; Ensher et al. (extrait declare)",
+  "species": "87Rb BEC",
+  "quantity": "temperature critique de transition (gaz dilue)",
+  "dimension": "nK",
+  "packet": "si",
+  "value": 170.0,
+  "params": {
+    "mass_87Rb_u": 86.909187,
+    "n_cloud_m-3": 3e19,
+    "Tc_observed_nK": 170.0
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
