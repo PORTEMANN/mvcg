@@ -570,6 +570,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     sub.add_parser("registers", help="trois tiroirs micro/meso/macro")
     sub.add_parser("dictionaries", help="balayer hl|gauss|si|1 à μ_loc gelé")
     sub.add_parser("corridor", help="P2 discret-dans-continu (n, κ)")
+    sub.add_parser("fair-export", help="export FAIR dérivé (prototype local, build/fair)")
     crt = sub.add_parser("carte", help="carte des verdicts dérivée (docs/carte-*.svg)")
     crt.add_argument("--kind", choices=["principale", "identite"], default="principale")
 
@@ -719,6 +720,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         from mvcg.corridor import run_corridor
 
         print(json.dumps(run_corridor(), indent=2))
+        return 0
+    if args.cmd == "fair-export":
+        # Prototype local : import volontairement ici, le module n'est
+        # pas encore une pièce officielle du cœur.
+        from mvcg.fair_export import export_fair
+
+        print(json.dumps(export_fair(), indent=2))
         return 0
     if args.cmd == "carte":
         from mvcg.carte import main_carte

@@ -6,7 +6,27 @@ from __future__ import annotations
 import math
 from typing import Any
 
+import numpy as np
+
 from mvcg.metrics import _adc
+
+
+def check_R(R: list[list[float]], n: int, eps: float = 1e-12) -> list[float]:
+    """SDP ⇔ λ_min(R) ≥ −ε (spectre, pas seulement mineurs leading)."""
+    if len(R) != n or any(len(row) != n for row in R):
+        raise ValueError("R n×n")
+    for i in range(n):
+        if abs(R[i][i] - 1.0) > 1e-9:
+            raise ValueError("diag(R)=1")
+        for j in range(n):
+            if abs(R[i][j] - R[j][i]) > 1e-9:
+                raise ValueError("R non symétrique")
+            if abs(R[i][j]) > 1.0 + 1e-9:
+                raise ValueError("|ρ|>1")
+    w = np.linalg.eigvalsh(np.asarray(R, dtype=float))
+    if float(w[0]) < -float(eps):
+        raise ValueError(f"R non SDP λ_min={float(w[0])}")
+    return [float(x) for x in w]
 
 
 def u_a(s: float, n: int) -> float:
