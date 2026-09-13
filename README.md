@@ -77,8 +77,8 @@ marge — le plancher η/s ≥ ℏ/4πk_B est une borne, pas une identité,
 et le ⁴He déclaré s'en tient à 8,8 planchers ; KSS/QGP dévoile le
 premier suspense du tiroir — même la borne inf déclarée du plasma
 (2 planchers) ne sature pas le plancher à θ = 0,10. La machine
-distingue trois S− : dette (Bertsch), marge (KSS ⁴He), saturation
-dévoilée (KSS/QGP).
+distingue quatre S− : dette (Bertsch), marge (KSS ⁴He), saturation
+dévoilée (KSS/QGP) et, avec H0 côté cosmologie, écart de modèle.
 Doctrines :
 [`docs/NMR-CONTACT-OUVERT.md`](docs/NMR-CONTACT-OUVERT.md),
 [`docs/CKM-CONTACT-OUVERT.md`](docs/CKM-CONTACT-OUVERT.md),

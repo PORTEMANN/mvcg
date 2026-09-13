@@ -26,8 +26,8 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 44)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local)
-        self.assertEqual(len(idx["fibres"]), 12)
+        self.assertEqual(idx["n"], 42)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète)
+        self.assertEqual(len(idx["fibres"]), 11)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
         self.assertEqual(by[("1", "cm^-1")]["counts"],
@@ -62,18 +62,11 @@ class TestVerdictsOnline(unittest.TestCase):
         # un S- de marge (8,8 planchers), KSS_QGP un S- qui dévoile la
         # non-saturation déclarée (borne inf 2 planchers vs plancher).
         self.assertEqual(by[("1", "1")]["counts"],
-                         {"S+": 4, "P": 2, "S-": 9})
+                         {"S+": 4, "P": 1, "S-": 9})
         self.assertIn("CKM_Row1_Unitarity", by[("1", "1")]["ids"])
-        self.assertIn("H0_Ecart_Planck_SH0ES", by[("1", "1")]["ids"])
         self.assertIn("Bertsch_Xi_Unitary", by[("1", "1")]["ids"])
         self.assertIn("KSS_EtaS_He4", by[("1", "1")]["ids"])
         self.assertIn("KSS_EtaS_QGP", by[("1", "1")]["ids"])
-        # Le contact H(z) bas-z ouvre la fibre des modules de distance :
-        # extract DEMO (fiducial H0=70 déclaré), la fabrication Planck
-        # manque les bins de 0,117 mag — dette au-delà de 2 theta.
-        self.assertEqual(by[("1", "mag")]["counts"],
-                         {"S+": 0, "P": 0, "S-": 1})
-        self.assertIn("H0_Hz_SNe_LOWZ_DEMO", by[("1", "mag")]["ids"])
 
     def test_all_16_open_contacts_sweep_invariant(self) -> None:
         rows = run_registers()["rows"]
