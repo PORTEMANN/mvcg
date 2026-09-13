@@ -1,0 +1,11 @@
+{
+  "id": "eta_s_kss_literature",
+  "vintage": "litterature-declaree",
+  "source": "borne inferieure experimentale de eta/s pour le 4He liquide, evaluee par Schafer & Teaney (Rep. Prog. Phys. 72, 126001, 2009) depuis les donnees experimentales, reprise dans Kagamihara et al. 2019 (arXiv:1912.07838) : eta/s >= 8.8 x hbar/(4 pi k_B), et de meme >= 6.3 (gaz de Fermi unitaire 6Li), >= 5.0 (QGP)",
+  "dimension": "1",
+  "packet": "1",
+  "fluid": "4He liquide",
+  "eta_s_over_kss_min_exp": 8.8,
+  "kss_bound": "hbar/(4*pi*k_B)",
+  "note": "Valeur en unites du plancher KSS (eta/s / (hbar/(4 pi k_B))). C'est une BORNE INFERIEURE experimentale declaree, pas une mesure au minimum exact de eta/s(T). La conjecture KSS (2005) est demontree en holographie mais admet des contre-exemples theoriques en theorie effective ; aucune violation experimentale n'est connue. Le contact pese la marge du fluide declare au-dessus du plancher, pas la validite de la conjecture : le mot S- mesure la distance au plancher (8,8 planchers), pas une refutation de KSS — un fluide AU-DESSUS de la borne la satisfait. Suspense structurellement nul : aucun fluide declare ne viole la borne, la saturation reste ouverte (QGP au plus proche, 2-3 planchers)."
+}

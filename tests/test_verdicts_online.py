@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 39)  # série en ligne au 2026-09-13 + Bertsch
+        self.assertEqual(idx["n"], 40)  # série en ligne au 2026-09-13 + Bertsch + KSS
         self.assertEqual(len(idx["fibres"]), 11)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -55,11 +55,13 @@ class TestVerdictsOnline(unittest.TestCase):
         self.assertIn("Landau_Vc_He4", by[("si", "m/s")]["ids"])
         self.assertIn("O5_BEC_Sound", by[("si", "m/s")]["ids"])
         # CKM apporte le seul P de la fibre sans dimension ; Bertsch y
-        # apporte un S- de calibre (mean-field vs QMC, pendant de P27).
+        # apporte un S- de dette (mean-field vs QMC, pendant de P27), KSS
+        # un S- de marge (8,8 planchers au-dessus du plancher).
         self.assertEqual(by[("1", "1")]["counts"],
-                         {"S+": 4, "P": 1, "S-": 7})
+                         {"S+": 4, "P": 1, "S-": 8})
         self.assertIn("CKM_Row1_Unitarity", by[("1", "1")]["ids"])
         self.assertIn("Bertsch_Xi_Unitary", by[("1", "1")]["ids"])
+        self.assertIn("KSS_EtaS_He4", by[("1", "1")]["ids"])
 
     def test_all_16_open_contacts_sweep_invariant(self) -> None:
         rows = run_registers()["rows"]

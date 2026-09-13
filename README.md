@@ -56,6 +56,7 @@ Contacts complémentaires (même discipline, hors série O) :
 | g-2 HLbL | lattice vs pheno, decide=U k=2 | 12,6 | **S+** | 19,2 |
 | Landau ⁴He | v_c = min E(p)/p sur spectre phonon-roton déclaré | 0,10 | **S+** | 1,3 % |
 | Bertsch ξ | gaz unitaire, BCS mean-field vs QMC/exp déclaré | 0,10 | S− | 22,1 % |
+| KSS η/s ⁴He | borne exp. η/s ≥ 8,8 planchers au-dessus du plancher | 0,10 | S− | 780 % |
 
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
@@ -66,7 +67,11 @@ l'écart HLbL dans une U. Landau ouvre l'hyperfluidité par sa
 condition (critère de Landau sur carte spectrale déclarée), avec la
 dette quasi-tautologique assumée au gel ; Bertsch en pèse la dette
 structurale — l'ansatz mean-field rate la corrélation forte de
-l'unitarité de 37 %, pendant exact de P27 (He HF). Doctrines :
+l'unitarité de 37 %, pendant exact de P27 (He HF) ; KSS en pèse la
+marge — le plancher η/s ≥ ℏ/4πk_B est une borne, pas une identité,
+et le ⁴He déclaré s'en tient à 8,8 planchers. Trois S−, trois
+natures : dette, marge, et (avec H0 côté cosmologie) écart de
+modèle. Doctrines :
 [`docs/NMR-CONTACT-OUVERT.md`](docs/NMR-CONTACT-OUVERT.md),
 [`docs/CKM-CONTACT-OUVERT.md`](docs/CKM-CONTACT-OUVERT.md),
 [`docs/G2-CONTACT-OUVERT.md`](docs/G2-CONTACT-OUVERT.md),

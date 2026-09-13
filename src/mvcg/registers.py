@@ -926,6 +926,42 @@ def _landau_vc_he4() -> tuple[float, dict]:
     }
 
 
+def _kss_eta_s_he4() -> tuple[float, dict]:
+    """Contact ouvert hyperfluidité — la marge η/s du ⁴He au plancher KSS.
+
+    Règle déclarée AVANT le premier run : la conjecture Kovtun-Son-
+    Starinets (2005), η/s ≥ ℏ/(4πk_B), est une BORNE — démontrée en
+    holographie, avec des contre-exemples théoriques en théorie
+    effective, jamais violée expérimentalement. Ce contact pèse la
+    marge, pas la validité : la fabrication est la borne inférieure
+    expérimentale déclarée du ⁴He liquide (η/s ≥ 8,8 planchers,
+    évaluation Schafer & Teaney 2009 reprise dans Kagamihara et al.
+    2019) lue dans la table (`eta_s_kss_LITERATURE.json`), la référence
+    est le plancher lui-même (1 en unités du plancher). Le geste
+    interdit est double et écrit : déplacer 8,8 vers le plancher, ou
+    lire un mot S− comme une réfutation de KSS — un fluide au-dessus
+    de la borne la satisfait. θ = 0,10 rel gelé avant run. Levier :
+    η/s←autre-mesure (jamais la référence, jamais θ). Estimation
+    pré-run honnête : 8,8 vs 1 → δ = 780 % → S− net attendu ; suspense
+    structurellement nul — c'est un contact de marge, comme Bertsch est
+    un contact de dette.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("eta_s_kss_LITERATURE.json")
+    return float(t["eta_s_over_kss_min_exp"]), {
+        "table": "eta_s_kss_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "borne inferieure experimentale declaree (Schafer & Teaney 2009)",
+        "rule": "eta/s >= hbar/(4 pi k_B) (KSS 2005) ; marge du 4He declaree au-dessus du plancher",
+        "fluid": t["fluid"],
+        "kss_bound": t["kss_bound"],
+        "ansatz": "la borne n'est pas une identite ; le mot mesure la marge, pas la validite",
+        "lever": "eta/s<-autre-mesure",
+        "unit_raw": "1",
+    }
+
+
 def _bertsch_xi() -> tuple[float, dict]:
     """Contact ouvert hyperfluidité — le paramètre de Bertsch ξ à l'unitarité.
 
@@ -1045,6 +1081,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "hlbl_lat_pheno": _hlbl_lat_pheno,
     "landau_vc_he4": _landau_vc_he4,
     "bertsch_xi": _bertsch_xi,
+    "kss_eta_s_he4": _kss_eta_s_he4,
 }
 
 CONTACTS: list[Contact] = [
@@ -1350,6 +1387,14 @@ CONTACTS: list[Contact] = [
         "xi = (5/3) E/(N eps_F) BCS mean-field (Leggett 1980) a l'unite",
         "contact ouvert hyperfluidite : dette mean-field declaree (ansatz pauvre = pendant exact de P27 He HF) ; theta=0.10 fige avant run ; S- attendu net",
         "bertsch_xi",
+        "ouverte", None, "hyperfluidite",
+    ),
+    Contact(
+        "KSS_EtaS_He4", "micro", "pred", "1", "1", "rel", 0.10,
+        1.0, "eta/s<-autre-mesure", "—",
+        "eta/s >= hbar/(4 pi k_B) (KSS 2005) ; marge du 4He declaree au-dessus du plancher",
+        "contact ouvert hyperfluidite : la borne n'est PAS une identite — le mot mesure la marge (8,8 planchers), pas la validite de KSS ; theta=0.10 fige avant run ; S- attendu net",
+        "kss_eta_s_he4",
         "ouverte", None, "hyperfluidite",
     ),
 ]

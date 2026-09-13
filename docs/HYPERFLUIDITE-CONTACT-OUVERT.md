@@ -119,10 +119,61 @@ table déclarée est celle du run — ajuster le solveur sur la référence
   et il le fait dans le sens où la machine est honnête : la dette est
   écrite, pas cachée derrière un ajustement.
 
+## Contact 3 — KSS : la marge η/s du ⁴He au plancher
+
+### Chronologie du gel
+
+1. **Protocole écrit avant toute exécution** : la conjecture
+   Kovtun-Son-Starinets (2005), η/s ≥ ℏ/(4πk_B), est une BORNE —
+   démontrée en holographie, avec des contre-exemples théoriques en
+   théorie effective, jamais violée expérimentalement. La fabrication
+   est la borne inférieure expérimentale déclarée du ⁴He liquide
+   (η/s ≥ 8,8 planchers, évaluation Schafer & Teaney 2009 reprise
+   dans Kagamihara et al. 2019) lue dans la table
+   (`eta_s_kss_LITERATURE.json`), la référence est le plancher
+   lui-même (1 en unités du plancher). **Dette assumée et écrite au
+   gel** : 8,8 est une borne inférieure déclarée, pas une mesure au
+   minimum exact de η/s(T). Le geste interdit est double et écrit :
+   déplacer 8,8 vers le plancher, ou lire un mot S− comme une
+   réfutation de KSS — un fluide au-dessus de la borne la satisfait.
+   θ = 0,10 rel gelé avant run. Levier : η/s←autre-mesure (jamais la
+   référence, jamais θ). Estimation pré-run honnête : δ = 780 % → S−
+   net attendu ; suspense structurellement nul — c'est un contact de
+   marge, comme Bertsch est un contact de dette.
+2. **Premier run** : mot découvert : **S−**, δ = 7,8 = 780 % > 2θ =
+   0,20. Artefacts gelés offline (audits [HOLD] I-G1 / I-G2) :
+   `examples/registre/KSS.*`.
+3. **Figé** : mot dans `tests/test_open_kss.py`.
+
+### Le mot : S− — et sa lecture exacte
+
+S− dit : le ⁴He déclaré se tient à ≥ 8,8 planchers du plancher KSS.
+Ce n'est **pas** « KSS est réfutée » : la conjecture est une borne
+inférieure, et le fluide est du bon côté. Le mot mesure la *marge* —
+la distance qui sépare le fluide réel de la saturation conjecturée. La
+règle gelée l'interdit littéralement : la borne n'est pas une identité,
+et aucun fluide déclaré (⁴He à 8,8, ⁶Li à 6,3, QGP à 2-3 planchers)
+ne la viole — la saturation reste ouverte. Le test verrouille
+l'anti-tautologie : la table déclarée est celle du run, la référence
+est le plancher (1), et rapprocher 8,8 du plancher est le geste
+interdit, testé comme tel.
+
+### Pourquoi ce contact compte
+
+- **La borne entre dans la machine comme borne, pas comme identité** :
+  le plancher ℏ/4πk_B est la *référence*, jamais la valeur attendue par
+  construction. C'est la discipline annoncée au prolongement de
+  Landau : dire ce qu'un objet n'est pas fait partie de la règle.
+- **Trois S−, trois natures** : la fibre (1, 1) tient maintenant le S−
+  de marge (KSS), le S− de dette (Bertsch) et le S− d'écart de
+  modèle (H0) — la machine distingue trois façons d'être loin.
+- **Le QGP en réserve déclarée** : le fluide le plus proche du
+  plancher (2-3 unités, incertitudes grandes) est le candidat naturel
+  d'un futur contact à suspense réel — la saturation de KSS n'est pas
+  tranchée, et la machine le dit.
+
 ## Prolongements déclarés (pas montés)
 
-- **Borne KSS η/s** : le plancher ℏ/4πk_B n'est pas une identité ;
-  la règle devra le dire. Besoin : table η/s déclarée.
 - **Seconde vitesse du son** (⁴He) : c_2² = (ρ_s/ρ_n)(T S²/C) —
   trop de paramètres intermédiaires pour une maquette honnête en
   l'état.
@@ -130,3 +181,6 @@ table déclarée est celle du run — ajuster le solveur sur la référence
   expérimentale de ξ (pas une extraction déclarée) permettrait de
   transformer la dette mean-field en test à deux instruments, comme
   CKM et g-2. Besoin : fabrication locale indépendante.
+- **Saturation KSS côté QGP** : η/s ≈ 2-3 planchers avec grandes
+  incertitudes — le seul candidat à un mot à suspense réel dans ce
+  tiroir ; la table devra déclarer une borne, pas une valeur unique.
