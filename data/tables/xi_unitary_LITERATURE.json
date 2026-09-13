@@ -1,0 +1,9 @@
+{
+  "id": "xi_unitary_literature",
+  "vintage": "litterature-declaree",
+  "source": "parametre de Bertsch du gaz de Fermi unitaire — consensus experience/QMC (Ku et al. 2012 ; Zurn et al. 2013), extrait declare, pas un recalcul QMC",
+  "dimension": "1",
+  "packet": "1",
+  "xi_exp": 0.370,
+  "note": "xi defini par E = xi (3/5) N eps_F. Reference xi ~ 0.370 (incertitude ~1 %). Le runner Bertsch_Xi_Unitary calcule xi en BCS mean-field (Leggett 1980) : l'ecart structurel mean-field vs QMC (~37 %) est la dette declaree du contact, exactement du calibre de P27 (He Hartree-Fock)."
+}

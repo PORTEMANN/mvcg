@@ -926,6 +926,40 @@ def _landau_vc_he4() -> tuple[float, dict]:
     }
 
 
+def _bertsch_xi() -> tuple[float, dict]:
+    """Contact ouvert hyperfluidité — le paramètre de Bertsch ξ à l'unitarité.
+
+    Règle déclarée AVANT le premier run : ξ = (5/3)·E/(Nε_F) en ansatz
+    BCS mean-field à T = 0 (Leggett 1980), équations gap + nombre
+    résolues par quadrature avec corrections de queue analytiques
+    (`bertsch.py`). Aucun point ajusté sur la référence. La référence
+    ξ ≈ 0,370 est le consensus expérience/QMC déclaré de la table
+    (`xi_unitary_LITERATURE.json`). Dette assumée et écrite : l'ansatz
+    mean-field ne récupère pas la corrélation forte de l'unitarité —
+    pendant exact de P27 (He Hartree-Fock) ; la dette est déclarée au
+    lieu d'être cachée. θ = 0,10 abs gelé avant run.
+    Estimation pré-run honnête : ξ_MF = 0,5905 (littérature mean-field),
+    δ = |0,5905−0,370|/0,370 ≈ 60 % → S− attendu net (δ > 2θ) ; suspense
+    quasi nul — ce contact calibre l'erreur structurelle du mean-field,
+    comme P27. Levier : ξ←autre-ansatz (jamais la référence, jamais θ).
+    """
+    from mvcg.bertsch import bertsch_xi
+
+    sol = bertsch_xi()
+    return float(sol["xi"]), {
+        "table": "xi_unitary_LITERATURE.json",
+        "vintage": "litterature-declaree",
+        "method": "BCS mean-field T=0 (Leggett 1980), gap+nombre, queues analytiques",
+        "rule": "xi = (5/3) E/(N eps_F) mean-field a l'unite",
+        "mu_over_ef": float(sol["mu_over_ef"]),
+        "delta_over_ef": float(sol["delta_over_ef"]),
+        "xi_ref": 0.370,
+        "ansatz": "superfluidite = ansatz BCS mean-field ; la correlation forte de l'unite est la dette",
+        "lever": "xi<-autre-ansatz",
+        "unit_raw": "1",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -1010,6 +1044,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "hvp_lo_lat_ee": _hvp_lo_lat_ee,
     "hlbl_lat_pheno": _hlbl_lat_pheno,
     "landau_vc_he4": _landau_vc_he4,
+    "bertsch_xi": _bertsch_xi,
 }
 
 CONTACTS: list[Contact] = [
@@ -1307,6 +1342,14 @@ CONTACTS: list[Contact] = [
         "v_c = min_p E(p)/p (Landau 1941) sur spectre phonon-roton declare",
         "contact ouvert hyperfluidite : cohérence interne de la carte spectrale, dette quasi-tautologie declaree au gel ; theta=0.10 fige avant run",
         "landau_vc_he4",
+        "ouverte", None, "hyperfluidite",
+    ),
+    Contact(
+        "Bertsch_Xi_Unitary", "micro", "pred", "1", "1", "abs", 0.10,
+        0.370, "xi<-autre-ansatz", "—",
+        "xi = (5/3) E/(N eps_F) BCS mean-field (Leggett 1980) a l'unite",
+        "contact ouvert hyperfluidite : dette mean-field declaree (ansatz pauvre = pendant exact de P27 He HF) ; theta=0.10 fige avant run ; S- attendu net",
+        "bertsch_xi",
         "ouverte", None, "hyperfluidite",
     ),
 ]
