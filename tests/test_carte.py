@@ -12,11 +12,17 @@ Propriétés figées :
 
 from __future__ import annotations
 
+import importlib.util
 import re
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+# Même règle que l'OTS : sans la lib, les tests concernés sont
+# skippés (la carte n'est pas régénérable ici, mais le reste de la
+# machine ne dépend pas de matplotlib).
+HAS_MPL = importlib.util.find_spec("matplotlib") is not None
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -25,6 +31,7 @@ from mvcg.carte import COLORS, main_carte  # noqa: E402
 from mvcg.registers import run_registers  # noqa: E402
 
 
+@unittest.skipUnless(HAS_MPL, "matplotlib absent : carte non régénérable ici")
 class TestCarte(unittest.TestCase):
     def test_derived_point_count_matches_register(self) -> None:
         rows = run_registers()["rows"]
