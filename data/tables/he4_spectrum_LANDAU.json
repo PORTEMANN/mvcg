@@ -1,0 +1,23 @@
+{
+  "id": "he4_spectrum_landau",
+  "vintage": "litterature-declaree",
+  "source": "spectre phonon-roton 4He II a basse pression — extraits declares (diffusion neutronique, ordres de grandeur), pas une resolution S(k,ω)",
+  "dimension": "m/s",
+  "packet": "si",
+  "phonon_speed_m_s": 238.0,
+  "points": [
+    [0.0, 0.0],
+    [0.5, 9.1],
+    [1.0, 18.2],
+    [1.4, 13.5],
+    [1.7, 9.3],
+    [1.9, 8.65],
+    [1.92, 8.62],
+    [2.0, 9.1],
+    [2.2, 11.5]
+  ],
+  "k_unit": "angstrom^-1",
+  "E_unit": "k_B * K",
+  "vc_ref_m_s": 58.0,
+  "note": "v_c(Landau) = min E(p)/p sur le spectre declare ; reference v_c ~58 m/s ordre de grandeur litterature declare. Dette declaree : spectre et v_c ne sont pas physiquement independants (le min de E/p EST le roton) — le contact mesure la coherence interne de la carte spectrale, pas une prediction. Aucun ajustement des points sur la reference."
+}

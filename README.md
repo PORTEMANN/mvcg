@@ -54,16 +54,20 @@ Contacts complémentaires (même discipline, hors série O) :
 | g-2 WP20 | a_exp − a_SM(WP20), écart normalisé θ=u, k=1 | 76 | S− | 279 |
 | g-2 HVP LO | réseau WP25 vs dispersif WP20, decide=U k=2 | 73 | P | 201 |
 | g-2 HLbL | lattice vs pheno, decide=U k=2 | 12,6 | **S+** | 19,2 |
+| Landau ⁴He | v_c = min E(p)/p sur spectre phonon-roton déclaré | 0,10 | **S+** | 1,3 % |
 
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
 particules — P au cheveu du S+ (δ/U = 1,14). Le complexe g-2 tient
 les trois couleurs en une seule fibre : l'écart WP20 est à 3,7
 incertitudes, l'écart entre les deux fabrications HVP LO à 1,4 U,
-l'écart HLbL dans une U. Doctrines :
+l'écart HLbL dans une U. Landau ouvre l'hyperfluidité par sa
+condition (critère de Landau sur carte spectrale déclarée), avec la
+dette quasi-tautologique assumée au gel. Doctrines :
 [`docs/NMR-CONTACT-OUVERT.md`](docs/NMR-CONTACT-OUVERT.md),
 [`docs/CKM-CONTACT-OUVERT.md`](docs/CKM-CONTACT-OUVERT.md),
-[`docs/G2-CONTACT-OUVERT.md`](docs/G2-CONTACT-OUVERT.md).
+[`docs/G2-CONTACT-OUVERT.md`](docs/G2-CONTACT-OUVERT.md),
+[`docs/HYPERFLUIDITE-CONTACT-OUVERT.md`](docs/HYPERFLUIDITE-CONTACT-OUVERT.md).
 
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7

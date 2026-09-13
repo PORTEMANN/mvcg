@@ -890,6 +890,42 @@ def _hlbl_lat_pheno() -> tuple[float, dict]:
     }
 
 
+def _landau_vc_he4() -> tuple[float, dict]:
+    """Contact ouvert hyperfluidité — la vitesse critique de Landau du ⁴He.
+
+    Règle déclarée AVANT le premier run : v_c = min_p E(p)/p (Landau
+    1941) calculée sur le spectre phonon-roton déclaré de la table
+    (`he4_spectrum_LANDAU.json`) — scan fin + parabole locale, aucun
+    point ajusté sur la référence. La référence v_c ≈ 58 m/s est un
+    ordre de grandeur de littérature déclaré. Dette assumée et écrite
+    : spectre et v_c ne sont pas physiquement indépendants (le min de
+    E/p EST le roton) — ce contact mesure la cohérence interne de la
+    carte spectrale déclarée, pas une prédiction ; la dette est
+    déclarée au lieu d'être cachée. θ = 0,10 rel gelé avant run.
+    Estimation pré-run honnête : v_c ≈ 58,8 m/s au roton (k ≈ 1,92 Å⁻¹),
+    δ ≈ 1,3 % → S+ attendu ; suspense faible, dette assumée. Levier :
+    spectre←autre-mesure (jamais la référence, jamais θ).
+    """
+    from mvcg.landau import landau_vc, spectrum_doc
+
+    t = spectrum_doc()
+    sol = landau_vc(t["points"])
+    return float(sol["vc_m_s"]), {
+        "table": "he4_spectrum_LANDAU.json",
+        "vintage": t["vintage"],
+        "method": "Landau 1941, min E(p)/p sur spectre déclaré",
+        "rule": "v_c = min_p E(p)/p (critère de Landau)",
+        "k_star_ang^-1": float(sol["k_star_ang^-1"]),
+        "E_star_K": float(sol["E_star_K"]),
+        "mechanism": sol["mechanism"],
+        "vc_ref_m_s": float(t["vc_ref_m_s"]),
+        "phonon_speed_m_s": float(t["phonon_speed_m_s"]),
+        "ansatz": "superfluidité = spectre d'énergie déclaré ; le min porte le mécanisme",
+        "lever": "spectre<-autre-mesure",
+        "unit_raw": "m/s",
+    }
+
+
 def _p35_sigma_as_spike() -> tuple[float, dict]:
     """B3-FAIL déclaré : σ logistique n'est pas un spike. μ = 0 (overlap)."""
     return 0.0, {"model": "logistic_sigma", "target": "spike", "note": "réfuté"}
@@ -973,6 +1009,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "amu_wp20": _amu_wp20,
     "hvp_lo_lat_ee": _hvp_lo_lat_ee,
     "hlbl_lat_pheno": _hlbl_lat_pheno,
+    "landau_vc_he4": _landau_vc_he4,
 }
 
 CONTACTS: list[Contact] = [
@@ -1263,6 +1300,14 @@ CONTACTS: list[Contact] = [
         "contact ouvert g-2 : deux fabrications du meme terme, decide=U k=2 ; S+ attendu (d/U=0,76 ; P a k=1) — suspense declare ; note mouture 6 « k=2 -> P » corrigee",
         "hlbl_lat_pheno",
         "ouverte", None, "g-2",
+    ),
+    Contact(
+        "Landau_Vc_He4", "micro", "pred", "si", "m/s", "rel", 0.10,
+        58.0, "spectre<-autre-mesure", "—",
+        "v_c = min_p E(p)/p (Landau 1941) sur spectre phonon-roton declare",
+        "contact ouvert hyperfluidite : cohérence interne de la carte spectrale, dette quasi-tautologie declaree au gel ; theta=0.10 fige avant run",
+        "landau_vc_he4",
+        "ouverte", None, "hyperfluidite",
     ),
 ]
 

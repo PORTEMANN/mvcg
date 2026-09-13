@@ -39,6 +39,7 @@ _FAMILY_RULES = [
     ("AMU", "g-2"), ("dice", "imagerie"), ("DIRAC", "unités"),
     ("Dirac", "unités"), ("F22", "unités"), ("F30", "unités"),
     ("Karplus", "NMR"), ("CKM", "CKM"), ("HVP", "g-2"), ("HLbL", "g-2"),
+    ("Landau", "hyperfluidité"),
 ]
 
 

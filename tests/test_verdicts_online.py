@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 37)  # série en ligne au 2026-09-12
+        self.assertEqual(idx["n"], 38)  # série en ligne au 2026-09-13
         self.assertEqual(len(idx["fibres"]), 11)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -48,6 +48,12 @@ class TestVerdictsOnline(unittest.TestCase):
         self.assertIn("AMU_exp_minus_WP20", by[("1", "1e-11")]["ids"])
         self.assertIn("HVP_LO_lat_vs_ee", by[("1", "1e-11")]["ids"])
         self.assertIn("HLbL_lat_vs_pheno", by[("1", "1e-11")]["ids"])
+        # Hyperfluidité : Landau rejoint la fibre des vitesses
+        # (cousin de O5, condensat dilué côté BEC).
+        self.assertEqual(by[("si", "m/s")]["counts"],
+                         {"S+": 1, "P": 1, "S-": 0})
+        self.assertIn("Landau_Vc_He4", by[("si", "m/s")]["ids"])
+        self.assertIn("O5_BEC_Sound", by[("si", "m/s")]["ids"])
         # CKM apporte le seul P de la fibre sans dimension.
         self.assertEqual(by[("1", "1")]["counts"],
                          {"S+": 4, "P": 1, "S-": 6})
