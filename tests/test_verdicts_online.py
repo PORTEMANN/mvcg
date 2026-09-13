@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 41)  # série en ligne au 2026-09-13 + Bertsch + KSS×2
+        self.assertEqual(idx["n"], 42)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète)
         self.assertEqual(len(idx["fibres"]), 11)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -42,9 +42,12 @@ class TestVerdictsOnline(unittest.TestCase):
                          {"S+": 1, "P": 1, "S-": 0})
         self.assertIn("NMR_Karplus_Helix", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Sheet", by[("si", "Hz")]["ids"])
-        # Le complexe g-2 : les trois couleurs dans une même fibre.
+        # Le complexe g-2 : les quatre contacts, la paire d'identifications
+        # complète dans la même fibre — WP25 S+ à 0,6 U, WP20 S− à 3,7 U,
+        # HVP P, HLbL S+. Deux mots opposés, aucun choisi.
         self.assertEqual(by[("1", "1e-11")]["counts"],
-                         {"S+": 1, "P": 1, "S-": 1})
+                         {"S+": 2, "P": 1, "S-": 1})
+        self.assertIn("AMU_Delta_WP25", by[("1", "1e-11")]["ids"])
         self.assertIn("AMU_exp_minus_WP20", by[("1", "1e-11")]["ids"])
         self.assertIn("HVP_LO_lat_vs_ee", by[("1", "1e-11")]["ids"])
         self.assertIn("HLbL_lat_vs_pheno", by[("1", "1e-11")]["ids"])

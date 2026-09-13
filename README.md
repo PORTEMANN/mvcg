@@ -52,6 +52,7 @@ Contacts complémentaires (même discipline, hors série O) :
 | NMR brin | même loi, φ = −120° — la loi devient une carte | 0,10 | P | 16,1 % |
 | CKM | \|V_ud\|²+\|V_us\|²+\|V_ub\|² = 1, GUM decide=U k=2 | 7e−4 | P | 1,6e−3 |
 | g-2 WP20 | a_exp − a_SM(WP20), écart normalisé θ=u, k=1 | 76 | S− | 279 |
+| g-2 WP25 | a_exp − a_SM(WP25), écart normalisé θ=u, k=1 | 63 | **S+** | 38 |
 | g-2 HVP LO | réseau WP25 vs dispersif WP20, decide=U k=2 | 73 | P | 201 |
 | g-2 HLbL | lattice vs pheno, decide=U k=2 | 12,6 | **S+** | 19,2 |
 | Landau ⁴He | v_c = min E(p)/p sur spectre phonon-roton déclaré | 0,10 | **S+** | 1,3 % |
@@ -62,9 +63,12 @@ Contacts complémentaires (même discipline, hors série O) :
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
 particules — P au cheveu du S+ (δ/U = 1,14). Le complexe g-2 tient
-les trois couleurs en une seule fibre : l'écart WP20 est à 3,7
-incertitudes, l'écart entre les deux fabrications HVP LO à 1,4 U,
-l'écart HLbL dans une U. Landau ouvre l'hyperfluidité par sa
+les quatre contacts en une seule fibre : même objet (Δa_μ), même
+étalonnage (θ = u_delta, k = 1), deux identifications — lattice WP25
+: **S+ à 0,6 U** ; dispersif WP20 : **S− à 3,7 U** — plus l'écart
+entre fabrications HVP LO (P, 1,4 U) et HLbL (S+, dans une U). La
+machine n'a pas à croire : elle a pesé
+([doctrine de la paire](docs/WP25-WP20-PAIRE.md)). Landau ouvre l'hyperfluidité par sa
 condition (critère de Landau sur carte spectrale déclarée), avec la
 dette quasi-tautologique assumée au gel ; Bertsch en pèse la dette
 structurale — l'ansatz mean-field rate la corrélation forte de

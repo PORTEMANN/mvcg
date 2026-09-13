@@ -890,6 +890,40 @@ def _hlbl_lat_pheno() -> tuple[float, dict]:
     }
 
 
+def _amu_delta() -> tuple[float, dict]:
+    """Contact ouvert AMU — l'écart g-2 porté, en unités de son incertitude.
+
+    Règle déclarée AVANT le premier run : mu_loc = delta déclaré
+    (a_exp - a_SM lattice WP25) = 38e-11, porté par la table — ce
+    n'est pas un calcul depuis a_SM et a_exp séparément (la table ne
+    porte pas a_exp seul). La référence est l'identité (le SM complet
+    prédit delta = 0). θ = 63 abs gelé avant run = u_delta déclarée :
+    le seuil EST l'incertitude de l'écart. GUM : decide=U, k=1 —
+    un S+ ici veut dire « l'écart tient dans une incertitude », pas
+    « le SM est confirmé ». Autre identification (HVP e+e-) déclarée
+    dans la note, jamais choisie après coup (honnêteté O15).
+    Estimation pré-run : 38 ≤ 63 → S+ attendu, à 0,6 theta — suspense
+    faible : contact de calibre de la tension, pas de suspense.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("amu_LITERATURE-2018.json")
+    p = t["params"]
+    delta = float(p["delta_exp_minus_wp25"])
+    return delta, {
+        "table": "amu_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "ecart declare, porte (pas calcule depuis a_SM seul)",
+        "rule": "a_exp - a_SM(WP25) vs identite 0",
+        "a_sm_wp25": float(p["a_sm_wp25"]),
+        "u_sm_wp25": float(p["u_sm_wp25"]),
+        "u_delta": float(p["u_delta_wp25"]),
+        "ansatz": "SM complet ; toute identification HVP declaree a droit au sien",
+        "lever": "HVP<-e+e- (autre id, contact separe)",
+        "unit_raw": "1e-11",
+    }
+
+
 def _landau_vc_he4() -> tuple[float, dict]:
     """Contact ouvert hyperfluidité — la vitesse critique de Landau du ⁴He.
 
@@ -1117,6 +1151,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "amu_wp20": _amu_wp20,
     "hvp_lo_lat_ee": _hvp_lo_lat_ee,
     "hlbl_lat_pheno": _hlbl_lat_pheno,
+    "amu_wp25": _amu_delta,
     "landau_vc_he4": _landau_vc_he4,
     "bertsch_xi": _bertsch_xi,
     "kss_eta_s_he4": _kss_eta_s_he4,
@@ -1413,6 +1448,14 @@ CONTACTS: list[Contact] = [
         "ouverte", None, "g-2",
     ),
     Contact(
+        "AMU_Delta_WP25", "macro", "pred", "1", "1e-11", "abs", 63.0,
+        0.0, "HVP<-e+e- (autre id)", "voir AMU_exp_minus_WP20",
+        "a_exp - a_SM(WP25) = 0  (SM complet, identification lattice declaree)",
+        "contact ouvert AMU : ecart porte en unites de son incertitude, autre identification declaree jamais choisie apres coup ; theta=63=u_delta fige avant run ; S+ a 0,6 U, pendant de WP20 (S- a 3,7 U) — la paire d'identifications est complete",
+        "amu_wp25",
+        "ouverte", None, "AMU",
+    ),
+    Contact(
         "Landau_Vc_He4", "micro", "pred", "si", "m/s", "rel", 0.10,
         58.0, "spectre<-autre-mesure", "—",
         "v_c = min_p E(p)/p (Landau 1941) sur spectre phonon-roton declare",
@@ -1472,6 +1515,11 @@ _GUM["AMU_exp_minus_WP20"] = {
     "decide": "U",
     "k": 1,
     "lines": [{"name": "delta_WP20", "type": "B", "u": 76.0}],
+}
+_GUM["AMU_Delta_WP25"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [{"name": "delta_WP25", "type": "B", "u": 63.0}],
 }
 _GUM["HVP_LO_lat_vs_ee"] = {
     "decide": "U",

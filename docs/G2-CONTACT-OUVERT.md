@@ -48,23 +48,30 @@ Au gel, l'identification dispersive (e+e-) a été déclarée comme
 identification déclarée a droit à son contact séparé, et aucune n'est
 choisie après coup. Le contraste est frappant et il est **porté par
 le protocole, pas choisi** : l'identification lattice (WP25) donne
-un écart qui tient dans une incertitude (S+, exploration locale) ;
-l'identification dispersive (WP20) donne un écart à 3,7 incertitudes
-(S−, publié ici). La leçon n'est pas « un des deux a tort » — c'est
-que *le mot g-2 dépend de l'identification*, et que la machine est
-précisément l'endroit où cette dépendance se pèse au lieu de se
-décréter.
+un écart qui tient dans une incertitude (**S+** à 0,6 U, publié dans
+cette tranche) ; l'identification dispersive (WP20) donne un écart à
+3,7 incertitudes (S−, publié ici). La leçon n'est pas « un des deux a
+tort » — c'est que *le mot g-2 dépend de l'identification*, et que la
+machine est précisément l'endroit où cette dépendance se pèse au lieu
+de se décréter. La doctrine complète de la paire, y compris la
+confrontation à la question de l'étalonnage (identité d'étalonnage
+comme condition de comparabilité), est dans
+[`WP25-WP20-PAIRE.md`](WP25-WP20-PAIRE.md).
 
 ## Périmètre et dette déclarée
 
-Cette tranche publie les trois contacts g-2 **sans** le contact AMU
+Cette tranche publiait les trois contacts g-2 **sans** le contact AMU
 WP25 (identification lattice) et **sans** le contact H0 : le tiroir
-macro ne s'ouvre qu'à moitié, par décision explicite. Dette déclarée :
-la paire complète WP25/WP20 existe en exploration locale et sera
-publiée, ou non, par une décision séparée — la doctrine interdit
-qu'elle soit publiée en douce par le biais d'un `expected`. CMD-3
-est hors moyenne e+e- déclarée dans la table HVP_LO ; c'est un
-levier écrit, pas une omission.
+macro ne s'ouvrait qu'à moitié, par décision explicite. **Dette
+soldée le 2026-09-13** (commit dédié, jour J) : le contact AMU WP25
+est désormais publié, la paire d'identifications WP25/WP20 est
+complète dans le registre — {S+:2, P:1, S−:1} dans la fibre
+(1, 1e-11). H0 reste une décision indépendante, non liée à ce geste.
+La doctrine interdisait que la paire soit publiée « en douce » par le
+biais d'un `expected` : elle l'a été par un sync explicite, sur feu
+vert, avec les deux mots côte à côte dans le README. CMD-3 est hors
+moyenne e+e- déclarée dans la table HVP_LO ; c'est un levier écrit,
+pas une omission.
 
 ## Pourquoi cette tranche compte
 

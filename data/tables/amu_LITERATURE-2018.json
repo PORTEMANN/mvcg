@@ -1,0 +1,19 @@
+{
+  "id": "amu_wp25",
+  "vintage": "LITERATURE-2018",
+  "source": "anomalie magnetique du muon : SM lattice WP25 vs experience, extraits declares",
+  "doi_or_ref": "WP25 (Muon g-2 Theory Initiative, extrait declare) ; E989 final (extrait declare)",
+  "species": "a_mu",
+  "quantity": "ecart experience - SM(lattice WP25), en unite 1e-11",
+  "dimension": "1e-11",
+  "packet": "1",
+  "value": 0.0,
+  "params": {
+    "a_sm_wp25": 116592033.0,
+    "u_sm_wp25": 62.0,
+    "delta_exp_minus_wp25": 38.0,
+    "u_delta_wp25": 63.0,
+    "note": "delta = a_exp - a_SM(lattice WP25). HVP e+e- = autre identification, pas dans cette table. Ne pas moyenner les identifications."
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
