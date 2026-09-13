@@ -172,6 +172,61 @@ interdit, testé comme tel.
   d'un futur contact à suspense réel — la saturation de KSS n'est pas
   tranchée, et la machine le dit.
 
+## Contact 4 — KSS/QGP : le suspense dévoilé
+
+### Chronologie du gel
+
+1. **Protocole écrit avant toute exécution** : premier contact du
+   tiroir dont le mot tranche une question ouverte — la saturation de
+   la borne KSS par le plasma quarks-gluons, fluide déclaré le plus
+   proche du plancher. Fabrication : la borne INFÉRIEURE de
+   l'extraction la plus citée (η/s ≈ (2-3) unités KSS, Luzum &
+   Romatschke, repris dans arXiv:1108.0734), la déclaration la plus
+   favorable au suspense ; référence : le plancher (1). **Dette
+   assumée et écrite au gel** : les extractions ne coïncident pas, la
+   fourchette large (0,6-2,5 planchers, arXiv:2604.04222) chevauche
+   le plancher ; un mot S− dira « non-saturation établie pour la
+   déclaration choisie », jamais « KSS violée ». Le geste interdit :
+   descendre la borne inf sous 2 planchers en invoquant la fourchette
+   large pour rapprocher μ_loc du plancher. θ = 0,10 rel gelé avant
+   run. Suspense limité mais réel — c'est le dévoilement qui compte.
+2. **Premier run** : mot découvert : **S−**, δ = 1,0 = 100 % > 2θ =
+   0,20. Le suspense se dévoile : même la borne inf déclarée est à 2
+   planchers — la saturation KSS par le QGP n'est PAS établie à
+   θ = 0,10 près. Artefacts gelés offline (audits [HOLD] I-G1 / I-G2)
+   : `examples/registre/QGP.*`.
+3. **Figé** : mot dans `tests/test_open_qgp.py`.
+
+### Le mot : S− — et sa lecture exacte
+
+S− dit : la prétention « le QGP est un fluide parfait qui sature le
+plancher KSS » n'est pas dans les données déclarées — même la borne
+inférieure de l'extraction la plus favorable se tient à 2 planchers,
+soit 100 % au-dessus à θ = 0,10. Ce n'est **pas** « KSS est violée » :
+aucune valeur centrale déclarée n'est sous le plancher, et la
+fourchette large (0,6-2,5 planchers) reste déclarée comme dette —
+l'incertitude chevauche le plancher, mais la machine ne pèse que ce
+qui est déclaré comme valeur. Le test verrouille le geste interdit :
+la borne inf figée est 2,0 et la référence est le plancher, pas une
+valeur de la fourchette large.
+
+### Pourquoi ce contact compte
+
+- **Le premier mot à suspense du tiroir** : les trois contacts
+  précédents annonçaient leur mot au protocole (suspense nul) ; celui-
+  ci posait une question ouverte (le QGP sature-t-il ?) et le mot y
+  répond : non, pas à θ = 0,10 pour la déclaration choisie. La machine
+  distingue désormais « S− annoncé » et « S− dévoilé ».
+- **La discipline de la fourchette** : peser une borne inf déclarée
+  quand la littérature donne un intervalle qui chevauche la référence
+  — et écrire que c'est la borne inf qui est pesée, pas l'intervalle —
+  est exactement le genre de choix que la doctrine doit rendre
+  explicite au lieu de laisser un lecteur hostile le découvrir.
+- **Quatre S−, quatre lectures** : la fibre (1, 1) tient le S− de
+  marge (KSS ⁴He), le S− de dette (Bertsch), le S− de saturation
+  dévoilée (KSS/QGP) et le S− d'écart de modèle (H0) — être loin n'a
+  jamais eu autant de nuances.
+
 ## Prolongements déclarés (pas montés)
 
 - **Seconde vitesse du son** (⁴He) : c_2² = (ρ_s/ρ_n)(T S²/C) —
@@ -181,6 +236,7 @@ interdit, testé comme tel.
   expérimentale de ξ (pas une extraction déclarée) permettrait de
   transformer la dette mean-field en test à deux instruments, comme
   CKM et g-2. Besoin : fabrication locale indépendante.
-- **Saturation KSS côté QGP** : η/s ≈ 2-3 planchers avec grandes
-  incertitudes — le seul candidat à un mot à suspense réel dans ce
-  tiroir ; la table devra déclarer une borne, pas une valeur unique.
+- **Deuxième extraction QGP** : le levier η/s←autre-extraction de
+  KSS_EtaS_QGP est déclaré mais non exercé — une autre extraction
+  (quenching, transport coefficients récents) produirait le premier
+  balayage de levier du tiroir.

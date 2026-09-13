@@ -926,6 +926,44 @@ def _landau_vc_he4() -> tuple[float, dict]:
     }
 
 
+def _kss_eta_s_qgp() -> tuple[float, dict]:
+    """Contact ouvert hyperfluidité — le QGP sature-t-il le plancher KSS ?
+
+    Règle déclarée AVANT le premier run : c'est le premier contact du
+    tiroir dont le mot tranche une question ouverte — la saturation de
+    la borne KSS par le plasma quarks-gluons, fluide déclaré le plus
+    proche du plancher. La fabrication est la borne INFÉRIEURE de
+    l'extraction la plus citée (η/s ≈ (2-3) unités KSS, Luzum &
+    Romatschke, repris dans arXiv:1108.0734) lue dans la table
+    (`eta_s_qgp_LITERATURE.json`) — la déclaration la plus favorable
+    au suspense. La référence est le plancher (1). Dette assumée et
+    écrite : les extractions ne coïncident pas, la fourchette large
+    (0,6-2,5 planchers) chevauche le plancher ; un mot S− dira «
+    non-saturation établie pour la déclaration choisie », jamais « KSS
+    violée ». Le geste interdit : descendre la borne inf sous 2
+    planchers en invoquant la fourchette large pour rapprocher μ_loc
+    du plancher. θ = 0,10 rel gelé avant run. Levier : η/s←autre-
+    extraction (jamais la référence, jamais θ). Estimation pré-run
+    honnête : δ = 100 % → S− attendu probable ; suspense limité mais
+    réel — c'est le dévoilement qui compte, pas la surprise.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("eta_s_qgp_LITERATURE.json")
+    return float(t["eta_s_over_kss_min_declared"]), {
+        "table": "eta_s_qgp_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "borne inferieure de l'extraction la plus citee (Luzum & Romatschke)",
+        "rule": "eta/s >= hbar/(4 pi k_B) (KSS 2005) ; le QGP sature-t-il le plancher ?",
+        "fluid": t["fluid"],
+        "kss_bound": t["kss_bound"],
+        "range_broad_planck_units": t["range_broad_planck_units"],
+        "ansatz": "le mot tranche la saturation pour la declaration choisie, pas KSS elle-meme",
+        "lever": "eta/s<-autre-extraction",
+        "unit_raw": "1",
+    }
+
+
 def _kss_eta_s_he4() -> tuple[float, dict]:
     """Contact ouvert hyperfluidité — la marge η/s du ⁴He au plancher KSS.
 
@@ -1082,6 +1120,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "landau_vc_he4": _landau_vc_he4,
     "bertsch_xi": _bertsch_xi,
     "kss_eta_s_he4": _kss_eta_s_he4,
+    "kss_eta_s_qgp": _kss_eta_s_qgp,
 }
 
 CONTACTS: list[Contact] = [
@@ -1395,6 +1434,14 @@ CONTACTS: list[Contact] = [
         "eta/s >= hbar/(4 pi k_B) (KSS 2005) ; marge du 4He declaree au-dessus du plancher",
         "contact ouvert hyperfluidite : la borne n'est PAS une identite — le mot mesure la marge (8,8 planchers), pas la validite de KSS ; theta=0.10 fige avant run ; S- attendu net",
         "kss_eta_s_he4",
+        "ouverte", None, "hyperfluidite",
+    ),
+    Contact(
+        "KSS_EtaS_QGP", "micro", "pred", "1", "1", "rel", 0.10,
+        1.0, "eta/s<-autre-extraction", "—",
+        "eta/s >= hbar/(4 pi k_B) (KSS 2005) ; le QGP sature-t-il le plancher ?",
+        "contact ouvert hyperfluidite : premier mot qui tranche une question ouverte (saturation KSS) — borne inf declaree (2 planchers) vs plancher ; S- = non-saturation etablie, jamais 'KSS violee' ; theta=0.10 fige avant run",
+        "kss_eta_s_qgp",
         "ouverte", None, "hyperfluidite",
     ),
 ]

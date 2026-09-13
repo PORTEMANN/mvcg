@@ -57,6 +57,7 @@ Contacts complémentaires (même discipline, hors série O) :
 | Landau ⁴He | v_c = min E(p)/p sur spectre phonon-roton déclaré | 0,10 | **S+** | 1,3 % |
 | Bertsch ξ | gaz unitaire, BCS mean-field vs QMC/exp déclaré | 0,10 | S− | 22,1 % |
 | KSS η/s ⁴He | borne exp. η/s ≥ 8,8 planchers au-dessus du plancher | 0,10 | S− | 780 % |
+| KSS η/s QGP | borne inf. déclarée (2 planchers) vs plancher — saturation ? | 0,10 | S− | 100 % |
 
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
@@ -69,9 +70,12 @@ dette quasi-tautologique assumée au gel ; Bertsch en pèse la dette
 structurale — l'ansatz mean-field rate la corrélation forte de
 l'unitarité de 37 %, pendant exact de P27 (He HF) ; KSS en pèse la
 marge — le plancher η/s ≥ ℏ/4πk_B est une borne, pas une identité,
-et le ⁴He déclaré s'en tient à 8,8 planchers. Trois S−, trois
-natures : dette, marge, et (avec H0 côté cosmologie) écart de
-modèle. Doctrines :
+et le ⁴He déclaré s'en tient à 8,8 planchers ; KSS/QGP dévoile le
+premier suspense du tiroir — même la borne inf déclarée du plasma
+(2 planchers) ne sature pas le plancher à θ = 0,10. La machine
+distingue quatre S− : dette (Bertsch), marge (KSS ⁴He), saturation
+dévoilée (KSS/QGP) et, avec H0 côté cosmologie, écart de modèle.
+Doctrines :
 [`docs/NMR-CONTACT-OUVERT.md`](docs/NMR-CONTACT-OUVERT.md),
 [`docs/CKM-CONTACT-OUVERT.md`](docs/CKM-CONTACT-OUVERT.md),
 [`docs/G2-CONTACT-OUVERT.md`](docs/G2-CONTACT-OUVERT.md),

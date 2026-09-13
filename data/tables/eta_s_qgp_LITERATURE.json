@@ -1,0 +1,12 @@
+{
+  "id": "eta_s_qgp_literature",
+  "vintage": "litterature-declaree",
+  "source": "extractions experimentales de eta/s du plasma quarks-gluons : borne inferieure la plus citee eta/s ~ (2-3) unites KSS (Luzum & Romatschke, reprise dans arXiv:1108.0734 et litterature RHIC/LHC) ; fourchette large plus recente 0.05 < eta/s < 0.2 en unites hbar/k_B, soit 0.6 a 2.5 planchers (arXiv:2604.04222, 2026), incertitudes grandes, la borne KSS 1/(4 pi) ~ 0.08 hbar/k_B etant dans l'intervalle",
+  "dimension": "1",
+  "packet": "1",
+  "fluid": "QGP (plasma quarks-gluons, RHIC/LHC)",
+  "eta_s_over_kss_min_declared": 2.0,
+  "kss_bound": "hbar/(4*pi*k_B)",
+  "range_broad_planck_units": [0.6, 2.5],
+  "note": "Valeur pesee : la borne INFERIEURE de l'extraction la plus citee (2 planchers) — la declaration la plus favorable a la saturation. Dette assumee : les extractions ne coincident pas ; la fourchette large (0,6-2,5 planchers) chevauche le plancher, l'incertitude est reelle et la saturation n'est pas etablie experimentalement. Le contact tranche ce qu'il peut : meme la borne inf declaree se tient a 2 planchers du plancher a theta=0,10 — le mot S- dit 'non-saturation etablie pour la declaration choisie', pas 'KSS violee' (aucune valeur centrale declaree n'est sous le plancher). Suspense limite mais reel : c'est la premiere fois que le mot tranche une question ouverte (saturation KSS). Le geste interdit : descendre la borne inf sous 2 planchers en invoquant la fourchette large pour rapprocher mu_loc du plancher."
+}
