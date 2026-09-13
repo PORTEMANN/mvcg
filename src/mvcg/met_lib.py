@@ -570,6 +570,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     sub.add_parser("registers", help="trois tiroirs micro/meso/macro")
     sub.add_parser("dictionaries", help="balayer hl|gauss|si|1 à μ_loc gelé")
     sub.add_parser("corridor", help="P2 discret-dans-continu (n, κ)")
+    crt = sub.add_parser("carte", help="carte des verdicts dérivée (docs/carte-*.svg)")
+    crt.add_argument("--kind", choices=["principale", "identite"], default="principale")
 
     args = p.parse_args(argv)
     lib = MetLib15(Path(args.root), offline_ots=args.offline)
@@ -717,6 +719,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         from mvcg.corridor import run_corridor
 
         print(json.dumps(run_corridor(), indent=2))
+        return 0
+    if args.cmd == "carte":
+        from mvcg.carte import main_carte
+
+        print(json.dumps(main_carte(args.kind), indent=2))
         return 0
     return 1
 

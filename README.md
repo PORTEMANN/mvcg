@@ -104,6 +104,21 @@ La méthode complète : [`docs/METHODE-PESEE.md`](docs/METHODE-PESEE.md).
 Classement par fibre (packet, dimension) et invariance sous balayage :
 [`docs/VERDICTS-FIBRES.md`](docs/VERDICTS-FIBRES.md).
 
+## La carte des verdicts
+
+![Carte des verdicts](docs/carte-verdicts.svg)
+
+Chaque point est une pesée : x = θ gelé (l'étalonnage du contact), y =
+δ/θ (la tension, en unités de seuil). Les bandes δ/θ = 1 et 2 **sont**
+la règle de verdict — zone S+ sous 1, zone P entre 1 et 2, zone S−
+au-dessus de 2. ○ micro △ meso □ macro ; vert S+, ambre P, rouge S−.
+Un point proche d'une bande est un verdict au tranchant ; un point
+loin est un mot sans suspense. Carte **dérivée du registre, jamais
+dessinée à la main** — régénération = mêmes octets :
+`PYTHONPATH=src python3 -m mvcg carte --kind principale`. La fibre
+(unités) de chaque contact reste dans
+[`docs/VERDICTS-FIBRES.md`](docs/VERDICTS-FIBRES.md).
+
 Ce dépôt n’est pas une théorie du tout. Ce n’est pas un champ de conscience.
 C’est un **opérateur** et un **protocole de registre**.
 
