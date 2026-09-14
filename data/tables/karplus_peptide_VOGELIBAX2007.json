@@ -1,0 +1,16 @@
+{
+  "id": "karplus_peptide_vogelibax2007",
+  "vintage": "Vogeli-Bax-2007-declare",
+  "source": "3J(HN,HA)=7.97 cos^2(phi-60)-1.26 cos(phi-60)+0.63 — Vogeli B., Ying J., Grishaev A., Bax A., JACS 2007, 129, 9377 (doi:10.1021/ja070324o), telle que citee dans Lee et al. 2014 (ChemPhysChem 16:572, PMC4329088, eq. 'previously parameterized Karplus equation [13]')",
+  "dimension": "Hz",
+  "packet": "si",
+  "A": 7.97,
+  "B": -1.26,
+  "C": 0.63,
+  "offset_deg": 60.0,
+  "phi_helix_deg": -60.0,
+  "phi_sheet_deg": -120.0,
+  "J_helix_typical_Hz": 4.0,
+  "J_sheet_typical_Hz": 8.5,
+  "note": "Memes phi et memes references typiques que karplus_peptide_LITERATURE (Vuister-Bax 1993) — la seconde voie porte uniquement les coefficients, jamais la geometrie ni la reference. Tables typical = ordre de grandeur, pas un PDB (dette identique a la paire VB)."
+}

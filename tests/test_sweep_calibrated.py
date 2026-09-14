@@ -34,7 +34,7 @@ from mvcg.verdict_register import street_sweep_calibrated  # noqa: E402
 
 class TestSweepCalibrated(unittest.TestCase):
     def test_all_contacts_invariant_at_same_calibration(self) -> None:
-        self.assertEqual(len(CONTACTS), 54)  # 53 + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, 2026-09-14)
+        self.assertEqual(len(CONTACTS), 56)  # 54 + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, 2026-09-14)
         for c in CONTACTS:
             st = street_sweep_calibrated(c.id)
             licites = [r for r in st["rows"] if not r["units_kill"]]

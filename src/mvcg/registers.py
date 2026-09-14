@@ -770,6 +770,70 @@ def _karplus_sheet() -> tuple[float, dict]:
     }
 
 
+def _karplus_helix_vogelibax2007() -> tuple[float, dict]:
+    """Contact ouvert NMR-Karplus hélice, seconde voie Vogeli-Bax 2007.
+
+    Règle déclarée AVANT le premier run (protocole
+    NMR-KARPLUS-VOGELIBAX-CONTACT-OUVERT.md, gel 2026-09-14, campagne
+    croisée) : ³J(φ) = 7,97 cos²(φ−60°) − 1,26 cos(φ−60°) + 0,63
+    (Vogeli, Ying, Grishaev, Bax, JACS 2007, 129, 9377 — déclarés),
+    φ_helix = −60° de la table, MU REFERENCE TYPIQUE 4,0 Hz commune
+    à la paire VB (ordre de grandeur déclaré, pas un PDB — dette
+    identique). θ = 0,10 rel, MÊME étalonnage que la paire VB (la
+    comparaison des deux voies n'a de sens qu'à θ identique). La
+    paramétrisation a été choisie pour sa canonicité et sa traçabilité,
+    jamais pour un mot attendu. Estimation pré-run (CORRIGÉE : la valeur
+    initiale 4,2525 était une erreur d'addition du rédacteur —
+    1,9925+0,63+0,63 = 3,2525) : le run a découvert J = 3,2525 vs 4,0
+    → 18,69 % → P à 1,87 θ (à 0,13 θ de la frontière S−) — l'estimation
+    erronée est conservée en trace, le mot vrai est figé dans le test.
+    """
+    from mvcg.karplus import j_hn_ha, peptide_vogelibax2007_doc
+
+    t = peptide_vogelibax2007_doc()
+    j = j_hn_ha(float(t["phi_helix_deg"]), t)
+    return j, {
+        "table": "karplus_peptide_VOGELIBAX2007.json",
+        "vintage": t["vintage"],
+        "method": "loi de Karplus, coefficients Vogeli-Bax 2007 gelés",
+        "rule": "3J = 7.97 cos^2(phi-60) - 1.26 cos(phi-60) + 0.63",
+        "phi_deg": float(t["phi_helix_deg"]),
+        "A": float(t["A"]), "B": float(t["B"]), "C": float(t["C"]),
+        "J_ref_Hz": float(t["J_helix_typical_Hz"]),
+        "ansatz": "conformation hélice, coefficients Vogeli-Bax 2007 (2e voie)",
+        "lever": "coefficients<-Vuister-Bax-1993 (1re voie, contact separe)",
+        "unit_raw": "Hz",
+    }
+
+
+def _karplus_sheet_vogelibax2007() -> tuple[float, dict]:
+    """Contact ouvert NMR-Karplus brin, seconde voie Vogeli-Bax 2007.
+
+    Règle déclarée AVANT le premier run : mêmes coefficients gelés,
+    φ_sheet = −120°, référence typique 8,5 Hz commune à la paire VB.
+    θ = 0,10 rel au même étalonnage. Estimation pré-run : J ≈ 9,86 vs
+    8,5 → 16,0 % → P attendu à ~1,60 θ (zone P, à 0,40 θ de la
+    frontière S−). La question de la campagne croisée : les deux voies
+    changent-elles le mot par conformation ?
+    """
+    from mvcg.karplus import j_hn_ha, peptide_vogelibax2007_doc
+
+    t = peptide_vogelibax2007_doc()
+    j = j_hn_ha(float(t["phi_sheet_deg"]), t)
+    return j, {
+        "table": "karplus_peptide_VOGELIBAX2007.json",
+        "vintage": t["vintage"],
+        "method": "loi de Karplus, coefficients Vogeli-Bax 2007 gelés",
+        "rule": "3J = 7.97 cos^2(phi-60) - 1.26 cos(phi-60) + 0.63",
+        "phi_deg": float(t["phi_sheet_deg"]),
+        "A": float(t["A"]), "B": float(t["B"]), "C": float(t["C"]),
+        "J_ref_Hz": float(t["J_sheet_typical_Hz"]),
+        "ansatz": "conformation brin, coefficients Vogeli-Bax 2007 (2e voie)",
+        "lever": "coefficients<-Vuister-Bax-1993 (1re voie, contact separe)",
+        "unit_raw": "Hz",
+    }
+
+
 def _ckm_row1() -> tuple[float, dict]:
     """Contact ouvert CKM — l'unitarité de la première ligne.
 
@@ -1619,6 +1683,8 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "co_rot_alpha_e": _co_rot_alpha_e,
     "karplus_helix": _karplus_helix,
     "karplus_sheet": _karplus_sheet,
+    "karplus_helix_vogelibax2007": _karplus_helix_vogelibax2007,
+    "karplus_sheet_vogelibax2007": _karplus_sheet_vogelibax2007,
     "ckm_row1": _ckm_row1,
     "amu_wp20": _amu_wp20,
     "hvp_lo_lat_ee": _hvp_lo_lat_ee,
@@ -1974,6 +2040,22 @@ CONTACTS: list[Contact] = [
         "3J(HN,Ha) brin par même loi de Karplus = ordre de grandeur typique declare",
         "contact ouvert NMR : meme loi, autre conformation (carte) ; estimation pre-run zone P, suspense reel au bord S-",
         "karplus_sheet",
+        "ouverte", None, "NMR",
+    ),
+    Contact(
+        "NMR_Karplus_Helix_VogeliBax2007", "micro", "pred", "si", "Hz", "rel", 0.10,
+        4.0, "coefficients<-Vuister-Bax-1993 (1re voie)", "voir NMR_Karplus_Helix",
+        "3J(HN,Ha) helice par loi de Karplus Vogeli-Bax 2007 (coefficients gelés) = même référence typique declare",
+        "contact ouvert campagne croisee : 2e voie canonique (JACS 2007, 129, 9377), même phi et même référence que la paire VB, theta=0.10 identique ; parametrisation choisie pour sa canonicite, jamais pour un mot attendu",
+        "karplus_helix_vogelibax2007",
+        "ouverte", None, "NMR",
+    ),
+    Contact(
+        "NMR_Karplus_Sheet_VogeliBax2007", "micro", "pred", "si", "Hz", "rel", 0.10,
+        8.5, "coefficients<-Vuister-Bax-1993 (1re voie)", "voir NMR_Karplus_Sheet",
+        "3J(HN,Ha) brin par loi de Karplus Vogeli-Bax 2007 (coefficients gelés) = même référence typique declare",
+        "contact ouvert campagne croisee : même loi 2e voie, autre conformation ; question — les deux voies changent-elles le mot ? theta=0.10 identique à la paire VB",
+        "karplus_sheet_vogelibax2007",
         "ouverte", None, "NMR",
     ),
     Contact(

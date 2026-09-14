@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 54)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14)
+        self.assertEqual(idx["n"], 56)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 12)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -47,11 +47,20 @@ class TestVerdictsOnline(unittest.TestCase):
         # Kratzer : prediction croisee P au cheveu a 1,394 theta
         # (l'anharmonicite tient mais pas dans le budget NIST) ; levier
         # alpha_e : residu vintage S- a 25 theta (le levier reduit
-        # l'ecart d'un facteur ~3500, la table H&H est la dette).
+        # l'ecart d'un facteur ~3500, la table H&H est la dette) ;
+        # 2026-09-14 apres-midi : paire Karplus Vogeli-Bax 2007 — la
+        # seconde voie de la campagne croisee (memes phi, meme
+        # reference typique, memes theta) : helice P a 1,87 theta (a
+        # 0,13 theta de la frontiere S-) contre S+ a 0,27 theta pour
+        # Vuister-Bax — les deux voies canoniques divergent, la loi
+        # n'est pas robuste a sa parametrisation a cet etalonnage ;
+        # brin P a 1,60 theta.
         self.assertEqual(by[("si", "Hz")]["counts"],
-                         {"S+": 2, "P": 2, "S-": 3})
+                         {"S+": 2, "P": 4, "S-": 3})
         self.assertIn("NMR_Karplus_Helix", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Sheet", by[("si", "Hz")]["ids"])
+        self.assertIn("NMR_Karplus_Helix_VogeliBax2007", by[("si", "Hz")]["ids"])
+        self.assertIn("NMR_Karplus_Sheet_VogeliBax2007", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_AbInitio", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_Dunham", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO13_Rot_MuRule", by[("si", "Hz")]["ids"])
