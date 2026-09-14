@@ -63,6 +63,10 @@ Contacts complémentaires (même discipline, hors série O) :
 | H(z) bas-z DEMO | rms résidus courbe Planck vs 8 bins, extraction synthétique déclarée | 0,05 | S− | 11,7 % |
 | H(z) bas-z LIT Planck | mêmes bins, ancrage Planck, Pantheon+ (Brout+ 2022) | 0,0276 mag | S− | 6,95 % |
 | H(z) bas-z LIT SH0ES | même, ancrage SH0ES (H0 = 73,04 déclaré) | 0,0276 mag | S− | 23,1 % |
+| SPEC CO ab initio | rotor rigide à l'équilibre B_e = ℏ/(4πμr_e²) vs B₀ NIST | 3 kHz | S− | 262 MHz |
+| SPEC CO Dunham | 2B₀ − 4D₀ = ν(1-0), cohérence interne catalogue NIST | 10 kHz | **S+** | 280 Hz |
+| SPEC ¹³CO règle μ | B₀·μ/μ′ = B₀′(¹³CO), masse réduite au niveau v=0 | 12 kHz | S− | 4,94 MHz |
+| SPEC CO Kratzer | 4B_e³/ω_e² = D₀, prédiction croisée H&H vs NIST | 70 Hz | P | 97,6 Hz |
 
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
@@ -112,6 +116,17 @@ Doctrines :
 [`docs/H0-CAMPAGNES-B1-B3.md`](docs/H0-CAMPAGNES-B1-B3.md),
 [`docs/H0-BILAN-CHANTIER.md`](docs/H0-BILAN-CHANTIER.md),
 [`docs/CE-QUE-LA-MACHINE-EST.md`](docs/CE-QUE-LA-MACHINE-EST.md).
+
+Le tiroir SPEC ouvre la spectroscopie rotationnelle (2026-09-14) — la
+fibre cm⁻¹ ne pesait que des oscillateurs vibrationnels. CO X¹Σ⁺,
+calibrateur de l'astrochimie millimétrique, en quatre contacts :
+rotor rigide ab initio (S−, l'écart s'appelle α_e), cohérence interne
+du catalogue NIST (S+), règle de la masse réduite sur ¹³CO (S−, limite
+nommée à 412 θ) et relation de Kratzer D = 4B³/ω² (P au cheveu à
+1,39 θ — la physique anharmonique tient, la vintage H&H 1979 ne
+rejoint pas le NIST 2013 dans le budget). Sources déclarées NIST
+JPCRD 53 + Huber & Herzberg 1979. Doctrine :
+[`docs/SPEC-CO-ROT-CONTACT-OUVERT.md`](docs/SPEC-CO-ROT-CONTACT-OUVERT.md).
 
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7

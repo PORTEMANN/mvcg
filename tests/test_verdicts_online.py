@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 48)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, chantier local 2026-09-14)
+        self.assertEqual(idx["n"], 52)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 12)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -38,10 +38,22 @@ class TestVerdictsOnline(unittest.TestCase):
                          {"S+": 1, "P": 0, "S-": 1})
         # La paire NMR : même loi de Karplus, deux conformations —
         # la loi devient une carte (hélice S+, brin P).
+        # 2026-09-14 : la fibre (si, Hz) s'ouvre au rotationnel — paire
+        # SPEC CO : ab initio S- à 87465 theta (l'écart s'appelle
+        # alpha_e), Dunham S+ à 0,028 theta (cohérence interne du
+        # catalogue NIST, dette de circularité écrite) ; isotopologue
+        # 13CO : regle de la masse reduite S- à 412 theta (a la
+        # precision NIST la regle mu seule ne suffit pas au niveau v=0) ;
+        # Kratzer : prediction croisee P au cheveu a 1,394 theta
+        # (l'anharmonicite tient mais pas dans le budget NIST).
         self.assertEqual(by[("si", "Hz")]["counts"],
-                         {"S+": 1, "P": 1, "S-": 0})
+                         {"S+": 2, "P": 2, "S-": 2})
         self.assertIn("NMR_Karplus_Helix", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Sheet", by[("si", "Hz")]["ids"])
+        self.assertIn("SPEC_CO_Rot_AbInitio", by[("si", "Hz")]["ids"])
+        self.assertIn("SPEC_CO_Rot_Dunham", by[("si", "Hz")]["ids"])
+        self.assertIn("SPEC_CO13_Rot_MuRule", by[("si", "Hz")]["ids"])
+        self.assertIn("SPEC_CO_Rot_Kratzer", by[("si", "Hz")]["ids"])
         # Le complexe g-2 : les quatre contacts, la paire d'identifications
         # complète dans la même fibre — WP25 S+ à 0,6 U, WP20 S− à 3,7 U,
         # HVP P, HLbL S+. Deux mots opposés, aucun choisi.

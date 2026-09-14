@@ -34,7 +34,7 @@ from mvcg.verdict_register import street_sweep_calibrated  # noqa: E402
 
 class TestSweepCalibrated(unittest.TestCase):
     def test_all_contacts_invariant_at_same_calibration(self) -> None:
-        self.assertEqual(len(CONTACTS), 48)  # 46 + V2 ×2 (2026-09-14)
+        self.assertEqual(len(CONTACTS), 52)  # 51 + SPEC Kratzer (2026-09-14)
         for c in CONTACTS:
             st = street_sweep_calibrated(c.id)
             licites = [r for r in st["rows"] if not r["units_kill"]]

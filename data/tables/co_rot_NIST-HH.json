@@ -1,0 +1,29 @@
+{
+  "id": "co_rot_nist_hh",
+  "vintage": "NIST-JPCRD53-2013+HH1979-via-RIOS-2026-09-14",
+  "source": "NIST Microwave Spectral Tables (JPCRD 53, refit CDMS) : mu, B0, D0, nu(1-0) ; Huber & Herzberg 1979 via RIOS FHI-MPG API : re, Be, alpha_e ; CODATA 2018 : hbar, c, u",
+  "params": {
+    "mu_u": 6.85620871,
+    "mu_u_err": 6e-8,
+    "mu13_u": 7.17227491,
+    "mu13_u_err": 1.4e-7,
+    "B0_MHz": 57635.969,
+    "B0_err_MHz": 0.003,
+    "B0_13_MHz": 55101.021,
+    "B0_13_err_MHz": 0.012,
+    "D0_kHz": 183.57,
+    "D0_err_kHz": 0.07,
+    "nu_10_MHz": 115271.204,
+    "nu_10_err_MHz": 0.01,
+    "re_A": 1.128323,
+    "Be_cm-1": 1.93128,
+    "alpha_e_cm-1": 0.0175,
+    "omega_e_cm-1": 2169.81538,
+    "hbar_SI": 1.054571817e-34,
+    "c_SI": 299792.458,
+    "u_kg": 1.6605390666e-27,
+    "cm-1_to_MHz": 29979.2458
+  },
+  "dettes": "vintage HH arrondi 6 chiffres (ecart ~3 MHz B_e calc vs B_e HH en cm-1, dette de vintage pas erreur) ; circularite contact Dunham (B0, D0, nu d'un meme ajustement) ; isotopes pris en masse standard (12C 16O dominants, dette isotopique)",
+  "protocole": "docs/SPEC-CO-ROT-PROTOCOLE.md (gel 2026-09-14, avant run)"
+}

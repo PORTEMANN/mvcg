@@ -1118,6 +1118,155 @@ def _hz_sne_v2_sh0es() -> tuple[float, dict]:
     return _hz_sne_v2(float(p["H0_courbe_SH0ES_km_s_Mpc"]), "SH0ES")
 
 
+def _co_rot_table() -> dict:
+    from mvcg.tables import load_table
+
+    return load_table("co_rot_NIST-HH.json")
+
+
+def _co_rot_abinitio() -> tuple[float, dict]:
+    """Contact SPEC CO rotationnel — rotor rigide a l'equilibre.
+
+    Règle déclarée AVANT le premier run (protocole SPEC-CO-ROT-
+    PROTOCOLE.md, gel 2026-09-14) : mu_loc = |B_e,calc - B0,obs| en
+    Hz, B_e,calc = hbar/(4 pi mu r_e^2), mu en kg (NIST JPCRD 53),
+    r_e déclaré Huber & Herzberg 1979 ; mu_ref = B0 mesuré NIST.
+    theta = 3000 Hz = u(B0) déclarée NIST, gelée avant run. GUM :
+    une ligne B (u(B0) déclarée), decide=theta, k=2. Table vintage :
+    NIST JPCRD 53 + HH1979 via RIOS (API interrogée 2026-09-14).
+    Estimation pré-run honnête : delta ~ 265 MHz ~ alpha_e/2 (zéro
+    vibratoire : B0 = B_e - alpha_e/2), delta/theta ~ 9e4 -> S- attendu
+    SANS suspense — leçon : le rotor rigide à l'équilibre ne prédit
+    pas le niveau v=0 ; l'écart s'appelle alpha_e (S- de dette, dans
+    l'esprit O1 grille -> O6). Dettes : vintage HH arrondi 6 chiffres ;
+    mu en masse standard (isotopes dominants).
+    """
+    p = _co_rot_table()["params"]
+    hbar = float(p["hbar_SI"])
+    u_kg = float(p["u_kg"])
+    mu = float(p["mu_u"]) * u_kg
+    re = float(p["re_A"]) * 1e-10
+    b_e = hbar / (4.0 * np.pi * mu * re**2)  # Hz
+    b0 = float(p["B0_MHz"]) * 1e6  # Hz
+    delta = abs(b_e - b0)
+    return delta, {
+        "table": "co_rot_NIST-HH.json",
+        "vintage": _co_rot_table()["vintage"],
+        "method": "B_e calcule (hbar/4 pi mu r_e^2, mu NIST, r_e HH) "
+                  "compare a B0 mesure NIST",
+        "rule": "|B_e,calc - B0,obs| = 0  (rotor rigide a l'equilibre = niveau v=0)",
+        "B_e_calc_Hz": float(b_e),
+        "B0_obs_Hz": float(b0),
+        "alpha_e_attendu_Hz": 0.0175 * float(p["cm-1_to_MHz"]) * 1e6 / 2.0,
+        "unit_raw": "Hz",
+    }
+
+
+def _co_rot_dunham() -> tuple[float, dict]:
+    """Contact SPEC CO rotationnel — coherence interne du catalogue.
+
+    Règle déclarée AVANT le premier run (protocole SPEC-CO-ROT-
+    PROTOCOLE.md, gel 2026-09-14) : mu_loc = |nu_pred - nu_obs| en
+    Hz, nu_pred = 2*B0 - 4*D0 (B0, D0 déclarés NIST) ; mu_ref =
+    nu(1-0) NIST. theta = 10000 Hz = u(nu) déclarée NIST, gelée avant
+    run. GUM : une ligne B (u(nu) déclarée), decide=theta, k=2.
+    Estimation pré-run honnête : nu_pred = 115271,20372 MHz,
+    delta ~ 280 Hz, delta/theta ~ 0,03 -> S+ attendu SANS suspense :
+    le catalogue est interne cohérent à ~3e-6 de son budget déclaré.
+    Dette écrite : circularité — B0, D0 et nu d'un même ajustement ;
+    ce contact calibre le transport de table, pas une prédiction
+    indépendante (contrairement au contact ab initio).
+    """
+    p = _co_rot_table()["params"]
+    nu_pred = (2.0 * float(p["B0_MHz"]) - 4.0 * float(p["D0_kHz"]) / 1000.0)
+    nu_obs = float(p["nu_10_MHz"])
+    delta = abs(nu_pred - nu_obs) * 1e6  # Hz
+    return delta, {
+        "table": "co_rot_NIST-HH.json",
+        "vintage": _co_rot_table()["vintage"],
+        "method": "nu_pred = 2*B0 - 4*D0 (NIST) compare a nu(1-0) NIST",
+        "rule": "2*B0 - 4*D0 = nu(1-0)  (coherence interne du catalogue)",
+        "nu_pred_MHz": float(nu_pred),
+        "nu_obs_MHz": float(nu_obs),
+        "unit_raw": "Hz",
+    }
+
+
+def _co13_rot_mu_rule() -> tuple[float, dict]:
+    """Contact SPEC CO isotopologue — règle de la masse réduite.
+
+    Règle déclarée AVANT le premier run (protocole SPEC-CO-ROT-
+    PROTOCOLE.md §3, gel 2026-09-14) : mu_loc = |B0_pred - B0'(mesure)|
+    en Hz, B0_pred = B0(12CO) * mu/mu' (règle de la masse réduite
+    appliquée telle quelle au niveau v=0) ; mu, mu', B0, B0' déclarés
+    NIST JPCRD 53. mu_ref = B0' mesuré. theta = 12000 Hz = u(B0')
+    déclarée NIST, gelée avant run. GUM : une ligne B (u(B0') déclarée),
+    decide=theta, k=2.
+    Estimation pré-run honnête : B0_pred ~ 55 096,7 MHz, delta ~ 4,3 MHz,
+    delta/theta ~ 360 -> S- attendu SANS suspense. La règle s'applique
+    rigoureusement à B_e, pas à B0 : l'écart nomme la correction
+    isotopique de la vibration-rotation (alpha_e non purement en 1/mu)
+    + effets au-delà de Born-Oppenheimer. Le suspense porte sur la
+    taille de l'écart, pas sur le mot. Dettes : mu'/B0' de la même
+    table NIST (validation croisée interne) ; alpha_e' non extrait.
+    """
+    p = _co_rot_table()["params"]
+    b_pred = float(p["B0_MHz"]) * float(p["mu_u"]) / float(p["mu13_u"])
+    b_obs = float(p["B0_13_MHz"])
+    delta = abs(b_pred - b_obs) * 1e6  # Hz
+    return delta, {
+        "table": "co_rot_NIST-HH.json",
+        "vintage": _co_rot_table()["vintage"],
+        "method": "B0'(13CO) predite par la regle de la masse reduite "
+                  "B0*mu/mu' comparee a B0' NIST",
+        "rule": "B0 * mu/mu' = B0'(mesure)  (regle de la masse reduite "
+                "au niveau v=0)",
+        "B0_pred_MHz": float(b_pred),
+        "B0_obs_13_MHz": float(b_obs),
+        "unit_raw": "Hz",
+    }
+
+
+def _co_rot_kratzer() -> tuple[float, dict]:
+    """Contact SPEC CO — relation de Kratzer (prediction croisee).
+
+    Règle déclarée AVANT le premier run (protocole SPEC-CO-ROT-
+    PROTOCOLE.md §4, gel 2026-09-14) : mu_loc = |D_e,calc - D0,obs|
+    en Hz, D_e = 4*B_e^3/omega_e^2 (relation de Kratzer pour
+    l'oscillateur de Morse). Entrees déclarées B_e et omega_e (Huber &
+    Herzberg 1979 via RIOS, indépendants de l'ajustement NIST de D0) ;
+    mu_ref = D0 mesuré NIST JPCRD 53. theta = 70 Hz = u(D0) déclarée
+    NIST, gelée avant run. GUM : une ligne B (u(D0) déclarée),
+    decide=theta, k=2.
+    Estimation pré-run honnête : D_e,calc ~ 6,120e-6 cm-1 ~ 183,6 kHz ;
+    delta ~ 70-80 Hz ; delta/theta ~ 1,0-1,1 — zone P [theta, 2theta]
+    au cheveu : SUSPENSE MAXIMAL, le mot est réellement inconnu (P, S+
+    et S- accessibles selon les arrondis H&H). Pendant du S- 13CO :
+    la regle mu echoue a 412 theta ; la relation anharmonique teste
+    si la physique tient au niveau 1e-4. Dettes : D_e (equilibre)
+    pesé contre D0 (v=0), ecart vibrationnel ~0,2 Hz << theta ;
+    arrondis H&H 6 chiffres propagent l'ecart attendu ; Kratzer exact
+    pour Morse seulement.
+    """
+    p = _co_rot_table()["params"]
+    be = float(p["Be_cm-1"])
+    we = float(p["omega_e_cm-1"])
+    d_e_cm = 4.0 * be**3 / we**2
+    d_calc = d_e_cm * float(p["cm-1_to_MHz"]) * 1e6  # Hz
+    d_obs = float(p["D0_kHz"]) * 1e3  # Hz
+    delta = abs(d_calc - d_obs)
+    return delta, {
+        "table": "co_rot_NIST-HH.json",
+        "vintage": _co_rot_table()["vintage"],
+        "method": "D_e = 4*B_e^3/omega_e^2 (Kratzer, entrees H&H) "
+                  "compare a D0 mesure NIST",
+        "rule": "4*B_e^3/omega_e^2 = D0  (relation de Kratzer)",
+        "D_e_calc_Hz": float(d_calc),
+        "D0_obs_Hz": float(d_obs),
+        "unit_raw": "Hz",
+    }
+
+
 def _amu_delta() -> tuple[float, dict]:
     """Contact ouvert AMU — l'écart g-2 porté, en unités de son incertitude.
 
@@ -1379,6 +1528,10 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "hz_sne_lit_planck": _hz_sne_lit_planck,
     "hz_sne_v2_planck": _hz_sne_v2_planck,
     "hz_sne_v2_sh0es": _hz_sne_v2_sh0es,
+    "co_rot_abinitio": _co_rot_abinitio,
+    "co_rot_dunham": _co_rot_dunham,
+    "co13_rot_mu_rule": _co13_rot_mu_rule,
+    "co_rot_kratzer": _co_rot_kratzer,
     "karplus_helix": _karplus_helix,
     "karplus_sheet": _karplus_sheet,
     "ckm_row1": _ckm_row1,
@@ -1682,6 +1835,38 @@ CONTACTS: list[Contact] = [
         "ouverte", None, "H0",
     ),
     Contact(
+        "SPEC_CO_Rot_AbInitio", "meso", "pred", "si", "Hz", "abs", 3000.0,
+        0.0, "r_e<-autre-mesure-geometrie", "—",
+        "|B_e calcule (hbar/4 pi mu r_e^2) - B0 mesure NIST| = 0  (rotor rigide a l'equilibre = niveau v=0)",
+        "contact SPEC rotationnel 2026-09-14 : CO X1Sigma+, r_e H&H 1979, mu NIST JPCRD 53 ; theta=3000 Hz = u(B0) gele avant run ; est. pre-run : delta ~ 265 MHz ~ alpha_e/2 (zero vibratoire), S- attendu SANS suspense — lecon : le rotor rigide a l'equilibre ne predit pas le niveau v=0 ; protocole SPEC-CO-ROT-PROTOCOLE.md",
+        "co_rot_abinitio",
+        "ouverte", None, "SPEC",
+    ),
+    Contact(
+        "SPEC_CO_Rot_Dunham", "meso", "pred", "si", "Hz", "abs", 10000.0,
+        0.0, "B0_D0<-autre-ajustement", "voir SPEC_CO_Rot_AbInitio",
+        "2*B0 - 4*D0 (NIST) = nu(1-0) NIST  (coherence interne du catalogue)",
+        "contact SPEC rotationnel 2026-09-14 : transport de table 2B0-4D0 vs nu mesure ; theta=10000 Hz = u(nu) gele avant run ; est. pre-run : delta ~ 280 Hz, delta/theta ~ 0,03 -> S+ attendu SANS suspense ; dette circularite ecrite (meme ajustement) — calibre le transport, pas une prediction independante",
+        "co_rot_dunham",
+        "ouverte", None, "SPEC",
+    ),
+    Contact(
+        "SPEC_CO13_Rot_MuRule", "meso", "pred", "si", "Hz", "abs", 12000.0,
+        0.0, "mu_prime<-autre-isotopologue", "voir SPEC_CO_Rot_Dunham",
+        "B0(12CO) * mu/mu' = B0'(13CO, mesure NIST)  (regle de la masse reduite au niveau v=0)",
+        "contact SPEC isotopologue 2026-09-14 (protocole §3, declare avant run) : regle mu/mu' appliquee telle quelle a B0 ; theta=12000 Hz = u(B0') gele avant run ; est. pre-run : delta ~ 4,3 MHz, delta/theta ~ 360 -> S- attendu SANS suspense ; l'ecart nomme la correction isotopique vibration-rotation (alpha_e non purement 1/mu) + au-dela de Born-Oppenheimer ; le suspense porte sur la taille de l'ecart, pas sur le mot",
+        "co13_rot_mu_rule",
+        "ouverte", None, "SPEC",
+    ),
+    Contact(
+        "SPEC_CO_Rot_Kratzer", "meso", "pred", "si", "Hz", "abs", 70.0,
+        0.0, "B_e_omega_e<-autre-table-anharmonicite", "voir SPEC_CO13_Rot_MuRule",
+        "4*B_e^3/omega_e^2 (Kratzer, entrees H&H) = D0 (mesure NIST)  (distorsion centrifuge ab initio)",
+        "contact SPEC Kratzer 2026-09-14 (protocole §4, declare avant run) : prediction croisee — B_e et omega_e H&H independants de l'ajustement NIST de D0 ; theta=70 Hz = u(D0) gele avant run ; est. pre-run : delta ~ 70-80 Hz, delta/theta ~ 1,0-1,1 -> zone P AU CHEVEU, SUSPENSE MAXIMAL (P, S+ et S- accessibles selon les arrondis H&H) ; dettes : D_e vs D0 (ecart vibrationnel ~0,2 Hz), vintage H&H, Kratzer=Morse",
+        "co_rot_kratzer",
+        "ouverte", None, "SPEC",
+    ),
+    Contact(
         "NMR_Karplus_Helix", "micro", "pred", "si", "Hz", "rel", 0.10,
         4.0, "coefficients<-autre-parametrisation", "—",
         "3J(HN,Ha) helice par loi de Karplus (coefficients gelés) = ordre de grandeur typique declare",
@@ -1834,6 +2019,33 @@ _GUM["H0_Hz_SNe_LOWZ_V2_SH0ES"] = {
     "lines": [{"name": "bins_SNe_Pantheon", "type": "B", "u": 0.027737,
                "note": "mag, incertitudes declarees MU_SH0ES_ERR_DIAG/rac(N), "
                        "calibration commune NON reduite (dette)"}],
+}
+_GUM["SPEC_CO_Rot_AbInitio"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "B0_NIST", "type": "B", "u": 3000.0,
+               "note": "Hz, u(B0) declaree NIST JPCRD 53"}],
+}
+_GUM["SPEC_CO_Rot_Dunham"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "nu_NIST", "type": "B", "u": 10000.0,
+               "note": "Hz, u(nu 1-0) declaree NIST JPCRD 53, "
+                       "circularite B0/D0/nu ecrite (dette)"}],
+}
+_GUM["SPEC_CO13_Rot_MuRule"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "B0p_NIST", "type": "B", "u": 12000.0,
+               "note": "Hz, u(B0' 13CO) declaree NIST JPCRD 53, "
+                       "meme table (validation croisee interne, dette)"}],
+}
+_GUM["SPEC_CO_Rot_Kratzer"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "D0_NIST", "type": "B", "u": 70.0,
+               "note": "Hz, u(D0) declaree NIST JPCRD 53 ; entrees H&H "
+                       "arrondies 6 chiffres, suspense au cheveu (dette)"}],
 }
 _GUM["AMU_exp_minus_WP20"] = {
     "decide": "U",
