@@ -38,7 +38,7 @@ _FAMILY_RULES = [
     ("Dirac", "unités"), ("F22", "unités"), ("F30", "unités"),
     ("Karplus", "NMR"), ("CKM", "CKM"), ("HVP", "g-2"), ("HLbL", "g-2"),
     ("Landau", "hyperfluidité"), ("Bertsch", "hyperfluidité"),
-    ("KSS", "hyperfluidité"),
+    ("KSS", "hyperfluidité"), ("SPEC", "spectro"),
 ]
 
 
