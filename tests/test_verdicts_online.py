@@ -26,14 +26,20 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 56)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14)
+        self.assertEqual(idx["n"], 57)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 12)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
+        # 2026-09-14 : Rydberg voie 2 rejoint la fibre — R_∞ calculee
+        # depuis alpha et me*c^2 (CODATA 2018 declares), S+ a 0,017 U :
+        # certification pesee de la coherence interne du catalogue
+        # (circularite declaree, pendant du Dunham) ; la fibre eV a sa
+        # case de reference pour les contacts qui la citent.
+        self.assertEqual(by[("si", "eV")]["counts"],
+                         {"S+": 4, "P": 0, "S-": 3})
+        self.assertIn("H1s_Rydberg_Voie2", by[("si", "eV")]["ids"])
         self.assertEqual(by[("1", "cm^-1")]["counts"],
                          {"S+": 4, "P": 2, "S-": 0})
-        self.assertEqual(by[("si", "eV")]["counts"],
-                         {"S+": 3, "P": 0, "S-": 3})
         self.assertEqual(by[("si", "J m^-3 K^-2")]["counts"],
                          {"S+": 1, "P": 0, "S-": 1})
         # La paire NMR : même loi de Karplus, deux conformations —

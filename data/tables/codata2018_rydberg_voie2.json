@@ -1,0 +1,18 @@
+{
+  "id": "codata2018_rydberg_voie2",
+  "vintage": "CODATA-2018-voie2",
+  "source": "extrait declare — pas un fetch NIST live ; alpha et me*c^2 CODATA 2018 (u_rel 1.5e-10 et 3.0e-10, verifiees NIST/PKG), rydberg_eV repris du tableau codata2018_extract",
+  "dimension": "eV",
+  "packet": "si",
+  "constants": {
+    "alpha": 7.2973525693e-3,
+    "u_alpha": 1.1e-12,
+    "me_c2_J": 8.1871057769e-14,
+    "u_me_c2_J": 2.5e-23,
+    "e_C": 1.602176634e-19,
+    "rydberg_eV": 13.605693122994,
+    "u_rydberg_eV": 2.6e-11,
+    "u_delta_ecart_eV": 5.838364428925748e-9
+  },
+  "note": "R_∞ (eV) = alpha^2 * me*c^2 / (2 e). e exacte (SI). me*c^2 = 8.1871057769(25)e-14 J, u_rel 3.0e-10 (CODATA 2018, verifie). DETTE DE CIRCULARITE DECLAREE : alpha, me*c^2 et rydberg_eV participent du MEME ajustement CODATA-2018 — ce contact mesure la coherence interne du catalogue, exactement comme le contact SPEC_CO_Rot_Dunham (S+ a 0,028 theta, dette ecrite). Il ne mesure pas une prediction independante. Suspense annonce nul au gel ; la valeur du contact est la certification de la fibre eV."
+}

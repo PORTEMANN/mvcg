@@ -1409,6 +1409,48 @@ def _amu_delta() -> tuple[float, dict]:
     }
 
 
+def _rydberg_voie2() -> tuple[float, dict]:
+    """Contact ouvert Rydberg voie 2 — R∞ depuis alpha et me*c^2.
+
+    Règle déclarée AVANT le premier run (protocole
+    RYDBERG-VOIE2-CONTACT-OUVERT.md, gel 2026-09-14, campagne
+    croisee) : mu_loc = R_∞ en eV CALCULE : R_∞ = alpha^2 me*c^2 / (2e),
+    alpha = 7.2973525693(11)e-3 et me*c^2 = 8.1871057769(25)e-14 J
+    (CODATA 2018, incertitudes declarees dans la table), e exacte (SI).
+    mu_ref = Rydberg_eV declare du meme tableau. GUM : decide=U, k=1,
+    theta = u_delta = 5.838364428925748e-9 eV (quadrature de
+    l'incertitude propagee — 2*u_alpha/alpha et u_me/me dominant,
+    u_rel ~ 4.3e-10 — et de l'incertitude declaree de la reference,
+    portee par la table). DETTE DE CIRCULARITE DECLAREE : alpha,
+    me*c^2 et Rydberg_eV participent du MEME ajustement CODATA-2018 —
+    ce contact mesure la coherence interne du catalogue, exactement
+    comme SPEC_CO_Rot_Dunham ; il ne mesure pas une prediction
+    independante. Suspense annonce nul au gel (estimation S+ a ~0.02 U)
+    : c'est un contact de certification de la fibre eV, pas de suspense.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("codata2018_rydberg_voie2.json")
+    c = t["constants"]
+    alpha = float(c["alpha"])
+    me_c2 = float(c["me_c2_J"])
+    e = float(c["e_C"])
+    e_calc = alpha**2 * me_c2 / (2.0 * e)
+    return e_calc, {
+        "table": "codata2018_rydberg_voie2.json",
+        "vintage": t["vintage"],
+        "method": "R_∞ = alpha^2 me*c^2 / (2e), constantes declarees",
+        "rule": "R_∞ calculee vs Rydberg_eV declare, identite attendue",
+        "alpha": alpha,
+        "me_c2_J": me_c2,
+        "rydberg_ref_eV": float(c["rydberg_eV"]),
+        "u_delta_eV": float(c["u_delta_ecart_eV"]),
+        "ansatz": "coherence interne CODATA-2018 (circularite declaree, pendant du Dunham)",
+        "lever": "spectro<-H1s_Rydberg (1re voie, contact separe)",
+        "unit_raw": "eV",
+    }
+
+
 def _hvp_pipi_cmd3() -> tuple[float, dict]:
     """Contact ouvert HVP pi pi — CMD-3 vs moyenne pre-CMD-3, l'ecart porte.
 
@@ -1685,6 +1727,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "karplus_sheet": _karplus_sheet,
     "karplus_helix_vogelibax2007": _karplus_helix_vogelibax2007,
     "karplus_sheet_vogelibax2007": _karplus_sheet_vogelibax2007,
+    "rydberg_voie2": _rydberg_voie2,
     "ckm_row1": _ckm_row1,
     "amu_wp20": _amu_wp20,
     "hvp_lo_lat_ee": _hvp_lo_lat_ee,
@@ -1711,6 +1754,15 @@ CONTACTS: list[Contact] = [
         "même S, R arrondi",
         "levier vintage : doit casser un θ trop serré",
         "h1s_vintage",
+    ),
+    Contact(
+        "H1s_Rydberg_Voie2", "micro", "pred", "si", "eV", "abs",
+        5.838364428925748e-9,
+        13.605693122994, "spectro<-H1s_Rydberg (1re voie)", "voir H1s_Rydberg",
+        "R_∞ calculee (alpha^2 me*c^2 / 2e) = Rydberg_eV declare (coherence CODATA-2018)",
+        "contact ouvert campagne croisee : seconde voie vers R_∞, decide=U k=1, theta=u_delta=5.838e-9 eV (propagation alpha x2 et me*c^2) ; dette de circularite declaree — meme ajustement CODATA, pendant du Dunham ; S+ annonce a ~0.02 U, suspense nul : certification de la fibre eV, pas de suspense",
+        "rydberg_voie2",
+        "ouverte", None, "",
     ),
     Contact(
         "P20_H2plus_LCAO", "micro", "pred", "si", "eV", "rel", 0.05,
@@ -2255,6 +2307,15 @@ _GUM["HVP_Pipi_CMD3_vs_PreAvg"] = {
     "lines": [
         {"name": "CMD3_2pi", "type": "B", "u": 42.0},
         {"name": "premoy_2pi", "type": "B", "u": 34.0},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["H1s_Rydberg_Voie2"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "R_inf_calc", "type": "B", "u": 5.838306535712686e-9},
+        {"name": "R_inf_declaree", "type": "B", "u": 2.6e-11},
     ],
     "R": [[1.0, 0.0], [0.0, 1.0]],
 }
