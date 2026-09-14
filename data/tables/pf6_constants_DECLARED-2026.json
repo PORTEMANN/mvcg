@@ -1,0 +1,17 @@
+{
+  "id": "pf6_constants",
+  "vintage": "DECLARED-2026",
+  "source": "constantes déclarées par la machine pour le chantier PSY-RMN (2026-09-14) : masse de l'électron et charge élémentaire, CODATA 2018 ; le gel CODATA local de la machine (codata2018_extract.json) ne porte pas m_e",
+  "doi_or_ref": "CODATA 2018 (2019 adjustment) : m_e = 9,1093837015e-31 kg (u_rel 1,3e-10) ; e = 1,602176634e-19 C (exacte, définition SI 2019) ; c = 299792458 m/s (exacte) — c est relue dans le gel CODATA local, cohérent",
+  "species": "constantes",
+  "quantity": "m_e et e pour le runner pf6_rmn_deltab",
+  "dimension": "1",
+  "packet": "1",
+  "value": 1.0,
+  "params": {
+    "me_kg": 9.1093837015e-31,
+    "e_C": 1.602176634e-19,
+    "note": "table de déclaration locale, à la manière de pf_vide_inputs_DECLARED-2026 ; figer ces valeurs ; changer = autre D"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

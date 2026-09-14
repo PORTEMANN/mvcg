@@ -1,0 +1,16 @@
+{
+  "id": "pf6_ceth",
+  "vintage": "LITTERATURE-2025",
+  "source": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (III)', 28/07/2025 — déclaration textuelle de la vitesse noétique (pas d'équation en jeu)",
+  "doi_or_ref": "volet III, 28/07/2025, section 'Onde cérébrale et résonances noétiques' : 'c_N = 10^9 c la vitesse noétique qui explique la synchronisation neuronale instantanée (observée en EEG à 40 Hz)' ; le volet V (22/10/2025) critique cette même vitesse comme 'solution ad hoc et problématique'",
+  "species": "vitesse noétique",
+  "quantity": "c_N / c, ratio déclaré — utilisé par PF6_RMN_DeltaB sous l'identification c_éth ≡ c_N déclarée dans le protocole gelé",
+  "dimension": "1",
+  "packet": "1",
+  "value": 1000000000.0,
+  "params": {
+    "c_N_over_c": 1000000000.0,
+    "note": "unique vitesse noétique chiffrée du corpus (volets I-V) ; la critique du volet V est une information du corpus, pas une correction"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

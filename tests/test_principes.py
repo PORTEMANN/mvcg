@@ -20,6 +20,8 @@ from mvcg.principes import (  # noqa: E402
     pf2_graviton_ev,
     pf3_tau5_recompute,
     pf4_vide_log_ratio,
+    pf5_psy_energie,
+    pf6_rmn_deltab,
 )
 from mvcg.registers import CONTACTS, run_contact  # noqa: E402
 
@@ -60,6 +62,27 @@ class TestPrincipesCalculs(unittest.TestCase):
         self.assertIsNotNone(g)
         self.assertGreater((max(g) - min(g)) / (sum(g) / 4.0), 0.20)
 
+    def test_pf5_psy_energie(self):
+        mu, extra = pf5_psy_energie()
+        # 500 psy * 1,054e-34 / 1 s = 5,27e-32 J, loin des 5,25e-31 annonces
+        self.assertAlmostEqual(mu, 5.27e-32, delta=1e-35)
+        self.assertAlmostEqual(
+            extra["hbar_N_implicite_du_texte_Js"], 1.05e-33, delta=1e-37
+        )
+
+    def test_pf6_rmn_deltab(self):
+        mu, extra = pf6_rmn_deltab()
+        # recompute sous c_éth = 1e9 c : ~4,19e32 T, loin des 5e-4 T
+        self.assertAlmostEqual(mu, 4.186266511885707e32, delta=1e28)
+        # c_éth requis pour tenir la revendication : ~3,58e-19 m/s
+        self.assertAlmostEqual(
+            extra["ceth_requis_m_s"], 3.5806661753238235e-19, delta=1e-23
+        )
+        # memoire : si c_éth = c, ΔB = ~4,19e23 T
+        self.assertAlmostEqual(
+            extra["DeltaB_si_ceth_eq_c_T"], 4.186266511885707e23, delta=1e19
+        )
+
 
 class TestPrincipesContacts(unittest.TestCase):
     """Mots figes du chantier (premier run 2026-09-14)."""
@@ -70,6 +93,8 @@ class TestPrincipesContacts(unittest.TestCase):
             "PF2_Graviton_25THz": ("S+", 0.103392, 1e-6),
             "PF3_Tau5_Jeu": ("S+", 5.93683, 1e-5),
             "PF4_Vide_Catastrophe": ("S+", 122.945, 1e-3),
+            "PF5_Psy_Energie": ("S-", 5.27e-32, 1e-35),
+            "PF6_RMN_DeltaB": ("S-", 4.186266511885707e32, 1e28),
         }
         for cid, (mot, mu, tol) in attendus.items():
             r = _contact(cid)
@@ -81,6 +106,14 @@ class TestPrincipesContacts(unittest.TestCase):
         r = _contact("PF1_RG_Unification")
         self.assertEqual(r["expected"], "S-")
         self.assertFalse(r["b3_fail"])
+
+    def test_pf5_pf6_attendus_s_moins_tenus(self):
+        # chantier PSY-RMN : deux S- attendus (dettes internes au corpus),
+        # les deux sont tenus par le run
+        for cid in ("PF5_Psy_Energie", "PF6_RMN_DeltaB"):
+            r = _contact(cid)
+            self.assertEqual(r["expected"], "S-", cid)
+            self.assertEqual(r["verdict"], "S-", cid)
 
 
 if __name__ == "__main__":

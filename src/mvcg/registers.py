@@ -45,6 +45,12 @@ class Contact:
     caliber: str = ""
     tare_note: str = ""
     chain: list | None = None
+    # 2026-09-14 (chantier PSY-RMN) : dictionnaire d'unités déclaré du
+    # contact — obligatoire pour un paquet « si » portant une grandeur EM
+    # (garde-fou parse_units : SI + EM exige epsilon0/mu0 declares).
+    # PF6_RMN_DeltaB est le premier contact (si, T) ; sans ce champ le
+    # home check tuait le contact que le balayage accepte (SI_VACUUM).
+    u_doc: dict | None = None
 
 
 def _h1s_rydberg() -> tuple[float, dict]:
@@ -2072,6 +2078,18 @@ def _pf4_vide_log_ratio() -> tuple[float, dict]:
     return pf4_vide_log_ratio()
 
 
+def _pf5_psy_energie() -> tuple[float, dict]:
+    from mvcg.principes import pf5_psy_energie
+
+    return pf5_psy_energie()
+
+
+def _pf6_rmn_deltab() -> tuple[float, dict]:
+    from mvcg.principes import pf6_rmn_deltab
+
+    return pf6_rmn_deltab()
+
+
 RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "h1s_rydberg": _h1s_rydberg,
     "h1s_vintage": _h1s_rydberg_vintage_off,
@@ -2147,6 +2165,8 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "pf2_graviton_ev": _pf2_graviton_ev,
     "pf3_tau5_recompute": _pf3_tau5_recompute,
     "pf4_vide_log_ratio": _pf4_vide_log_ratio,
+    "pf5_psy_energie": _pf5_psy_energie,
+    "pf6_rmn_deltab": _pf6_rmn_deltab,
 }
 
 CONTACTS: list[Contact] = [
@@ -2784,6 +2804,28 @@ CONTACTS: list[Contact] = [
         "pf4_vide_log_ratio",
         "ouverte", "S+", "PRINCIPES",
     ),
+    Contact(
+        "PF5_Psy_Energie", "micro", "pred", "si", "J", "rel", 0.10,
+        5.25e-31, "E<-hbar_N (I)", "—",
+        "E_noét = N_psy·ħ_N/Δt recomputee (image-95) : 500 psy pendant 1 s avec ħ_N = 1,054e-34 J.s (image-94) vs 5,25e-31 J annonces dans le texte (volet I)",
+        "chantier PSY-RMN : la machine pese la coherence interne du volet I — l'equation-image donne 1,054e-34, l'exemple-texte est coherent avec 1,054e-33 ; ecart structurel d'un facteur 10 entre les deux, attendu S- ; transcription des images gelée dans les tables, protocole CHANTIER-PSY-RMN-PROTOCOLE.md",
+        "pf5_psy_energie",
+        "ouverte", "S-", "PRINCIPES",
+    ),
+    Contact(
+        "PF6_RMN_DeltaB", "micro", "pred", "si", "T", "rel", 0.10,
+        0.0005, "Delta(B)<-ANU (I)", "—",
+        "ΔB = (m_e c/(g e))·(c_éth k/√(a²+b²)) recomputee (formule transcrite image-61, paramètres image-63 : a=1,5e-18 m, b=0,7a, k=3, g=2) avec c_éth = c_N = 1e9 c (volet III) vs 0,5 mT revendique pour k=3 (volet I)",
+        "chantier PSY-RMN : le verdict pese la recomputableite de la prediction sous les declarations du corpus (identification c_éth = c_N declaree dans le protocole gele), pas la physique des ANU ; attendu S- ; extra : c_éth requis pour 0,5 mT et ΔB si c_éth = c",
+        "pf6_rmn_deltab",
+        "ouverte", "S-", "PRINCIPES",
+        u_doc={
+            "packet": "si",
+            "vintage": "registre",
+            "epsilon0": 8.8541878128e-12,
+            "mu0": 1.25663706212e-6,
+        },
+    ),
 ]
 
 # GUM — lignes B de table seulement. Pas d'u_B « erreur de modèle ».
@@ -3119,7 +3161,7 @@ def run_contact(c: Contact) -> dict[str, Any]:
     units_kill = None
     try:
         U = parse_units(
-            {"packet": c.packet, "vintage": "registre"},
+            c.u_doc or {"packet": c.packet, "vintage": "registre"},
             dimension=c.dimension,
         )
         packet = U.packet

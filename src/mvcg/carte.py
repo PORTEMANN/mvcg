@@ -163,10 +163,20 @@ def carte_principale(path: Path) -> dict[str, Any]:
     ax.text(1.6e-5, 1.35, "zone P", color="#8a6d0b", fontsize=8)
     ax.text(1.6e-5, 2.6, "zone S-", color="#b22222", fontsize=8)
 
+    # 2026-09-14 (chantier PSY-RMN) : borne d'affichage declaree — les
+    # ordonnees sont clippees a Y_MAX = 5e2 (le haut des bandes de la
+    # regle). PF6 porte un delta/theta ~ 8,4e36 qui ecraserait l'echelle
+    # log ; un point au-dela est trace sur la ligne du bord, sa valeur
+    # exacte reste dans le registre et les fibres. La borne touche
+    # l'affichage, jamais le verdict ni le delta (voir test_carte_position,
+    # inchange : la position dans la zone est bornee [0,1] depuis le gel
+    # SERRAGE).
+    Y_MAX = 5e2
+
     for r in rows:
         x, y = r["theta"], r["delta"] / r["theta"]
         ax.scatter(
-            x, y,
+            x, min(y, Y_MAX),
             marker=MARKERS.get(r["register"], "o"),
             c=COLORS[r["verdict"]],
             alpha=0.35 + 0.65 * _position_zone(r),
@@ -181,6 +191,8 @@ def carte_principale(path: Path) -> dict[str, Any]:
                 label, (x, y), textcoords="offset points", xytext=(7, 5),
                 fontsize=7, color="#333333",
             )
+
+    ax.set_ylim(0.05, Y_MAX)
 
     ax.set_xscale("log")
     ax.set_yscale("log")

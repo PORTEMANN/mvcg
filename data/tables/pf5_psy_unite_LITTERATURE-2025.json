@@ -1,0 +1,19 @@
+{
+  "id": "pf5_psy_unite",
+  "vintage": "LITTERATURE-2025",
+  "source": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (I)', 17/06/2025 — transcription image-94 (unite psy : 1 psy = hbar_N = 1,054e-34 J.s) et image-95 (conversion E_noet = N_psy*hbar_N/delta_t) ; affirmation texte : exemple 500 psy pendant 1 s libere 5,25e-31 J",
+  "doi_or_ref": "volet I, 17/06/2025, section 'Energie noologique : le concept de kilopsy' : '1 psy = hbar_N ; hbar_N = (1,054 x 10^-34) J.s (constante noetique)' (image-94) ; 'E_noet [J] = N_psy . hbar_N / delta_t' (image-95) ; 'Exemple : une intention de 500 psy durant 1 seconde libere 5,25.10^-31 J'",
+  "species": "unite psy (action noetique)",
+  "quantity": "E_noet recomputee de l'exemple publie (500 psy, 1 s) avec la constante de l'equation-image, comparee a l'energie annoncee dans le texte",
+  "dimension": "J",
+  "packet": "si",
+  "value": 5.25e-31,
+  "params": {
+    "hbar_N_Js": 1.054e-34,
+    "N_psy_exemple": 500.0,
+    "delta_t_s": 1.0,
+    "E_annoncee_J": 5.25e-31,
+    "note": "coherence interne volet I : l'equation-image donne hbar_N = 1,054e-34 J.s, l'exemple-texte 5,25e-31 J pour 500 psy sur 1 s (coherent avec 1,054e-33) — ecart structurel d'un facteur 10 entre image et texte, c'est lui que la machine pese"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

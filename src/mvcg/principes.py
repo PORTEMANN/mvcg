@@ -135,3 +135,71 @@ def pf4_vide_log_ratio() -> tuple[float, dict[str, Any]]:
         "ref": t_pf4["value"],
         "note": "exposant recompute vs 122 revendique",
     }
+
+
+def pf5_psy_energie() -> tuple[float, dict[str, Any]]:
+    """Recompute de l'exemple psy : E = N_psy * hbar_N / delta_t.
+
+    Coherence interne du volet I : l'equation-image donne
+    hbar_N = 1,054e-34 J.s, l'exemple-texte 5,25e-31 J pour 500 psy
+    sur 1 s (coherent avec 1,054e-33). La machine pese l'ecart
+    structurel d'un facteur 10 entre image et texte, pas la physique.
+    """
+    t5 = load_table("pf5_psy_unite_LITTERATURE-2025.json")
+    p = t5["params"]
+    e = float(p["N_psy_exemple"]) * float(p["hbar_N_Js"]) / float(p["delta_t_s"])
+    return float(e), {
+        "table": t5["vintage"],
+        "table_sha256": t5["_sha256"],
+        "hbar_N_Js": float(p["hbar_N_Js"]),
+        "N_psy": float(p["N_psy_exemple"]),
+        "delta_t_s": float(p["delta_t_s"]),
+        "E_recompute_J": e,
+        "hbar_N_implicite_du_texte_Js": (
+            float(p["E_annoncee_J"]) * float(p["delta_t_s"]) / float(p["N_psy_exemple"])
+        ),
+        "ref": t5["value"],
+        "note": "E recomputee avec la constante de l'equation-image vs energie annoncee du texte",
+    }
+
+
+def pf6_rmn_deltab() -> tuple[float, dict[str, Any]]:
+    """Delta(B) RMN recompute depuis la formule transcrite (image-61).
+
+    dB = (m_e c / (g e)) * (c_éth k / sqrt(a^2 + b^2)) avec c_éth = c_N
+    = 1e9 c (volet III) sous l'identification declaree dans le protocole
+    gele CHANTIER-PSY-RMN-PROTOCOLE.md. m_e et e gelés DECLARED-2026.
+    """
+    t6 = load_table("pf6_rmn_deltab_LITTERATURE-2025.json")
+    tc = load_table("pf6_ceth_LITTERATURE-2025.json")
+    tk = load_table("pf6_constants_DECLARED-2026.json")
+    tcodata = load_table("codata2018_extract.json")
+    p = t6["params"]
+    c = float(tcodata["constants"]["c_ms"])
+    me = float(tk["params"]["me_kg"])
+    e = float(tk["params"]["e_C"])
+    a = float(p["a_m"])
+    b = float(p["b_over_a"]) * a
+    k = float(p["k"])
+    g = float(p["g_Lande"])
+    geo = math.sqrt(a * a + b * b)
+    ceth = float(tc["params"]["c_N_over_c"]) * c
+    pref = me * c / (g * e)
+    dB = pref * (ceth * k / geo)
+    ceth_requis = float(t6["value"]) * g * e * geo / (me * c * k)
+    dB_si_ceth_c = pref * (c * k / geo)
+    return float(dB), {
+        "table": t6["vintage"],
+        "table_sha256": t6["_sha256"],
+        "a_m": a,
+        "b_m": b,
+        "k": k,
+        "g_Lande": g,
+        "geo_m": geo,
+        "ceth_m_s": ceth,
+        "DeltaB_T": dB,
+        "ceth_requis_m_s": ceth_requis,
+        "DeltaB_si_ceth_eq_c_T": dB_si_ceth_c,
+        "ref": t6["value"],
+        "note": "prediction RMN recomputee sous l'identification declaree c_éth = c_N = 1e9 c",
+    }

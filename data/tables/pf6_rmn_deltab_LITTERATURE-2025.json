@@ -1,0 +1,19 @@
+{
+  "id": "pf6_rmn_deltab",
+  "vintage": "LITTERATURE-2025",
+  "source": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (I)', 17/06/2025 — transcription image-61 (formule de prediction RMN) et image-63 (tableau des parametres ANU) ; revendication texte : pour k=3, Delta(B) = 0,5 mT environ, detectable en RMN haute resolution",
+  "doi_or_ref": "volet I, 17/06/2025, section 'Modélisation des résonances géométriques des ANU' : 'Delta(B) = (m_e c / (g e)) . (c_éth k / sqrt(a^2 + b^2))' (image-61) ; tableau (image-63) : a = 1,5e-18 m (rayon moyen), b = 0,7a (amplitude), k = 3 (base) ; texte : 'Ou g (=2 environ) est le facteur de Lande' ; 'Pour k=3, Delta(B) = 0,5 mT (environ)'",
+  "species": "ANU (atomes ultimes) — prediction RMN paramagnetique",
+  "quantity": "Delta(B) recomputee depuis la formule transcrite avec les parametres geles et c_éth = c_N = 1e9 c (volet III), comparee a la revendication 0,5 mT",
+  "dimension": "T",
+  "packet": "si",
+  "value": 0.0005,
+  "params": {
+    "a_m": 1.5e-18,
+    "b_over_a": 0.7,
+    "k": 3.0,
+    "g_Lande": 2.0,
+    "note": "la vitesse c_éth n'est pas chiffree dans le volet I ; identification declaree dans le protocole gele : c_éth (I) = c_N (III) = 1e9 c, unique vitesse noetique chiffree du corpus ; m_e et e gelés dans pf6_constants_DECLARED-2026"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
