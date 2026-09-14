@@ -22,7 +22,19 @@ bascule, `marge_adc`) est encodée — taille des pastilles sur la carte
 principale, case pâlie vers le blanc sur la carte d'identité. Les
 contacts sans budget GUM gardent taille/opacité neutres : la couche
 ne montre que ce qui est déclaré, jamais une épaisseur inventée.
-Encoding dérivé du registre au moment de l'exécution, comme le reste.
+
+Couche de position (chantier SERRAGE, campagnes 1-3, 2026-09-14) :
+l'opacité des pastilles encode la position dans la zone de verdict —
+pâle = collé à la frontière (verdict fragile), plein = profond dans la
+zone (verdict franc). Dérivée du même δ que les campagnes, sans les
+réimporter :
+    S+ : p = min(1, log2(θ/δ)/3)      (3 octaves de marge saturent)
+    P  : p = clip(log2(δ/θ), 0, 1)    (pos_bande, campagne 2)
+    S− : p = min(1, max(0, log2(δ/2θ))/2)
+                                      (pos_rouge linéarisé, campagne 3)
+Même sémantique de pâleur que la carte d'identité. La couleur du mot
+reste pleine dans le SVG (l'opacité est un attribut séparé) : le test
+de dérivation par comptage des couleurs est inchangé.
 
 Limite déclarée : un point ne montre pas sa fibre (unités) — la fibre
 est dans le classement figé, pas dans cette carte.
@@ -85,6 +97,26 @@ def _marge_sigma(r: dict[str, Any]) -> float | None:
     return marge_adc(float(r["delta"]), thr, r["verdict"]) / float(uc)
 
 
+def _position_zone(r: dict[str, Any]) -> float:
+    """Position dans la zone de verdict, p ∈ [0,1] — couche SERRAGE.
+
+    0 = collé à la frontière (verdict fragile), 1 = profond (franc).
+    Dérivée du δ du registre ; les campagnes 1-3 en sont la mesure
+    détaillée, cette fonction en est l'encodage cartographique.
+    """
+    delta, theta = float(r["delta"]), float(r["theta"])
+    if theta <= 0:
+        return 1.0
+    v = r["verdict"]
+    if v == "S+":
+        if delta <= 0:
+            return 1.0
+        return max(0.0, min(1.0, math.log2(theta / delta) / 3.0))
+    if v == "P":
+        return max(0.0, min(1.0, math.log2(delta / theta)))
+    return max(0.0, min(1.0, math.log2(delta / (2.0 * theta)) / 2.0))
+
+
 def _taille_pastille(marge_sig: float | None) -> float:
     """Carte principale : 30 + 70·log10(1+marge)/1, borné à 100.
 
@@ -137,6 +169,7 @@ def carte_principale(path: Path) -> dict[str, Any]:
             x, y,
             marker=MARKERS.get(r["register"], "o"),
             c=COLORS[r["verdict"]],
+            alpha=0.35 + 0.65 * _position_zone(r),
             s=_taille_pastille(_marge_sigma(r)), zorder=3,
             edgecolors="white", linewidths=0.6,
         )
@@ -156,7 +189,8 @@ def carte_principale(path: Path) -> dict[str, Any]:
     ax.set_title(
         f"MVC-G — {len(rows)} verdicts : chaque point est une pesée, les bandes sont la règle\n"
         "○ micro  △ meso  □ macro — vert S+  ambre P  rouge S− — "
-        "pastille fine = verdict mince (marge en σ, budget GUM déclaré)"
+        "pastille fine = verdict mince (marge en σ, budget GUM) — "
+        "pastille pâle = collé à la frontière (position dans la zone)"
     )
     ax.set_xlim(1e-5, 1e3)
     ax.set_ylim(0.05, 5e2)
