@@ -784,6 +784,95 @@ def _o18_h2_tare_lecture() -> tuple[float, dict]:
     }
 
 
+def _p31_lamb_dirac() -> tuple[float, dict]:
+    """Contact ouvert P31 — Lamb : Dirac seul predit la degenerescence.
+
+    Règle déclarée AVANT le premier run : Dirac (equation relativiste a
+    un electron dans le champ Coulombien du proton) place 2S1/2 et 2P1/2
+    degenerees : le deplacement de Lamb predit est 0. Score normalise
+    (grammaire de P30_Kato_gaussian) : mu_loc = 0, mu_ref = 1 (la
+    mesure, normalisee). La mesure brute NE DOIT JAMAIS entrer dans le
+    calcul. Estimation pre-run honnete : delta = 1,0 -> S- a 20 theta,
+    SANS suspense — la machine quantifie la dette historique qui a fait
+    naitre la QED (Lamb-Retherford 1947).
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("lamb_shift_P31_LITERATURE-1981.json")
+    return 0.0, {
+        "table": "lamb_shift_P31_LITERATURE-1981.json",
+        "vintage": t["vintage"],
+        "method": "Dirac seul : degenerescence 2S1/2 = 2P1/2 (shift 0), score normalise",
+        "rule": "mu_loc = 0 (degenere) vs 1 (mesure normalisee)",
+        "ansatz": "Dirac 1928-1947, sans corrections radiatives",
+        "lever": "—",
+        "unit_raw": "1",
+    }
+
+
+def _p31_lamb_mohr() -> tuple[float, dict]:
+    """Contact ouvert P31 — Lamb : calcul QED Mohr (annees 1970) vs mesure.
+
+    Règle déclarée AVANT le premier run : mu_loc = 1057.864 MHz (calcul
+    QED Mohr declare, u = 0.014), mu_ref = 1057.845 MHz (mesure
+    Lundeen-Pipkin 1981 declaree, u = 0.009). La reference NE DOIT
+    JAMAIS entrer dans le calcul. theta = u_delta =
+    0.016643316977093238 MHz, decide=U, k=1 (convention GUM, precedents
+    Rydberg voie 2 / O17 / O18). Estimation pre-run honnete : delta ~
+    0.019 -> ratio ~ 1.14 -> P au cheveu de S+ annonce (bande P =
+    [theta, 2 theta], verifiee contre _adc). Suspense reel, mot inconnu
+    au gel : a l'epoque, mesure et calcul QED se disputaient a ~1 sigma.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("lamb_shift_P31_LITERATURE-1981.json")
+    p = t["params"]
+    mu = float(p["mohr_theory_MHz"])
+    return mu, {
+        "table": "lamb_shift_P31_LITERATURE-1981.json",
+        "vintage": t["vintage"],
+        "method": "calcul QED Mohr (annees 1970), valeur declaree",
+        "rule": "Lamb(QED Mohr) = Lamb(mesure Lundeen-Pipkin 1981)",
+        "mohr_theory_MHz": mu,
+        "lamb_measured_MHz": float(p["lamb_measured_MHz"]),
+        "ansatz": "QED ordre alpha (Bethe 1947 et suivants), vintage annees 1970",
+        "lever": "—",
+        "unit_raw": "MHz",
+    }
+
+
+def _p31_lamb_erickson() -> tuple[float, dict]:
+    """Contact ouvert P31 — Lamb : calcul QED Erickson (annees 1970) vs mesure.
+
+    Règle déclarée AVANT le premier run : mu_loc = 1057.912 MHz (calcul
+    QED Erickson declare, u = 0.011), mu_ref = 1057.845 MHz (mesure
+    Lundeen-Pipkin 1981 declaree, u = 0.009). La reference NE DOIT
+    JAMAIS entrer dans le calcul. theta = u_delta =
+    0.014212670403551895 MHz, decide=U, k=1. Estimation pre-run honnete
+    : delta ~ 0.067 -> ratio ~ 4.71 -> S- attendu, SANS suspense —
+    Lundeen & Pipkin ecrivaient eux-memes « not in good agreement with
+    theory » (PRL 46, 232, 1981). Deux calculs QED de la meme epoque,
+    deux verdicts attendus differents : la machine pese des declarations,
+    elle ne sacralise pas « la theorie ».
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("lamb_shift_P31_LITERATURE-1981.json")
+    p = t["params"]
+    mu = float(p["erickson_theory_MHz"])
+    return mu, {
+        "table": "lamb_shift_P31_LITERATURE-1981.json",
+        "vintage": t["vintage"],
+        "method": "calcul QED Erickson (annees 1970), valeur declaree",
+        "rule": "Lamb(QED Erickson) = Lamb(mesure Lundeen-Pipkin 1981)",
+        "erickson_theory_MHz": mu,
+        "lamb_measured_MHz": float(p["lamb_measured_MHz"]),
+        "ansatz": "QED ordre alpha, vintage annees 1970 (autre evaluation que Mohr)",
+        "lever": "—",
+        "unit_raw": "MHz",
+    }
+
+
 def _karplus_helix() -> tuple[float, dict]:
     """Contact ouvert NMR-Karplus hélice — ³J par la loi de Karplus.
 
@@ -1788,6 +1877,9 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o16_cu_gamma_eff": _o16_cu_gamma_eff,
     "o17_h2_anharmonic": _o17_h2_anharmonic,
     "o18_h2_tare_lecture": _o18_h2_tare_lecture,
+    "p31_lamb_dirac": _p31_lamb_dirac,
+    "p31_lamb_mohr": _p31_lamb_mohr,
+    "p31_lamb_erickson": _p31_lamb_erickson,
     "h0_ecart": _h0_ecart,
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
@@ -2083,6 +2175,32 @@ CONTACTS: list[Contact] = [
         "contact ouvert O18 : pendant disciplinaire d'O17 — meme transport, meme reference, meme delta ; seule la lecture de precision change (u = 2.8868 honnete vs 0.5 over-read), theta = u_delta = 2.887201644037585 cm^-1, decide=U k=1, gele avant run ; estimation pre-run : delta ~ 1.48, ratio ~ 0.5126, S+ attendu sans suspense (bande verifiee contre _adc) ; le verdict pese des declarations, pas des physiques",
         "o18_h2_tare_lecture",
         "ouverte", None, "O18",
+    ),
+    Contact(
+        "P31_Lamb_Dirac", "micro", "pred", "1", "1", "abs", 0.05,
+        1.0, "—", "—",
+        "degenerescence 2S1/2 = 2P1/2 predite par Dirac seul (shift normalise 0) vs deplacement de Lamb mesure (normalise 1)",
+        "contact ouvert P31 : dette historique — Dirac seul manque le Lamb shift de 100 % de l'effet ; grammaire P30_Kato_gaussian (score normalise, theta=0.05 fige avant run) ; S- attendu sans suspense : la machine quantifie la dette qui a fait naitre la QED (Lamb-Retherford 1947)",
+        "p31_lamb_dirac",
+        "ouverte", None, "P31",
+    ),
+    Contact(
+        "P31_Lamb_Mohr", "micro", "pred", "si", "MHz", "abs",
+        0.016643316977093238,
+        1057.845, "—", "—",
+        "Lamb(QED Mohr, annees 1970) = Lamb(mesure Lundeen-Pipkin 1981)",
+        "contact ouvert P31 : theta = u_delta = 0.016643316977093238 MHz, decide=U k=1, gele avant run ; estimation pre-run honnete : delta ~ 0.019, ratio ~ 1.14, P au cheveu de S+ annonce (bande [theta, 2 theta] verifiee contre _adc) ; suspense reel, mot inconnu au gel ; vintages distincts declares (mesure posterieure aux calculs)",
+        "p31_lamb_mohr",
+        "ouverte", None, "P31",
+    ),
+    Contact(
+        "P31_Lamb_Erickson", "micro", "pred", "si", "MHz", "abs",
+        0.014212670403551895,
+        1057.845, "—", "—",
+        "Lamb(QED Erickson, annees 1970) = Lamb(mesure Lundeen-Pipkin 1981)",
+        "contact ouvert P31 : theta = u_delta = 0.014212670403551895 MHz, decide=U k=1, gele avant run ; estimation pre-run honnete : delta ~ 0.067, ratio ~ 4.71, S- attendu sans suspense (Lundeen-Pipkin 1981 : « not in good agreement with theory ») ; meme mesure, autre calcul QED de la meme epoque : la machine tranche la ou les physiciens debattaient",
+        "p31_lamb_erickson",
+        "ouverte", None, "P31",
     ),
     Contact(
         "H0_Ecart_Planck_SH0ES", "macro", "pred", "1", "1", "abs", 0.05,
@@ -2446,6 +2564,24 @@ _GUM["O18_H2_Tare_Lecture"] = {
     "lines": [
         {"name": "nu_pred_Dunham", "type": "B", "u": 0.050990195135927854},
         {"name": "nu10_relue_honnete", "type": "B", "u": 2.886751345948129},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["P31_Lamb_Mohr"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "mohr_QED", "type": "B", "u": 0.014},
+        {"name": "lundeen_pipkin", "type": "B", "u": 0.009},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["P31_Lamb_Erickson"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "erickson_QED", "type": "B", "u": 0.011},
+        {"name": "lundeen_pipkin", "type": "B", "u": 0.009},
     ],
     "R": [[1.0, 0.0], [0.0, 1.0]],
 }

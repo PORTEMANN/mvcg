@@ -1,0 +1,21 @@
+{
+  "id": "lamb_shift_P31",
+  "vintage": "LITERATURE-1981",
+  "source": "deplacement de Lamb 2S1/2-2P1/2 de l'hydrogene : mesure directe Lundeen-Pipkin 1981, calculs QED des annees 1970 (Mohr, Erickson) — vintages distincts declares, la mesure est POSTERIEURE aux calculs",
+  "doi_or_ref": "Lundeen & Pipkin, Phys. Rev. Lett. 46, 232 (1981) : 1057.845(9) MHz (mesure fast-atomic-beam, n=2) ; Mohr, calc. QED declare via Andrews et al. 1976 (INIS 3Z2FW-YY924 ; INSPIRE 116132) : 1057.864(14) MHz ; Erickson, calc. QED declare via INSPIRE 116132 : 1057.912(11) MHz",
+  "species": "H",
+  "quantity": "Lamb shift 2S1/2 - 2P1/2 : Dirac seul predit 0 (degenerescence), QED annees 1970 predit 1057.864(14) (Mohr) ou 1057.912(11) (Erickson), mesure 1057.845(9)",
+  "dimension": "MHz",
+  "packet": "si",
+  "value": 1057.845,
+  "params": {
+    "lamb_measured_MHz": 1057.845,
+    "u_measured_MHz": 0.009,
+    "mohr_theory_MHz": 1057.864,
+    "u_mohr_MHz": 0.014,
+    "erickson_theory_MHz": 1057.912,
+    "u_erickson_MHz": 0.011,
+    "note": "vintages distincts declares : mesure (1981) POSTERIEURE aux calculs (annees 1970) — comparaison theorie-experience honnete, aucune constante derivee de la reference ; Dirac seul predit la degenerescence 2S1/2 = 2P1/2 (shift 0), dette historique qui a fait naitre la QED (Lamb-Retherford 1947) ; les deux calculs QED de la meme epoque ne s'accordent pas entre eux (0.048 MHz d'ecart) — la machine tranche la où les physiciens debattaient"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
