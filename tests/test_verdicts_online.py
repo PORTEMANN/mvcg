@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 52)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14)
+        self.assertEqual(idx["n"], 54)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 12)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -45,24 +45,32 @@ class TestVerdictsOnline(unittest.TestCase):
         # 13CO : regle de la masse reduite S- à 412 theta (a la
         # precision NIST la regle mu seule ne suffit pas au niveau v=0) ;
         # Kratzer : prediction croisee P au cheveu a 1,394 theta
-        # (l'anharmonicite tient mais pas dans le budget NIST).
+        # (l'anharmonicite tient mais pas dans le budget NIST) ; levier
+        # alpha_e : residu vintage S- a 25 theta (le levier reduit
+        # l'ecart d'un facteur ~3500, la table H&H est la dette).
         self.assertEqual(by[("si", "Hz")]["counts"],
-                         {"S+": 2, "P": 2, "S-": 2})
+                         {"S+": 2, "P": 2, "S-": 3})
         self.assertIn("NMR_Karplus_Helix", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Sheet", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_AbInitio", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_Dunham", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO13_Rot_MuRule", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_Kratzer", by[("si", "Hz")]["ids"])
-        # Le complexe g-2 : les quatre contacts, la paire d'identifications
+        self.assertIn("SPEC_CO_Rot_AlphaE", by[("si", "Hz")]["ids"])
+        # Le complexe g-2 : les cinq contacts, la paire d'identifications
         # complète dans la même fibre — WP25 S+ à 0,6 U, WP20 S− à 3,7 U,
-        # HVP P, HLbL S+. Deux mots opposés, aucun choisi.
+        # HVP P, HLbL S+. 2026-09-14 : HVP pi pi CMD-3 vs pre-moyenne
+        # rejoint la fibre — premier contact exp-vs-exp de la machine
+        # (deux fabrications experimentales du meme terme, ecart porte
+        # tel que publie par le PRL CMD-3, S- a 3.7 U, moyenne
+        # KLOE-dominee declaree). Deux mots opposes, aucun choisi.
         self.assertEqual(by[("1", "1e-11")]["counts"],
-                         {"S+": 2, "P": 1, "S-": 1})
+                         {"S+": 2, "P": 1, "S-": 2})
         self.assertIn("AMU_Delta_WP25", by[("1", "1e-11")]["ids"])
         self.assertIn("AMU_exp_minus_WP20", by[("1", "1e-11")]["ids"])
         self.assertIn("HVP_LO_lat_vs_ee", by[("1", "1e-11")]["ids"])
         self.assertIn("HLbL_lat_vs_pheno", by[("1", "1e-11")]["ids"])
+        self.assertIn("HVP_Pipi_CMD3_vs_PreAvg", by[("1", "1e-11")]["ids"])
         # Hyperfluidité : Landau rejoint la fibre des vitesses
         # (cousin de O5, condensat dilué côté BEC).
         self.assertEqual(by[("si", "m/s")]["counts"],

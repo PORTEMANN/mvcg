@@ -1267,6 +1267,50 @@ def _co_rot_kratzer() -> tuple[float, dict]:
     }
 
 
+def _co_rot_alpha_e() -> tuple[float, dict]:
+    """Contact SPEC CO — levier alpha_e du rotor rigide ab initio.
+
+    Règle déclarée AVANT le premier run (protocole SPEC-CO-ROT-
+    PROTOCOLE.md §5, gel 2026-09-14) : mu_loc = |B0,calc - B0,obs| en
+    Hz, B0,calc = B_e,calc - alpha_e/2 (même calcul ab initio que le
+    contact 1, correction vibration-rotation soustraite, alpha_e/2
+    déclaré H&H 1979) ; mu_ref = B0 mesuré NIST. theta = 3000 Hz =
+    u(B0) NIST, gelée avant run. GUM : une ligne B (u(B0) déclarée),
+    decide=theta, k=2.
+    Estimation pré-run honnête : le contact 1 a mesuré B_e,calc - B0 =
+    262394407 Hz, ecart a alpha_e/2 attendu = 76007 Hz ; delta ~ 76 kHz,
+    delta/theta ~ 25 -> S- attendu SANS suspense. Le levier réduit
+    l'ecart d'un facteur ~3500 : alpha_e nomme la physique manquante ;
+    le résidu nomme la dette de vintage (H&H 1979, alpha_e 3 chiffres,
+    ajustement 1976) qui ne rejoint pas le NIST 2013. Leçon attendue
+    cohérente avec le P de Kratzer : geste + levier justes, table
+    détentrice de la dette. Suspense faible sur le mot, fort sur la
+    taille du résidu (dérive vintage H&H -> NIST).
+    """
+    p = _co_rot_table()["params"]
+    hbar = float(p["hbar_SI"])
+    u_kg = float(p["u_kg"])
+    mu = float(p["mu_u"]) * u_kg
+    re = float(p["re_A"]) * 1e-10
+    b_e = hbar / (4.0 * np.pi * mu * re**2)  # Hz
+    alpha_half = float(p["alpha_e_cm-1"]) / 2.0 * float(p["cm-1_to_MHz"]) * 1e6
+    b0_calc = b_e - alpha_half
+    b0 = float(p["B0_MHz"]) * 1e6
+    delta = abs(b0_calc - b0)
+    return delta, {
+        "table": "co_rot_NIST-HH.json",
+        "vintage": _co_rot_table()["vintage"],
+        "method": "B0,calc = B_e,calc - alpha_e/2 (ab initio + correction "
+                  "H&H) compare a B0 mesure NIST",
+        "rule": "B_e - alpha_e/2 = B0  (rotor rigide + vibration-rotation)",
+        "B0_calc_Hz": float(b0_calc),
+        "B_e_calc_Hz": float(b_e),
+        "alpha_e_half_Hz": float(alpha_half),
+        "B0_obs_Hz": float(b0),
+        "unit_raw": "Hz",
+    }
+
+
 def _amu_delta() -> tuple[float, dict]:
     """Contact ouvert AMU — l'écart g-2 porté, en unités de son incertitude.
 
@@ -1297,6 +1341,46 @@ def _amu_delta() -> tuple[float, dict]:
         "u_delta": float(p["u_delta_wp25"]),
         "ansatz": "SM complet ; toute identification HVP declaree a droit au sien",
         "lever": "HVP<-e+e- (autre id, contact separe)",
+        "unit_raw": "1e-11",
+    }
+
+
+def _hvp_pipi_cmd3() -> tuple[float, dict]:
+    """Contact ouvert HVP pi pi — CMD-3 vs moyenne pre-CMD-3, l'ecart porte.
+
+    Règle déclarée AVANT le premier run (protocole
+    HVP-PIPI-CMD3-CONTACT-OUVERT.md, gel 2026-09-14, campagne
+    croisee) : mu_loc = ecart tel que publie dans le PRL CMD-3 :
+    a_mu^had,LO(2pi, CMD-3) = 5260(42) vs moyenne des mesures
+    precedentes = 5060(34) (1e-11) -> delta = 200, PORTE, pas calcule
+    depuis les sections efficaces. La reference est l'identite (deux
+    fabrications du meme objet). theta = u_delta = sqrt(42^2+34^2)
+    = 54.037 (1e-11), independance assumée (meme convention que la
+    table hvp_lo). GUM : decide=U, k=1 — l'etalonnage de la doctrine
+    AMU. Identification multiple declaree : la moyenne pre-CMD-3 est
+    KLOE-dominee ; un contact KLOE seul exigerait une valeur KLOE sur
+    la fenetre exacte CMD-3, non publiee — identifiee, jamais choisie
+    apres coup. Dette de fenetre declaree (CMD-3 exclusif 0.327-1.2
+    GeV + moyenne au-dela). Estimation pre-run : 200 > 54 -> S-
+    attendu a ~3.7 theta — suspense faible, contact de calibre.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("hvp_pipi_cmd3_LITERATURE.json")
+    p = t["params"]
+    delta = float(p["delta_cmd3_minus_premoy"])
+    return delta, {
+        "table": "hvp_pipi_cmd3_LITERATURE.json",
+        "vintage": t["vintage"],
+        "method": "ecart publie par CMD-3, porte (pas calcule depuis sigma)",
+        "rule": "a(2pi, CMD-3) - a(2pi, moyenne pre-CMD-3) vs identite 0",
+        "a_cmd3": float(p["a_cmd3"]),
+        "u_cmd3": float(p["u_cmd3"]),
+        "a_premoy": float(p["a_premoy"]),
+        "u_premoy": float(p["u_premoy"]),
+        "u_delta": float(p["u_delta"]),
+        "ansatz": "deux fabrications exp du meme terme ; la moyenne est KLOE-dominee (declare)",
+        "lever": "KLOE<-seul (autre id, fenetre exacte non publiee)",
         "unit_raw": "1e-11",
     }
 
@@ -1532,6 +1616,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "co_rot_dunham": _co_rot_dunham,
     "co13_rot_mu_rule": _co13_rot_mu_rule,
     "co_rot_kratzer": _co_rot_kratzer,
+    "co_rot_alpha_e": _co_rot_alpha_e,
     "karplus_helix": _karplus_helix,
     "karplus_sheet": _karplus_sheet,
     "ckm_row1": _ckm_row1,
@@ -1539,6 +1624,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "hvp_lo_lat_ee": _hvp_lo_lat_ee,
     "hlbl_lat_pheno": _hlbl_lat_pheno,
     "amu_wp25": _amu_delta,
+    "hvp_pipi_cmd3": _hvp_pipi_cmd3,
     "landau_vc_he4": _landau_vc_he4,
     "bertsch_xi": _bertsch_xi,
     "kss_eta_s_he4": _kss_eta_s_he4,
@@ -1867,6 +1953,14 @@ CONTACTS: list[Contact] = [
         "ouverte", None, "SPEC",
     ),
     Contact(
+        "SPEC_CO_Rot_AlphaE", "meso", "pred", "si", "Hz", "abs", 3000.0,
+        0.0, "alpha_e<-table-rotation-vibration-recente", "voir SPEC_CO_Rot_AbInitio",
+        "B_e,calc - alpha_e/2 = B0 (mesure NIST)  (rotor rigide + correction vibration-rotation)",
+        "levier SPEC 2026-09-14 (protocole §5, declare avant run) : le levier d'AbInitio — meme calcul moins alpha_e/2 H&H ; theta=3000 Hz gele avant run ; est. pre-run : le contact 1 a mesure un residu de 76007 Hz apres soustraction de alpha_e/2 attendu, delta/theta ~ 25 -> S- attendu SANS suspense ; le levier reduit l'ecart d'un facteur ~3500, le residu nomme la dette de vintage H&H 1979 vs NIST 2013 ; coherent avec le P de Kratzer",
+        "co_rot_alpha_e",
+        "ouverte", None, "SPEC",
+    ),
+    Contact(
         "NMR_Karplus_Helix", "micro", "pred", "si", "Hz", "rel", 0.10,
         4.0, "coefficients<-autre-parametrisation", "—",
         "3J(HN,Ha) helice par loi de Karplus (coefficients gelés) = ordre de grandeur typique declare",
@@ -1921,6 +2015,15 @@ CONTACTS: list[Contact] = [
         "contact ouvert AMU : ecart porte en unites de son incertitude, autre identification declaree jamais choisie apres coup ; theta=63=u_delta fige avant run ; S+ a 0,6 U, pendant de WP20 (S- a 3,7 U) — la paire d'identifications est complete",
         "amu_wp25",
         "ouverte", None, "AMU",
+    ),
+    Contact(
+        "HVP_Pipi_CMD3_vs_PreAvg", "macro", "pred", "1", "1e-11", "abs",
+        54.037024344425184,
+        0.0, "KLOE<-seul (autre id)", "voir AMU_Delta_WP25",
+        "a(2pi, CMD-3) - a(2pi, moyenne pre-CMD-3) = 0  (deux fabrications exp du meme terme)",
+        "contact ouvert campagne croisee : ecart porte tel que publie par le PRL CMD-3, theta=54.037=u_delta quadrature (independance assumée), decide=U k=1 ; moyenne pre-CMD-3 KLOE-dominee (identification declaree, jamais choisie apres coup), dette de fenetre ecrite ; S- attendu a 3.7 U — contact de calibre, pas de suspense",
+        "hvp_pipi_cmd3",
+        "ouverte", None, "g-2",
     ),
     Contact(
         "Landau_Vc_He4", "micro", "pred", "si", "m/s", "rel", 0.10,
@@ -2047,6 +2150,13 @@ _GUM["SPEC_CO_Rot_Kratzer"] = {
                "note": "Hz, u(D0) declaree NIST JPCRD 53 ; entrees H&H "
                        "arrondies 6 chiffres, suspense au cheveu (dette)"}],
 }
+_GUM["SPEC_CO_Rot_AlphaE"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "B0_NIST", "type": "B", "u": 3000.0,
+               "note": "Hz, u(B0) declaree NIST JPCRD 53 ; alpha_e H&H "
+                       "3 chiffres (1976), residu = dette de vintage"}],
+}
 _GUM["AMU_exp_minus_WP20"] = {
     "decide": "U",
     "k": 1,
@@ -2056,6 +2166,15 @@ _GUM["AMU_Delta_WP25"] = {
     "decide": "U",
     "k": 1,
     "lines": [{"name": "delta_WP25", "type": "B", "u": 63.0}],
+}
+_GUM["HVP_Pipi_CMD3_vs_PreAvg"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "CMD3_2pi", "type": "B", "u": 42.0},
+        {"name": "premoy_2pi", "type": "B", "u": 34.0},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
 }
 _GUM["HVP_LO_lat_vs_ee"] = {
     "decide": "U",

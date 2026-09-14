@@ -107,3 +107,27 @@ les deux premiers runs — règle déclarée avant SON run)
   Morse seulement — CO s'en écarte légèrement.
 - Interdit : ajuster B_e, ω_e, D₀ ou θ après le run. Le mot découvert
   est figé tel quel, quel qu'il soit.
+
+## 5. Levier SPEC_CO_Rot_AlphaE (ajout 2026-09-14 — règle déclarée avant
+## SON run)
+
+- Règle gelée : mu_loc = |B0,calc − B0,obs| en Hz, avec
+  B0,calc = B_e,calc − α_e/2 — même calcul ab initio que le contact 1
+  (ℏ/(4πμr_e²), μ NIST, r_e H&H) dont on soustrait la correction
+  vibration-rotation α_e/2 déclarée (0,0175 cm⁻¹ / 2, H&H 1979).
+  mu_ref = B0 mesuré NIST. theta = 3 000 Hz = u(B0) NIST, gelé avant
+  run (identique au contact 1). GUM : une ligne B, decide=theta, k=2.
+- **Estimation pré-run honnête** : le contact 1 a mesuré B_e,calc − B0 =
+  262 394 407 Hz, écart à α_e/2 attendu (262 318 400 Hz) = 76 007 Hz.
+  Donc delta ~ 76 kHz, delta/theta ~ 25 -> **S- attendu SANS suspense**.
+  Le levier réduit l'écart d'un facteur ~3 500 (262 MHz -> 76 kHz) :
+  alpha_e nomme bien la physique manquante. Le résidu nomme la dette
+  de vintage — H&H 1979 (alpha_e a 3 chiffres, ajustement 1976) ne
+  rejoint pas le NIST 2013. Leçon attendue, cohérente avec le P de
+  Kratzer : le geste + le levier sont justes, la table est la dette.
+- Suspense : faible sur le mot, fort sur la taille du résidu (qui mesure
+  la dérive vintage H&H -> NIST en constantes rotationnelles).
+- Levier du levier (déclaré, non monté) : réajuster alpha_e depuis la
+  différence B_e,calc − B0 mesuré — interdit comme contact (ce serait
+  lire la cible) ; la seule voie S+ honnête est une table alpha_e plus
+  récente, a declarer si un jour elle entre.

@@ -1,0 +1,21 @@
+{
+  "id": "hvp_pipi_cmd3",
+  "vintage": "CMD3-PRL-132-231903-2024",
+  "source": "Ignatov et al. (CMD-3), Phys. Rev. Lett. 132, 231903 (2024), arXiv:2309.12910 — les deux nombres d'une meme phrase du resume : a_mu^had,LO(2pi, CMD-3) = 5260(42) vs moyenne de toutes les mesures precedentes = 5060(34), en unite 1e-11",
+  "doi_or_ref": "PRL 132, 231903 (2024) ; comparaison telle que publiee par la collaboration CMD-3 elle-meme",
+  "species": "a_mu_had_LO_2pi",
+  "quantity": "ecart CMD-3 - moyenne pre-CMD-3 du canal 2pi de a_mu^had,LO, en unite 1e-11",
+  "dimension": "1e-11",
+  "packet": "1",
+  "value": 0.0,
+  "params": {
+    "a_cmd3": 5260.0,
+    "u_cmd3": 42.0,
+    "a_premoy": 5060.0,
+    "u_premoy": 34.0,
+    "delta_cmd3_minus_premoy": 200.0,
+    "u_delta": 54.037024344425184,
+    "note": "delta porte tel que publie dans le PRL CMD-3 (5260 - 5060 = 200), pas calcule depuis les sections efficaces. u_delta = quadrature (42^2+34^2), independance assumée — meme convention que la table hvp_lo. Identification multiple declaree : la moyenne pre-CMD-3 est KLOE-dominee (KLOE, BABAR, CMD-2, SND) ; un contact KLOE seul exigerait une valeur KLOE sur la fenetre exacte CMD-3, non publiee — identifie, jamais choisi apres coup. Dette de fenetre : CMD-3 exclusif 0.327-1.2 GeV + moyenne au-dela ; moyenne precedente = canal entier — comparaison portee telle que la publie CMD-3."
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

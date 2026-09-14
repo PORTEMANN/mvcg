@@ -22,6 +22,7 @@ astronomie : ν(1-0) = 115 271,204 MHz.
 | `SPEC_CO_Rot_Dunham` | \|2B₀ − 4D₀ − ν(1-0)\| | 10 000 Hz | **S+** | 0,028 |
 | `SPEC_CO13_Rot_MuRule` | \|B₀·μ/μ′ − B₀′(¹³CO)\| | 12 000 Hz | **S−** | 412 |
 | `SPEC_CO_Rot_Kratzer` | \|4B_e³/ω_e² − D₀\| | 70 Hz | **P** | 1,394 |
+| `SPEC_CO_Rot_AlphaE` (levier) | \|B_e,calc − α_e/2 − B₀\| | 3 000 Hz | **S−** | 25,3 |
 
 Sources déclarées : NIST JPCRD 53 (μ, B₀, D₀, ν) ; Huber & Herzberg
 1979 via RIOS FHI-MPG (r_e, B_e, α_e) ; CODATA 2018 (ℏ, c, u).
@@ -103,3 +104,22 @@ tient au cheveu. Le P nomme le statut de la physique anharmonique :
 « tenu mais pas exact » à la précision NIST. Dettes écrites : D_e
 (équilibre) pesé contre D₀ (v=0), écart vibrationnel ~0,2 Hz << θ ;
 arrondis H&H ; Kratzer = Morse seulement.
+
+## Ajout 2026-09-14 : le levier α_e (schéma échec → levier, résidu nommé)
+
+`SPEC_CO_Rot_AlphaE` : le levier déclaré du contact ab initio monté
+selon la règle du registre (chaque échec a droit a son levier —
+O1 → O6, O3 → O7). Estimation pré-run honnête : le contact 1 a mesuré
+un résidu de 76 007 Hz après soustraction de α_e/2 attendu, δ/θ ~ 25
+→ S− attendu sans suspense, fort sur la taille du résidu. Premier run
+: mot découvert **S−**, δ = 76 006,630089 Hz (25,3 θ) — le résidu
+annoncé au centième près (le levier est cohérent par construction, la
+machine vérifie). Le levier réduit l'écart d'un facteur ~3 452
+(262,4 MHz → 76 kHz) : **α_e nomme bien la physique manquante, et le
+résidu nomme la dette de vintage** — H&H 1979 (α_e à 3 chiffres,
+ajustement 1976) ne rejoint pas le NIST 2013 dans le budget. C'est la
+même leçon que le P de Kratzer, lue de l'autre côté : geste et levier
+justes, la table est la dette. Différence avec O1 → O6 et O3 → O7 :
+leurs leviers blanchissaient complètement (S+) car leurs tables
+d'entrée étaient du même vintage que les mesures ; ici le levier ne
+blanchit pas — la dérive vintage est elle-même pesée et nommée.
