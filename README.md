@@ -6,8 +6,6 @@
 
 Machine de verdict à coût gelé.
 
-Si le dépôt GitHub n’est pas `PORTEMANN/mvcg`, remplacer l’OWNER/REPO dans les badges.
-
 **Commencer ici**
 
 - Tiers, une page : [`docs/VULGARISATION.md`](docs/VULGARISATION.md)
