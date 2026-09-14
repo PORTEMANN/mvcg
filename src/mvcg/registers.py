@@ -747,6 +747,43 @@ def _o17_h2_anharmonic() -> tuple[float, dict]:
     }
 
 
+def _o18_h2_tare_lecture() -> tuple[float, dict]:
+    """Contact ouvert O18 — tare de lecture, pendant disciplinaire d'O17.
+
+    Règle déclarée AVANT le premier run : MÊME transport Dunham que O17
+    (nu_pred = omega_e - 2*omega_e x_e, mêmes extraits gelés), MÊME
+    référence 4160, même delta attendu (~1.48 cm^-1). Une seule chose
+    change, gelée avant run : la lecture de précision de la référence —
+    u = 5/sqrt(3) = 2.886751345948129 (arrondi au dizaine, demi-largeur
+    5) au lieu de l'over-read u = 0.5 d'O17. La référence NE DOIT JAMAIS
+    entrer dans le calcul. Estimation pré-run honnête : delta ~ 1.48,
+    theta = u_delta = 2.887201644037585 cm^-1, ratio ~ 0.5126 -> S+
+    attendu SANS suspense (bande vérifiée contre _adc : S+ = [0, theta],
+    P = [theta, 2 theta]). Le suspense n'est pas dans le mot : il est
+    dans la démonstration — même physique, même écart, verdict opposé,
+    parce que le verdict pèse des déclarations, pas des physiques.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("h2_tare_lecture_LITERATURE-2018.json")
+    p = t["params"]
+    omega_e = float(p["omega_e_cm-1"])
+    omega_ex_e = float(p["omega_ex_e_cm-1"])
+    nu_pred = omega_e - 2.0 * omega_ex_e
+    return nu_pred, {
+        "table": "h2_tare_lecture_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "developpement de Dunham ordre 1, constantes declarees (memes gel qu'O17)",
+        "rule": "nu(1-0) = omega_e - 2 omega_e x_e",
+        "omega_e_cm-1": omega_e,
+        "omega_ex_e_cm-1": omega_ex_e,
+        "nu10_declared_cm-1": float(p["nu10_declared_cm-1"]),
+        "ansatz": "lecture honnete de la reference arrondie (u = 5/sqrt(3)) ; pendant d'O17",
+        "lever": "lecture<-honnête (pendant d'O17)",
+        "unit_raw": "cm^-1",
+    }
+
+
 def _karplus_helix() -> tuple[float, dict]:
     """Contact ouvert NMR-Karplus hélice — ³J par la loi de Karplus.
 
@@ -1750,6 +1787,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o15_h2_harmonic": _o15_h2_harmonic,
     "o16_cu_gamma_eff": _o16_cu_gamma_eff,
     "o17_h2_anharmonic": _o17_h2_anharmonic,
+    "o18_h2_tare_lecture": _o18_h2_tare_lecture,
     "h0_ecart": _h0_ecart,
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
@@ -2036,6 +2074,15 @@ CONTACTS: list[Contact] = [
         "contact ouvert O17 : dette d'O15 levee ; tare assumee = arrondi de declaration du fondamental (u=0.5 declaree), theta = u_delta = 0.5025932749251625 cm^-1, decide=U k=1 (convention GUM, precedent Rydberg voie 2), gele avant run ; estimation pre-run honnete : delta ~ 1.48 cm^-1, ratio ~ 2.94 -> P au cheveu de la borne S- annonce ; suspense reel, mot inconnu au gel",
         "o17_h2_anharmonic",
         "ouverte", None, "O17",
+    ),
+    Contact(
+        "O18_H2_Tare_Lecture", "micro", "pred", "1", "cm^-1", "abs",
+        2.887201644037585,
+        4160.0, "lecture<-honnête (pendant d'O17)", "—",
+        "nu(1-0) H2 par Dunham ordre 1 (memes extraits qu'O17) = fondamental declare 4160 relu a u = 5/sqrt(3)",
+        "contact ouvert O18 : pendant disciplinaire d'O17 — meme transport, meme reference, meme delta ; seule la lecture de precision change (u = 2.8868 honnete vs 0.5 over-read), theta = u_delta = 2.887201644037585 cm^-1, decide=U k=1, gele avant run ; estimation pre-run : delta ~ 1.48, ratio ~ 0.5126, S+ attendu sans suspense (bande verifiee contre _adc) ; le verdict pese des declarations, pas des physiques",
+        "o18_h2_tare_lecture",
+        "ouverte", None, "O18",
     ),
     Contact(
         "H0_Ecart_Planck_SH0ES", "macro", "pred", "1", "1", "abs", 0.05,
@@ -2390,6 +2437,15 @@ _GUM["O17_H2_Anharmonique"] = {
     "lines": [
         {"name": "nu_pred_Dunham", "type": "B", "u": 0.050990195135927854},
         {"name": "nu10_declaree", "type": "B", "u": 0.5},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["O18_H2_Tare_Lecture"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "nu_pred_Dunham", "type": "B", "u": 0.050990195135927854},
+        {"name": "nu10_relue_honnete", "type": "B", "u": 2.886751345948129},
     ],
     "R": [[1.0, 0.0], [0.0, 1.0]],
 }

@@ -55,6 +55,15 @@ au corpus lui-même.
 > pas à sa physique : l'over-read d'un arrondi est exactement le genre de
 > dette que ce contact est venu peser. Changement de la déclaration u =
 > autre D, jamais glissé en réparation silencieuse.
+>
+> **Amendement daté — 2026-09-14 (gel d'O18)** : la formule « u = 5/√12
+> ≈ 1,44 » ci-dessus est **fausse**. Pour un arrondi au dizaine, l'erreur
+> est uniforme sur [−5, +5] : demi-largeur a = 5, donc u = a/√3 =
+> **5/√3 = 2,8868** (≡ 10/√12). Relu à cette valeur honnête, le ratio
+> d'O17 serait 1,48/2,8872 ≈ 0,51 → S+ — la démonstration complète est
+> gelée dans O18 (même transport, référence relue honnêtement). L'erreur
+> reste visible ici ; la correction porte sur la formule, pas sur la leçon
+> (la tare tient bien à la lecture de précision).
 
 ## Honnêtetés écrites
 

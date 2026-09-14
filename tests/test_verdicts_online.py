@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 58)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14)
+        self.assertEqual(idx["n"], 59)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 12)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -39,13 +39,19 @@ class TestVerdictsOnline(unittest.TestCase):
                          {"S+": 4, "P": 0, "S-": 3})
         self.assertIn("H1s_Rydberg_Voie2", by[("si", "eV")]["ids"])
         self.assertEqual(by[("1", "cm^-1")]["counts"],
-                         {"S+": 4, "P": 2, "S-": 1})
+                         {"S+": 5, "P": 2, "S-": 1})
         # 2026-09-14 : O17 ouvre le S- de la fibre — Dunham ordre 1 vs
         # fondamental declare arrondi : la tare d'over-read de l'arrondi
         # "4160" (lu a u=0,5) est detectee a 2,94 sigma (verdict S- a
         # 2,9447 theta, au-dela de la borne P 2 theta). Erreur de bande
         # P au protocole conservee et corrigee en trace visible.
+        # 2026-09-14 : O18, pendant disciplinaire — meme transport, meme
+        # reference relue honnetement (u = 5/sqrt(3)) : S+ a 0,5126
+        # theta. Meme delta 1,48 cm^-1, verdict oppose : la machine
+        # pese des declarations, pas des physiques. Amendement de
+        # formule visible (5/sqrt(12) -> 5/sqrt(3), trace d'O17).
         self.assertIn("O17_H2_Anharmonique", by[("1", "cm^-1")]["ids"])
+        self.assertIn("O18_H2_Tare_Lecture", by[("1", "cm^-1")]["ids"])
         self.assertEqual(by[("si", "J m^-3 K^-2")]["counts"],
                          {"S+": 1, "P": 0, "S-": 1})
         # La paire NMR : même loi de Karplus, deux conformations —
@@ -133,7 +139,9 @@ class TestVerdictsOnline(unittest.TestCase):
                  if r["id"].startswith("O") and r["statut"] == "ouverte"]
         # 2026-09-14 : 16 -> 17 contacts ouverts de la série O (O17 H2
         # anharmonique rejoint la série ; invariance de balayage conservée).
-        self.assertEqual(len(o_ids), 17)
+        # 2026-09-14 (soir) : 17 -> 18 (O18 H2 tare de lecture, pendant
+        # disciplinaire d'O17).
+        self.assertEqual(len(o_ids), 18)
         for cid in o_ids:
             st = street_sweep(cid)
             licites = [r for r in st["rows"] if not r["units_kill"]]

@@ -1,0 +1,21 @@
+{
+  "id": "h2_tare_lecture",
+  "vintage": "LITERATURE-2018",
+  "source": "pendant d'O17 : meme transport Dunham, reference relue a sa precision honnete — 4160 a 3 chiffres significatifs, chiffre des dizaines, demi-largeur 5",
+  "doi_or_ref": "Huber & Herzberg (extraits declares, memes qu'O17, gel commun) ; lecture de precision GUM : arrondi au dizaine -> u = 5/sqrt(3)",
+  "species": "H2",
+  "quantity": "tare de declaration : meme delta qu'O17, reference relue honnetement",
+  "dimension": "cm^-1",
+  "packet": "1",
+  "value": 4160.0,
+  "params": {
+    "omega_e_cm-1": 4401.2,
+    "u_omega_e_cm-1": 0.05,
+    "omega_ex_e_cm-1": 121.34,
+    "u_omega_ex_e_cm-1": 0.005,
+    "nu10_declared_cm-1": 4160.0,
+    "u_nu10_cm-1": 2.886751345948129,
+    "note": "u_nu10 relue honnetement : 4160 = 3 chiffres significatifs (dizaine), demi-largeur 5 -> u = 5/sqrt(3) = 2.8868 ; O17 lisait u = 0.5 (over-read) et decouvrait S- ; le verdict porte sur la declaration, pas la physique ; amendement visible : la formule 5/sqrt(12) = 1.44 ecrite dans la trace d'O17 est FAUSSE (5/sqrt(12) suppose une pleine largeur 5 ; ici demi-largeur 5, donc 5/sqrt(3) = 2.8868) — corrigee ici et dans le doc d'O17, jamais effacee"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
