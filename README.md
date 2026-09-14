@@ -91,10 +91,13 @@ reste ouverte au registre
 ([doctrine](docs/H0-CONTACT-OUVERT.md)). Ensuite le chantier H(z) :
 deux contacts ouverts sur les modules de distance bas-z (8 bins
 équipopulaires sur le flux Hubble Pantheon+, extraction déclarée ; puis
-littérature, ancrages Planck et SH0ES déclarés avant le run) ont ouvert
-une fibre entière — (1, mag) = {S−:3} — et onze campagnes dérivées
-(covariance 1701×1701, sélection officielle des SNe, marge Δχ² ≈ 21
-sous les verdicts, chasse aux excès, split en z, vitesse particulière).
+littérature, ancrages Planck et SH0ES déclarés avant le run ; puis V2,
+amplitude MU_SH0ES native, dette de forme supprimée) ont ouvert une
+fibre entière — (1, mag) = {S+:1, S−:4} — et quatorze campagnes
+dérivées (covariance 1701×1701, sélection officielle des SNe, marge
+Δχ² ≈ 21 sous les verdicts, chasse aux excès, split en z, vitesse
+particulière, zoom PS1MD, retest paire CFA4p3, covariance petit
+effectif).
 Bilan : [H0-BILAN-CHANTIER](docs/H0-BILAN-CHANTIER.md) ; ce que la
 machine est (et n'est pas) : [CE-QUE-LA-MACHINE-EST](docs/CE-QUE-LA-MACHINE-EST.md).
 Doctrines :
@@ -105,6 +108,8 @@ Doctrines :
 [`docs/H0-CONTACT-OUVERT.md`](docs/H0-CONTACT-OUVERT.md),
 [`docs/H0-HZ-SNE-CONTACT-OUVERT.md`](docs/H0-HZ-SNE-CONTACT-OUVERT.md),
 [`docs/H0-HZ-SNE-CONTACT-LITERATURE.md`](docs/H0-HZ-SNE-CONTACT-LITERATURE.md),
+[`docs/H0-HZ-SNE-V2-CONTACT-OUVERT.md`](docs/H0-HZ-SNE-V2-CONTACT-OUVERT.md),
+[`docs/H0-CAMPAGNES-B1-B3.md`](docs/H0-CAMPAGNES-B1-B3.md),
 [`docs/H0-BILAN-CHANTIER.md`](docs/H0-BILAN-CHANTIER.md),
 [`docs/CE-QUE-LA-MACHINE-EST.md`](docs/CE-QUE-LA-MACHINE-EST.md).
 

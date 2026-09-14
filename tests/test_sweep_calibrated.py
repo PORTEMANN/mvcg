@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Balayage calibré (chantier A2) — l'invariance d'unités à même
-étalonnage, figée sur les 46 contacts.
+étalonnage, figée d'abord sur les 46 contacts, étendue à 48 (V2, 2026-09-14).
 
 Contexte : `street_sweep` historique juge au θ seul et conserve, par
 gel, les « deux instruments » de CKM / HVP / HLbL (tests dédiés dans
@@ -11,7 +11,8 @@ du contact (U si decide=U, θ sinon) : là, et seulement là, le mot doit
 être identique sous les quatre paquets pour CHAQUE contact du registre.
 
 Propriétés figées :
-- 46/46 : mot calibré identique au mot home sous les 4 paquets ;
+- 46/46 au gel A2, puis 48/48 après V2 : mot calibré identique au mot
+  home sous les 4 paquets ;
 - zéro units_kill : aucun paquet n'est illicite pour une dimension
   portée par le registre ;
 - CKM porte thr = U = 0,0014 (étalonnage U déclaré, k = 2) — la
@@ -33,7 +34,7 @@ from mvcg.verdict_register import street_sweep_calibrated  # noqa: E402
 
 class TestSweepCalibrated(unittest.TestCase):
     def test_all_contacts_invariant_at_same_calibration(self) -> None:
-        self.assertEqual(len(CONTACTS), 46)
+        self.assertEqual(len(CONTACTS), 48)  # 46 + V2 ×2 (2026-09-14)
         for c in CONTACTS:
             st = street_sweep_calibrated(c.id)
             licites = [r for r in st["rows"] if not r["units_kill"]]

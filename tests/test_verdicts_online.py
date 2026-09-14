@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 46)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir)
+        self.assertEqual(idx["n"], 48)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, chantier local 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 12)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -74,11 +74,17 @@ class TestVerdictsOnline(unittest.TestCase):
         # 2026-09-13 soir : la paire LITERATURE (Pantheon+ ancrée
         # Planck 0,0695 / ancrée SH0ES 0,2314, deux S-) — même fibre,
         # deux ancrages déclarés, dettes écrites.
+        # 2026-09-14 : la paire V2 (amplitude MU_SH0ES native, dette de
+        # forme supprimée) — courbe Planck posée : S- à 6,4 theta (miroir
+        # de V1_SH0ES) ; courbe SH0ES posée : S+ à 0,897 theta — le
+        # premier S+ de la fibre, au cheveu.
         self.assertEqual(by[("1", "mag")]["counts"],
-                         {"S+": 0, "P": 0, "S-": 3})
+                         {"S+": 1, "P": 0, "S-": 4})
         self.assertIn("H0_Hz_SNe_LOWZ_DEMO", by[("1", "mag")]["ids"])
         self.assertIn("H0_Hz_SNe_LOWZ_LIT_PLANCK", by[("1", "mag")]["ids"])
         self.assertIn("H0_Hz_SNe_LOWZ_LIT_SH0ES", by[("1", "mag")]["ids"])
+        self.assertIn("H0_Hz_SNe_LOWZ_V2_PLANCK", by[("1", "mag")]["ids"])
+        self.assertIn("H0_Hz_SNe_LOWZ_V2_SH0ES", by[("1", "mag")]["ids"])
 
     def test_all_16_open_contacts_sweep_invariant(self) -> None:
         rows = run_registers()["rows"]

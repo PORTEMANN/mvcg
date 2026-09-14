@@ -1,0 +1,57 @@
+{
+ "id": "hz_sne_lowz_v2_mush0es",
+ "vintage": "V2-MUSH0ES-PantheonPlus-release",
+ "source": "Pantheon+ SH0ES data release (pantheon_ref.dat, 1701 LC), MU_SH0ES publié (ancrage Céphéides natif, pas de transposition), SNe Ia flux Hubble zHD ∈ [0.01, 0.15), dédoublonnées (règle : nom normalisé minuscules, préfixes retirés, MU_SH0ES_ERR_DIAG minimal), calibrateurs exclus",
+ "doi_or_ref": "Scolnic et al. 2022, ApJ, 938, 113 ; Riess et al. 2022 (SH0ES) ; Brout et al. 2022, ApJ, 938, 110 (Table 7 pour mBcorr — MU_SH0ES absent de Table 7)",
+ "species": "supernovae Ia (Pantheon+, flux Hubble bas-z)",
+ "quantity": "module de distance publié MU_SH0ES binné bas-z, ancrage natif SH0ES",
+ "dimension": "mag",
+ "packet": "1",
+ "bins": [
+  [
+   0.013744,
+   33.797631
+  ],
+  [
+   0.019244,
+   34.508261
+  ],
+  [
+   0.024108,
+   34.980556
+  ],
+  [
+   0.029307,
+   35.441567
+  ],
+  [
+   0.035262,
+   35.905191
+  ],
+  [
+   0.047623,
+   36.521955
+  ],
+  [
+   0.077591,
+   37.607776
+  ],
+  [
+   0.131455,
+   38.871149
+  ]
+ ],
+ "sigma_mag": 0.027737,
+ "params": {
+  "Omega_m": 0.315,
+  "Omega_L": 0.685,
+  "c_km_s": 299792.458,
+  "H0_courbe_PLANCK_km_s_Mpc": 67.4,
+  "H0_courbe_SH0ES_km_s_Mpc": 73.04,
+  "regle_bins": "8 bins equipopulaires, moyenne arithmetique declaree (non ponderee, dette de compression)",
+  "sigma_regle": "sqrt(moyenne(e^2)/N), e = MU_SH0ES_ERR_DIAG",
+  "validation_croisee_V1": "ecart moyen vs transposition SH0ES V1 declare ci-dessus",
+  "dettes": "calibration commune des bins non reduite ; MU_SH0ES incorpore les ajustements propres de la collaboration (Omega_m, nuisance) : dette de forme +0.049 mag mesuree campagne 7"
+ },
+ "protocole": "docs/H0-HZ-SNE-V2-PROTOCOLE.md"
+}

@@ -1046,6 +1046,78 @@ def _hz_sne_lit_planck() -> tuple[float, dict]:
     return _hz_sne_literature("hz_sne_LOWZ-LITERATURE-Planck.json", "Planck")
 
 
+def _hz_sne_v2(h0_courbe: float, courbe_nom: str) -> tuple[float, dict]:
+    """Contact ouvert H0 bas-z V2 — Pantheon+ ancré MU_SH0ES natif.
+
+    Règle déclarée AVANT le premier run (protocole
+    H0-HZ-SNE-V2-PROTOCOLE.md) : mêmes bins que V1 (8 bins équipopulaires,
+    fenêtre zHD [0,01 ; 0,15), 598 SNe, même règle de dispersion σ_bin),
+    mais l'amplitude est MU_SH0ES telle que publiée dans la release
+    Pantheon+ (ancrage natif, plus de transposition) — supprime la dette
+    de forme (+0,049 mag, campagne 7). La courbe posée par le contact est
+    mu_pred(z ; H0_courbe déclaré, Omega gelés 0,315/0,685) ; le H0 de
+    courbe est passé explicitement par le wrapper (corrige le piège
+    silencieux du runner V1 qui ignore son ancrage et lit 67,4 en dur).
+    mu_loc = rms des résidus sur 8 bins, mu_ref = 0. θ = sigma bins
+    déclarée = 0,027737 mag, gelée AVANT le run dans la table. GUM :
+    une ligne B (incertitudes déclarées MU_SH0ES_ERR_DIAG/√N),
+    decide=theta. V2 complète V1 sans la remplacer (les contacts V1
+    restent gelés). Dettes écrites : calibration commune non réduite ;
+    forme residuelle Omega gelés vs ajustements de la collaboration.
+    Estimation pré-run honnête :
+    - courbe Planck 67,4 posée : résidu moyen ≈ +0,1766 mag quasi
+      constant (miroir de V1_SH0ES), δ ≈ 0,178 >> 2θ = 0,055474 :
+      S- attendu SANS suspense.
+    - courbe SH0ES 73,04 posée : résidu = bruit réalisé, rms ≈ 0,0249,
+      δ/θ ≈ 0,897 < 1 : S+ attendu AU CHEVEU, le bruit réalisé décide.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("hz_sne_LOWZ-V2-MUSH0ES.json")
+    p = t["params"]
+    om = float(p["Omega_m"])
+    ol = float(p["Omega_L"])
+    c = float(p["c_km_s"])
+    res2 = []
+    for z, mu_obs in t["bins"]:
+        g = np.linspace(1e-8, z, 2000)
+        chi = np.trapezoid(1.0 / np.sqrt(om * (1.0 + g) ** 3 + ol), g)
+        dl = (1.0 + z) * chi * c / h0_courbe  # Mpc
+        res2.append((5.0 * np.log10(dl) + 25.0 - mu_obs) ** 2)
+    mu = float(np.sqrt(np.mean(res2)))
+    return mu, {
+        "table": "hz_sne_LOWZ-V2-MUSH0ES.json",
+        "vintage": t["vintage"],
+        "method": "rms des residus mu_pred(H(z) courbe declaree) - "
+                  "mu_obs SNe sur 8 bins bas-z Pantheon+ MU_SH0ES natif",
+        "rule": "rms residu = 0  (la courbe declaree passe par les bins)",
+        "H0_courbe": h0_courbe,
+        "H0_courbe_nom": courbe_nom,
+        "Omega_m": om,
+        "n_bins": len(t["bins"]),
+        "sigma_mag": float(t["sigma_mag"]),
+        "ansatz": "LCDM a Omega gelé ; seul levier declare H0 de la courbe",
+        "lever": "H0<-courbe_PLANCK_ou_SH0ES",
+        "unit_raw": "mag",
+    }
+
+
+def _hz_sne_v2_params() -> dict:
+    from mvcg.tables import load_table
+
+    return load_table("hz_sne_LOWZ-V2-MUSH0ES.json")["params"]
+
+
+def _hz_sne_v2_planck() -> tuple[float, dict]:
+    p = _hz_sne_v2_params()
+    return _hz_sne_v2(float(p["H0_courbe_PLANCK_km_s_Mpc"]), "PLANCK")
+
+
+def _hz_sne_v2_sh0es() -> tuple[float, dict]:
+    p = _hz_sne_v2_params()
+    return _hz_sne_v2(float(p["H0_courbe_SH0ES_km_s_Mpc"]), "SH0ES")
+
+
 def _amu_delta() -> tuple[float, dict]:
     """Contact ouvert AMU — l'écart g-2 porté, en unités de son incertitude.
 
@@ -1305,6 +1377,8 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
     "hz_sne_lit_planck": _hz_sne_lit_planck,
+    "hz_sne_v2_planck": _hz_sne_v2_planck,
+    "hz_sne_v2_sh0es": _hz_sne_v2_sh0es,
     "karplus_helix": _karplus_helix,
     "karplus_sheet": _karplus_sheet,
     "ckm_row1": _ckm_row1,
@@ -1592,6 +1666,22 @@ CONTACTS: list[Contact] = [
         "ouverte", None, "H0",
     ),
     Contact(
+        "H0_Hz_SNe_LOWZ_V2_PLANCK", "macro", "pred", "1", "mag", "abs", 0.027737,
+        0.0, "H0<-courbe_PLANCK_ou_SH0ES", "voir H0_Hz_SNe_LOWZ_LIT_PLANCK",
+        "rms(mu_pred(H(z) courbe Planck 67,4 posee) - mu_obs SNe Pantheon+ MU_SH0ES natif) = 0  (la courbe passe par les bins)",
+        "contact H0 bas-z V2 : memes 8 bins, amplitude MU_SH0ES native (dette de forme +0,049 supprimee, campagne 7) ; courbe Planck posee par le contact, H0 lu dans la table ; theta=0.027737 gele avant run ; est. pre-run : decalage ~+0,1766 mag quasi constant -> S- attendu sans suspense (miroir de V1_SH0ES) ; V2 complete V1 sans la remplacer",
+        "hz_sne_v2_planck",
+        "ouverte", None, "H0",
+    ),
+    Contact(
+        "H0_Hz_SNe_LOWZ_V2_SH0ES", "macro", "pred", "1", "mag", "abs", 0.027737,
+        0.0, "H0<-courbe_PLANCK_ou_SH0ES", "voir H0_Hz_SNe_LOWZ_LIT_SH0ES",
+        "rms(mu_pred(H(z) courbe SH0ES 73,04 posee) - mu_obs SNe Pantheon+ MU_SH0ES natif) = 0  (la courbe passe par les bins)",
+        "contact H0 bas-z V2 : courbe SH0ES posee sur amplitude native SH0ES ; theta=0.027737 gele avant run ; est. pre-run : residu = bruit realise des bins, delta/theta ~0,897 -> S+ attendu AU CHEVEU, le bruit realise decide ; suspense reel",
+        "hz_sne_v2_sh0es",
+        "ouverte", None, "H0",
+    ),
+    Contact(
         "NMR_Karplus_Helix", "micro", "pred", "si", "Hz", "rel", 0.10,
         4.0, "coefficients<-autre-parametrisation", "—",
         "3J(HN,Ha) helice par loi de Karplus (coefficients gelés) = ordre de grandeur typique declare",
@@ -1729,6 +1819,20 @@ _GUM["H0_Hz_SNe_LOWZ_LIT_PLANCK"] = {
     "k": 2,
     "lines": [{"name": "bins_SNe_Pantheon", "type": "B", "u": 0.02756,
                "note": "mag, incertitudes declarees e_mBcorr/rac(N), "
+                       "calibration commune NON reduite (dette)"}],
+}
+_GUM["H0_Hz_SNe_LOWZ_V2_PLANCK"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "bins_SNe_Pantheon", "type": "B", "u": 0.027737,
+               "note": "mag, incertitudes declarees MU_SH0ES_ERR_DIAG/rac(N), "
+                       "calibration commune NON reduite (dette)"}],
+}
+_GUM["H0_Hz_SNe_LOWZ_V2_SH0ES"] = {
+    "decide": "theta",
+    "k": 2,
+    "lines": [{"name": "bins_SNe_Pantheon", "type": "B", "u": 0.027737,
+               "note": "mag, incertitudes declarees MU_SH0ES_ERR_DIAG/rac(N), "
                        "calibration commune NON reduite (dette)"}],
 }
 _GUM["AMU_exp_minus_WP20"] = {

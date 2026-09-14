@@ -70,3 +70,14 @@ PYTHONPATH=src python -m unittest tests.test_verdict_register tests.test_verdict
 
 Le test `test_verdicts_online.py` fige le classement (31 lignes, 9
 fibres, invariance des 16 contacts) comme les tests O* figent les mots.
+
+## Mise à jour du classement figé
+
+Le classement est figé par le test, pas par ce document (snapshot
+2026-09-12 ci-dessus). Évolutions successives : série complétée
+(Bertsch, KSS ×2, AMU WP25, H0, H(z) DEMO, H(z) LITERATURE ×2) puis
+2026-09-14 : **48 contacts, fibre (1, mag) à 5** — la paire V2
+(MU_SH0ES natif) y apporte le premier S+ de la fibre (courbe SH0ES
+posée, δ/θ = 0,897) pendant que la courbe Planck posée y reste S− à
+6,4 θ. Invariance balayage : 48/48 (θ seul et balayage calibré).
+
