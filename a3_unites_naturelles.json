@@ -1,0 +1,480 @@
+{
+ "protocole": "MVC-G-A3-NAT-0.1",
+ "probe": {
+  "packet": "hl",
+  "vintage": "nat-A3-2026-09-14",
+  "hbar": 1.0,
+  "c": 1.0,
+  "note": "unités naturelles ℏ=c=1 ; k_B absorbé (T en énergie)"
+ },
+ "nat_map": {
+  "eV": {
+   "expr": "eV",
+   "convention": "l'énergie est la dimension native"
+  },
+  "Ha": {
+   "expr": "eV (× 27,2114)",
+   "convention": "Hartree = énergie atomique, convertie par e"
+  },
+  "cm^-1": {
+   "expr": "eV (× hc)",
+   "convention": "nombre d'onde → énergie via hc gelé"
+  },
+  "D": {
+   "expr": "e·eV⁻¹",
+   "convention": "dipôle = charge × longueur ; convention EM déplacée, pas supprimée"
+  },
+  "Hz": {
+   "expr": "eV (× h)",
+   "convention": "fréquence → énergie via h"
+  },
+  "m/s": {
+   "expr": "1",
+   "convention": "vitesse = 1/c : sans dimension en unités naturelles"
+  },
+  "nK": {
+   "expr": "eV (× k_B)",
+   "convention": "température → énergie via k_B"
+  },
+  "um": {
+   "expr": "eV⁻¹",
+   "convention": "longueur = 1/énergie"
+  },
+  "J m^-3 K^-2": {
+   "expr": "eV⁴",
+   "convention": "γ = densité d'énergie / T² → eV⁴"
+  },
+  "mag": {
+   "expr": "1",
+   "convention": "le magnitude est un rapport logarithmique : sans dimension"
+  },
+  "1": {
+   "expr": "1",
+   "convention": "sans dimension"
+  },
+  "1e-11": {
+   "expr": "1",
+   "convention": "sans dimension (échelle g-2, unité Δa_μ)"
+  }
+ },
+ "n": 46,
+ "licites": 46,
+ "mots_identiques": 46,
+ "rows": [
+  {
+   "id": "H1s_Rydberg",
+   "dimension": "eV",
+   "nat_licite": true,
+   "nat_expression": "eV",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "H1s_Rydberg_13p6",
+   "dimension": "eV",
+   "nat_licite": true,
+   "nat_expression": "eV",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "P20_H2plus_LCAO",
+   "dimension": "eV",
+   "nat_licite": true,
+   "nat_expression": "eV",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "P20_H2plus_table",
+   "dimension": "eV",
+   "nat_licite": true,
+   "nat_expression": "eV",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "P21_H2O_dipole",
+   "dimension": "D",
+   "nat_licite": true,
+   "nat_expression": "e·eV⁻¹",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "P30_Kato_gaussian",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "P30_Kato_1s",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "P27_He_HF",
+   "dimension": "Ha",
+   "nat_licite": true,
+   "nat_expression": "eV (× 27,2114)",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "P27_He_table",
+   "dimension": "Ha",
+   "nat_licite": true,
+   "nat_expression": "eV (× 27,2114)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "P35_sigma_spike",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "AAL_dice_lissage",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "AAL_dice_atlas",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "FRW_baryons",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "FRW_lcdm_Planck",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "FRW_lcdm_SH0ES",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O1_Grille_H1s",
+   "dimension": "eV",
+   "nat_licite": true,
+   "nat_expression": "eV",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "O2_CO2_nu3",
+   "dimension": "cm^-1",
+   "nat_licite": true,
+   "nat_expression": "eV (× hc)",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "O3_Carbon_D_Raman",
+   "dimension": "cm^-1",
+   "nat_licite": true,
+   "nat_expression": "eV (× hc)",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "O4_TK_ID_IG",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "O5_BEC_Sound",
+   "dimension": "m/s",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "O6_Grille_H1s_Raffine",
+   "dimension": "eV",
+   "nat_licite": true,
+   "nat_expression": "eV",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O7_Carbon_D_Levier",
+   "dimension": "cm^-1",
+   "nat_licite": true,
+   "nat_expression": "eV (× hc)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O8_BEC_Tc",
+   "dimension": "nK",
+   "nat_licite": true,
+   "nat_expression": "eV (× k_B)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O9_H2O_Pauling",
+   "dimension": "D",
+   "nat_licite": true,
+   "nat_expression": "e·eV⁻¹",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "O10_PMMA_Carbonyl",
+   "dimension": "cm^-1",
+   "nat_licite": true,
+   "nat_expression": "eV (× hc)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O11_BEC_Healing",
+   "dimension": "um",
+   "nat_licite": true,
+   "nat_expression": "eV⁻¹",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O12_Cu_Gamma",
+   "dimension": "J m^-3 K^-2",
+   "nat_licite": true,
+   "nat_expression": "eV⁴",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "O13_CO2_Isotopologue",
+   "dimension": "cm^-1",
+   "nat_licite": true,
+   "nat_expression": "eV (× hc)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O14_TK_Fenetre",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O15_H2_Harmonique",
+   "dimension": "cm^-1",
+   "nat_licite": true,
+   "nat_expression": "eV (× hc)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "O16_Cu_Gamma_Eff",
+   "dimension": "J m^-3 K^-2",
+   "nat_licite": true,
+   "nat_expression": "eV⁴",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "H0_Ecart_Planck_SH0ES",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "H0_Hz_SNe_LOWZ_DEMO",
+   "dimension": "mag",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "H0_Hz_SNe_LOWZ_LIT_SH0ES",
+   "dimension": "mag",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "H0_Hz_SNe_LOWZ_LIT_PLANCK",
+   "dimension": "mag",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "NMR_Karplus_Helix",
+   "dimension": "Hz",
+   "nat_licite": true,
+   "nat_expression": "eV (× h)",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "NMR_Karplus_Sheet",
+   "dimension": "Hz",
+   "nat_licite": true,
+   "nat_expression": "eV (× h)",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "CKM_Row1_Unitarity",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "AMU_exp_minus_WP20",
+   "dimension": "1e-11",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "HVP_LO_lat_vs_ee",
+   "dimension": "1e-11",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "P",
+   "mot_nat": "P",
+   "mot_identique": true
+  },
+  {
+   "id": "HLbL_lat_vs_pheno",
+   "dimension": "1e-11",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "AMU_Delta_WP25",
+   "dimension": "1e-11",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "Landau_Vc_He4",
+   "dimension": "m/s",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S+",
+   "mot_nat": "S+",
+   "mot_identique": true
+  },
+  {
+   "id": "Bertsch_Xi_Unitary",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "KSS_EtaS_He4",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  },
+  {
+   "id": "KSS_EtaS_QGP",
+   "dimension": "1",
+   "nat_licite": true,
+   "nat_expression": "1",
+   "mot_home": "S-",
+   "mot_nat": "S-",
+   "mot_identique": true
+  }
+ ],
+ "lecture": "invariance architecturale : le paquet n'entre jamais dans l'arithmétique (μ gelés), seulement dans la garde de dimension ; A2 a montré l'arithmétique propre à 5.6e-17, A3 montre la garde généralisable au 5e système"
+}
