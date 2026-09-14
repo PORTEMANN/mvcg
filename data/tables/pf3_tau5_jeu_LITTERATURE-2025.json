@@ -1,0 +1,19 @@
+{
+  "id": "pf3_tau5_jeu",
+  "vintage": "LITTERATURE-2025",
+  "source": "Principes Fondamentaux de Physique Noetique (V), 22/10/2025 : jeu numerique illustratif des plans E1-E7 (l'article le declare illustratif) — la machine verifie l'arithmetique de la valeur annoncee",
+  "doi_or_ref": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (V)', 22/10/2025 : 'tau_5_eff ~ 10.e^{-0,023.22,67} ~ 6,0' ; F5 = 0,712 annonce dans le meme jeu",
+  "species": "invariant de tension E5 (jeu illustratif)",
+  "quantity": "recompute de 10.exp(-beta.S5) avec beta = 0,023 et S5 = 22,67, compare a la valeur annoncee ~6,0",
+  "dimension": "1",
+  "packet": "1",
+  "value": 6.0,
+  "params": {
+    "base": 10.0,
+    "beta": 0.023,
+    "S5": 22.67,
+    "tau5_claim": 6.0,
+    "note": "jeu illustratif declare comme tel par la source ; le contact verifie l'arithmetique, pas la physique"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

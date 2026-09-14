@@ -2048,6 +2048,30 @@ def _corr_fenetre_point() -> tuple[float, dict]:
     }
 
 
+def _pf1_rg_spread() -> tuple[float, dict]:
+    from mvcg.principes import pf1_rg_spread
+
+    return pf1_rg_spread()
+
+
+def _pf2_graviton_ev() -> tuple[float, dict]:
+    from mvcg.principes import pf2_graviton_ev
+
+    return pf2_graviton_ev()
+
+
+def _pf3_tau5_recompute() -> tuple[float, dict]:
+    from mvcg.principes import pf3_tau5_recompute
+
+    return pf3_tau5_recompute()
+
+
+def _pf4_vide_log_ratio() -> tuple[float, dict]:
+    from mvcg.principes import pf4_vide_log_ratio
+
+    return pf4_vide_log_ratio()
+
+
 RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "h1s_rydberg": _h1s_rydberg,
     "h1s_vintage": _h1s_rydberg_vintage_off,
@@ -2119,6 +2143,10 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "bertsch_xi": _bertsch_xi,
     "kss_eta_s_he4": _kss_eta_s_he4,
     "kss_eta_s_qgp": _kss_eta_s_qgp,
+    "pf1_rg_spread": _pf1_rg_spread,
+    "pf2_graviton_ev": _pf2_graviton_ev,
+    "pf3_tau5_recompute": _pf3_tau5_recompute,
+    "pf4_vide_log_ratio": _pf4_vide_log_ratio,
 }
 
 CONTACTS: list[Contact] = [
@@ -2723,6 +2751,38 @@ CONTACTS: list[Contact] = [
         "contact ouvert hyperfluidite : premier mot qui tranche une question ouverte (saturation KSS) — borne inf declaree (2 planchers) vs plancher ; S- = non-saturation etablie, jamais 'KSS violee' ; theta=0.10 fige avant run",
         "kss_eta_s_qgp",
         "ouverte", None, "hyperfluidite",
+    ),
+    Contact(
+        "PF1_RG_Unification", "micro", "pred", "si", "1", "rel", 0.05,
+        0.01, "calcul<-revendication", "—",
+        "convergence des 4 couplages au 1-loop (entrees gelees) vs la coincidence +/-1 % revendiquee (2-boucles, Principes IV)",
+        "chantier PRINCIPES : la machine integre le flux 1-loop et mesure la dispersion relative minimale ; les coefficients SM 2-boucles ne sont pas geles dans la source — c'est la revendication 1-loop qui est pesee, l'article renvoyant lui-meme au 2-boucles ; S- attendu, c'est une information pas un accident",
+        "pf1_rg_spread",
+        "ouverte", "S-", "PRINCIPES",
+    ),
+    Contact(
+        "PF2_Graviton_25THz", "micro", "pred", "si", "eV", "rel", 0.10,
+        0.1, "f<-25THz (II)", "—",
+        "E = h.f du pic 'graviton noetique' 25 THz (Principes II) = masse spectrale 0,1 eV posee (Principes V)",
+        "chantier PRINCIPES : coherence interne entre deux volets ; h gele CODATA-2018 ; contact de croisement, pas une prediction spectroscopique ; attendu annonce P par erreur de calcul (0,0339/0,10) — le run corrige : delta = 3,4 % < theta 10 %, mot = S+",
+        "pf2_graviton_ev",
+        "ouverte", "S+", "PRINCIPES",
+    ),
+    Contact(
+        "PF3_Tau5_Jeu", "micro", "pred", "1", "1", "rel", 0.10,
+        6.0, "formule<-jeu (V)", "—",
+        "recompute de 10.exp(-0,023.22,67) vs la valeur ~6,0 annoncee (jeu illustratif, Principes V)",
+        "chantier PRINCIPES : verifie l'arithmetique du jeu numerique illustratif que l'article declare comme tel — pas la physique",
+        "pf3_tau5_recompute",
+        "ouverte", "S+", "PRINCIPES",
+    ),
+    Contact(
+        "PF4_Vide_Catastrophe", "micro", "pred", "si", "1", "rel", 0.10,
+        122.0, "constantes<-CODATA+Planck", "—",
+        "log10(rho_Planck / rho_Lambda) recompute (CODATA-2018 + Planck-2018 declares) vs l'exposant 122 revendique (Principes V)",
+        "chantier PRINCIPES : rho_Planck = c^7/(hbar.G^2), rho_Lambda = Omega_Lambda . rho_crit . c^2 ; les densites annoncees (1e113 / 1e-9) sont des ordres de grandeur, l'exposant est la grandeur precise",
+        "pf4_vide_log_ratio",
+        "ouverte", "S+", "PRINCIPES",
     ),
 ]
 

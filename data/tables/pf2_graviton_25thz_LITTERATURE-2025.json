@@ -1,0 +1,17 @@
+{
+  "id": "pf2_graviton_25thz",
+  "vintage": "LITTERATURE-2025",
+  "source": "croisement de deux volets : pic 'graviton noetique' a 25 THz annonce pour le gaz de positronium (II, 28/06/2025) ; masse spectrale des neutrins posee a 0,1 eV (V, 22/10/2025) — la machine teste la coherence energetique du croisement",
+  "doi_or_ref": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (II)', 28/06/2025 : 'mesurer par spectroscopie un pic a la frequence du graviton (25 THz)' ; 'Principes (V)', 22/10/2025 : 'Poser m_nu ~ 0,1 eV pour les neutrinos' — E = h.f a 25 THz = 0,1034 eV",
+  "species": "graviton noetique / neutrino",
+  "quantity": "E = h.f du pic 25 THz comparee a la masse spectrale 0,1 eV posee dans le volet V",
+  "dimension": "eV",
+  "packet": "si",
+  "value": 0.1,
+  "params": {
+    "f_claim_Hz": 25e12,
+    "m_spectrale_claim_eV": 0.1,
+    "note": "contact de coherence interne entre deux volets ; la constante h vient du gel CODATA-2018 de la machine, pas de la source"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

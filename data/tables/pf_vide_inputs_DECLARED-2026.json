@@ -1,0 +1,19 @@
+{
+  "id": "pf_vide_inputs",
+  "vintage": "DECLARED-2026",
+  "source": "entrees calculatoires declarees pour le chantier PRINCIPES : constante de gravitation CODATA-2018 et parametres cosmologiques Planck 2018 (extraits figes, pas de fetch reseau)",
+  "doi_or_ref": "G : CODATA 2018 (6,67430.10^-11 SI) ; H0 et Omega_Lambda : Planck Collab. 2018, parametres LCDM (H0 = 67,4 km/s/Mpc, Omega_Lambda = 0,6849)",
+  "species": "constantes d'entree",
+  "quantity": "G, H0, Omega_Lambda pour le contact PF4_Vide_Catastrophe",
+  "dimension": "si",
+  "packet": "si",
+  "value": 0.0,
+  "params": {
+    "G_SI": 6.67430e-11,
+    "H0_km_s_Mpc": 67.4,
+    "OmegaLambda": 0.6849,
+    "Mpc_m": 3.0856775814913673e22,
+    "note": "declaration d'entrees, pas une mesure ; figer ce fichier"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

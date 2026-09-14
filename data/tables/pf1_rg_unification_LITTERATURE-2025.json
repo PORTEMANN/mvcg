@@ -1,0 +1,27 @@
+{
+  "id": "pf1_rg_unification",
+  "vintage": "LITTERATURE-2025",
+  "source": "Principes Fondamentaux de Physique Noetique (IV), histoire-des-sciences.eu, 7 aout 2025 : tentative d'unification des 4 couplages par ajout d'un secteur U(1)_noet ; la machine ne recompute QUE le 1-loop (coefficients SM 2-boucles non geles dans la source)",
+  "doi_or_ref": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (IV)', 07/08/2025 : b_noet = +4 (1-loop), b_njn = +10 (2-boucles), k = 0, g_noet(Mz) = 0,50 ; revendication : 'les quatre couplages coincident a +/-1 % pres : g_U = 0,512 a mu_U = 2.10^16 GeV' ; entrees g1(Mz)=0,3570, g2(Mz)=0,6529, g3(Mz)=1,217 citees PDG 2020 ; Mz = 91,187 GeV ; betas 1-loop SM : b1 = 41/6, b2 = -19/6, b3 = -7",
+  "species": "couplages de jauge SM + U(1)_noet",
+  "quantity": "dispersion relative minimale des 4 couplages au 1-loop balaye t in [0,36], comparee a la coincidence +/-1 % revendiquee (2-boucles)",
+  "dimension": "1",
+  "packet": "si",
+  "value": 0.01,
+  "params": {
+    "Mz_GeV": 91.187,
+    "g1_Mz": 0.3570,
+    "g2_Mz": 0.6529,
+    "g3_Mz": 1.217,
+    "g_noet_Mz": 0.50,
+    "b1": 6.833333333333333,
+    "b2": -3.1666666666666665,
+    "b3": -7.0,
+    "b_noet": 4.0,
+    "mu_U_claim_GeV": 2e16,
+    "g_U_claim": 0.512,
+    "coincidence_claim_rel": 0.01,
+    "note": "revendication explicite du 2-boucles ; la machine mesure le 1-loop pur avec les memes entrees gelees — comparer les deux est le contact ; l'article dit lui-meme qu'en MS minimal le trio (g1,g2,g3) ne se croise pas en 1-loop"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

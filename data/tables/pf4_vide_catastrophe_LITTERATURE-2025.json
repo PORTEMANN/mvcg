@@ -1,0 +1,18 @@
+{
+  "id": "pf4_vide_catastrophe",
+  "vintage": "LITTERATURE-2025",
+  "source": "Principes Fondamentaux de Physique Noetique (V), 22/10/2025 : expose du paradoxe de la constante cosmologique — la machine recompute l'exposant depuis les constantes gelees et le compare a la valeur revendiquee",
+  "doi_or_ref": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (V)', 22/10/2025 : 'Valeur theorique (quantique) : 10^113 J/m^3 ; Valeur observee (cosmologique) : 10^-9 J/m^3 ; Le rapport entre les deux est de 10^113/10^-9 = 10^122' ; (IV), 07/08/2025 : rho_Lambda ~ 10^-9 J/m^3",
+  "species": "vide de Planck / energie sombre",
+  "quantity": "log10(rho_Planck / rho_Lambda) calcule (CODATA-2018 + Planck-2018 declares) compare a l'exposant 122 revendique",
+  "dimension": "1",
+  "packet": "si",
+  "value": 122.0,
+  "params": {
+    "log_ratio_claim": 122.0,
+    "rho_planck_claim": 1e113,
+    "rho_lambda_claim": 1e-9,
+    "note": "revendication de l'exposant entier ; les deux densites annoncees sont des ordres de grandeur, l'exposant est la grandeur precise"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
