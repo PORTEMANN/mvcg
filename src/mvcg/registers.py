@@ -710,6 +710,43 @@ def _o16_cu_gamma_eff() -> tuple[float, dict]:
     }
 
 
+def _o17_h2_anharmonic() -> tuple[float, dict]:
+    """Contact ouvert O17 — fondamental du H2 par Dunham ordre 1.
+
+    Règle déclarée AVANT le premier run : nu_pred(1-0) = omega_e -
+    2*omega_e x_e, extraits declares Huber & Herzberg (table
+    h2_anharmonic_LITERATURE-2018.json). mu_ref = 4160.0 cm^-1, le
+    fondamental declare repris de la note de la table h2_vibration
+    (meme gel que O15) : la dette promise par O15. La reference NE DOIT
+    JAMAIS entrer dans le calcul. La tare assumee : la reference est un
+    arrondi au cm^-1 (u=0.5 declaree) — le contact pese la tare de
+    declaration, pas la physique anharmonique (nu_pred ~ 4158.5 est la
+    physique correcte). Estimation pre-run honnete : delta ~ 1.48 cm^-1,
+    theta = u_delta ~ 0.5026 cm^-1 (convention GUM k=1, precedent
+    Rydberg voie 2), ratio ~ 2.94 -> P au cheveu de la borne S- ;
+    suspense reel annonce au gel, mot inconnu.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("h2_anharmonic_LITERATURE-2018.json")
+    p = t["params"]
+    omega_e = float(p["omega_e_cm-1"])
+    omega_ex_e = float(p["omega_ex_e_cm-1"])
+    nu_pred = omega_e - 2.0 * omega_ex_e
+    return nu_pred, {
+        "table": "h2_anharmonic_LITERATURE-2018.json",
+        "vintage": t["vintage"],
+        "method": "developpement de Dunham ordre 1, constantes declarees",
+        "rule": "nu(1-0) = omega_e - 2 omega_e x_e",
+        "omega_e_cm-1": omega_e,
+        "omega_ex_e_cm-1": omega_ex_e,
+        "nu10_declared_cm-1": float(p["nu10_declared_cm-1"]),
+        "ansatz": "Dunham ordre 1 ; dette assumee = arrondi de declaration du fondamental (u=0.5 declaree)",
+        "lever": "—",
+        "unit_raw": "cm^-1",
+    }
+
+
 def _karplus_helix() -> tuple[float, dict]:
     """Contact ouvert NMR-Karplus hélice — ³J par la loi de Karplus.
 
@@ -1712,6 +1749,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o14_tk_window": _o14_tk_window,
     "o15_h2_harmonic": _o15_h2_harmonic,
     "o16_cu_gamma_eff": _o16_cu_gamma_eff,
+    "o17_h2_anharmonic": _o17_h2_anharmonic,
     "h0_ecart": _h0_ecart,
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
@@ -1989,6 +2027,15 @@ CONTACTS: list[Contact] = [
         "contact ouvert O16 : levier d'O12 active (pendant disciplinaire d'O7), m* declaree jamais derivee de la reference ; theta=0.10 fige avant run",
         "o16_cu_gamma_eff",
         "ouverte", None, "O16",
+    ),
+    Contact(
+        "O17_H2_Anharmonique", "micro", "pred", "1", "cm^-1", "abs",
+        0.5025932749251625,
+        4160.0, "—", "—",
+        "nu(1-0) H2 par Dunham ordre 1 (omega_e, omega_e x_e declarees) = fondamental declare 4160 (arrondi, u=0.5)",
+        "contact ouvert O17 : dette d'O15 levee ; tare assumee = arrondi de declaration du fondamental (u=0.5 declaree), theta = u_delta = 0.5025932749251625 cm^-1, decide=U k=1 (convention GUM, precedent Rydberg voie 2), gele avant run ; estimation pre-run honnete : delta ~ 1.48 cm^-1, ratio ~ 2.94 -> P au cheveu de la borne S- annonce ; suspense reel, mot inconnu au gel",
+        "o17_h2_anharmonic",
+        "ouverte", None, "O17",
     ),
     Contact(
         "H0_Ecart_Planck_SH0ES", "macro", "pred", "1", "1", "abs", 0.05,
@@ -2334,6 +2381,15 @@ _GUM["HLbL_lat_vs_pheno"] = {
     "lines": [
         {"name": "lat", "type": "B", "u": 9.0},
         {"name": "pheno", "type": "B", "u": 8.8},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["O17_H2_Anharmonique"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "nu_pred_Dunham", "type": "B", "u": 0.050990195135927854},
+        {"name": "nu10_declaree", "type": "B", "u": 0.5},
     ],
     "R": [[1.0, 0.0], [0.0, 1.0]],
 }
