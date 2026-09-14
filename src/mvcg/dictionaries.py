@@ -68,14 +68,23 @@ def sweep_contact(
     dimension: str,
     theta: float,
     delta_kind: str = "rel",
+    thr: float | None = None,
 ) -> dict[str, Any]:
-    """μ_loc et μ_ref gelés : le paquet ne change le mot que s'il est illicite."""
+    """μ_loc et μ_ref gelés : le paquet ne change le mot que s'il est illicite.
+
+    thr : seuil de décision réel du contact (U si decide=U) pour un
+    balayage À MÊME ÉTALONNAGE (chantier A2, 2026-09-14). Par défaut
+    (None) : θ seul — comportement historique du street sweep, figé
+    par les tests « deux instruments » (CKM, HVP, HLbL). Ne pas
+    changer ce défaut : c'est un gel.
+    """
+    seuil = float(thr) if thr is not None else float(theta)
     rows = []
     for packet in PACKETS:
         try:
             parse_units(_unit_doc(packet), dimension=dimension)
             delta = _delta(mu_loc, mu_ref, delta_kind)
-            verdict = _verdict(delta, theta)
+            verdict = _verdict(delta, seuil)
             kill = None
         except (ValueError, TypeError) as exc:
             delta, verdict, kill = None, "S-", str(exc)
@@ -86,6 +95,7 @@ def sweep_contact(
                 "mu_ref": mu_ref,
                 "dimension": dimension,
                 "delta": delta,
+                "thr": seuil,
                 "verdict": verdict,
                 "units_kill": kill,
             }

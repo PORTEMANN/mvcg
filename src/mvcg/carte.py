@@ -38,6 +38,7 @@ from mvcg.casier import family_of
 from mvcg.metrics import marge_adc
 from mvcg.registers import run_registers
 from mvcg.tables import ROOT
+from mvcg.verdict_register import _thr_contact
 
 OUT = ROOT / "docs"
 
@@ -73,13 +74,14 @@ def _rows() -> list[dict[str, Any]]:
 def _marge_sigma(r: dict[str, Any]) -> float | None:
     """Marge du verdict en σ (u_c GUM gelé), ou None sans budget déclaré.
 
-    thr = U si decide=U, θ sinon — même seuil que la règle de verdict.
+    Le seuil de décision est celui du contact (_thr_contact, partagé
+    avec le sweep calibré) — une seule définition d'étalonnage.
     """
     g = ((r.get("extra") or {}).get("gum")) or {}
     uc = g.get("uc")
     if not uc or uc <= 0:
         return None
-    thr = float(g["U"]) if (g.get("decide") == "U" and g.get("U")) else float(r["theta"])
+    thr, _ = _thr_contact(float(r["theta"]), g)
     return marge_adc(float(r["delta"]), thr, r["verdict"]) / float(uc)
 
 

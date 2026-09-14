@@ -142,3 +142,59 @@ def street_sweep(contact_id: str) -> dict[str, Any]:
         "warning": "comparer les lignes ; ne pas moyenner les mots",
         "rows": swept["rows"],
     }
+
+
+def _thr_contact(theta: float, gum: dict[str, Any] | None) -> tuple[float, str]:
+    """Seuil de décision réel du contact : U si decide=U, θ sinon.
+
+    Même règle que la couche épaisseur des cartes (carte.py) — une
+    seule définition d'étalonnage partout où on la rejoue.
+    """
+    g = gum or {}
+    if g.get("decide") == "U" and g.get("U"):
+        return float(g["U"]), "U"
+    return float(theta), "theta"
+
+
+def street_sweep_calibrated(contact_id: str) -> dict[str, Any]:
+    """Même rue, MÊME ÉTALONNAGE : le balayage re-décide au seuil gelé
+    du contact (U si decide=U, θ sinon).
+
+    Chantier A2 (2026-09-14) : la « divergence home/balayage » de CKM,
+    HVP et HLbL n'était pas un effet d'unités mais la comparaison de
+    deux seuils (street_sweep historique juge au θ seul — gel figé par
+    les tests « deux instruments »). Ici les quatre paquets sont jugés
+    au seuil du contact : l'invariance d'unités seule est mesurée.
+    Les deux balayages sont complémentaires, pas concurrents :
+    street_sweep compare les étalonnages, celui-ci compare les unités.
+    """
+    c = next((x for x in CONTACTS if x.id == contact_id), None)
+    if c is None:
+        raise KeyError(contact_id)
+    row = run_contact(c)
+    thr, calib = _thr_contact(float(c.theta), (row.get("extra") or {}).get("gum"))
+    swept = sweep_contact(
+        float(row["mu_loc"]),
+        float(row["mu_ref"]),
+        str(c.dimension),
+        float(c.theta),
+        c.delta_kind,
+        thr=thr,
+    )
+    for r in swept["rows"]:
+        r["color"] = COLORS.get(r["packet"], r["packet"])
+        r["id"] = contact_id
+    return {
+        "protocol": "MVC-G-STREET-CAL-0.1",
+        "id": contact_id,
+        "s": c.s_phrase,
+        "dimension": c.dimension,
+        "mu_loc": row["mu_loc"],
+        "mu_ref": row["mu_ref"],
+        "home_packet": c.packet,
+        "home_verdict": row["verdict"],
+        "calibration": calib,
+        "thr": thr,
+        "warning": "à même étalonnage ; un mot par couleur ; ne pas moyenner",
+        "rows": swept["rows"],
+    }
