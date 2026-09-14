@@ -16,16 +16,26 @@ couleur = mot réel.
 `identite` — la carte de profil : 44 cases colorisées par verdict,
 groupées par famille. Pour un regard étranger, pas pour un opérateur.
 
+Couche d'épaisseur (campagne MARGE, 2026-09-14) : partout où un
+budget GUM est gelé, la marge en σ (distance à la frontière de
+bascule, `marge_adc`) est encodée — taille des pastilles sur la carte
+principale, case pâlie vers le blanc sur la carte d'identité. Les
+contacts sans budget GUM gardent taille/opacité neutres : la couche
+ne montre que ce qui est déclaré, jamais une épaisseur inventée.
+Encoding dérivé du registre au moment de l'exécution, comme le reste.
+
 Limite déclarée : un point ne montre pas sa fibre (unités) — la fibre
 est dans le classement figé, pas dans cette carte.
 """
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Any
 
 from mvcg.casier import family_of
+from mvcg.metrics import marge_adc
 from mvcg.registers import run_registers
 from mvcg.tables import ROOT
 
@@ -60,6 +70,45 @@ def _rows() -> list[dict[str, Any]]:
     return run_registers()["rows"]
 
 
+def _marge_sigma(r: dict[str, Any]) -> float | None:
+    """Marge du verdict en σ (u_c GUM gelé), ou None sans budget déclaré.
+
+    thr = U si decide=U, θ sinon — même seuil que la règle de verdict.
+    """
+    g = ((r.get("extra") or {}).get("gum")) or {}
+    uc = g.get("uc")
+    if not uc or uc <= 0:
+        return None
+    thr = float(g["U"]) if (g.get("decide") == "U" and g.get("U")) else float(r["theta"])
+    return marge_adc(float(r["delta"]), thr, r["verdict"]) / float(uc)
+
+
+def _taille_pastille(marge_sig: float | None) -> float:
+    """Carte principale : 30 + 70·log10(1+marge)/1, borné à 100.
+
+    Pastille fine = verdict mince ; neutre (52) sans budget GUM.
+    """
+    if marge_sig is None:
+        return 52.0
+    return 30.0 + 70.0 * min(1.0, math.log10(1.0 + marge_sig))
+
+
+def _case_palee(couleur: str, marge_sig: float | None) -> str:
+    """Carte identité : la case est pâlie vers le blanc quand le verdict
+    est mince — alpha = 0,30 + 0,70·min(1, marge/2). Couleur pleine
+    sans budget GUM. Blend explicite en hex (pas de rgba) pour rester
+    dérivé et déterministe."""
+    if marge_sig is None:
+        return couleur
+    alpha = 0.30 + 0.70 * min(1.0, marge_sig / 2.0)
+    rv, gv, bv = (int(couleur[i : i + 2], 16) for i in (1, 3, 5))
+    return "#{:02x}{:02x}{:02x}".format(
+        round(alpha * rv + (1.0 - alpha) * 255),
+        round(alpha * gv + (1.0 - alpha) * 255),
+        round(alpha * bv + (1.0 - alpha) * 255),
+    )
+
+
 def carte_principale(path: Path) -> dict[str, Any]:
     import matplotlib
 
@@ -86,7 +135,8 @@ def carte_principale(path: Path) -> dict[str, Any]:
             x, y,
             marker=MARKERS.get(r["register"], "o"),
             c=COLORS[r["verdict"]],
-            s=52, zorder=3, edgecolors="white", linewidths=0.6,
+            s=_taille_pastille(_marge_sigma(r)), zorder=3,
+            edgecolors="white", linewidths=0.6,
         )
     for r in rows:
         if r["id"] in ANNOTATE:
@@ -102,8 +152,9 @@ def carte_principale(path: Path) -> dict[str, Any]:
     ax.set_xlabel("θ gelé (l'étalonnage du contact — abs et rel mélangés, log)")
     ax.set_ylabel("δ/θ (la tension, en unités de seuil — log)")
     ax.set_title(
-        "MVC-G — 44 verdicts : chaque point est une pesée, les bandes sont la règle\n"
-        "○ micro  △ meso  □ macro — vert S+  ambre P  rouge S−"
+        f"MVC-G — {len(rows)} verdicts : chaque point est une pesée, les bandes sont la règle\n"
+        "○ micro  △ meso  □ macro — vert S+  ambre P  rouge S− — "
+        "pastille fine = verdict mince (marge en σ, budget GUM déclaré)"
     )
     ax.set_xlim(1e-5, 1e3)
     ax.set_ylim(0.05, 5e2)
@@ -138,7 +189,8 @@ def carte_identite(path: Path) -> dict[str, Any]:
     for fam in sorted(fams):
         for r in fams[fam]:
             ax.add_patch(plt.Rectangle((x, 0.3), cell * 0.9, cell * 0.9,
-                                       color=COLORS[r["verdict"]]))
+                                       color=_case_palee(COLORS[r["verdict"]],
+                                                         _marge_sigma(r))))
             x += cell
         ax.text(x - len(fams[fam]) * cell / 2, 0.12, fam,
                 ha="right", rotation=25, fontsize=7, color="#444444")
@@ -147,7 +199,8 @@ def carte_identite(path: Path) -> dict[str, Any]:
     ax.set_ylim(-0.15, 0.75)
     ax.axis("off")
     ax.set_title(
-        f"MVC-G — {len(rows)} verdicts : vert S+ · ambre P · rouge S−",
+        f"MVC-G — {len(rows)} verdicts : vert S+ · ambre P · rouge S− — "
+        "case pâle = verdict mince (< 2σ de sa frontière, budget GUM)",
         fontsize=10,
     )
     fmt = Path(path).suffix.lstrip(".") or "svg"

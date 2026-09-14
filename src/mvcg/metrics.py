@@ -70,6 +70,21 @@ def _adc(delta: float, thr: float) -> str:
     return "S-"
 
 
+def marge_adc(delta: float, thr: float, mot: str) -> float:
+    """Distance POSITIVE à la frontière où le mot de _adc basculerait.
+
+    S+ : thr - δ (montée en P à δ = thr) ; P : min(δ - thr, 2 thr - δ)
+    (frontière la plus proche, des deux côtés) ; S- : δ - 2 thr
+    (redescente en P à δ = 2 thr). Campagne MARGE (2026-09-14) : la
+    marge classe l'exposition d'un verdict, ce n'est pas une p-value.
+    """
+    if mot == "S+":
+        return thr - delta
+    if mot == "P":
+        return min(delta - thr, 2.0 * thr - delta)
+    return delta - 2.0 * thr
+
+
 def _verdict(delta: float, theta: float, sigma: float | None = None) -> str:
     th = float(theta)
     if sigma is not None:
