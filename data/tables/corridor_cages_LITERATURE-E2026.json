@@ -1,0 +1,27 @@
+{
+  "id": "corridor_cages",
+  "vintage": "LITERATURE-E2026",
+  "source": "corridor_E (série E44->E68 + T5/T6, publiée groupée le 09/09/2026) : E63 (spectre de stabilité des cages, optimum de marge), E65 (énergie par anneau, minimum à n=18), E61 (équilibre souffle/pression à kappa=0,05), E64-A (grille fine de la fenêtre, bords mesurés) ; protocoles gelés hachés avant calcul, amendements datés",
+  "doi_or_ref": "notes E63_NOTE.md, E65, E61, E64A_NOTE.md — corridor_E, Patrice Portemann, 09/09/2026 ; tensions inter-campagnes chiffrées ici pour la première fois",
+  "species": "cavités de filaments de vortex (anneaux n=12..24), dynamique Biot-Savart + pression du vide",
+  "quantity": "décalage optimum de stabilité vs minimum d'énergie (n) ; position du point E61 vs bord bas de la fenêtre E64-A (kappa)",
+  "dimension": "1",
+  "packet": "1",
+  "value": 18,
+  "params": {
+    "e63_n_opt_marge": 14,
+    "e63_note": "optimum mesuré à kappa=0,05, t=90 : n=14 (rms 5,32 / échappement 9,52) ; n=18 dernier en échappement (1,18)",
+    "e65_n_min_energie": 18,
+    "e65_note": "minimum d'énergie par anneau à cage fixe, E/n = 5,27 (creux net) ; E66 : le dip à 18 n'existe qu'à cage fixe — géométrie-dépendant",
+    "u_n": 1.0,
+    "u_n_note": "comptage entier de cages, pas d'interpolation publiée — déclaration",
+    "e61_kappa": 0.05,
+    "e61_note": "SUCCÈS : la cage ANU (n=18 reproduit par E63) tient à t=90 sous pression du vide kappa=0,05",
+    "e64a_bord_bas": 0.075,
+    "e64a_bord_bas_bracket_halfwidth": 0.0125,
+    "u_bord_bas": 0.007216878364870325,
+    "e64a_note": "fenêtre kappa ∈ ]0,075 ; 0,125[ à n=18, t=180, pas de grille 0,025 ; bord bas bracketé (0,075 ; 0,1)",
+    "note": "deux tensions inter-campagnes du corridor, jamais chiffrées comme telles : (1) E63 optimum stabilité n=14 vs E65 minimum énergie n=18 ; (2) E61 point kappa=0,05 (t=90) vs E64-A bord bas 0,075 (t=180) — tare de temps de vol déclarée"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
+import math
+
 import numpy as np
 
 from mvcg.metrics import _delta, _verdict
@@ -1876,6 +1878,176 @@ def _friedmann_lcdm_shoes_H0() -> tuple[float, dict]:
     }
 
 
+def _l4_gap_universel() -> tuple[float, dict]:
+    """Contact L4 — gap universel ω(k1) insensible a l'inertie (vague fine).
+
+    Protocole L4-GYROCORPS-CONTACTS.md (gelé avant run) : lecture croisée
+    fine/fine ω(k1, m=12) vs ω(k1, m=5), meme protocole AMP=0.15. La
+    reference NE DOIT JAMAIS entrer dans le calcul : mu = lecture table.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("l4_gyrocorps_LITERATURE-HP2027.json")
+    p = t["params"]
+    return float(p["w1_m12_fine"]), {
+        "table": "l4_gyrocorps_LITERATURE-HP2027.json",
+        "vintage": t["vintage"],
+        "method": "lecture croisée fine/fine du gap k1 (m=12 vs m=5)",
+        "rule": "gap universel : omega(k1) identique pour toute masse m",
+        "mu_ref": float(p["w1_m5_fine"]),
+        "unit_raw": "1 (unités internes GP)",
+    }
+
+
+def _l4_branche_k2() -> tuple[float, dict]:
+    """Contact L4 — branche gelée ω²=ω₀²+β²k⁴ évaluée à k₂ (régime fin).
+
+    Protocole gelé : transposabilité de la branche P1-P2 (calibrée AMP=0.3)
+    au régime fin AMP=0.15 — la dette ouverte du corpus (dépendance en
+    amplitude) devient un écart chiffré. mu = branche(k2) depuis les params
+    gelés de la table, jamais la mesure.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("l4_gyrocorps_LITERATURE-HP2027.json")
+    p = t["params"]
+    w0, beta, k2 = float(p["omega0"]), float(p["beta"]), float(p["k2"])
+    w_pred = math.sqrt(w0**2 + beta**2 * k2**4)
+    return w_pred, {
+        "table": "l4_gyrocorps_LITERATURE-HP2027.json",
+        "vintage": t["vintage"],
+        "method": "branche gappée P1-P2 gelée évaluée à k2",
+        "rule": "omega^2(k) = omega0^2 + beta^2 k^4",
+        "omega0": w0, "beta": beta, "k2": k2,
+        "mu_ref": float(p["w2_m8_fine"]),
+        "ansatz": "arrondis P1-P2 (u propagée, pas rétro-ajustée) ; dette assumée = transposition de régime AMP 0.3 -> 0.15",
+        "unit_raw": "1 (unités internes GP)",
+    }
+
+
+def _l4_fenetre_branche() -> tuple[float, dict]:
+    """Contact L4 — la branche gelée prédit-elle la fenêtre inertielle D₃ ?
+
+    Protocole gelé : D3_pred = branche(k3)/vide(k3), la contrainte 1 de P4
+    (deux nombres liés) pesée indirectement — si la branche gelée avant
+    l'addendum prédit la fenêtre reformulée, le pont tient à ce niveau.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("l4_gyrocorps_LITERATURE-HP2027.json")
+    p = t["params"]
+    w0, beta = float(p["omega0"]), float(p["beta"])
+    k3, vide3 = float(p["k3"]), float(p["vide_k3"])
+    w3 = math.sqrt(w0**2 + beta**2 * k3**4)
+    d3 = w3 / vide3
+    return d3, {
+        "table": "l4_gyrocorps_LITERATURE-HP2027.json",
+        "vintage": t["vintage"],
+        "method": "branche gappée rapportée à la ligne vide calibrée à k3",
+        "rule": "D3_pred = omega_branche(k3) / omega_vide(k3)",
+        "omega_branche_k3": w3, "vide_k3": vide3,
+        "mu_ref": float(p["D3_m8_addendum"]),
+        "ansatz": "u(D_pred) en propagation relative (branche + ligne vide) ; u(D_obs)=0.5 déclarée (pic dominant, dédoublement m=10 exclu)",
+        "unit_raw": "1 (rapport de fréquences)",
+    }
+
+
+def _l4_kappa_eff() -> tuple[float, dict]:
+    """Contact L4 volet 2 — κ_eff implicite de la pente par Kelvin nu.
+
+    Protocole L4-DEUX-NOMBRES-LIES.md (gelé avant run) : si la pente de la
+    branche est d'origine Kelvin (forme nue ω_K = (κ/4π)k², convention
+    « paramètres nus » du corpus), la circulation implicite est κ_eff = 4πβ.
+    mu = κ_eff depuis β gelé de la table ; la référence κ=2π NE DOIT JAMAIS
+    entrer dans le calcul.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("l4_gyrocorps_LITERATURE-HP2027.json")
+    p = t["params"]
+    beta = float(p["beta"])
+    return 4.0 * math.pi * beta, {
+        "table": "l4_gyrocorps_LITERATURE-HP2027.json",
+        "vintage": t["vintage"],
+        "method": "circulation implicite d'une pente Kelvin : kappa_eff = 4 pi beta",
+        "rule": "omega_K = (kappa/4pi) k^2, forme nue (paramètres nus), sans logarithme",
+        "beta": beta,
+        "mu_ref": 2.0 * math.pi,
+        "ansatz": "dette de forme écrite : la variante log (k3, xi=0.3) donnerait kappa_eff x12,9 au lieu de x22,4 — sensibilité consignée au gel, verdict invariant",
+        "unit_raw": "1 (unités internes GP)",
+    }
+
+
+def _l4_kelvin_gap() -> tuple[float, dict]:
+    """Contact L4 volet 2 — la circulation pure ne produit pas de gap.
+
+    Protocole gelé : ω_K → 0 quand k → 0 ; pred ω_K(k1) = (κ/4π)k1² gelé vs
+    le gap universel 0.62. mu depuis κ et k1 gelés uniquement.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("l4_gyrocorps_LITERATURE-HP2027.json")
+    p = t["params"]
+    kappa = 2.0 * math.pi
+    k1 = float(p["k1"])
+    return (kappa / 4.0 / math.pi) * k1**2, {
+        "table": "l4_gyrocorps_LITERATURE-HP2027.json",
+        "vintage": t["vintage"],
+        "method": "loi de Kelvin nue évaluée à k1 — aucun terme de gap",
+        "rule": "omega_K(k) = (kappa/4pi) k^2 ; omega_K -> 0 quand k -> 0",
+        "kappa": kappa, "k1": k1,
+        "mu_ref": 0.62,
+        "ansatz": "le gap est une dette de structure, pas de circulation (P4 : ni corde ni gap nu) — chiffré ici",
+        "unit_raw": "1 (unités internes GP)",
+    }
+
+
+def _corr_stabilite_energie() -> tuple[float, dict]:
+    """Contact CORR — optimum de stabilité (E63) vs minimum d'énergie (E65).
+
+    Protocole CORRIDOR-CROISE-CONTACTS.md (gelé avant run) : les deux
+    facettes d'une même structure présentées unies par le corridor — la
+    machine pèse leur décalage. mu = lecture E63, la référence E65 NE DOIT
+    JAMAIS entrer dans le calcul.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("corridor_cages_LITERATURE-E2026.json")
+    p = t["params"]
+    return float(p["e63_n_opt_marge"]), {
+        "table": "corridor_cages_LITERATURE-E2026.json",
+        "vintage": t["vintage"],
+        "method": "lecture de l'optimum de marge E63 (kappa=0,05, t=90)",
+        "rule": "l'optimum de stabilité minimise l'énergie par anneau",
+        "mu_ref": float(p["e65_n_min_energie"]),
+        "ansatz": "dette nommée : les facettes se découplent (E68 qualitative) — publié ici en verdict",
+        "unit_raw": "1 (nombre de cages)",
+    }
+
+
+def _corr_fenetre_point() -> tuple[float, dict]:
+    """Contact CORR — le point E61 (kappa=0,05) vs le bord bas E64-A.
+
+    Protocole gelé : le point tient à t=90, la fenêtre est mesurée à t=180 —
+    tare de temps de vol déclarée, la machine mesure l'écart à face value.
+    mu = kappa E61 gelé par protocole ; la référence NE DOIT JAMAIS entrer
+    dans le calcul.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("corridor_cages_LITERATURE-E2026.json")
+    p = t["params"]
+    return float(p["e61_kappa"]), {
+        "table": "corridor_cages_LITERATURE-E2026.json",
+        "vintage": t["vintage"],
+        "method": "lecture du point E61 (SUCCÈS à t=90)",
+        "rule": "le point est compatible avec la fenêtre à face value",
+        "mu_ref": float(p["e64a_bord_bas"]),
+        "ansatz": "tare de temps de vol déclarée (90 vs 180) : deux horizons, pas une contradiction — l'écart est chiffré, la dette écrite",
+        "unit_raw": "1 (kappa, unités internes)",
+    }
+
+
 RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "h1s_rydberg": _h1s_rydberg,
     "h1s_vintage": _h1s_rydberg_vintage_off,
@@ -1914,6 +2086,13 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "p31_lamb_mohr": _p31_lamb_mohr,
     "p31_lamb_erickson": _p31_lamb_erickson,
     "p32_lamb_modern": _p32_lamb_modern,
+    "l4_gap_universel": _l4_gap_universel,
+    "l4_branche_k2": _l4_branche_k2,
+    "l4_fenetre_branche": _l4_fenetre_branche,
+    "l4_kappa_eff": _l4_kappa_eff,
+    "l4_kelvin_gap": _l4_kelvin_gap,
+    "corr_stabilite_energie": _corr_stabilite_energie,
+    "corr_fenetre_point": _corr_fenetre_point,
     "h0_ecart": _h0_ecart,
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
@@ -2244,6 +2423,105 @@ CONTACTS: list[Contact] = [
         "contact ouvert P32 : la dette se ferme — meme temoin que P31 (Mohr P a 1,14 theta, Erickson S- a 4,71 theta) contre la theorie reevaluee ; theta = u_delta = 0.009848857801796104 MHz, decide=U k=1, gele avant run ; estimation pre-run : delta ~ 0.003 MHz, ratio ~ 0.305, S+ attendu suspense faible — le suspense est dans l'arc (la QED a paye sa dette), pas dans le mot ; dependance rp = 0.862(12) fm declaree dans la table",
         "p32_lamb_modern",
         "ouverte", None, "P32",
+    ),
+    Contact(
+        "O19_CO2_nu3_Fine", "micro", "pred", "1", "cm^-1", "abs",
+        0.1414213562373095,
+        2349.3, "—", "—",
+        "nu3(CO2) VFF a k transferee de CO = bande IR observee (12CO2)",
+        "contact affiné O19 (REFINED-P-CONTACTS.md, gelé avant run) : D-bump de O2_CO2_nu3 — meme runner o2_co2_nu3, meme sha256, seules les déclarations d'incertitude changent ; comparaison posée en cm^-1 (abs) ; theta = u_delta = 0.1414213562373095 cm^-1 (u(VFF)=0.1, u(obs)=0.1), decide=U k=1 ; est. pre-run : delta ~ 340.085, ratio ~ 2405 -> S- attendu SANS suspense : le P grossier d'O2 cachait une dette de modèle 1D (k transférée de CO ne porte pas le paquet nu3)",
+        "o2_co2_nu3",
+        "ouverte", None, "O19",
+    ),
+    Contact(
+        "O20_Carbon_D_Raman_Fine", "micro", "pred", "1", "cm^-1", "abs",
+        5.0124844139408555,
+        1350.0, "—", "—",
+        "bande D(graphite) = bande G / sqrt(2) (chaine 1D k2=k1) = bande D observee",
+        "contact affiné O20 (REFINED-P-CONTACTS.md, gelé avant run) : D-bump de O3_Carbon_D_Raman — meme runner o3_carbon_d_raman, meme sha256 ; comparaison en cm^-1 (abs) ; theta = u_delta = 5.0124844139408555 cm^-1 (u(G)=0.5 -> 0.3536, u(D_obs)=5.0), decide=U k=1 ; est. pre-run : delta ~ 232.771, ratio ~ 46.4 -> S- attendu SANS suspense : dette de la chaine 1D égale (bande D = double résonance + défauts, pas k2=k1)",
+        "o3_carbon_d_raman",
+        "ouverte", None, "O20",
+    ),
+    Contact(
+        "SPEC_CO_Rot_Kratzer_Fine", "meso", "pred", "si", "Hz", "abs",
+        5.0990195135927845,
+        0.0, "B_e_omega_e<-autre-table-anharmonicite", "voir SPEC_CO_Rot_Kratzer",
+        "4*B_e^3/omega_e^2 (Kratzer, entrees H&H) = D0 (mesure NIST)  (distorsion centrifuge ab initio)",
+        "contact affiné SPEC (REFINED-P-CONTACTS.md, gelé avant run) : D-bump de SPEC_CO_Rot_Kratzer — meme runner co_rot_kratzer, meme sha256 ; theta = u_delta = 5.0990195135927845 Hz (u(De_pred H&H)=1.0 bornes prudentes déclarées, u(D0_obs)=5.0), decide=U k=1 ; est. pre-run : delta ~ 97.551, ratio ~ 19.1 -> S- attendu SANS suspense : le P au cheveu du grossier (theta=70 Hz, ratio 1,39) fondait sur une u(D0) trop étroite ; dette nommée vibrationnelle (Kratzer = équilibre, D0 = v=0)",
+        "co_rot_kratzer",
+        "ouverte", None, "SPEC",
+    ),
+    Contact(
+        "P31_Lamb_Mohr_K2", "micro", "pred", "si", "MHz", "abs",
+        0.016643316977093238,
+        1057.845, "—", "—",
+        "Lamb(QED Mohr, annees 1970) = Lamb(mesure Lundeen-Pipkin 1981)",
+        "contact affiné P31 (REFINED-P-CONTACTS.md, gelé avant run) : couverture k=2 sur P31_Lamb_Mohr — meme runner p31_lamb_mohr, meme sha256, memes lignes GUM (mohr 0.014, lundeen_pipkin 0.009), uc inchangé ; decide=U k=2, U = 0.033286633954186476 MHz ; est. pre-run : delta ~ 0.019, ratio delta/U ~ 0.571 -> S+ attendu ; trace écrite : le mot dépend de la couverture (à k=1 le même écart est P à 1,14 uc) ; la dette vintage est à ~1 sigma, compatible au seuil 95 %",
+        "p31_lamb_mohr",
+        "ouverte", None, "P31",
+    ),
+    Contact(
+        "L4_Gap_Universel", "meso", "pred", "1", "1", "abs",
+        0.0282842712474619,
+        0.630, "—", "—",
+        "gap universel : omega(k1, m=12, vague fine) = omega(k1, m=5, vague fine)  (insensibilite a l'inertie du milieu)",
+        "chantier L4 (L4-GYROCORPS-CONTACTS.md, gelé avant run) : transposition du corpus hors-programme gap gyroscopique (notes P1-P4 + addendum, vintage HP distinct declare, aucune retro-injection) ; theta = u_delta = 0.0282842712474619 (u=0,02 declaree de part et d'autre, dispersion corpus), decide=U k=1 ; est. pre-run : delta = 0,010, ratio 0,354 -> S+ attendu, suspense faible : la propriete la plus robuste du corpus confirmee en pesee croisee fine/fine",
+        "l4_gap_universel",
+        "ouverte", None, "L4",
+    ),
+    Contact(
+        "L4_Branche_k2_RegimeFin", "meso", "pred", "1", "1", "abs",
+        0.02138372495786989,
+        0.58, "—", "—",
+        "branche gappee P1-P2 (omega0=0.45, beta=11.2, geles) evaluee a k2 au regime fin = omega(k2, m=8, AMP=0.15, addendum)",
+        "chantier L4 (L4-GYROCORPS-CONTACTS.md, gelé avant run) : la dette ouverte du corpus (dependance en amplitude, AMP 0.3 -> 0.15) devient un ecart chiffre ; theta = u_delta = 0.02138372495786989 (u(branch)=0,007567 par propagation des arrondis omega0/beta, u(obs)=0,02 declaree), decide=U k=1 ; est. pre-run : delta ~ 1,205, ratio ~ 56 -> S- attendu SANS suspense : la retractation de l'addendum P3 pesee — la branche ne se transpose pas a k2 en regime fin",
+        "l4_branche_k2",
+        "ouverte", None, "L4",
+    ),
+    Contact(
+        "L4_Fenetre_Branche", "meso", "pred", "1", "1", "abs",
+        0.5815053896029518,
+        6.9, "—", "—",
+        "D3_pred = branche gappee(k3) / ligne vide calibree(k3) = D3(m=8) addendum  (fenetre inertielle, contrainte 1 de P4 pesée indirectement)",
+        "chantier L4 (L4-GYROCORPS-CONTACTS.md, gelé avant run) : si la branche gelée avant l'addendum predit la fenetre reformulee, le pont 'deux nombres lies' tient a ce niveau ; theta = u_delta = 0.5815053896029518 (u(D_pred)=0,2969 propagation relative branche+ligne vide, u(D_obs)=0,5 declaree, pic dominant, dedoublement m=10 exclu), decide=U k=1 ; est. pre-run : delta ~ 0,696, ratio ~ 1,20 -> P annonce AU CHEVEU, suspense maximal",
+        "l4_fenetre_branche",
+        "ouverte", None, "L4",
+    ),
+    Contact(
+        "L4_Kappa_Eff", "meso", "pred", "1", "1", "abs",
+        0.6283185307179586,
+        6.283185307179586, "—", "—",
+        "circulation implicite d'une pente d'origine Kelvin (kappa_eff = 4 pi beta, forme nue) = circulation declaree du banc (kappa = 2 pi)",
+        "chantier L4 volet 2 (L4-DEUX-NOMBRES-LIES.md, gelé avant run) : la moitié PENTE du lien 'deux nombres lies' pesée directement ; theta = u(4 pi beta) = 0.6283185307179586 (u(beta)=0,05 propagée, ligne unique), decide=U k=1 ; est. pre-run : mu_loc ~ 140,743, delta ~ 134,460, ratio ~ 214 -> S- attendu SANS suspense : la pente exige une circulation x22,4 — la demultiplication du corpus restatee comme dette de circulation ; sensibilité declaree (forme log favorable : x12,9, verdict invariant)",
+        "l4_kappa_eff",
+        "ouverte", None, "L4",
+    ),
+    Contact(
+        "L4_Kelvin_Gap", "meso", "pred", "1", "1", "abs",
+        0.02,
+        0.62, "—", "—",
+        "gap produit par une circulation pure (omega_K(k1) = (kappa/4pi) k1^2, aucun terme de gap) = gap universel mesure 0.62",
+        "chantier L4 volet 2 (L4-DEUX-NOMBRES-LIES.md, gelé avant run) : la moitié GAP du lien pesée directement — la circulation seule ne produit pas de gap (omega_K -> 0 quand k -> 0) ; theta = u = 0.02 (lecture declaree du gap, ligne unique), decide=U k=1 ; est. pre-run : mu_loc ~ 0,01928, delta ~ 0,60072, ratio ~ 30 -> S- attendu SANS suspense : le gap est une dette de structure, pas de circulation (P4 : ni corde ni gap nu — chiffre ici)",
+        "l4_kelvin_gap",
+        "ouverte", None, "L4",
+    ),
+    Contact(
+        "CORR_Stabilite_Energie", "meso", "pred", "1", "1", "abs",
+        1.4142135623730951,
+        18.0, "—", "—",
+        "optimum de stabilite E63 (n=14, marge max) = minimum d'energie par anneau E65 (n=18)  (les deux facettes d'une meme structure)",
+        "chantier CORR corridor croise (CORRIDOR-CROISE-CONTACTS.md, gelé avant run) : tension inter-campagnes du corridor jamais chiffree comme telle ; theta = u_delta = 1.4142135623730951 (u(n)=1 déclaree de part et d'autre, comptage entier sans interpolation), decide=U k=1 ; est. pre-run : delta = 4, ratio 2,83 -> S- attendu SANS suspense : les facettes se decouplent (E68 l'avait refute qualitativement), la machine le publie en verdict",
+        "corr_stabilite_energie",
+        "ouverte", None, "CORR",
+    ),
+    Contact(
+        "CORR_Fenetre_Point", "meso", "pred", "1", "1", "abs",
+        0.007216878364870325,
+        0.075, "—", "—",
+        "point E61 (kappa=0,05 tient a t=90) compatible avec la fenetre E64-A (bord bas 0,075, t=180) a face value",
+        "chantier CORR corridor croise (CORRIDOR-CROISE-CONTACTS.md, gelé avant run) : theta = u = 0.007216878364870325 (bracket rectangulaire du bord bas, demi-largeur 0,0125/sqrt(3), ligne unique), decide=U k=1 ; est. pre-run : delta = 0,025, ratio 3,46 -> S- attendu, suspense modere : le point est hors fenetre a face value ; dette nommee = tare de temps de vol (90 vs 180, deux horizons pas une contradiction) — l'ecart est chiffre",
+        "corr_fenetre_point",
+        "ouverte", None, "CORR",
     ),
     Contact(
         "H0_Ecart_Planck_SH0ES", "macro", "pred", "1", "1", "abs", 0.05,
@@ -2636,6 +2914,116 @@ _GUM["P32_Lamb_Modern"] = {
         {"name": "lundeen_pipkin_temoin", "type": "B", "u": 0.009},
     ],
     "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["O19_CO2_nu3_Fine"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "nu_pred_VFF", "type": "B", "u": 0.1,
+         "note": "cm^-1, u déclarée (VFF 1D grossier, k transférée de CO)"},
+        {"name": "nu3_obs", "type": "B", "u": 0.1,
+         "note": "cm^-1, u déclarée (dispersion bande rotation-vibration sous le paquet nu3)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["O20_Carbon_D_Raman_Fine"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "D_pred", "type": "B", "u": 0.3535533905932738,
+         "note": "cm^-1, u(G)=0.5 déclarée / sqrt(2) (transfert chaîne 1D)"},
+        {"name": "D_obs", "type": "B", "u": 5.0,
+         "note": "cm^-1, u déclarée (bande de défaut, dispersion inter-échantillons)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["SPEC_CO_Rot_Kratzer_Fine"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "De_pred_HH", "type": "B", "u": 1.0,
+         "note": "Hz, bornes prudentes déclarées sur entrées H&H arrondies (PAS NIST)"},
+        {"name": "D0_obs", "type": "B", "u": 5.0,
+         "note": "Hz, u déclarée (dispersion mesure D0)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["P31_Lamb_Mohr_K2"] = {
+    "decide": "U",
+    "k": 2,
+    "lines": [
+        {"name": "mohr_QED", "type": "B", "u": 0.014},
+        {"name": "lundeen_pipkin", "type": "B", "u": 0.009},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["L4_Gap_Universel"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "w1_m12_fine", "type": "B", "u": 0.02,
+         "note": "unités internes GP, u déclarée (dispersion corpus vague fine)"},
+        {"name": "w1_m5_fine", "type": "B", "u": 0.02,
+         "note": "unités internes GP, u déclarée (dispersion corpus vague fine)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["L4_Branche_k2_RegimeFin"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "branche_k2", "type": "B", "u": 0.007567277784899113,
+         "note": "propagation des arrondis gelés omega0 (0.005) et beta (0.05), P1-P2"},
+        {"name": "w2_m8_fine", "type": "B", "u": 0.02,
+         "note": "unités internes GP, u de lecture déclarée (addendum)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["L4_Fenetre_Branche"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "D3_pred", "type": "B", "u": 0.29689816122246504,
+         "note": "propagation relative : branche k3 (0.01724) + ligne vide k3 (0.02/0.515)"},
+        {"name": "D3_m8_addendum", "type": "B", "u": 0.5,
+         "note": "u déclarée (pic dominant par bande FFT, dédoublement m=10 exclu)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["L4_Kappa_Eff"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "kappa_eff_implicite", "type": "B", "u": 0.6283185307179586,
+         "note": "propagation de u(beta)=0,05 par kappa_eff = 4 pi beta ; kappa=2pi exact (constante de protocole)"},
+    ],
+}
+_GUM["L4_Kelvin_Gap"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "gap_obs", "type": "B", "u": 0.02,
+         "note": "unités internes GP, lecture déclarée du gap universel ; kappa et k1 gelés exacts"},
+    ],
+}
+_GUM["CORR_Stabilite_Energie"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "n_opt_E63", "type": "B", "u": 1.0,
+         "note": "comptage entier de cages, pas d'interpolation publiée (déclaration)"},
+        {"name": "n_min_E65", "type": "B", "u": 1.0,
+         "note": "comptage entier de cages, pas d'interpolation publiée (déclaration)"},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["CORR_Fenetre_Point"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "bord_bas_E64A", "type": "B", "u": 0.007216878364870325,
+         "note": "bracket rectangulaire (0,075 ; 0,1), demi-largeur 0,0125/sqrt(3) ; kappa_E61 gelé exact par protocole"},
+    ],
 }
 for _c in CONTACTS:
     if _GUM.get(_c.id):

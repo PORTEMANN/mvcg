@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 63)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14) + P31 Lamb x3 (chantier atome : Dirac S- dette historique 20 theta, Mohr P au cheveu 1,14 theta, Erickson S- 4,71 theta — meme mesure, deux calculs QED de la meme epoque, deux verdicts, 2026-09-14) + P32 Lamb moderne (la dette se ferme : QED Pachucki 2001 reevaluee vs le MEME temoin Lundeen-Pipkin, S+ a 0,30 theta — l'arc P31 se clot, 2026-09-14)
+        self.assertEqual(idx["n"], 74)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14) + P31 Lamb x3 (chantier atome : Dirac S- dette historique 20 theta, Mohr P au cheveu 1,14 theta, Erickson S- 4,71 theta — meme mesure, deux calculs QED de la meme epoque, deux verdicts, 2026-09-14) + P32 Lamb moderne (la dette se ferme : QED Pachucki 2001 reevaluee vs le MEME temoin Lundeen-Pipkin, S+ a 0,30 theta — l'arc P31 se clot, 2026-09-14) + les quatre P affines (D-bump REFINED-P-CONTACTS.md, gelé avant run, 2026-09-14 : O19 CO2 nu3 Fine S- a 2405 U, O20 carbone D Fine S- a 46,4 U, SPEC Kratzer Fine S- a 19,1 U — trois dettes de modele nommees que le P grossier cachait — et P31 Mohr_K2 S+ a 0,57 U : le mot dépend de la couverture, a k=1 le meme ecart est P) + chantier L4 gyrocorpus x5 (transposition du corpus hors-programme gap gyroscopique, table LITERATURE-HP2027, vintage distinct declare, 2026-09-14 : volet 1 — gap universel S+ a 0,35 U, branche P1-P2 au regime fin AMP 0.15 a k2 S- a 56 U (retractation de l'addendum P3 pesee), fenetre inertielle D3 par la branche rapportee a la ligne vide P AU CHEVEU a 1,20 U (pont tenu indirectement) ; volet 2 DEUX NOMBRES LIES — kappa_eff implicite de la pente par Kelvin nu S- a 214 U (dette de circulation x22,4, sensibilite log x12,9 consignee), gap par circulation pure S- a 30 U (le gap est une dette de structure, pas de circulation)) + chantier CORR corridor croise x2 (tensions inter-campagnes du corridor E, table LITERATURE-E2026, 2026-09-14 : optimum de stabilite E63 n=14 vs minimum d'energie E65 n=18 S- a 2,83 U (facettes decouplees, E68 qualitative publiee en verdict) ; point E61 kappa=0,05 vs bord bas fenetre E64-A 0,075 S- a 3,46 U (tare de temps de vol 90 vs 180 nommee))
         self.assertEqual(len(idx["fibres"]), 13)  # 12 + (si, MHz) ouverte par le couplet Lamb P31 (2026-09-14)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -39,7 +39,13 @@ class TestVerdictsOnline(unittest.TestCase):
                          {"S+": 4, "P": 0, "S-": 3})
         self.assertIn("H1s_Rydberg_Voie2", by[("si", "eV")]["ids"])
         self.assertEqual(by[("1", "cm^-1")]["counts"],
-                         {"S+": 5, "P": 2, "S-": 1})
+                         {"S+": 5, "P": 2, "S-": 3})
+        # 2026-09-14 : affinage « les quatre P » — O19 (CO2 nu3 VFF fine,
+        # D-bump d'O2) et O20 (carbone D fine, D-bump d'O3) : les deux P
+        # grossiers de la fibre passent S- a 2405 U et 46,4 U — le theta
+        # tol.-labo cachait une dette de modele 1D, l'affinage la nomme.
+        # Transport strictement identique (meme runner, meme sha256) :
+        # seules les declarations d'incertitude ont change.
         # 2026-09-14 : O17 ouvre le S- de la fibre — Dunham ordre 1 vs
         # fondamental declare arrondi : la tare d'over-read de l'arrondi
         # "4160" (lu a u=0,5) est detectee a 2,94 sigma (verdict S- a
@@ -52,6 +58,8 @@ class TestVerdictsOnline(unittest.TestCase):
         # formule visible (5/sqrt(12) -> 5/sqrt(3), trace d'O17).
         self.assertIn("O17_H2_Anharmonique", by[("1", "cm^-1")]["ids"])
         self.assertIn("O18_H2_Tare_Lecture", by[("1", "cm^-1")]["ids"])
+        self.assertIn("O19_CO2_nu3_Fine", by[("1", "cm^-1")]["ids"])
+        self.assertIn("O20_Carbon_D_Raman_Fine", by[("1", "cm^-1")]["ids"])
         self.assertEqual(by[("si", "J m^-3 K^-2")]["counts"],
                          {"S+": 1, "P": 0, "S-": 1})
         # La paire NMR : même loi de Karplus, deux conformations —
@@ -74,7 +82,11 @@ class TestVerdictsOnline(unittest.TestCase):
         # n'est pas robuste a sa parametrisation a cet etalonnage ;
         # brin P a 1,60 theta.
         self.assertEqual(by[("si", "Hz")]["counts"],
-                         {"S+": 2, "P": 4, "S-": 3})
+                         {"S+": 2, "P": 4, "S-": 4})
+        # 2026-09-14 : Kratzer Fine (D-bump, u(D0) 70 Hz -> u_delta déclarée
+        # 5,10 Hz) — le P au cheveu du grossier (1,394 theta) passe S- a
+        # 19,1 U : l'u(D0) NIST trop étroite fondait le suspense, la dette
+        # nommée est vibrationnelle (Kratzer = équilibre, D0 = v=0).
         self.assertIn("NMR_Karplus_Helix", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Sheet", by[("si", "Hz")]["ids"])
         self.assertIn("NMR_Karplus_Helix_VogeliBax2007", by[("si", "Hz")]["ids"])
@@ -84,6 +96,7 @@ class TestVerdictsOnline(unittest.TestCase):
         self.assertIn("SPEC_CO13_Rot_MuRule", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_Kratzer", by[("si", "Hz")]["ids"])
         self.assertIn("SPEC_CO_Rot_AlphaE", by[("si", "Hz")]["ids"])
+        self.assertIn("SPEC_CO_Rot_Kratzer_Fine", by[("si", "Hz")]["ids"])
         # Le complexe g-2 : les cinq contacts, la paire d'identifications
         # complète dans la même fibre — WP25 S+ à 0,6 U, WP20 S− à 3,7 U,
         # HVP P, HLbL S+. 2026-09-14 : HVP pi pi CMD-3 vs pre-moyenne
@@ -109,7 +122,20 @@ class TestVerdictsOnline(unittest.TestCase):
         # un S- de marge (8,8 planchers), KSS_QGP un S- qui dévoile la
         # non-saturation déclarée (borne inf 2 planchers vs plancher).
         self.assertEqual(by[("1", "1")]["counts"],
-                         {"S+": 4, "P": 2, "S-": 10})
+                         {"S+": 5, "P": 3, "S-": 15})
+        # 2026-09-14 : chantier CORR corridor croisé — deux tensions
+        # inter-campagnes du corridor chiffrées pour la première fois :
+        # optimum de stabilité E63 (n=14) vs minimum d'énergie E65 (n=18)
+        # S- à 2,83 U (facettes découplées, verdict publié) ; point E61
+        # (κ=0,05, t=90) vs bord bas de fenêtre E64-A (0,075, t=180)
+        # S- à 3,46 U (tare de temps de vol nommée).
+        self.assertIn("CORR_Stabilite_Energie", by[("1", "1")]["ids"])
+        self.assertIn("CORR_Fenetre_Point", by[("1", "1")]["ids"])
+        self.assertIn("L4_Gap_Universel", by[("1", "1")]["ids"])
+        self.assertIn("L4_Branche_k2_RegimeFin", by[("1", "1")]["ids"])
+        self.assertIn("L4_Fenetre_Branche", by[("1", "1")]["ids"])
+        self.assertIn("L4_Kappa_Eff", by[("1", "1")]["ids"])
+        self.assertIn("L4_Kelvin_Gap", by[("1", "1")]["ids"])
         self.assertIn("CKM_Row1_Unitarity", by[("1", "1")]["ids"])
         self.assertIn("H0_Ecart_Planck_SH0ES", by[("1", "1")]["ids"])
         self.assertIn("Bertsch_Xi_Unitary", by[("1", "1")]["ids"])
@@ -125,9 +151,14 @@ class TestVerdictsOnline(unittest.TestCase):
         # deux calculs QED de la meme epoque qui se disputaient 0,048
         # MHz — la machine tranche ou les physiciens debattaient.
         self.assertEqual(by[("si", "MHz")]["counts"],
-                         {"S+": 1, "P": 1, "S-": 1})
+                         {"S+": 2, "P": 1, "S-": 1})
+        # 2026-09-14 : Mohr_K2 — meme transport, memes lignes GUM, couverture
+        # k=2 (contact de couverture, pendant de la tare de lecture O18) :
+        # le P a 1,14 uc de Mohr passe S+ a 0,57 U. Le mot dépend du niveau
+        # de couverture déclaré — trace écrite, pas de correction en silence.
         self.assertIn("P31_Lamb_Mohr", by[("si", "MHz")]["ids"])
         self.assertIn("P31_Lamb_Erickson", by[("si", "MHz")]["ids"])
+        self.assertIn("P31_Lamb_Mohr_K2", by[("si", "MHz")]["ids"])
         # 2026-09-14 : P32_Lamb_Modern ferme l'arc — QED reevaluee
         # (Pachucki 2001) vs le MEME temoin Lundeen-Pipkin : S+ a 0,3046
         # theta. Le temoin qui valait P (Mohr) et S- (Erickson) contre
@@ -159,7 +190,10 @@ class TestVerdictsOnline(unittest.TestCase):
         # anharmonique rejoint la série ; invariance de balayage conservée).
         # 2026-09-14 (soir) : 17 -> 18 (O18 H2 tare de lecture, pendant
         # disciplinaire d'O17).
-        self.assertEqual(len(o_ids), 18)
+        # 2026-09-14 (affinage « les quatre P ») : 18 -> 20 (O19 CO2 nu3
+        # Fine et O20 carbone D Fine, D-bumps d'O2/O3 — invariance de
+        # balayage conservée par les versions abs, vérifiée par la boucle).
+        self.assertEqual(len(o_ids), 20)
         for cid in o_ids:
             st = street_sweep(cid)
             licites = [r for r in st["rows"] if not r["units_kill"]]
