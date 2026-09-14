@@ -37,6 +37,9 @@ POPULATION_FIGEE = [
     "PF2_Graviton_25THz",
     "PF3_Tau5_Jeu",
     "PF4_Vide_Catastrophe",
+    # 2026-09-14 : chantier H(z) F4 — PF7 rejoint la population
+    # (arithmetique du tableau des plans, S+ a 0,046 theta)
+    "PF7_F4_Recompute",
 ]
 
 
@@ -46,7 +49,7 @@ class TestSerrageSerieO(unittest.TestCase):
 
     def test_monotonie_et_bascule_en_P(self):
         out = run_serrage_serie_o()
-        self.assertEqual(out["n"], 13)  # 10 + PF2/PF3/PF4 (chantier PRINCIPES, 2026-09-14)
+        self.assertEqual(out["n"], 14)  # 10 + PF2/PF3/PF4 (chantier PRINCIPES) + PF7 (chantier H(z) F4, 2026-09-14)
         for r in out["resultats"]:
             # monotonie de _adc : serrer un S+ passe par P, jamais S- direct
             self.assertEqual(r["verdict_bascule"], "P")

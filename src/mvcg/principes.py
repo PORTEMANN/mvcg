@@ -203,3 +203,91 @@ def pf6_rmn_deltab() -> tuple[float, dict[str, Any]]:
         "ref": t6["value"],
         "note": "prediction RMN recomputee sous l'identification declaree c_éth = c_N = 1e9 c",
     }
+
+
+def pf7_f4_recompute() -> tuple[float, dict[str, Any]]:
+    """F4 recompte depuis beta_4 et S_4 publies : F4 = e^{-beta_4 S_4}.
+
+    Coherence arithmetique du jeu numerique illustratif du volet V
+    (tableaux image-30/31), comme PF3 — la machine verifie l'arithmetique
+    publiee, pas la physique des plans.
+    """
+    t7 = load_table("pf7_plans_tableau_LITTERATURE-2025.json")
+    p = t7["params"]
+    beta4 = float(p["beta_4"])
+    s4 = float(p["S_4_tableau"])
+    f4 = math.exp(-beta4 * s4)
+    f4_depuis_N = math.exp(-beta4 * math.log(float(p["N_4"])))
+    f_publies = {k: float(v) for k, v in p["F_publies"].items()}
+    beta = {k: float(v) for k, v in p["beta"].items()}
+    svals = {k: float(v) for k, v in p["S"].items()}
+    recomputes = {
+        k: math.exp(-beta[k] * svals[k]) for k in beta
+    }
+    deltas_vs_publies = {
+        k: abs(recomputes[k] - f_publies[k]) / f_publies[k] for k in beta
+    }
+    return float(f4), {
+        "table": t7["vintage"],
+        "table_sha256": t7["_sha256"],
+        "beta_4": beta4,
+        "S_4": s4,
+        "F4_recompute": f4,
+        "F4_depuis_N": f4_depuis_N,
+        "F_recomputes_tous_plans": recomputes,
+        "delta_max_vs_publies": max(deltas_vs_publies.values()),
+        "ref": t7["value"],
+        "note": "F4 recompte depuis le tableau publie vs 0,035 publie",
+    }
+
+
+def pf8_hz_filtrage_ecart() -> tuple[float, dict[str, Any]]:
+    """Ecart max |H_filtree - H_LCDM|/H_LCDM sur z in [0, z_max].
+
+    Equation image-29 prise telle que publiee (F_U non chiffre dans le
+    corpus -> lecture neutre F_U = 1 gelee dans le protocole) ; la borne
+    revendiquee du texte (<2 %) est la reference. H0 se cancele dans le
+    rapport des H.
+    """
+    t8 = load_table("pf7_hz_filtrage_LITTERATURE-2025.json")
+    tin = load_table("pf7_hz_inputs_DECLARED-2026.json")
+    p = tin["params"]
+    om = float(p["Omega_m"])
+    ol = float(p["Omega_lambda"])
+    orr = float(p["Omega_r"])
+    f1 = float(p["F1"])
+    f4 = float(p["F4"])
+    z_max = float(p["z_max"])
+    # F_U = 1 (lecture gelee, protocole) ; Omega_k = 0
+    def h2_lcdm(z: float) -> float:
+        return om * (1.0 + z) ** 3 + orr * (1.0 + z) ** 4 + ol
+
+    def h2_filtre(z: float) -> float:
+        return f4 * om * (1.0 + z) ** 3 + f1 * orr * (1.0 + z) ** 4 + ol
+
+    n = 420  # pas 0,005 sur [0, 2,1] — grille figee
+    ecart_max = -1.0
+    z_argmax = None
+    ecart_z0 = None
+    for i in range(n + 1):
+        z = z_max * i / n
+        e = abs(math.sqrt(h2_filtre(z) / h2_lcdm(z)) - 1.0)
+        if i == 0:
+            ecart_z0 = e
+        if e > ecart_max:
+            ecart_max = e
+            z_argmax = z
+    return float(ecart_max), {
+        "table": t8["vintage"],
+        "table_sha256": t8["_sha256"],
+        "Omega_m": om,
+        "Omega_lambda": ol,
+        "F4": f4,
+        "F1": f1,
+        "z_max": z_max,
+        "ecart_max": ecart_max,
+        "z_argmax": z_argmax,
+        "ecart_z0": ecart_z0,
+        "H2_filtre_sur_H02_z0": h2_filtre(0.0),
+        "note": "borne <2 % revendiquee vs ecart publie par l'equation meme ; normalisation H(0)=H0 non tenue (F_U non declare)",
+    }

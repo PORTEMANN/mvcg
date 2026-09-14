@@ -2090,6 +2090,18 @@ def _pf6_rmn_deltab() -> tuple[float, dict]:
     return pf6_rmn_deltab()
 
 
+def _pf7_f4_recompute() -> tuple[float, dict]:
+    from mvcg.principes import pf7_f4_recompute
+
+    return pf7_f4_recompute()
+
+
+def _pf8_hz_filtrage_ecart() -> tuple[float, dict]:
+    from mvcg.principes import pf8_hz_filtrage_ecart
+
+    return pf8_hz_filtrage_ecart()
+
+
 RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "h1s_rydberg": _h1s_rydberg,
     "h1s_vintage": _h1s_rydberg_vintage_off,
@@ -2167,6 +2179,8 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "pf4_vide_log_ratio": _pf4_vide_log_ratio,
     "pf5_psy_energie": _pf5_psy_energie,
     "pf6_rmn_deltab": _pf6_rmn_deltab,
+    "pf7_f4_recompute": _pf7_f4_recompute,
+    "pf8_hz_filtrage_ecart": _pf8_hz_filtrage_ecart,
 }
 
 CONTACTS: list[Contact] = [
@@ -2825,6 +2839,22 @@ CONTACTS: list[Contact] = [
             "epsilon0": 8.8541878128e-12,
             "mu0": 1.25663706212e-6,
         },
+    ),
+    Contact(
+        "PF7_F4_Recompute", "micro", "pred", "1", "1", "rel", 0.10,
+        0.035, "F4<-e^{-beta S} (V)", "—",
+        "filtre F4 = e^{-beta_4 S_4} recompte depuis le tableau publie du volet V (beta_4 = 0,060, S_4 = 55,95) = 0,03484 vs F4 = 0,035 publie (tableau image-31, cite par le texte cosmologie et neutrinos)",
+        "chantier H(z) F4 : coherence arithmetique du jeu numerique illustratif du volet V — les 7 plans recomputes coincident avec les F publies (delta max 0,46 %), comme PF3 la machine verifie l'arithmetique publiee pas la physique des plans ; attendu S+",
+        "pf7_f4_recompute",
+        "ouverte", "S+", "PRINCIPES",
+    ),
+    Contact(
+        "PF8_Hz_Filtrage_Ecart", "micro", "pred", "1", "1", "rel", 0.10,
+        0.02, "ecart<-H(z) filtree (V)", "—",
+        "ecart relatif max |H_filtree - H_LCDM|/H_LCDM sur z in [0, 2,1] sous l'equation publiee du volet V (F4 = 0,035 sur la matiere, F_U non chiffre -> lecture neutre 1 gelee) = 0,683 vs la borne <2 % revendiquee par le texte",
+        "chantier H(z) F4 : la tension entre l'equation publiee et la declaration <2 % — l'ecart vaut 16,6 % des z = 0 et croit jusqu'a 68,3 % a z = 2,1 ; la normalisation H(0) = H0 n'est pas tenue (F_U non declare, dette nommee) ; attendu S-",
+        "pf8_hz_filtrage_ecart",
+        "ouverte", "S-", "PRINCIPES",
     ),
 ]
 

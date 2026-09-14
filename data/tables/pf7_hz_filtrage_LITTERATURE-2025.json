@@ -1,0 +1,15 @@
+{
+  "id": "pf7_hz_filtrage",
+  "vintage": "LITTERATURE-2025",
+  "source": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (V)', 22/10/2025 — transcription image-29 (H^2(z) avec filtrages noetiques), image-32 (distance de luminosite), image-33 (parametre de deceleration) ; declaration textuelle 'variation <2% sur H(z) difficile a distinguer sans mega-surveys'",
+  "doi_or_ref": "volet V, 22/10/2025, 'Cosmologie (expansion modifiee)' : 'H^2(z) = H_0^2 [Omega_m (1+z)^3 F_4 + Omega_r (1+z)^4 F_1 + Omega_k (1+z)^2 + Omega_Lambda F_U]' (image-29) ; 'd_L(z) = (1+z) c integrale_0^z dz-prime/H(z-prime)' (image-32) ; 'q(z) = -1 - Hdot/H^2' (image-33) ; texte : 'Effet principal : F_4 faible (0,035) freine la contribution de la matiere baryonique a H(z), mimant une acceleration tardive sans modifier Omega_Lambda' ; 'variation <2% sur H(z) difficile a distinguer sans mega-surveys'",
+  "species": "expansion modifiee par filtrage entropique",
+  "quantity": "ecart relatif max |H_filtree - H_LCDM|/H_LCDM sur z in [0, 2,1] sous l'equation publiee, compare a la borne revendiquee de 2 %",
+  "dimension": "1",
+  "packet": "1",
+  "value": 0.02,
+  "params": {
+    "note": "F_U n'est chiffre nulle part dans le corpus : dette nommee du protocole. Lecture gelee : F_U = 1 (pas de filtrage du vide, valeur neutre) et Omega_k = 0 ; la normalisation H^2(0) = H_0^2 n'est alors PAS tenue (0,696) — c'est une information du contact, pas une correction"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

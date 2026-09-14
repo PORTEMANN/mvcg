@@ -95,6 +95,11 @@ class TestPrincipesContacts(unittest.TestCase):
             "PF4_Vide_Catastrophe": ("S+", 122.945, 1e-3),
             "PF5_Psy_Energie": ("S-", 5.27e-32, 1e-35),
             "PF6_RMN_DeltaB": ("S-", 4.186266511885707e32, 1e28),
+            # 2026-09-14 : chantier H(z) F4 (volet V) — PF7 arithmetique
+            # du tableau des plans (S+ a 0,046 theta) et PF8 tension
+            # equation publiee / revendication <2 % (S- a 331 theta)
+            "PF7_F4_Recompute": ("S+", 0.034839621186663984, 1e-12),
+            "PF8_Hz_Filtrage_Ecart": ("S-", 0.6827231514910878, 1e-12),
         }
         for cid, (mot, mu, tol) in attendus.items():
             r = _contact(cid)
@@ -114,6 +119,15 @@ class TestPrincipesContacts(unittest.TestCase):
             r = _contact(cid)
             self.assertEqual(r["expected"], "S-", cid)
             self.assertEqual(r["verdict"], "S-", cid)
+
+    def test_pf7_pf8_attendus_tenus(self):
+        # chantier H(z) F4 : S+ attendu sur l'arithmetique du tableau,
+        # S- attendu sur la tension equation/revendication
+        for cid, mot in (("PF7_F4_Recompute", "S+"),
+                         ("PF8_Hz_Filtrage_Ecart", "S-")):
+            r = _contact(cid)
+            self.assertEqual(r["expected"], mot, cid)
+            self.assertEqual(r["verdict"], mot, cid)
 
 
 if __name__ == "__main__":

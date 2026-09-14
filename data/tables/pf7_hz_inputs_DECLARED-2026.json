@@ -1,0 +1,22 @@
+{
+  "id": "pf7_hz_inputs",
+  "vintage": "DECLARED-2026",
+  "source": "constantes déclarées par la machine pour le chantier H(z) F4 (2026-09-14) : cosmologie de reference LCDM et filtres du volet V ; Omega_Lambda reprise du gel existant pf_vide_inputs_DECLARED-2026 (Planck 2018 declare)",
+  "doi_or_ref": "Planck 2018 (declare machine, coherent avec pf_vide_inputs_DECLARED-2026) : Omega_Lambda = 0,6849 ; Omega_m = 1 - Omega_Lambda = 0,3151 ; Omega_r = 9,1e-5 (standard, contribution negligeable mais transportee) ; filtres volet V : F_1 = 0,154 (image-31), F_4 = 0,035 ; z_max = 2,1 (plage Pantheon+ des contacts H0_Hz_SNe de la machine)",
+  "species": "constantes cosmologiques de reference",
+  "quantity": "entrees du runner pf8_hz_filtrage_ecart",
+  "dimension": "1",
+  "packet": "1",
+  "value": 1.0,
+  "params": {
+    "Omega_m": 0.3151,
+    "Omega_lambda": 0.6849,
+    "Omega_r": 9.1e-5,
+    "F1": 0.154,
+    "F4": 0.035,
+    "z_max": 2.1,
+    "borne_revendiquee": 0.02,
+    "note": "H0 se cancele dans l'ecart relatif des rapports H_filtree/H_LCDM ; figer ces valeurs ; changer = autre D"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

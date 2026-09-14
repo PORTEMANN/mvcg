@@ -1,0 +1,21 @@
+{
+  "id": "pf7_plans_tableau",
+  "vintage": "LITTERATURE-2025",
+  "source": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (V)', 22/10/2025 — transcription image-30 (tableau des plans E1-E7 : N_j, S_j = ln N_j, alpha_j, beta_j, I_{j,0}) et image-31 (filtres F_j = e^{-beta_j S_j}, I_eff = I_0 e^{-alpha_j S_j}, interpretations)",
+  "doi_or_ref": "volet V, 22/10/2025, 'Les plans noetiques E1-E7 (Illustration numerique)' : tableau image-30 (E4 : N = 2,0e24, S = 55,95, alpha = 0,036, beta = 0,060, I_0 = 5) ; tableau image-31 (E4 : F = 0,035 'Gravite effective filtree, transparence neutrinos' ; E1 : F = 0,154 ; E2 : F = 0,601 ; E3 : F = 0,702 ; E5 : F = 0,712 ; E6 : F = 0,825 ; E7 : F = 0,673)",
+  "species": "plans noetiques E1-E7 (jeu numerique illustratif du volet V)",
+  "quantity": "filtre F4 publie (0,035) vs F4 recompte depuis beta_4 et S_4 publies : F4 = e^{-beta_4 S_4}",
+  "dimension": "1",
+  "packet": "1",
+  "value": 0.035,
+  "params": {
+    "beta_4": 0.060,
+    "S_4_tableau": 55.95,
+    "N_4": 2.0e24,
+    "F_publies": {"E1": 0.154, "E2": 0.601, "E3": 0.702, "E4": 0.035, "E5": 0.712, "E6": 0.825, "E7": 0.673},
+    "beta": {"E1": 0.030, "E2": 0.035, "E3": 0.048, "E4": 0.060, "E5": 0.015, "E6": 0.022, "E7": 0.020},
+    "S": {"E1": 62.30, "E2": 14.51, "E3": 7.38, "E4": 55.95, "E5": 22.67, "E6": 8.77, "E7": 19.83},
+    "note": "le texte du volet V cite F = 0,035 (cosmologie/neutrinos), 0,712 (QCD), 0,154/0,601/0,702 (neurosciences) — coherents avec e^{-beta S} ; la machine verifie l'arithmetique du jeu publie, pas la physique des plans"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
