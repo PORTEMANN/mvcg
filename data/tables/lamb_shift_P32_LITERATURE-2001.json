@@ -1,0 +1,21 @@
+{
+  "id": "lamb_shift_P32",
+  "vintage": "LITERATURE-2001",
+  "source": "fermeture de l'arc P31 : meme témoin (mesure Lundeen-Pipkin 1981, gel commun) contre la theorie QED REEVALUEE (Pachucki 2001, rp = 0.862(12) fm declare)",
+  "doi_or_ref": "K. Pachucki, calcul Lamb shift 2001 (via these M. Westig, FZ Juelich, citation de Pac01) : 1057.842(4) MHz pour rp = 0.862(12) fm ; mesure témoin : Lundeen & Pipkin, PRL 46, 232 (1981) : 1057.845(9) MHz (reprise du gel P31)",
+  "species": "H",
+  "quantity": "Lamb shift 2S1/2 - 2P1/2 : la dette historique (P31 : Mohr P, Erickson S-) se ferme sur le reevaluations des ordres superieurs",
+  "dimension": "MHz",
+  "packet": "si",
+  "value": 1057.845,
+  "params": {
+    "pachucki2001_theory_MHz": 1057.842,
+    "u_pachucki_MHz": 0.004,
+    "lamb_measured_MHz": 1057.845,
+    "u_measured_MHz": 0.009,
+    "proton_radius_fm": 0.862,
+    "u_proton_radius_fm": 0.012,
+    "note": "DETTE DECLAREE : la theorie depend du rayon proton declare rp = 0.862(12) fm (la valeur 1057.842(4) est calculee pour ce rp) — une relecture du rayon changerait la theorie : c'est une dependance, pas une circularite, la reference (mesure) n'entre pas dans le calcul ; arc historique : P31 pesait Mohr (P, 1.14 theta) et Erickson (S-, 4.71 theta) contre ce meme temoin — P32 ferme la dette"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

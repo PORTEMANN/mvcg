@@ -873,6 +873,39 @@ def _p31_lamb_erickson() -> tuple[float, dict]:
     }
 
 
+def _p32_lamb_modern() -> tuple[float, dict]:
+    """Contact ouvert P32 — Lamb moderne : la dette se ferme (suite P31).
+
+    Règle déclarée AVANT le premier run : mu_loc = 1057.842 MHz (calcul
+    QED Pachucki 2001 declare, u = 0.004, pour rp = 0.862(12) fm
+    declare — dependance ecrite, pas circularite), mu_ref = 1057.845 MHz
+    (MEME temoin Lundeen-Pipkin 1981 que P31, gel commun, u = 0.009).
+    La reference NE DOIT JAMAIS entrer dans le calcul. theta = u_delta =
+    0.009848857801796104 MHz, decide=U, k=1. Estimation pre-run honnete :
+    delta ~ 0.003 MHz -> ratio ~ 0.305 -> S+ attendu, suspense faible —
+    le suspense est dans l'arc : le temoin qui valait P/S- contre les
+    theories vintage (Mohr 1.14 theta, Erickson 4.71 theta) devient S+
+    contre la theorie reevaluee. La QED a paye sa dette.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("lamb_shift_P32_LITERATURE-2001.json")
+    p = t["params"]
+    mu = float(p["pachucki2001_theory_MHz"])
+    return mu, {
+        "table": "lamb_shift_P32_LITERATURE-2001.json",
+        "vintage": t["vintage"],
+        "method": "calcul QED Pachucki 2001 (reevaluation ordres superieurs), valeur declaree",
+        "rule": "Lamb(QED Pachucki 2001) = Lamb(mesure témoin Lundeen-Pipkin 1981, gel commun P31)",
+        "pachucki2001_theory_MHz": mu,
+        "lamb_measured_MHz": float(p["lamb_measured_MHz"]),
+        "proton_radius_fm": float(p["proton_radius_fm"]),
+        "ansatz": "QED reevaluee 2001, dependance rp declaree",
+        "lever": "—",
+        "unit_raw": "MHz",
+    }
+
+
 def _karplus_helix() -> tuple[float, dict]:
     """Contact ouvert NMR-Karplus hélice — ³J par la loi de Karplus.
 
@@ -1880,6 +1913,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "p31_lamb_dirac": _p31_lamb_dirac,
     "p31_lamb_mohr": _p31_lamb_mohr,
     "p31_lamb_erickson": _p31_lamb_erickson,
+    "p32_lamb_modern": _p32_lamb_modern,
     "h0_ecart": _h0_ecart,
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
@@ -2201,6 +2235,15 @@ CONTACTS: list[Contact] = [
         "contact ouvert P31 : theta = u_delta = 0.014212670403551895 MHz, decide=U k=1, gele avant run ; estimation pre-run honnete : delta ~ 0.067, ratio ~ 4.71, S- attendu sans suspense (Lundeen-Pipkin 1981 : « not in good agreement with theory ») ; meme mesure, autre calcul QED de la meme epoque : la machine tranche la ou les physiciens debattaient",
         "p31_lamb_erickson",
         "ouverte", None, "P31",
+    ),
+    Contact(
+        "P32_Lamb_Modern", "micro", "pred", "si", "MHz", "abs",
+        0.009848857801796104,
+        1057.845, "—", "—",
+        "Lamb(QED Pachucki 2001, reevaluation) = Lamb(mesure témoin Lundeen-Pipkin 1981, gel commun P31)",
+        "contact ouvert P32 : la dette se ferme — meme temoin que P31 (Mohr P a 1,14 theta, Erickson S- a 4,71 theta) contre la theorie reevaluee ; theta = u_delta = 0.009848857801796104 MHz, decide=U k=1, gele avant run ; estimation pre-run : delta ~ 0.003 MHz, ratio ~ 0.305, S+ attendu suspense faible — le suspense est dans l'arc (la QED a paye sa dette), pas dans le mot ; dependance rp = 0.862(12) fm declaree dans la table",
+        "p32_lamb_modern",
+        "ouverte", None, "P32",
     ),
     Contact(
         "H0_Ecart_Planck_SH0ES", "macro", "pred", "1", "1", "abs", 0.05,
@@ -2582,6 +2625,15 @@ _GUM["P31_Lamb_Erickson"] = {
     "lines": [
         {"name": "erickson_QED", "type": "B", "u": 0.011},
         {"name": "lundeen_pipkin", "type": "B", "u": 0.009},
+    ],
+    "R": [[1.0, 0.0], [0.0, 1.0]],
+}
+_GUM["P32_Lamb_Modern"] = {
+    "decide": "U",
+    "k": 1,
+    "lines": [
+        {"name": "pachucki2001_QED", "type": "B", "u": 0.004},
+        {"name": "lundeen_pipkin_temoin", "type": "B", "u": 0.009},
     ],
     "R": [[1.0, 0.0], [0.0, 1.0]],
 }

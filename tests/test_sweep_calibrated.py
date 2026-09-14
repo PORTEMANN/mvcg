@@ -34,7 +34,7 @@ from mvcg.verdict_register import street_sweep_calibrated  # noqa: E402
 
 class TestSweepCalibrated(unittest.TestCase):
     def test_all_contacts_invariant_at_same_calibration(self) -> None:
-        self.assertEqual(len(CONTACTS), 62)  # 56 + Rydberg voie 2 (campagne croisee, 2026-09-14) + O17 H2 anharmonique (tare de declaration, 2026-09-14) + O18 H2 tare de lecture (pendant d'O17, 2026-09-14) + P31 Lamb x3 (Dirac dette historique / Mohr P au cheveu / Erickson S-, chantier atome, 2026-09-14)
+        self.assertEqual(len(CONTACTS), 63)  # 56 + Rydberg voie 2 (campagne croisee, 2026-09-14) + O17 H2 anharmonique (tare de declaration, 2026-09-14) + O18 H2 tare de lecture (pendant d'O17, 2026-09-14) + P31 Lamb x3 (Dirac dette historique / Mohr P au cheveu / Erickson S-, chantier atome, 2026-09-14) + P32 Lamb moderne (la dette se ferme : QED reevaluee S+ sur le temoin commun, 2026-09-14)
         for c in CONTACTS:
             st = street_sweep_calibrated(c.id)
             licites = [r for r in st["rows"] if not r["units_kill"]]

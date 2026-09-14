@@ -26,7 +26,7 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 62)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14) + P31 Lamb x3 (chantier atome : Dirac S- dette historique 20 theta, Mohr P au cheveu 1,14 theta, Erickson S- 4,71 theta — meme mesure, deux calculs QED de la meme epoque, deux verdicts, 2026-09-14)
+        self.assertEqual(idx["n"], 63)  # série en ligne au 2026-09-13 + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14) + P31 Lamb x3 (chantier atome : Dirac S- dette historique 20 theta, Mohr P au cheveu 1,14 theta, Erickson S- 4,71 theta — meme mesure, deux calculs QED de la meme epoque, deux verdicts, 2026-09-14) + P32 Lamb moderne (la dette se ferme : QED Pachucki 2001 reevaluee vs le MEME temoin Lundeen-Pipkin, S+ a 0,30 theta — l'arc P31 se clot, 2026-09-14)
         self.assertEqual(len(idx["fibres"]), 13)  # 12 + (si, MHz) ouverte par le couplet Lamb P31 (2026-09-14)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
@@ -125,9 +125,14 @@ class TestVerdictsOnline(unittest.TestCase):
         # deux calculs QED de la meme epoque qui se disputaient 0,048
         # MHz — la machine tranche ou les physiciens debattaient.
         self.assertEqual(by[("si", "MHz")]["counts"],
-                         {"S+": 0, "P": 1, "S-": 1})
+                         {"S+": 1, "P": 1, "S-": 1})
         self.assertIn("P31_Lamb_Mohr", by[("si", "MHz")]["ids"])
         self.assertIn("P31_Lamb_Erickson", by[("si", "MHz")]["ids"])
+        # 2026-09-14 : P32_Lamb_Modern ferme l'arc — QED reevaluee
+        # (Pachucki 2001) vs le MEME temoin Lundeen-Pipkin : S+ a 0,3046
+        # theta. Le temoin qui valait P (Mohr) et S- (Erickson) contre
+        # les theories vintage devient S+ contre la theorie reevaluee.
+        self.assertIn("P32_Lamb_Modern", by[("si", "MHz")]["ids"])
         # Le contact H(z) bas-z ouvre la fibre des modules de distance :
         # extract DEMO (fiducial H0=70 déclaré), la fabrication Planck
         # manque les bins de 0,117 mag — dette au-delà de 2 theta.
