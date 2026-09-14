@@ -1,0 +1,58 @@
+{
+  "id": "hz_sne_lowz_literature_planck_weighted",
+  "vintage": "DERIVE-CAMPAGNE-5-WEIGHTED (non gele)",
+  "source": "Meme extraction LITERATURE, bins ponderes w=1/e_mBcorr^2, memes frontieres ; derive de sensibilite, PAS une table de contact",
+  "doi_or_ref": "voir hz_sne_LOWZ-LITERATURE-{nom}.json",
+  "species": "supernovae Ia (Pantheon+)",
+  "quantity": "module de distance binned bas-z PONDERE, amplitude ancree Planck",
+  "dimension": "mag",
+  "packet": "1",
+  "bins": [
+    [
+      0.01442,
+      33.946552
+    ],
+    [
+      0.01947,
+      34.660097
+    ],
+    [
+      0.02411,
+      35.134568
+    ],
+    [
+      0.02938,
+      35.565931
+    ],
+    [
+      0.03519,
+      36.028228
+    ],
+    [
+      0.04738,
+      36.646141
+    ],
+    [
+      0.07446,
+      37.731047
+    ],
+    [
+      0.13281,
+      38.985414
+    ]
+  ],
+  "sigma_mag": 0.024211,
+  "params": {
+    "Omega_m": 0.315,
+    "Omega_L": 0.685,
+    "c_km_s": 299792.458,
+    "H0_ancrage_km_s_Mpc": 67.4,
+    "K_B_convention": 28.52698,
+    "transposition": "identique a la carte non ponderee",
+    "regle_bins": "8 bins equipopulaires, moyenne ponderee w=1/e_mBcorr^2 declaree"
+  },
+  "dettes": {
+    "D-compression-residuelle": "pondération diagonale seule ; covariance C_stat/C_syst toujours ignoree"
+  },
+  "sha256_note": "derive de campagne ; ne geler aucun mot dessus"
+}

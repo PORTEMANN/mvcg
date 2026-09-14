@@ -1,0 +1,67 @@
+{
+  "id": "hz_sne_lowz_literature_sh0es",
+  "vintage": "LITERATURE-PantheonPlus-B22",
+  "source": "Pantheon+ : Table 7 de Brout et al. 2022 (ApJ 938:110, magnitudes corrigees BBC, via VizieR J/ApJ/938/110), SNe Ia flux Hubble zHD ∈ [0.01, 0.15), dedoublonnees (regle : nom normalise minuscules, prefixes retires, e_mBcorr minimal), calibrateurs Cepheides exclus (tous z < 0.01)",
+  "doi_or_ref": "Brout et al. 2022, ApJ, 938, 110 (Table 7 ; Table 2 : rms BS21 = 0.171 mag global, ~0.15 mag a z >= 0.01) ; Scolnic et al. 2022, ApJ, 938, 113",
+  "species": "supernovae Ia (Pantheon+, flux Hubble bas-z)",
+  "quantity": "module de distance binned bas-z, amplitude ancree SH0ES (H0 = 73.04 ± 1.04 km/s/Mpc declare)",
+  "dimension": "mag",
+  "packet": "1",
+  "bins": [
+    [
+      0.01442,
+      33.75358
+    ],
+    [
+      0.01947,
+      34.463855
+    ],
+    [
+      0.02411,
+      34.936735
+    ],
+    [
+      0.02938,
+      35.397748
+    ],
+    [
+      0.03519,
+      35.861499
+    ],
+    [
+      0.04738,
+      36.478135
+    ],
+    [
+      0.07446,
+      37.564015
+    ],
+    [
+      0.13281,
+      38.827428
+    ]
+  ],
+  "sigma_mag": 0.02756,
+  "params": {
+    "Omega_m": 0.315,
+    "Omega_L": 0.685,
+    "c_km_s": 299792.458,
+    "H0_ancrage_km_s_Mpc": 73.04,
+    "u_ancrage_km_s_Mpc": 1.04,
+    "K_B_convention": 28.526979,
+    "K_B_methode": "moyenne(A(z) - mBcorr) sur le diagramme complet dedouble, A a la forme gelee (Omega gelas) ; la combinaison M - 5*log10(H0) n'est pas separable sans Cepheides (degenrescence Brout et al. 2022 §2.3)",
+    "transposition": "mu_ancre = mBcorr + 5*log10(H0_ancrage) - K_B ; exact a Omega gelas identiques ; la courbe de l'ancrage passe par les bins EN MOYENNE par conversion d'unite, jamais par ajustement sur les bins",
+    "validation_croisee": "std(A - mBcorr) = 0.2050 mag vs rms BS21 publie 0.171 mag",
+    "regle_bins": "8 bins equipopulaires sur zHD, moyenne arithmetique declaree (non ponderee)",
+    "sigma_bin": "sqrt(moyenne(e_mBcorr^2)/N) : incertitudes declarees par la collaboration"
+  },
+  "dettes": {
+    "D-nature": "donnee reelle binned ; compression d'evenements individuels",
+    "D-compression": "bins non ponderes (cosmologie officielle ponderee) ; covariance C_stat/C_syst ignoree : calibration commune NON reduite en sqrt(N)",
+    "D-ancrage": "amplitude fixee a l'echelle SH0ES par transposition exacte : la carte porte le choix d'ancrage",
+    "D-independance": "ancrage SH0ES : donnee et levier H0<-SH0ES non independants (pendant Landau)",
+    "D-vitesses": "zHD corrige 2M++ ; sigma_vpec declaratif dans e_mBcorr (dominant a bas z, ex. R22 n'utilise le flux Hubble que pour z > 0.023)",
+    "D-miroir": "les deux ancrages sont des miroirs exacts (memes bins, transposition pure) : les contacts portent une meme carte avec deux dettes differentes, pas deux verdicts independants"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

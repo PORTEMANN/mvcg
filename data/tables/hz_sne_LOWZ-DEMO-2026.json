@@ -1,0 +1,31 @@
+{
+  "id": "hz_sne_lowz_demo",
+  "vintage": "DEMO-2026",
+  "source": "diagramme de Hubble bas-z SYNTHETIQUE declare : 8 bins, fiducial LambdaCDM Omega_m=0.315 H0=70.0 km/s/Mpc (entre les deux fabrications declarees), bruit gaussien sigma=0.05 mag, seed numpy 20260913. Demonstration de protocole, PAS une compilation observee — la table LITERATURE correspondante reste a declarer (compilation publique verifiee, ou contact d'un tiers).",
+  "species": "supernovae Ia (simulees)",
+  "quantity": "module de distance binned bas-z",
+  "dimension": "mag",
+  "packet": "1",
+  "bins": [
+    [0.01, 33.0715],
+    [0.02, 34.6543],
+    [0.035, 35.9065],
+    [0.05, 36.7829],
+    [0.07, 37.4509],
+    [0.09, 38.0242],
+    [0.12, 38.7164],
+    [0.15, 39.2812]
+  ],
+  "sigma_mag": 0.05,
+  "params": {
+    "fabrication_Hz": "Planck2018",
+    "H0_fabrication_km_s_Mpc": 67.4,
+    "Omega_m": 0.315,
+    "Omega_L": 0.685,
+    "c_km_s": 299792.458,
+    "fiducial_H0_km_s_Mpc": 70.0,
+    "seed": 20260913,
+    "note": "H(z) de la regle = fabrication Planck declaree (CMB+LCDM) ; levier f<-H0_SH0ES_ou_autre. Interdit : ajuster les bins sur la reference (la recette de generation est declaree dans 'source', seed gele). Le DEMO mesure la coherence interne du protocole sur une carte dont la reponse est connue par construction (H0=70) ; il ne dit RIEN de l'univers reel."
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

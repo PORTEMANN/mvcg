@@ -1,0 +1,19 @@
+{
+  "id": "h0_tension",
+  "vintage": "LITERATURE-2018",
+  "source": "tension H0 : deux fabrications declarees (CMB+LCDM vs echelle locale)",
+  "doi_or_ref": "Planck Collab. 2018 (extrait declare) ; Riess et al. 2022 SH0ES (extrait declare)",
+  "species": "H0",
+  "quantity": "ecart relatif entre deux fabrications de H0",
+  "dimension": "1",
+  "packet": "1",
+  "value": 0.0,
+  "params": {
+    "Planck2018_H0": 67.4,
+    "Planck2018_u": 0.5,
+    "SH0ES2022_H0": 73.04,
+    "SH0ES2022_u": 1.04,
+    "note": "deux f : CMB+ΛCDM vs echelle locale. Ne pas moyenner. L'identite (un seul H0) est la reference mu_ref = 0 du contact."
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

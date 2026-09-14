@@ -59,6 +59,10 @@ Contacts complémentaires (même discipline, hors série O) :
 | Bertsch ξ | gaz unitaire, BCS mean-field vs QMC/exp déclaré | 0,10 | S− | 22,1 % |
 | KSS η/s ⁴He | borne exp. η/s ≥ 8,8 planchers au-dessus du plancher | 0,10 | S− | 780 % |
 | KSS η/s QGP | borne inf. déclarée (2 planchers) vs plancher — saturation ? | 0,10 | S− | 100 % |
+| H0 Écart | \|H0_SH0ES/H0_Planck − 1\| vs identité, θ = 0,05 abs | 0,05 | P | 8,4 % |
+| H(z) bas-z DEMO | rms résidus courbe Planck vs 8 bins, extraction synthétique déclarée | 0,05 | S− | 11,7 % |
+| H(z) bas-z LIT Planck | mêmes bins, ancrage Planck, Pantheon+ (Brout+ 2022) | 0,0276 mag | S− | 6,95 % |
+| H(z) bas-z LIT SH0ES | même, ancrage SH0ES (H0 = 73,04 déclaré) | 0,0276 mag | S− | 23,1 % |
 
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
@@ -79,11 +83,30 @@ premier suspense du tiroir — même la borne inf déclarée du plasma
 (2 planchers) ne sature pas le plancher à θ = 0,10. La machine
 distingue trois S− : dette (Bertsch), marge (KSS ⁴He), saturation
 dévoilée (KSS/QGP).
+
+Le tiroir H0 pèse la tension cosmologique en deux temps. D'abord
+l'écart |H0_SH0ES/H0_Planck − 1| = 8,4 %, qui pèse **P** à θ absolu =
+5 % — la question « θ relatif ou absolu sur un rapport d'échelles »
+reste ouverte au registre
+([doctrine](docs/H0-CONTACT-OUVERT.md)). Ensuite le chantier H(z) :
+deux contacts ouverts sur les modules de distance bas-z (8 bins
+équipopulaires sur le flux Hubble Pantheon+, extraction déclarée ; puis
+littérature, ancrages Planck et SH0ES déclarés avant le run) ont ouvert
+une fibre entière — (1, mag) = {S−:3} — et onze campagnes dérivées
+(covariance 1701×1701, sélection officielle des SNe, marge Δχ² ≈ 21
+sous les verdicts, chasse aux excès, split en z, vitesse particulière).
+Bilan : [H0-BILAN-CHANTIER](docs/H0-BILAN-CHANTIER.md) ; ce que la
+machine est (et n'est pas) : [CE-QUE-LA-MACHINE-EST](docs/CE-QUE-LA-MACHINE-EST.md).
 Doctrines :
 [`docs/NMR-CONTACT-OUVERT.md`](docs/NMR-CONTACT-OUVERT.md),
 [`docs/CKM-CONTACT-OUVERT.md`](docs/CKM-CONTACT-OUVERT.md),
 [`docs/G2-CONTACT-OUVERT.md`](docs/G2-CONTACT-OUVERT.md),
-[`docs/HYPERFLUIDITE-CONTACT-OUVERT.md`](docs/HYPERFLUIDITE-CONTACT-OUVERT.md).
+[`docs/HYPERFLUIDITE-CONTACT-OUVERT.md`](docs/HYPERFLUIDITE-CONTACT-OUVERT.md),
+[`docs/H0-CONTACT-OUVERT.md`](docs/H0-CONTACT-OUVERT.md),
+[`docs/H0-HZ-SNE-CONTACT-OUVERT.md`](docs/H0-HZ-SNE-CONTACT-OUVERT.md),
+[`docs/H0-HZ-SNE-CONTACT-LITERATURE.md`](docs/H0-HZ-SNE-CONTACT-LITERATURE.md),
+[`docs/H0-BILAN-CHANTIER.md`](docs/H0-BILAN-CHANTIER.md),
+[`docs/CE-QUE-LA-MACHINE-EST.md`](docs/CE-QUE-LA-MACHINE-EST.md).
 
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7
