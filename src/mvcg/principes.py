@@ -291,3 +291,86 @@ def pf8_hz_filtrage_ecart() -> tuple[float, dict[str, Any]]:
         "H2_filtre_sur_H02_z0": h2_filtre(0.0),
         "note": "borne <2 % revendiquee vs ecart publie par l'equation meme ; normalisation H(0)=H0 non tenue (F_U non declare)",
     }
+
+
+def pf1b_rg_spread_2loop() -> tuple[float, dict[str, Any]]:
+    """Dispersion relative minimale des 4 couplages au 2-boucles.
+
+    Meme transport que pf1_rg_spread (meme grille t in [0, 36] pas 0,1,
+    meme spread (max-min)/moyenne), meme entrees 1-loop gelees ; seuls
+    les coefficients 2-boucles changent : matrice b_ij SM empruntee a
+    Machacek & Vaughn 1983 (gelee datée dans pf1b_rg_2loop), coefficient
+    diagonal noetique b_njn = +10 declare par la source. Integration RK4
+    de dX_i/dt = -(1/2pi)[b_i + sum_j b_ij/X_j], X = 4pi/g^2 ; termes
+    croises noet x SM non declares -> 0 (lecture neutre gelee).
+    """
+    t1b = load_table("pf1b_rg_2loop_LITTERATURE-2026.json")
+    p = t1b["params"]
+    mz = float(p["Mz_GeV"])
+    g0 = [float(p["g1_Mz"]), float(p["g2_Mz"]), float(p["g3_Mz"]),
+          float(p["g_noet_Mz"])]
+    b = [float(p["b1"]), float(p["b2"]), float(p["b3"]), float(p["b_noet"])]
+    bij = [[float(v) for v in row] for row in p["b_ij_SM"]]
+    bnjn = float(p["b_njn_declared"])
+    x0 = [4.0 * math.pi / g**2 for g in g0]
+
+    def dx(x: list[float]) -> list[float]:
+        out = []
+        for i in range(3):
+            s = sum(bij[i][j] * (4.0 * math.pi / x[j]) / (16.0 * math.pi**2)
+                    for j in range(3))
+            out.append(-(1.0 / (2.0 * math.pi)) * (b[i] + s))
+        g2n = 4.0 * math.pi / x[3]
+        out.append(-(1.0 / (2.0 * math.pi))
+                   * (b[3] + bnjn * g2n / (16.0 * math.pi**2)))
+        return out
+
+    h_rk = 0.02  # pas interne fige
+
+    def rk4(x: list[float], t: float) -> list[float]:
+        for _ in range(int(round(t / h_rk))):
+            k1 = dx(x)
+            k2 = dx([xi + h_rk * k / 2.0 for xi, k in zip(x, k1)])
+            k3 = dx([xi + h_rk * k / 2.0 for xi, k in zip(x, k2)])
+            k4 = dx([xi + h_rk * k for xi, k in zip(x, k3)])
+            x = [xi + h_rk * (a + 2.0 * c + 2.0 * d + e) / 6.0
+                 for xi, a, c, d, e in zip(x, k1, k2, k3, k4)]
+        return x
+
+    def spread_of(x: list[float]) -> float:
+        g = [math.sqrt(4.0 * math.pi / xi) for xi in x]
+        m = sum(g) / 4.0
+        return (max(g) - min(g)) / m
+
+    t_claim = math.log(float(p["mu_U_claim_GeV"]) / mz)
+    x_claim = rk4(x0.copy(), t_claim)
+    g_claim = [math.sqrt(4.0 * math.pi / xi) for xi in x_claim]
+    spread_claim = spread_of(x_claim)
+
+    best_spread = math.inf
+    best_t = None
+    x = x0.copy()
+    t = 0.0
+    while t <= 36.0 + 1e-9:
+        s = spread_of(x)
+        if s < best_spread:
+            best_spread = s
+            best_t = round(t, 1)
+        if t < 36.0:
+            x = rk4(x, 0.1)
+        t = round(t + 0.1, 10)
+
+    return float(best_spread), {
+        "table": t1b["vintage"],
+        "table_sha256": t1b["_sha256"],
+        "loop": "2-loop",
+        "best_t": best_t,
+        "best_mu_GeV": mz * math.exp(best_t),
+        "spread_rel": best_spread,
+        "spread_at_claim_scale": spread_claim,
+        "g_at_claim_scale": g_claim,
+        "g_noet_at_claim": g_claim[3],
+        "g_U_claim": float(p["g_U_claim"]),
+        "ref": t1b["value"],
+        "note": "dispersion (max-min)/moyenne au 2-boucles, meilleur t ; coefficients SM empruntes MV1983 geles, b_njn declare ; le 2-boucles ne ferme pas la dette 1-loop de PF1",
+    }

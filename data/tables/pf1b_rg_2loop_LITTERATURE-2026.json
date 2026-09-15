@@ -1,0 +1,46 @@
+{
+  "id": "pf1b_rg_2loop",
+  "vintage": "LITTERATURE-2026",
+  "source": "P. Portemann, 'Principes Fondamentaux de Physique Noetique (IV)', 07/08/2025 : le texte renvoie au 2-boucles pour la coincidence a +/-1 % (g_U = 0,512 a mu_U = 2.10^16 GeV) et declare b_noet = +4 (1-loop) et b_njn = +10 (2-boucles, coefficient du secteur noetique) ; les coefficients SM au 2-boucles NE SONT PAS dans le corpus — empruntes a la litterature standard (Machacek & Vaughn 1983, conventions PDG 2020, normalisation GUT pour g1), geles ici datés ; chaque chiffre emprunte est trace",
+  "doi_or_ref": "Machacek & Vaughn, Nucl. Phys. B222 (1983) 83 ; conventions dg_i/dt = g_i^3/(16 pi^2) [b_i + sum_j b_ij g_j^2/(16 pi^2)], t = ln(mu/Mz), g1 en normalisation GUT (b1 = 41/6) ; entrees 1-loop identiques a pf1_rg_unification_LITTERATURE-2025 (memes g_i(Mz), memes b_i, meme Mz) — seul l'ordre change",
+  "species": "couplages de jauge SM + U(1)_noet, ordre 2-boucles",
+  "quantity": "dispersion relative minimale des 4 couplages au 2-boucles (integrale RK4 de dX_i/dt, X = 4 pi / g^2), comparee a la coincidence +/-1 % revendiquee ; check secondaire : g_noet(mu_U) vs g_U = 0,512 revendique",
+  "dimension": "1",
+  "packet": "si",
+  "value": 0.01,
+  "params": {
+    "Mz_GeV": 91.187,
+    "g1_Mz": 0.3570,
+    "g2_Mz": 0.6529,
+    "g3_Mz": 1.217,
+    "g_noet_Mz": 0.50,
+    "b1": 6.833333333333333,
+    "b2": -3.1666666666666665,
+    "b3": -7.0,
+    "b_noet": 4.0,
+    "b_njn_declared": 10.0,
+    "b_ij_SM": [
+      [3.98, 2.7, 8.8],
+      [0.9, 5.833333333333333, 12.0],
+      [1.1, 4.5, -26.0]
+    ],
+    "b_ij_SM_exact": {
+      "note": "valeurs exactes Machacek-Vaughn : b11 = 199/50, b12 = 27/10, b13 = 44/5, b21 = 9/10, b22 = 35/6, b23 = 12, b31 = 11/10, b32 = 9/2, b33 = -26 ; les decimales ci-dessus en sont l'arrondi gele",
+      "b11": "199/50",
+      "b12": "27/10",
+      "b13": "44/5",
+      "b21": "9/10",
+      "b22": "35/6",
+      "b23": "12",
+      "b31": "11/10",
+      "b32": "9/2",
+      "b33": "-26"
+    },
+    "cross_terms_noet": 0.0,
+    "mu_U_claim_GeV": 2e16,
+    "g_U_claim": 0.512,
+    "coincidence_claim_rel": 0.01,
+    "note": "dettes nommées : (1) coefficients SM 2-boucles empruntes hors corpus, gelés datés — l'emprunt est trace, pas une correction en silence ; (2) termes croisés secteur noetique x SM non declares -> 0 gelee (lecture neutre) ; (3) convention de b_njn lue comme coefficient 2-boucles diagonal du secteur noetique dans la meme normalisation que b_noet (dg/dt = b g^3/(16pi^2) + b2 g^5/(16pi^2)^2) ; lecture alternative = dette nommée en extra"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

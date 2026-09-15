@@ -100,6 +100,11 @@ class TestPrincipesContacts(unittest.TestCase):
             # equation publiee / revendication <2 % (S- a 331 theta)
             "PF7_F4_Recompute": ("S+", 0.034839621186663984, 1e-12),
             "PF8_Hz_Filtrage_Ecart": ("S-", 0.6827231514910878, 1e-12),
+            # 2026-09-15 : chantier PF1b — le 2-boucles que le volet IV
+            # designe lui-meme (coefficients SM empruntes MV1983 geles,
+            # b_njn = +10 declare) : best spread 0,337 vs 0,01, S- a
+            # 654 theta — le 2-boucles ne ferme pas la dette de PF1
+            "PF1b_RG_Unification_2Loop": ("S-", 0.33704355972780004, 1e-12),
         }
         for cid, (mot, mu, tol) in attendus.items():
             r = _contact(cid)
@@ -128,6 +133,13 @@ class TestPrincipesContacts(unittest.TestCase):
             r = _contact(cid)
             self.assertEqual(r["expected"], mot, cid)
             self.assertEqual(r["verdict"], mot, cid)
+
+    def test_pf1b_attendu_tenu(self):
+        # chantier PF1b : le 2-boucles designe par le volet IV ne ferme
+        # pas la dette de PF1 — S- attendu, S- obtenu
+        r = _contact("PF1b_RG_Unification_2Loop")
+        self.assertEqual(r["expected"], "S-")
+        self.assertEqual(r["verdict"], "S-")
 
 
 if __name__ == "__main__":

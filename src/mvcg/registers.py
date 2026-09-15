@@ -2060,6 +2060,12 @@ def _pf1_rg_spread() -> tuple[float, dict]:
     return pf1_rg_spread()
 
 
+def _pf1b_rg_spread_2loop() -> tuple[float, dict]:
+    from mvcg.principes import pf1b_rg_spread_2loop
+
+    return pf1b_rg_spread_2loop()
+
+
 def _pf2_graviton_ev() -> tuple[float, dict]:
     from mvcg.principes import pf2_graviton_ev
 
@@ -2174,6 +2180,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "kss_eta_s_he4": _kss_eta_s_he4,
     "kss_eta_s_qgp": _kss_eta_s_qgp,
     "pf1_rg_spread": _pf1_rg_spread,
+    "pf1b_rg_spread_2loop": _pf1b_rg_spread_2loop,
     "pf2_graviton_ev": _pf2_graviton_ev,
     "pf3_tau5_recompute": _pf3_tau5_recompute,
     "pf4_vide_log_ratio": _pf4_vide_log_ratio,
@@ -2792,6 +2799,14 @@ CONTACTS: list[Contact] = [
         "convergence des 4 couplages au 1-loop (entrees gelees) vs la coincidence +/-1 % revendiquee (2-boucles, Principes IV)",
         "chantier PRINCIPES : la machine integre le flux 1-loop et mesure la dispersion relative minimale ; les coefficients SM 2-boucles ne sont pas geles dans la source — c'est la revendication 1-loop qui est pesee, l'article renvoyant lui-meme au 2-boucles ; S- attendu, c'est une information pas un accident",
         "pf1_rg_spread",
+        "ouverte", "S-", "PRINCIPES",
+    ),
+    Contact(
+        "PF1b_RG_Unification_2Loop", "micro", "pred", "si", "1", "rel", 0.05,
+        0.01, "calcul<-revendication (2-loop)", "—",
+        "dispersion relative minimale des 4 couplages au 2-boucles (meme transport que PF1, memes entrees 1-loop gelees, coefficients SM empruntes Machacek-Vaughn 1983 geles datés, b_njn = +10 declare par la source) vs la coincidence +/-1 % revendiquee",
+        "chantier PF1b : le calcul que le volet IV designe lui-meme — le 2-boucles rapproche les trois couplages SM (0,448/0,524/0,524 a mu_U) mais le secteur noetique sous ses coefficients declares court a 0,657 et ecarte le quartet ; le 2-boucles ne ferme pas la dette de PF1 ; attendu S-",
+        "pf1b_rg_spread_2loop",
         "ouverte", "S-", "PRINCIPES",
     ),
     Contact(
