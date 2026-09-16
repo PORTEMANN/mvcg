@@ -1,0 +1,21 @@
+{
+  "id": "lh_alpha",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE (5e fournée G12, 2026-09-15) : double usage du symbole alpha dans le corpus noétique — alpha = 1/137 (constante de structure fine, corpus) ET alpha = c_s/c = 1e-3 (hydrodynamique du Koïlon, corpus) — avec la formule k(Z) = (3/2).exp(-ln Z/103 . alpha) qui reference alpha sans specifier laquelle (article geometrie spectrale / chimie occulte -> E8)",
+  "doi_or_ref": "corpus noétique : « alpha = 1/137 » (structure fine) et « alpha = c_s(0)/c = 10^-3 » (Koïlon) dans le même corpus ; formule k(Z) = (3/2).exp(-ln Z/103 . alpha) — dette d'identification nommée G12 dans PROSPECTIVE-LOI-HARMONIQUE.md",
+  "species": "declarations corpus sur alpha (deux constantes, un symbole)",
+  "quantity": "valeurs gelées pour le contact LH_Alpha_DoubleUsage",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "alpha_structure_fine_declare": 0.0072992700729927005,
+    "note_alpha_sf": "1/137 exactement comme déclaré par le corpus (pas la valeur CODATA — la dette porte sur la declaration, la machine pese les declarations)",
+    "alpha_hydro_declare": 0.001,
+    "k_prefacteur": 1.5,
+    "k_diviseur": 103,
+    "k_Z_eval": 179,
+    "note": "delta relatif pese sous mu_loc = alpha_sf vs mu_ref = alpha_hydro ; extra : sensibilite de k(Z) aux deux lectures (le formulaire ne peut pas trancher)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

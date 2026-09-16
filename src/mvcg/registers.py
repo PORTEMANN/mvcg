@@ -2066,6 +2066,114 @@ def _pf1b_rg_spread_2loop() -> tuple[float, dict]:
     return pf1b_rg_spread_2loop()
 
 
+def _lh_ko6_racines() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_ko6_racines
+
+    return lh_ko6_racines()
+
+
+def _lh_muon_quinte() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_muon_quinte
+
+    return lh_muon_quinte()
+
+
+def _lh_z_diagonale() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_z_diagonale
+
+    return lh_z_diagonale()
+
+
+def _lh_strange_quarte() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_strange_quarte
+
+    return lh_strange_quarte()
+
+
+def _lh_bottom_g6() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_bottom_g6
+
+    return lh_bottom_g6()
+
+
+def _lh_bottom_arith() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_bottom_arith
+
+    return lh_bottom_arith()
+
+
+def _lh_koide_q() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_koide_q
+
+    return lh_koide_q()
+
+
+def _lh_zmax_modes() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_zmax_modes
+
+    return lh_zmax_modes()
+
+
+def _lh_addendum_corps() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_addendum_corps
+
+    return lh_addendum_corps()
+
+
+def _lh_up_g3() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_up_g3
+
+    return lh_up_g3()
+
+
+def _lh_charm_g5() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_charm_g5
+
+    return lh_charm_g5()
+
+
+def _lh_anu_gamme() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_anu_gamme
+
+    return lh_anu_gamme()
+
+
+def _lh_alpha_double() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_alpha_double
+
+    return lh_alpha_double()
+
+
+def _lh_anu_pont_rms() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_anu_pont_rms
+
+    return lh_anu_pont_rms()
+
+
+def _lh_g11_mass_shift() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_g11_mass_shift
+
+    return lh_g11_mass_shift()
+
+
+def _e44_t0_lien() -> tuple[float, dict]:
+    from mvcg.e44 import e44_t0_lien
+
+    return e44_t0_lien()
+
+
+def _e44_lk_paire() -> tuple[float, dict]:
+    from mvcg.e44 import e44_lk_paire
+
+    return e44_lk_paire()
+
+
+def _e44_p3_filaments() -> tuple[float, dict]:
+    from mvcg.e44 import e44_p3_filaments
+
+    return e44_p3_filaments()
+
+
 def _pf2_graviton_ev() -> tuple[float, dict]:
     from mvcg.principes import pf2_graviton_ev
 
@@ -2181,6 +2289,24 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "kss_eta_s_qgp": _kss_eta_s_qgp,
     "pf1_rg_spread": _pf1_rg_spread,
     "pf1b_rg_spread_2loop": _pf1b_rg_spread_2loop,
+    "lh_ko6_racines": _lh_ko6_racines,
+    "lh_muon_quinte": _lh_muon_quinte,
+    "lh_z_diagonale": _lh_z_diagonale,
+    "lh_strange_quarte": _lh_strange_quarte,
+    "lh_bottom_g6": _lh_bottom_g6,
+    "lh_bottom_arith": _lh_bottom_arith,
+    "lh_koide_q": _lh_koide_q,
+    "lh_zmax_modes": _lh_zmax_modes,
+    "lh_addendum_corps": _lh_addendum_corps,
+    "lh_up_g3": _lh_up_g3,
+    "lh_charm_g5": _lh_charm_g5,
+    "lh_anu_gamme": _lh_anu_gamme,
+    "lh_alpha_double": _lh_alpha_double,
+    "lh_anu_pont_rms": _lh_anu_pont_rms,
+    "lh_g11_mass_shift": _lh_g11_mass_shift,
+    "e44_t0_lien": _e44_t0_lien,
+    "e44_lk_paire": _e44_lk_paire,
+    "e44_p3_filaments": _e44_p3_filaments,
     "pf2_graviton_ev": _pf2_graviton_ev,
     "pf3_tau5_recompute": _pf3_tau5_recompute,
     "pf4_vide_log_ratio": _pf4_vide_log_ratio,
@@ -2808,6 +2934,150 @@ CONTACTS: list[Contact] = [
         "chantier PF1b : le calcul que le volet IV designe lui-meme — le 2-boucles rapproche les trois couplages SM (0,448/0,524/0,524 a mu_U) mais le secteur noetique sous ses coefficients declares court a 0,657 et ecarte le quartet ; le 2-boucles ne ferme pas la dette de PF1 ; attendu S-",
         "pf1b_rg_spread_2loop",
         "ouverte", "S-", "PRINCIPES",
+    ),
+    Contact(
+        "LH_KO6_Racines", "micro", "pred", "1", "1", "abs", 0.10,
+        0.0, "sqf publies<-rad recompte", "—",
+        "loi KO-6 (Géométrie Spectrale, 26/08/2026) : le corpus publie sqf(24)=6, sqf(63)=7, sqf(120)=30, sqf(36)=1, sqf(54)=6 sous la definition standard 'produit des diviseurs premiers distincts' — recompute : rad(63)=21 (pas 7), rad(36)=6 (pas 1), deux valeurs sur cinq fausses",
+        "chantier LOI-HARMONIQUE : la machine pèse une loi interne au corpus pour la première fois — l'arithmétique KO-6 annoncee exacte contient deux erreurs, et l'exclusion d'E6 par sqf(36)=1 s'effondre (rad(36)=6>1) ; les identites module-racines 24/63/120/36 restent exactes (extra) ; attendu gèle S+ (declarations exactes), le run corrige : S- a 14 U, dette interne au corpus type PF5",
+        "lh_ko6_racines",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Muon_Quinte", "micro", "pred", "si", "MeV", "rel", 0.10,
+        105.6583755, "masse<-quinte 3/2 x 1/alpha", "—",
+        "muon = électron à la quinte (3/2) amplifiée par 1/alpha (CTFT, loi harmonique) : m_loc = 105,041 MeV vs 105,6583755 MeV (PDG-2024 gelé) — revendication corpus ~99,4 %",
+        "chantier LOI-HARMONIQUE : instance 'quinte' de la loi harmonique m = m_p.2^(n/12) ; entrées CODATA-2018 gelées ; la machine pèse la frontiere de la loi, particule par particule ; attendu S+ (delta 0,58 % a theta 0,10)",
+        "lh_muon_quinte",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Z_Diagonale", "micro", "pred", "si", "MeV", "rel", 0.10,
+        91187.6, "masse<-tension diagonale m_p/alpha/sqrt(2)", "—",
+        "boson Z = tension maximale du proton (137 x m_p) projetée sur la diagonale d'un carré (CTFT, loi harmonique) : m_loc = 90 917,9 MeV vs 91 187,6 +/- 2,1 MeV (PDG-2024 gelé) — revendication corpus ~99,7 %",
+        "chantier LOI-HARMONIQUE : instance 'diagonale' de la loi harmonique ; entrées CODATA-2018 gelées ; attendu S+ (delta 0,30 % a theta 0,10)",
+        "lh_z_diagonale",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Strange_Quarte", "micro", "pred", "si", "MeV", "rel", 0.10,
+        93.0, "masse<-quarte 2 m_p/18", "—",
+        "quark strange = deux fois la classe m_p/18 (Géométrie Spectrale, loi harmonique) : m_loc = 104,252 MeV vs 93 (+11/-5) MeV (PDG-2024 gelé, valeur centrale MSbar 2 GeV) — le corpus invoque des « corrections harmoniques » aux quarks moyens",
+        "chantier LOI-HARMONIQUE (2e fournee G4/G6) : la frontiere de la loi cote quarks moyens — attendu S- (delta ~12 % a theta 0,10) ; l'incertitude PDG asymetrique est notee en extra, non transportee : le verdict pese les valeurs centrales declarees, comme muon et Z",
+        "lh_strange_quarte",
+        "ouverte", "S-", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Bottom_G6", "micro", "pred", "si", "MeV", "rel", 0.10,
+        4180.0, "masse<-4 m_charm/2^(1/12)", "—",
+        "quark bottom = quatre fois le charm (24 m_p/18, G5 du meme article) descendu d'un demi-ton 2^(1/12) (Géométrie Spectrale, loi harmonique) : m_loc = 4 723,258 MeV vs 4 180 MeV (PDG-2024 gelé, valeur centrale MSbar m_b) — revendication corpus ~88,5 %",
+        "chantier LOI-HARMONIQUE (2e fournee G4/G6) : la frontiere de la loi cote quarks lourds — attendu S- (delta ~13,0 % a theta 0,10) ; l'article affirme « 5000/1,0593 ~ 4200 », la dette arithmetique interne est pesee par LH_Bottom_Arith (pendant PF5)",
+        "lh_bottom_g6",
+        "ouverte", "S-", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Bottom_Arith", "micro", "pred", "1", "1", "rel", 0.10,
+        4200.0, "recompute<-arithmetique du texte", "—",
+        "l'article affirme « 5000/1,0593 ~ 4200 » pour la valeur de sa formule G6 — recompute exact : 5000/1,0593 = 4 720,098, l'arithmetique du texte est fausse de 520 unites (ecart relatif 12,4 %)",
+        "chantier LOI-HARMONIQUE (2e fournee G4/G6) : dette arithmetique interne au corpus, pendant de PF5 — la machine pese la coherence entre le resultat annonce et l'arithmetique du texte, pas la physique ; attendu S-",
+        "lh_bottom_arith",
+        "ouverte", "S-", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Koide_Q", "micro", "pred", "si", "1", "rel", 0.10,
+        0.6666666666666666, "Q<-masses gelees (PDG)", "—",
+        "rapport de Koide des leptons charges Q = Somme(m)/(Somme(racine(m)))^2 recomputé depuis m_e (CODATA-2018), m_muon et m_tau (PDG-2024 gelés) : Q = 0,666 660 5 vs 2/3 revendiqué (loi empirique citée par le corpus) — écart 9,2e-6",
+        "chantier LOI-HARMONIQUE (3e fournée G7/G9/G10) : le S+ attendu le plus serré du registre (~1e-4 theta) ; deux erreurs de préparation sur la formule ont été attrapées AVANT gel (variantes sans racines et inversée) — leçon KO-6 appliquée ; attendu S+",
+        "lh_koide_q",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Zmax_Modes", "micro", "pred", "1", "1", "rel", 0.10,
+        179.0, "Z_max<-(3/2).N_modes (corpus)", "—",
+        "limite causale du tableau périodique (Géométrie Spectrale) : Z_max ~ 179 revendiqué, recompute à alpha_hydro = 1e-3 gelé : N_modes = 12.log2(1/alpha) = 119,589, Z_max = (3/2).N_modes = 179,384 — le « ~ 179 » tient (0,215 %)",
+        "chantier LOI-HARMONIQUE (3e fournée G7/G9/G10) : arithmétique de l'échelle koïlon — le corps du corpus se dit « ~ 179 » et le recompute tient au seuil ; N_modes ~ 120 tient aussi (0,342 %, extra) ; attendu S+ ; alpha double-usage nommé en dette G12",
+        "lh_zmax_modes",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Addendum_Corps", "micro", "pred", "1", "1", "abs", 0.10,
+        0.0, "180 declare<-179 declare", "—",
+        "tension interne au corpus : l'addendum (07/09/2026) publie « Z_max = 180 (recomputé exact) » à alpha_K = 2^-10, le corps publie « Z_max ~ 179 » à alpha_hydro = 1e-3 — deux énoncés présentés comme des recomputes, écart 1 U absolu",
+        "chantier LOI-HARMONIQUE (3e fournée G7/G9/G10) : dette de déclaration type PF5 — explication candidate en extra (alpha différent : 180,0 vs 179,4) mais les deux énoncés se disent « recomputé exact » ; attendu S-",
+        "lh_addendum_corps",
+        "ouverte", "S-", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Up_G3", "micro", "pred", "si", "MeV", "rel", 0.10,
+        2.16, "masse<-(m_p/18).racine(alpha)/2", "—",
+        "quark up = classe m_p/18 amortie par racine(alpha)/2 (Géométrie Spectrale, loi harmonique) : m_loc = 2,226 MeV vs 2,16 (+0,49/-0,26) MeV (PDG-2024 gelé, MSbar 2 GeV) — la valeur locale tombe dans la fourchette déclarée",
+        "chantier LOI-HARMONIQUE (4e fournée G3/G5, clôture du sextuor G1-G6) : attendu S+ (delta ~3,1 % a theta 0,10) ; position en sigma notée en extra (la fourchette PDG du up est large et asymétrique)",
+        "lh_up_g3",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Charm_G5", "micro", "pred", "si", "MeV", "rel", 0.10,
+        1270.0, "masse<-24 m_p/18", "—",
+        "quark charm = classe 24 m_p/18 (Géométrie Spectrale, loi harmonique) : m_loc = 1 251,029 MeV vs 1 270 +/- 20 MeV (PDG-2024 gelé, MSbar m_c) — écart 1,49 %, 0,95 sigma",
+        "chantier LOI-HARMONIQUE (4e fournée G3/G5, clôture du sextuor G1-G6) : attendu S+ (delta ~1,5 % a theta 0,10) — le dernier S+ attendu de la loi ; position 0,95 sigma notée en extra",
+        "lh_charm_g5",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Anu_Gamme", "micro", "pred", "1", "1", "rel", 0.10,
+        1.0594630943592953, "GM(N ratios)<-table 2 ANU 1908", "—",
+        "rapport géométrique moyen N(Z)/N(Z-1) sur Z = 11-30 recompté depuis la table n°2 ANU (1908, gelée) : GM = 1,060 704 vs 2^(1/12) = 1,059 463 déclaré par le corpus (« converge vers 2^(1/12) ») — le corpus annonce aussi la valeur recomptee « 1,0607 »",
+        "chantier LOI-HARMONIQUE (5e fournée C1/G12, ouverture versant chimie occulte) : les deux declarations tiennent au seuil (delta 0,117 %) ; table 1908 verifiée contre le scan Z = 1-12 ; attendu S+",
+        "lh_anu_gamme",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Alpha_DoubleUsage", "micro", "pred", "1", "1", "rel", 0.10,
+        0.001, "1/137 declare<-1e-3 declare", "—",
+        "double usage du symbole alpha dans le corpus : alpha = 1/137 (structure fine) et alpha = c_s/c = 1e-3 (Koilon), la formule k(Z) = (3/2).exp(-ln Z/103 . alpha) reference alpha sans specifier laquelle — écart relatif des deux lectures : 630 %",
+        "chantier LOI-HARMONIQUE (5e fournée C1/G12) : dette d'identification type PF6 — mu_loc = 1/137 (declare), mu_ref = 1e-3 (declare) ; extra : k(Z) est aveugle a l'ambiguite (sensibilite 4,8e-4), la dette est dans la declaration pas dans l'instrument ; attendu S-",
+        "lh_alpha_double",
+        "ouverte", "S-", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_Anu_Pont_RMS", "micro", "pred", "1", "1", "rel", 0.10,
+        0.0142, "RMS recompute<-RMS declare addendum", "—",
+        "l'addendum (07/09/2026) déclare « le pont ANU<->nucléides est un écart-mètre (RMS 1,42 %) » — recompute sur la fenêtre vérifiable Z = 1-12 (scan 1908 gelé, isotopes du corpus verbatim, B = 10B) : RMS = 3,376 % vs 1,42 % déclaré",
+        "chantier LOI-HARMONIQUE (6e fournée C3) : la table isotopique complète Z = 13-92 n'existe pas en local (l'audit E44 fourni porte sur la nucléation de l'enlacement, sans table isotopique) — la pesée porte sur la fenêtre vérifiable sans tri ; extra : hors bore la fenêtre donne 1,225 % (cohérent avec la déclaration), le bore 10B du corpus porte +10,97 % ; dette de table nommée ; attendu S+ (prospective)",
+        "lh_anu_pont_rms",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "LH_G11_MassShift", "micro", "pred", "1", "1", "rel", 0.10,
+        6.5e-8, "Δm/m recompute (21)<-Δm/m declare (26)", "—",
+        "déplacement de masse de l'électron en champ intense (Géométrie spectrale, août 2026) : formule (21) Δm/m ≈ ε₀E²/8P_K, indépendante de ω, protocole expérimental 800/400 nm — P_K gelé tel que déclaré (8,5e21 Pa, estimation sans budget, dette explicite) ; recompute strict de (21) depuis les intrants gelés (E = 1e15 V/m, ε₀ CODATA-2018) vs 6,5e-8 déclaré (eq. 26)",
+        "chantier LOI-HARMONIQUE (7e fournée G11, cap de la prospective mécanique) : le recompute strict de (21) donne 1,302e-4 — le corpus a calculé avec P_ext = ε₀E²/2 au numérateur (facteur 2, dette arithmétique type PF5) et P_K déclaré ne suit pas de ses propres intrants déclarés (0,5 MeV, 3,9e-13 m → 1,35e24 Pa, facteur ~159) : la prédiction expérimentale est doublement non tenue sur sa propre arithmétique ; attendu S+ (le corpus présente 6,5e-8 comme dérivé de (21))",
+        "lh_g11_mass_shift",
+        "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "E44_T0_LienHopf", "micro", "pred", "1", "1", "rel", 0.10,
+        1.0, "Lk lien declare<-attendu ±1 (T0)", "—",
+        "validation T0 du détecteur d'enlacement déclarée par la note d'audit E44 (31/07/2026, protocole pré-enregistré C12.1 haché SHA-256) : lien de Hopf contrôlé Lk = +0,994 (attendu ±1), témoin non lié Lk = +0,007 (attendu 0)",
+        "chantier E44 (nucléation de l'enlacement, 1re fournée 2026-09-16) : la machine pèse les déclarations gelées de la note et leur arithmétique interne, elle ne rejoue pas la simulation GP ; mu_loc = 0,994 déclaré vs mu_ref = 1 attendu — le détecteur se valide à 0,6 % près déclaré ; extra : témoin 0,007 vs 0 ; attendu S+",
+        "e44_t0_lien",
+        "ouverte", "S+", "E44",
+    ),
+    Contact(
+        "E44_Lk_PaireHopf", "micro", "pred", "1", "1", "rel", 0.10,
+        1.0, "|moyenne 3 estimations Lk|<-lien unitaire", "—",
+        "l'événement central de la note E44 : paire de Hopf du run A/440103 (t = 12), trois estimations indépendantes du nombre de Gauss déclarées : −1,041 (image minimale), −0,967 (brut), −1,004 (appariement alternatif), seuil de détection |Lk| ≥ 0,5, distance minimale 3,16 mailles",
+        "chantier E44 (1re fournée) : mu_loc = |moyenne des trois estimations| = 1,004 vs lien unitaire — écart 0,4 % ; extra : spread 0,074, les trois estimations passent le seuil déclaré (la robustesse annoncée tient sur les nombres gelés) ; attendu S+",
+        "e44_lk_paire",
+        "ouverte", "S+", "E44",
+    ),
+    Contact(
+        "E44_P3_Filaments", "micro", "pred", "1", "1", "rel", 0.10,
+        4.0, "mediane declaree 14<-prediction 4 ± 2 (P3)", "—",
+        "prédiction pré-enregistrée P3 de la note E44 : filaments axiaux 4 ± 2 (circulation imposée, ensemble B en rotation) ; résultat déclaré : médiane 14, étendue 9–19 — la note statue « réfutée »",
+        "chantier E44 (1re fournée) : mu_loc = médiane déclarée 14 vs mu_ref = prédiction déclarée 4 — écart 5 σ de la prédiction, la machine confirme le mot « réfutée » du corpus sur les nombres gelés ; attendu S- tenu (le corpus statue la réfutation lui-même)",
+        "e44_p3_filaments",
+        "ouverte", "S-", "E44",
     ),
     Contact(
         "PF2_Graviton_25THz", "micro", "pred", "si", "eV", "rel", 0.10,

@@ -18,6 +18,11 @@ from campagnes_detente_serie_o import (  # noqa: E402
 )
 
 POPULATION_FIGEE = [
+    # 2026-09-15 (soir) : chantier LOI-HARMONIQUE 2e fournée G4/G6 —
+    # trois P sans budget GUM (attendus S- gelés non tenus, bande P).
+    "LH_Bottom_Arith",
+    "LH_Bottom_G6",
+    "LH_Strange_Quarte",
     "NMR_Karplus_Helix_VogeliBax2007",
     "NMR_Karplus_Sheet",
     "NMR_Karplus_Sheet_VogeliBax2007",
@@ -32,7 +37,7 @@ class TestDetenteSerieO(unittest.TestCase):
 
     def test_tous_basculent_au_premier_palier(self):
         out = run_detente_serie_o()
-        self.assertEqual(out["n"], 5)
+        self.assertEqual(out["n"], 8)  # 5 + 3 P du chantier LOI-HARMONIQUE G4/G6 (2026-09-15)
         for r in out["resultats"]:
             self.assertEqual(r["regime"], "theta")
             # pos_bande = log2(delta / thr_home), dans [0, 1] pour un P

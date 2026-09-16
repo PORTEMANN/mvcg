@@ -22,6 +22,29 @@ from campagnes_serrage_serie_o import (  # noqa: E402
 )
 
 POPULATION_FIGEE = [
+    # 2026-09-16 : chantier E44 — les deux S+ du couplet détecteur/
+    # événement (T0 Lk 0,994 à 0,06 θ, paire de Hopf |Lk| moyen 1,004
+    # à 0,04 θ) rejoignent la population ; E44_P3 est S- : hors
+    # population, comme tout S-.
+    "E44_Lk_PaireHopf",
+    "E44_T0_LienHopf",
+    # 2026-09-15 : chantier LOI-HARMONIQUE — les deux S+ θ (muon quinte
+    # 0,059 θ, Z diagonale 0,030 θ) rejoignent la population. KO-6 est
+    # S- : hors population, comme tout S-.
+    # 2026-09-15 (nuit) : 3e fournée G7/G9 — Koide (S+ à 9,2e-5 θ, le
+    # plus serré du registre) et Z_max (S+ à 0,022 θ) rejoignent la
+    # population.
+    # 2026-09-15 (nuit) : 4e fournée G3/G5 — charm (S+ à 0,149 θ) et up
+    # (S+ à 0,307 θ) rejoignent la population : clôture du sextuor.
+    # 2026-09-15 (nuit) : 5e fournée C1 — gamme ANU (S+ à 0,117 θ)
+    # rejoint la population.
+    "LH_Anu_Gamme",
+    "LH_Charm_G5",
+    "LH_Koide_Q",
+    "LH_Muon_Quinte",
+    "LH_Up_G3",
+    "LH_Z_Diagonale",
+    "LH_Zmax_Modes",
     "Landau_Vc_He4",
     "NMR_Karplus_Helix",
     "O10_PMMA_Carbonyl",
@@ -49,7 +72,7 @@ class TestSerrageSerieO(unittest.TestCase):
 
     def test_monotonie_et_bascule_en_P(self):
         out = run_serrage_serie_o()
-        self.assertEqual(out["n"], 14)  # 10 + PF2/PF3/PF4 (chantier PRINCIPES) + PF7 (chantier H(z) F4, 2026-09-14)
+        self.assertEqual(out["n"], 23)  # 12 + PF2/PF3/PF4 (chantier PRINCIPES) + PF7 (chantier H(z) F4, 2026-09-14) + LH_Muon_Quinte / LH_Z_Diagonale (chantier LOI-HARMONIQUE, 2026-09-15) + LH_Koide_Q / LH_Zmax_Modes (3e fournée G7/G9, 2026-09-15) + LH_Charm_G5 / LH_Up_G3 (4e fournée G3/G5, 2026-09-15) + LH_Anu_Gamme (5e fournée C1, 2026-09-15)
         for r in out["resultats"]:
             # monotonie de _adc : serrer un S+ passe par P, jamais S- direct
             self.assertEqual(r["verdict_bascule"], "P")

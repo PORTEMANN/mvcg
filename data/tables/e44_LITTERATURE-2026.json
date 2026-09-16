@@ -1,0 +1,32 @@
+{
+  "id": "e44",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier E44 — nucléation de l'enlacement (2026-09-16) : note d'audit E44 « Programme 2027 — nucléation spontanée de l'enlacement », Patrice Portemann, 31 juillet 2026, corpus histoire-des-sciences.eu — protocole pré-enregistré (C12.1), v1 figé et haché SHA-256 avant calcul (42c65a0c…), amendement v2 (bc977f17…), publication quelle que soit l'issue (B3-F AIL) ; Gross–Pitaevskii amorti 64³, 2 ensembles × 6 graines, détecteur de filaments validé, nombre de Gauss en image minimale",
+  "doi_or_ref": "Note_Audit_E44_Nucleation_Enllacement.pdf (copie de travail dans le workspace, _tmp_e44/) : validation T0 du détecteur (lien de Hopf Lk = +0,994 attendu ±1 ; témoin non lié Lk = +0,007 attendu 0) ; événement central run A/440103 t = 12 : Lk = −1,041 (image minimale), −0,967 (brut), −1,004 (appariement alternatif), distance minimale 3,16 mailles ; P3 réfutée : filaments axiaux médiane 14 (étendue 9–19) vs prédiction 4 ± 2 ; P5 confirmée 6/6 : 202 boucles (t = 8), 105 (t = 12), 43 (t = 20), ensemble A ; 307 boucles de l'ère précoce, fréquence d'enlacement ≈ 0,3 % des boucles, 1 run sur 6 ; seuil de détection |Lk| ≥ 0,5",
+  "species": "déclarations de la note d'audit E44 (protocole pré-enregistré, verdicts P1–P5 statués)",
+  "quantity": "valeurs gelées pour les contacts E44_T0_LienHopf, E44_Lk_PaireHopf, E44_P3_Filaments",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "lk_t0_lien": 0.994,
+    "lk_t0_attendu": 1.0,
+    "lk_t0_temoin": 0.007,
+    "lk_t0_temoin_attendu": 0.0,
+    "lk_image_minimale": -1.041,
+    "lk_brut": -0.967,
+    "lk_appariement_alt": -1.004,
+    "lk_seuil_detection": 0.5,
+    "distance_minimale_mailles": 3.16,
+    "p3_mediane": 14,
+    "p3_etendue": [9, 19],
+    "p3_prediction": 4,
+    "p3_sigma_prediction": 2,
+    "p5_boucles_t8": 202,
+    "p5_boucles_t12": 105,
+    "p5_boucles_t20": 43,
+    "n_boucles_ere_precoce": 307,
+    "note": "toutes les valeurs sont des déclarations verbatim de la note (résultats de simulation déclarés, non reproductibles en local — la machine pèse les déclarations pré-enregistrées et leur arithmétique interne, pas la simulation GP)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

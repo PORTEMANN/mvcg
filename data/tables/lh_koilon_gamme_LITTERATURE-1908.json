@@ -1,0 +1,42 @@
+{
+  "id": "lh_koilon_gamme",
+  "vintage": "LITTERATURE-1908",
+  "source": "Table n°2 de la Chimie Occulte (Besant & Leadbeater, 1908, p. 365-368) : nombres ANU N(Z) des éléments, transcrite le 2026-09-15 depuis la copie curatoiale data/anu_table_2.csv du dépôt github.com/PORTEMANN/koilon-scale-e8 (SHA 34de8da) et vérifiée contre le scan ANU.JPG (sauvegarde Ref/Chimie Occulte) pour Z = 1-12 : 18/72/127/164/200/216/261/290/340/360/418/432 — concordance exacte ; le corpus noétique (article chimie occulte -> E8, 22/08/2026) déclare que le rapport géométrique moyen N(Z)/N(Z-1) sur Z = 11-30 converge vers 2^(1/12)",
+  "doi_or_ref": "Besant A. & Leadbeater C.W. (1908), Occult Chemistry, Theosophical Publishing Society, table n°2 p. 365-368 ; transcription curatoiale : koilon-scale-e8 data/anu_table_2.csv ; déclaration corpus : « converge vers 2^(1/12) dans la plage Z = 11-30 »",
+  "species": "nombres ANU des éléments (formes dominantes déclarées ; H = 18 protium, He = 72 = He4)",
+  "quantity": "table gelée pour recomputes C1 (gamme koïlon)",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "rows": [
+      [1, "H", 18], [2, "He", 72], [3, "Li", 127], [4, "Be", 164],
+      [5, "B", 200], [6, "C", 216], [7, "N", 261], [8, "O", 290],
+      [9, "F", 340], [10, "Ne", 360], [11, "Na", 418], [12, "Mg", 432],
+      [13, "Al", 486], [14, "Si", 520], [15, "P", 558], [16, "S", 576],
+      [17, "Cl", 639], [18, "Ar", 714], [19, "K", 701], [20, "Ca", 720],
+      [21, "Sc", 792], [22, "Ti", 864], [23, "V", 918], [24, "Cr", 936],
+      [25, "Mn", 992], [26, "Fe", 1008], [27, "Co", 1036], [28, "Ni", 1064],
+      [29, "Cu", 1139], [30, "Zn", 1170], [31, "Ga", 1260], [32, "Ge", 1300],
+      [33, "As", 1350], [34, "Se", 1422], [35, "Br", 1439], [36, "Kr", 1464],
+      [37, "Rb", 1530], [38, "Sr", 1568], [39, "Y", 1606], [40, "Zr", 1624],
+      [41, "Nb", 1719], [42, "Mo", 1746], [43, "Tc", 1802], [44, "Ru", 1848],
+      [45, "Rh", 1876], [46, "Pd", 1904], [47, "Ag", 1945], [48, "Cd", 2016],
+      [49, "In", 2052], [50, "Sn", 2124], [51, "Sb", 2169], [52, "Te", 2223],
+      [53, "I", 2287], [54, "Xe", 2298], [55, "Cs", 2376], [56, "Ba", 2455],
+      [57, "La", 2482], [58, "Ce", 2511], [59, "Pr", 2527], [60, "Nd", 2575],
+      [61, "Pm", 2640], [62, "Sm", 2794], [63, "Eu", 2843], [64, "Gd", 2880],
+      [65, "Tb", 2916], [66, "Dy", 2979], [67, "Ho", 3004], [68, "Er", 3029],
+      [69, "Tm", 3096], [70, "Yb", 3131], [71, "Lu", 3171], [72, "Hf", 3211],
+      [73, "Ta", 3279], [74, "W", 3299], [75, "Re", 3368], [76, "Os", 3430],
+      [77, "Ir", 3458], [78, "Pt", 3486], [79, "Au", 3546], [80, "Hg", 3576],
+      [81, "Tl", 3678], [82, "Pb", 3727], [83, "Bi", 3753], [84, "Po", 3789],
+      [85, "At", 3978], [86, "Rn", 3990], [87, "Fr", 4006], [88, "Ra", 4087],
+      [89, "Ac", 4140], [90, "Th", 4187], [91, "Pa", 4227], [92, "U", 4267]
+    ],
+    "plage_c1": [11, 30],
+    "rapport_declare": "2^(1/12) = 1,0594630943592953",
+    "note": "formes dominantes : le scan distingue D = 36, He3 = 54 et Meta-Neon = 402 — la table gelée porte les formes dominantes H = 18 et He = 72, conforme a la copie curatoiale du depot"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

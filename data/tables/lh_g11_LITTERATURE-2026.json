@@ -1,0 +1,27 @@
+{
+  "id": "lh_g11",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE (7e fournée G11, 2026-09-16) : déplacement de masse de l'électron en champ intense, article « Géométrie spectrale et physique » (août 2026, histoire-des-sciences.eu) — formule (21) Δm/m ≈ ε₀E²/8P_K (P_ext ≪ P_K), indépendante de ω ; protocole expérimental 800/400 nm à intensité identique (prédiction QED rapport 4, prédiction polytropique rapport 1)",
+  "doi_or_ref": "corpus noétique : eq. (21) « Δm/m = (1 + ε₀E²/2P_K)^{1/4} − 1 ≈ ε₀E²/8P_K » ; eq. (25) « P_K ~ m_e c²/λ_C³ ≈ 0,5 MeV / (3,9e-13 m)³ ≈ 8,5e21 Pa » ; eq. (26) « Δm/m ≈ 4,4e15 / (8 × 8,5e21) ≈ 6,5e-8 » pour E = 1e15 V/m (I = 1e20 W/m², P_ext = ε₀E²/2 ≈ 4,4e15 Pa) ; eq. (27) amplification cavité Q ~ 1e6 → 6,5e-2 — gel de P_K tel que déclaré avec sa dette explicite (grammaire PF6) : P_K est une estimation « ~ », sans budget",
+  "species": "déclarations corpus sur le déplacement de masse G11 (contact expérimental du corpus)",
+  "quantity": "valeurs gelées pour le contact LH_G11_MassShift",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "E_declare_V_m": 1e15,
+    "I_declare_W_m2": 1e20,
+    "P_ext_declare_Pa": 4.4e15,
+    "P_K_declare_Pa": 8.5e21,
+    "note_P_K": "P_K gelé tel que déclaré (8,5e21 Pa, estimation « ~ » sans budget) — dette explicite : l'estimation ne suit pas de ses propres intrants déclarés (0,5 MeV, 3,9e-13 m) qui donnent 1,35e24 Pa (facteur ~159, extra du runner) ; la machine pèse la déclaration, pas l'estimation",
+    "me_c2_declare_MeV": 0.5,
+    "lambda_C_declare_m": 3.9e-13,
+    "dmm_declare": 6.5e-8,
+    "note_dmm": "Δm/m ≈ 6,5e-8 déclaré (eq. 26) — numérateur utilisé par le corpus : 4,4e15 = P_ext = ε₀E²/2, alors que la formule (21) exige ε₀E² = 2.P_ext : dette arithmétique interne type PF5 (facteur 2), pendant PF3/PF7 ; mu_loc = recompute strict de (21) depuis les intrants gelés, mu_ref = 6,5e-8 déclaré",
+    "Q_cavite_declare": 1e6,
+    "dmm_cavite_declare": 6.5e-2,
+    "ratio_QED_declare": 4,
+    "ratio_polytropique_declare": 1
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

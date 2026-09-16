@@ -17,9 +17,9 @@ Machine de verdict à coût gelé.
 - Justesse des pesées : [`docs/JUSTESSE.md`](docs/JUSTESSE.md)
 - Incertitude / métrologie quantique : [`docs/METROLOGIE-QUANTIQUE.md`](docs/METROLOGIE-QUANTIQUE.md)
 
-## Contacts ouverts (série O1 → O16)
+## Contacts ouverts (série O1 → O20)
 
-Seize pesées dont le mot est **découvert après le gel du protocole** — θ
+Vingt pesées dont le mot est **découvert après le gel du protocole** — θ
 figé, table vintage, anti-tautologie, levier directionnel — jamais
 choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
 
@@ -41,6 +41,10 @@ choisi. Rejouer : `PYTHONPATH=src python3 -m mvcg registers`.
 | O14 | I_D/I_G charbon graphitisé, TK dans sa fenêtre | 0,10 | **S+** | 2,2 % |
 | O15 | ω_e(H₂), oscillateur harmonique k = 510 N/m | 0,10 | **S+** | 5,8 % |
 | O16 | γ(Cu), levier d'O12 activé (m\* = 1,38 m_e déclarée) | 0,10 | **S+** | 1,0 % |
+| O17 | ν(1-0) H₂ par Dunham ordre 1 vs fondamental déclaré arrondi « 4160 » | 0,50 cm⁻¹ | S− | 1,48 cm⁻¹ |
+| O18 | même transport, référence relue honnêtement (u = 5/√3) | 2,89 cm⁻¹ | **S+** | 1,48 cm⁻¹ |
+| O19 | ν₃(CO₂) VFF fine, u(D₀) déclarée (D-bump d'O2) | 0,14 cm⁻¹ | S− | 340 cm⁻¹ |
+| O20 | bande D fine, chaîne 1D k₂ = k₁ (D-bump d'O3) | 5,0 cm⁻¹ | S− | 233 cm⁻¹ |
 
 Contacts complémentaires (même discipline, hors série O) :
 
@@ -65,6 +69,10 @@ Contacts complémentaires (même discipline, hors série O) :
 | SPEC CO Dunham | 2B₀ − 4D₀ = ν(1-0), cohérence interne catalogue NIST | 10 kHz | **S+** | 280 Hz |
 | SPEC ¹³CO règle μ | B₀·μ/μ′ = B₀′(¹³CO), masse réduite au niveau v=0 | 12 kHz | S− | 4,94 MHz |
 | SPEC CO Kratzer | 4B_e³/ω_e² = D₀, prédiction croisée H&H vs NIST | 70 Hz | P | 97,6 Hz |
+| Karplus 2007 hélice | même loi, paramétrisation Vogeli-Bax 2007, φ = −60° | 0,10 | P | 18,7 % |
+| Karplus 2007 brin | même, φ = −120° | 0,10 | P | 16,0 % |
+| Rydberg voie 2 | R_∞ recalculée (α²m_e c²/2e) vs Rydberg eV déclaré | 5,8e−9 | **S+** | 1,0e−10 |
+| HVP ππ CMD-3 | a(2π, CMD-3) − a(2π, pré-moyenne) = 0, exp vs exp | 54 | S− | 200 |
 
 La paire NMR pèse une même loi sur deux conformations (mêmes
 coefficients gelés, deux mots) ; CKM est le premier contact de
@@ -126,6 +134,50 @@ rejoint pas le NIST 2013 dans le budget). Sources déclarées NIST
 JPCRD 53 + Huber & Herzberg 1979. Doctrine :
 [`docs/SPEC-CO-ROT-CONTACT-OUVERT.md`](docs/SPEC-CO-ROT-CONTACT-OUVERT.md).
 
+Le tiroir LOI-HARMONIQUE (2026-09-15 → 16) est la première pesée
+d'une **loi interne au corpus** (m = m_p·2^{n/12} sur le zoo
+particulaire) — non comme ontologie, mais comme déclarations gelées
+datées citées par un script de verdict, exactement comme un satellite
+entre dans le graphe d'appel. Sept fournées, 15 contacts :
+
+| Contact | Règle déclarée | θ | Mot | δ |
+|---|---|---|---|---|
+| KO-6 | sqf(24)=6, sqf(63)=7, sqf(120)=30, sqf(36)=1 publiés vs recomptés | 0,10 | S− | 14 |
+| Muon quinte | m_μ = m_e·(3/2)/α | 0,10 | **S+** | 0,59 % |
+| Z diagonale | m_Z = m_p/α/√2 | 0,10 | **S+** | 0,30 % |
+| Strange quarte | m_s = 2·m_p/18 | 0,10 | P | 12,1 % |
+| Bottom G6 | m_b = 4·m_charm/2^{1/12} | 0,10 | P | 13,0 % |
+| Bottom arith | « 5 000/1,0593 ≈ 4 200 » (texte) vs 4 720 recompté | 0,10 | P | 12,4 % |
+| Koide | Q = (Σm)²/(3Σm²) = 2/3 sur e, μ, τ | 0,10 | **S+** | 9,2e−5 |
+| Z_max | Z_max ≈ 179 (α_hydro = 10⁻³), N_modes = 12·log₂(10³) | 0,10 | **S+** | 0,21 % |
+| Addendum/corps | « 180 recomputé exact » vs « ≈ 179 » | 0,10 | S− | 1 |
+| Up G3 | m_u = (m_p/18)·√α/2 | 0,10 | **S+** | 3,1 % |
+| Charm G5 | m_c = 24·m_p/18 | 0,10 | **S+** | 1,5 % |
+| Gamme ANU | GM N(Z)/N(Z−1), Z = 11–30 = 2^{1/12} (table 1908 gelée) | 0,10 | **S+** | 0,12 % |
+| α double usage | α = 1/137 et α = 10⁻³ sous le même symbole | 0,10 | S− | 630 % |
+| Pont ANU RMS | RMS isotopique 1,42 % déclaré, fenêtre vérifiable Z = 1–12 | 0,10 | S− | 138 % |
+| G11 masse | Δm/m = ε₀E²/8P_K déclaré 6,5e-8 vs recompute strict 1,302e-4 | 0,10 | S− | 2 002 |
+
+La loi tient pour leptons et boson (S+ serrés), reste grise pour les
+quarks moyens/lourds (P aux trois), et le corpus porte cinq dettes
+internes nommées (deux sqf publiés faux, arithmétique G6, α double
+usage, pont RMS, G11 doublement non tenu : numérateur P_ext facteur 2,
+P_K estimé facteur ~159). C'est une cartographie, pas un verdict global.
+Prospectives et bilan : [`docs/PROSPECTIVE-LOI-HARMONIQUE.md`](docs/PROSPECTIVE-LOI-HARMONIQUE.md),
+[`docs/CHANTIER-LOI-HARMONIQUE-BILAN.md`](docs/CHANTIER-LOI-HARMONIQUE-BILAN.md),
+cap énergie : [`docs/PROSPECTIVE-MECANIQUE-ENERGIE.md`](docs/PROSPECTIVE-MECANIQUE-ENERGIE.md).
+
+Le tiroir E44 (2026-09-16) pèse la note d'audit d'un protocole
+**pré-enregistré haché SHA-256 avant calcul** (nucléation de
+l'enlacement, trempe Gross–Pitaevskii) : la machine ne rejoue pas la
+simulation, elle pèse ses déclarations gelées et leur arithmétique
+interne — détecteur validé (Lk = 0,994 vs attendu ±1, **S+** à 0,06 θ),
+paire de Hopf (|moyenne Lk| = 1,004 sur trois estimations, **S+** à
+0,04 θ, robustesse au seuil déclaré tenue), prédiction P3 réfutée
+(médiane 14 vs 4 ± 2, **S−** à 25 θ — le corpus statue sa propre
+réfutation, la machine confirme le mot). Doctrine :
+[`docs/CHANTIER-E44-NUCLEATION.md`](docs/CHANTIER-E44-NUCLEATION.md).
+
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7
 généralise le geste à un paramètre effectif phénoménologique. La
@@ -137,9 +189,17 @@ portée, jamais lue) ; O15 protocolise l'honnêteté de la comparaison
 la paire O12 → O16 active le levier d'O12 (masse effective déclarée,
 jamais dérivée de la référence) — la démonstration « chaque échec a
 son levier » passe de la grille (O1→O6) au paramètre phénoménologique
-(O3→O7) au paramètre de théorie effective. Chaque
+(O3→O7) au paramètre de théorie effective. La paire O17 → O18 est le
+pendant disciplinaire inverse : même transport, même delta (1,48 cm⁻¹),
+mais référence relue à sa vraie incertitude (u = 5/√3) — verdict opposé :
+la machine pèse des déclarations, pas des physiques. L'affinage O19/O20
+(D-bump : u(D₀) portée par la déclaration) fait passer les deux P
+grossiers d'O2/O3 en S− nommés : le θ tol.-labo cachait une dette de
+modèle 1D. Chaque
 doctrine : [`docs/O1-CONTACT-OUVERT.md`](docs/O1-CONTACT-OUVERT.md) …
-[`docs/O16-CONTACT-OUVERT.md`](docs/O16-CONTACT-OUVERT.md). Artefacts
+[`docs/O18-H2-TARE-LECTURE-CONTACT-OUVERT.md`](docs/O18-H2-TARE-LECTURE-CONTACT-OUVERT.md),
+affinages O19/O20 : [`docs/REFINED-P-CONTACTS.md`](docs/REFINED-P-CONTACTS.md).
+Artefacts
 gelés et audit rejouable : `examples/registre/O{1..16}.{bits,units,metric,cost}.json`.
 La méthode complète : [`docs/METHODE-PESEE.md`](docs/METHODE-PESEE.md).
 Classement par fibre (packet, dimension) et invariance sous balayage :
@@ -148,6 +208,7 @@ Classement par fibre (packet, dimension) et invariance sous balayage :
 ## La carte des verdicts
 
 ![Carte des verdicts](docs/carte-verdicts.svg)
+(PNG : `docs/carte-verdicts.png` ; identité : `docs/carte-identite.svg` / `.png`)
 
 Chaque point est une pesée : x = θ gelé (l'étalonnage du contact), y =
 δ/θ (la tension, en unités de seuil). Les bandes δ/θ = 1 et 2 **sont**

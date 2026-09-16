@@ -1,0 +1,30 @@
+{
+  "id": "lh_anu_pont",
+  "vintage": "LITTERATURE-1908",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE (6e fournée C3, 2026-09-16) : fenêtre vérifiable du pont ANU <-> nucléides — 12 premières lignes de la table n°2 (Besant & Leadbeater 1908) transcrites verbatim depuis le scan ANU.JPG (sauvegarde Ref/Chimie Occulte, copie de travail _tmp_anu/) : N_ANU et « Poids Isotope » tels que publiés par le corpus, y compris son choix d'isotopes (B = 10B, masse 10,0129) ; déclaration de l'addendum du 07/09/2026 : « le pont ANU<->nucléides est un écart-mètre (RMS 1,42 %), non une correspondance exacte » ; dette nommée : la table isotopique complète Z = 13-92 du corpus (audit E44) n'existe pas en local — la pesée porte sur la fenêtre vérifiable seule",
+  "doi_or_ref": "Besant & Leadbeater (1908), Occult Chemistry, table n°2 p. 365-368 (scan ANU.JPG, valeurs « Poids Isotope ») ; addendum corpus (07/09/2026) : RMS 1,42 % ; prospective : C3 « écart-mètre RMS 1,42 % (addendum) : recompute RMS depuis les tables — S+ attendu »",
+  "species": "fenêtre vérifiable du pont ANU (Z = 1-12, isotopes du corpus)",
+  "quantity": "RMS des écarts relatifs (N/18 - m)/m vs déclaration 1,42 %",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "rows": [
+      [1, "H", 18, 1.00783],
+      [2, "He", 72, 4.0026],
+      [3, "Li", 127, 7.016],
+      [4, "Be", 164, 9.01218],
+      [5, "B", 200, 10.0129],
+      [6, "C", 216, 12.0],
+      [7, "N", 261, 14.00307],
+      [8, "O", 290, 15.99941],
+      [9, "F", 340, 18.9884],
+      [10, "Ne", 360, 19.9984],
+      [11, "Na", 418, 22.9898],
+      [12, "Mg", 432, 23.98504]
+    ],
+    "rms_declare_pct": 1.42,
+    "note": "poids isotopes verbatim du scan (choix du corpus : B = 10B) ; hors bore la fenêtre donne RMS 1,225 % (cohérent avec 1,42 %) — extra ; la déclaration globale reste non vérifiable : table Z = 13-92 absente, dette nommée"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

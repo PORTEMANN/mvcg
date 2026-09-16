@@ -1,0 +1,28 @@
+{
+  "id": "lh_quarks",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE (deuxième fournée G4/G6, 2026-09-15 ; curation troisième/quatrième fournées G3/G5 du même soir : m_up et m_charm ajoutés, acte daté — la table change de D, le sha256 trace) : masses de référence des quarks retenues depuis PDG-2024 (valeurs centrales déclarées, schéma MSbar) — emprunts à la littérature standard, corpus noétique déclarant les instances m_up ~ (m_p/18).racine(alpha)/2, m_strange ~ 2 m_p/18, m_charm ~ 24 m_p/18 et m_bottom ~ 4 m_charm/2^(1/12) de la loi harmonique m = m_p x 2^(n/12), plus l'affirmation arithmétique interne « 5000/1,0593 ~ 4200 » (Géométrie Spectrale)",
+  "doi_or_ref": "PDG-2024 (Workman et al., Prog. Theor. Exp. Phys. 2022, 083C01 et mises à jour 2024) : m_u (MSbar, 2 GeV) = 2,16 (+0,49/-0,26) MeV ; m_s (MSbar, 2 GeV) = 93 (+11/-5) MeV ; m_c (MSbar, m_c) = 1270 +/- 20 MeV ; m_b (MSbar, m_b) = 4180 MeV (valeur centrale retenue, incertitude asymétrique notée en extra) ; corpus (Géométrie Spectrale, 26/08/2026) : « 5000/1,0593 ~ 4200 »",
+  "species": "masses de référence (quark strange, quark bottom) + affirmation arithmétique du corpus",
+  "quantity": "valeurs gelées pour recomputes harmoniques G4/G6",
+  "dimension": "MeV",
+  "packet": "si",
+  "value": null,
+  "params": {
+    "m_up_PDG_MeV": 2.16,
+    "m_up_unc_plus_MeV": 0.49,
+    "m_up_unc_minus_MeV": 0.26,
+    "m_strange_PDG_MeV": 93.0,
+    "m_strange_unc_plus_MeV": 11.0,
+    "m_strange_unc_minus_MeV": 5.0,
+    "m_charm_PDG_MeV": 1270.0,
+    "m_charm_unc_MeV": 20.0,
+    "m_bottom_PDG_MeV": 4180.0,
+    "m_bottom_unc_note": "incertitude PDG asymétrique (~ +30/-20 MeV selon révisions 2024) notée en extra, non transportée : le verdict pèse les valeurs centrales déclarées comme les instances précédentes (muon, Z)",
+    "bottom_arith_declare": 4200.0,
+    "bottom_arith_numerateur": 5000.0,
+    "bottom_arith_diviseur": 1.0593,
+    "note": "valeurs centrales gelées ; theta rel = 0,10 — les masses des quarks légers/moyens PDG portent des incertitudes larges et asymétriques, cohérent avec le rôle de frontière de la loi harmonique pour G4/G6 (attendus S-)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

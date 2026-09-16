@@ -1,0 +1,20 @@
+{
+  "id": "lh_zmax",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE (3e fournée G7/G9/G10, 2026-09-15) : déclarations du corpus noétique sur la limite causale du tableau périodique (Géométrie Spectrale, 26/08/2026, et son addendum) — alpha_hydro = 1e-3 (double usage de alpha nommé en dette G12), Z_max ~ 179 et N_modes ~ 120 (= racines E8) dans le corps, Z_max = 180 « recomputé exact » dans l'addendum (à alpha_K = 2^-10 gelé par le corpus)",
+  "doi_or_ref": "corpus noétique : Géométrie Spectrale et Physique (26/08/2026) : « Z_max ~ 179 (échelle koïlon 2^(1/12), N = 12.log2(1/alpha) = 120 = racines E8) » ; addendum (07/09/2026) : « Z_max = 180 (recomputé exact) » à alpha_K = 2^-10 ; formule de recompute retenue depuis la prospective : Z_max = (3/2) x N_modes, N_modes = 12.log2(1/alpha_hydro)",
+  "species": "déclarations corpus (limite du tableau périodique, échelle koïlon)",
+  "quantity": "valeurs gelées pour recomputes G9/G10",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "alpha_hydro": 0.001,
+    "N_modes_declare": 120,
+    "Z_max_declare_corps": 179,
+    "Z_max_declare_addendum": 180,
+    "alpha_K_addendum": 0.0009765625,
+    "note": "Z_max declare corps « ~ 179 » (a alpha_hydro = 1e-3) ; addendum « 180 recomputé exact » (a alpha_K = 2^-10) — deux enonces presentes comme recomputes, tension pesée par LH_Addendum_Corps ; recompute G9 : Z_max = (3/2) x 12 x log2(1/alpha_hydro) ; N_modes = 12 x log2(1/alpha_hydro)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

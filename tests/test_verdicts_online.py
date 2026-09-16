@@ -26,8 +26,8 @@ from mvcg.verdict_register import index_verdicts, street_sweep  # noqa: E402
 class TestVerdictsOnline(unittest.TestCase):
     def test_fiber_classification_frozen(self) -> None:
         idx = index_verdicts()
-        self.assertEqual(idx["n"], 83)  # série en ligne au 2026-09-13 + chantier PRINCIPES x4 (PF1 RG 1-loop S- a 655,8 theta — delta 32,79, la coincidence 1 % n'est pas tenue au 1-loop pur, l'article renvoie au 2-boucles ; PF2 croisement 25 THz S+ a 0,34 theta ; PF3 jeu tau5 S+ a 0,11 theta ; PF4 vide 122,95 S+ a 0,08 theta, 2026-09-14) + chantier PSY-RMN x2 (PF5 : coherence interne du volet I, unite psy — l'equation-image donne hbar_N = 1,054e-34 J.s, l'exemple-texte 5,25e-31 J pour 500 psy sur 1 s (coherent avec 1,054e-33) : S- a 9,0 theta ; PF6 : prediction RMN des ANU recompute sous l'identification declaree c_éth = c_N = 1e9 c — 4,19e32 T vs 0,5 mT revendique : S- a 8,4e35 theta, 2026-09-14) + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14) + P31 Lamb x3 (chantier atome : Dirac S- dette historique 20 theta, Mohr P au cheveu 1,14 theta, Erickson S- 4,71 theta — meme mesure, deux calculs QED de la meme epoque, deux verdicts, 2026-09-14) + P32 Lamb moderne (la dette se ferme : QED Pachucki 2001 reevaluee vs le MEME temoin Lundeen-Pipkin, S+ a 0,30 theta — l'arc P31 se clot, 2026-09-14) + les quatre P affines (D-bump REFINED-P-CONTACTS.md, gelé avant run, 2026-09-14 : O19 CO2 nu3 Fine S- a 2405 U, O20 carbone D Fine S- a 46,4 U, SPEC Kratzer Fine S- a 19,1 U — trois dettes de modele nommees que le P grossier cachait — et P31 Mohr_K2 S+ a 0,57 U : le mot dépend de la couverture, a k=1 le meme ecart est P) + chantier L4 gyrocorpus x5 (transposition du corpus hors-programme gap gyroscopique, table LITERATURE-HP2027, vintage distinct declare, 2026-09-14 : volet 1 — gap universel S+ a 0,35 U, branche P1-P2 au regime fin AMP 0.15 a k2 S- a 56 U (retractation de l'addendum P3 pesee), fenetre inertielle D3 par la branche rapportee a la ligne vide P AU CHEVEU a 1,20 U (pont tenu indirectement) ; volet 2 DEUX NOMBRES LIES — kappa_eff implicite de la pente par Kelvin nu S- a 214 U (dette de circulation x22,4, sensibilite log x12,9 consignee), gap par circulation pure S- a 30 U (le gap est une dette de structure, pas de circulation)) + chantier CORR corridor croise x2 (tensions inter-campagnes du corridor E, table LITERATURE-E2026, 2026-09-14 : optimum de stabilite E63 n=14 vs minimum d'energie E65 n=18 S- a 2,83 U (facettes decouplees, E68 qualitative publiee en verdict) ; point E61 kappa=0,05 vs bord bas fenetre E64-A 0,075 S- a 3,46 U (tare de temps de vol 90 vs 180 nommee))
-        self.assertEqual(len(idx["fibres"]), 16)  # 12 + (si, MHz) ouverte par le couplet Lamb P31 (2026-09-14) + (si, 1) ouverte par le chantier PRINCIPES (PF4 S+ / PF1 S-, 2026-09-14) + (si, J) et (si, T) ouvertes par le chantier PSY-RMN (PF5 et PF6, deux S- de dette interne au corpus, 2026-09-14)
+        self.assertEqual(idx["n"], 101)  # série en ligne au 2026-09-13 + chantier PRINCIPES x4 (PF1 RG 1-loop S- a 655,8 theta — delta 32,79, la coincidence 1 % n'est pas tenue au 1-loop pur, l'article renvoie au 2-boucles ; PF2 croisement 25 THz S+ a 0,34 theta ; PF3 jeu tau5 S+ a 0,11 theta ; PF4 vide 122,95 S+ a 0,08 theta, 2026-09-14) + chantier PSY-RMN x2 (PF5 : coherence interne du volet I, unite psy — l'equation-image donne hbar_N = 1,054e-34 J.s, l'exemple-texte 5,25e-31 J pour 500 psy sur 1 s (coherent avec 1,054e-33) : S- a 9,0 theta ; PF6 : prediction RMN des ANU recompute sous l'identification declaree c_éth = c_N = 1e9 c — 4,19e32 T vs 0,5 mT revendique : S- a 8,4e35 theta, 2026-09-14) + Bertsch + KSS×2 + AMU WP25 (la paire complète) + H0 (chantier local) + H(z) bas-z DEMO (chantier local) + H(z) bas-z LITERATURE ×2 ancrages (chantier local 2026-09-13 soir) + H(z) bas-z V2 ×2 courbes (MU_SH0ES natif, 2026-09-14) + SPEC CO rotationnel ×2 (ab initio / Dunham, 2026-09-14) + SPEC CO isotopologue (regle mu, 2026-09-14) + SPEC CO Kratzer (prediction croisee, P au cheveu, 2026-09-14) + SPEC CO levier alpha_e (residu vintage, 2026-09-14) + HVP pi pi CMD-3 vs pre-moyenne (campagne croisee, exp-vs-exp, 2026-09-14) + Karplus Vogeli-Bax 2007 ×2 (campagne croisee, seconde voie, 2026-09-14) + Rydberg voie 2 (R_∞ depuis alpha et me*c^2, certification CODATA, 2026-09-14) + O17 H2 anharmonique (Dunham ordre 1 vs fondamental declare arrondi, S- a 2,94 theta — tare de declaration pesee, 2026-09-14) + O18 H2 tare de lecture (meme transport, reference relue a u = 5/sqrt(3), S+ a 0,51 theta — le verdict pese des declarations pas des physiques, 2026-09-14) + P31 Lamb x3 (chantier atome : Dirac S- dette historique 20 theta, Mohr P au cheveu 1,14 theta, Erickson S- 4,71 theta — meme mesure, deux calculs QED de la meme epoque, deux verdicts, 2026-09-14) + P32 Lamb moderne (la dette se ferme : QED Pachucki 2001 reevaluee vs le MEME temoin Lundeen-Pipkin, S+ a 0,30 theta — l'arc P31 se clot, 2026-09-14) + les quatre P affines (D-bump REFINED-P-CONTACTS.md, gelé avant run, 2026-09-14 : O19 CO2 nu3 Fine S- a 2405 U, O20 carbone D Fine S- a 46,4 U, SPEC Kratzer Fine S- a 19,1 U — trois dettes de modele nommees que le P grossier cachait — et P31 Mohr_K2 S+ a 0,57 U : le mot dépend de la couverture, a k=1 le meme ecart est P) + chantier L4 gyrocorpus x5 (transposition du corpus hors-programme gap gyroscopique, table LITERATURE-HP2027, vintage distinct declare, 2026-09-14 : volet 1 — gap universel S+ a 0,35 U, branche P1-P2 au regime fin AMP 0.15 a k2 S- a 56 U (retractation de l'addendum P3 pesee), fenetre inertielle D3 par la branche rapportee a la ligne vide P AU CHEVEU a 1,20 U (pont tenu indirectement) ; volet 2 DEUX NOMBRES LIES — kappa_eff implicite de la pente par Kelvin nu S- a 214 U (dette de circulation x22,4, sensibilite log x12,9 consignee), gap par circulation pure S- a 30 U (le gap est une dette de structure, pas de circulation)) + chantier CORR corridor croise x2 (tensions inter-campagnes du corridor E, table LITERATURE-E2026, 2026-09-14 : optimum de stabilite E63 n=14 vs minimum d'energie E65 n=18 S- a 2,83 U (facettes decouplees, E68 qualitative publiee en verdict) ; point E61 kappa=0,05 vs bord bas fenetre E64-A 0,075 S- a 3,46 U (tare de temps de vol 90 vs 180 nommee))
+        self.assertEqual(len(idx["fibres"]), 17)  # 12 + (si, MHz) ouverte par le couplet Lamb P31 (2026-09-14) + (si, 1) ouverte par le chantier PRINCIPES (PF4 S+ / PF1 S-, 2026-09-14) + (si, J) et (si, T) ouvertes par le chantier PSY-RMN (PF5 et PF6, deux S- de dette interne au corpus, 2026-09-14) + (si, MeV) ouverte par le chantier LOI-HARMONIQUE (LH_Muon_Quinte et LH_Z_Diagonale, deux S+ θ, 2026-09-15)
         by = {(f["packet"], f["dimension"]): f for f in idx["fibres"]}
         # Les trois fibres phares de la série O :
         # 2026-09-14 : Rydberg voie 2 rejoint la fibre — R_∞ calculee
@@ -138,11 +138,89 @@ class TestVerdictsOnline(unittest.TestCase):
         # z=2,1 sous l'equation publiee, S- a 331 theta, la revendication
         # <2 % n'est pas tenue, F_U non chiffre -> lecture neutre gelee)
         # rejoignent la fibre sans dimension.
+        # 2026-09-15 : chantier LOI-HARMONIQUE — la machine pèse pour la
+        # première fois une loi interne au corpus : LH_KO6_Racines
+        # (S- a 14 U — deux valeurs de sqf publiees fausses sous la
+        # definition standard du corpus, rad(63)=21 pas 7, rad(36)=6
+        # pas 1, l'exclusion d'E6 s'effondre ; identites module-racines
+        # exactes en extra) rejoint la fibre sans dimension.
+        # 2026-09-15 (soir) : chantier LOI-HARMONIQUE 2e fournée G4/G6 —
+        # LH_Bottom_Arith (P à 1,24 θ, « 5000/1,0593 ~ 4200 » recompté
+        # 4 720,098 — dette arithmétique interne au corpus, pendant PF5)
+        # rejoint la fibre sans dimension en P.
+        # 2026-09-15 (nuit) : chantier LOI-HARMONIQUE 3e fournée G7/G9/G10
+        # — LH_Zmax_Modes (S+ à 0,022 θ, le « ~ 179 » du corps tient au
+        # seuil) et LH_Addendum_Corps (S- à 1 U, tension 180 « recomputé
+        # exact » vs 179 — dette de déclaration type PF5) rejoignent la
+        # fibre sans dimension.
+        # 2026-09-15 (nuit) : chantier LOI-HARMONIQUE 5e fournée C1/G12 —
+        # LH_Anu_Gamme (S+ à 0,117 θ, la gamme koïlon 2^(1/12) tient sur
+        # la table ANU 1908 — les deux déclarations du corpus tiennent)
+        # et LH_Alpha_DoubleUsage (S- à 63 θ, dette d'identification :
+        # deux constantes sous un même symbole α, 630 % d'écart —
+        # pendant PF6) rejoignent la fibre sans dimension.
         self.assertEqual(by[("1", "1")]["counts"],
-                         {"S+": 7, "P": 3, "S-": 16})
+                         {"S+": 11, "P": 4, "S-": 22})
         self.assertIn("PF3_Tau5_Jeu", by[("1", "1")]["ids"])
         self.assertIn("PF7_F4_Recompute", by[("1", "1")]["ids"])
         self.assertIn("PF8_Hz_Filtrage_Ecart", by[("1", "1")]["ids"])
+        self.assertIn("LH_KO6_Racines", by[("1", "1")]["ids"])
+        self.assertIn("LH_Bottom_Arith", by[("1", "1")]["ids"])
+        self.assertIn("LH_Zmax_Modes", by[("1", "1")]["ids"])
+        self.assertIn("LH_Addendum_Corps", by[("1", "1")]["ids"])
+        self.assertIn("LH_Anu_Gamme", by[("1", "1")]["ids"])
+        self.assertIn("LH_Alpha_DoubleUsage", by[("1", "1")]["ids"])
+        self.assertIn("LH_Anu_Pont_RMS", by[("1", "1")]["ids"])
+        self.assertIn("LH_G11_MassShift", by[("1", "1")]["ids"])
+        self.assertIn("E44_T0_LienHopf", by[("1", "1")]["ids"])
+        self.assertIn("E44_Lk_PaireHopf", by[("1", "1")]["ids"])
+        self.assertIn("E44_P3_Filaments", by[("1", "1")]["ids"])
+        # 2026-09-16 (journee) : chantier E44 — nucléation de
+        # l'enlacement, pesée des déclarations de la note d'audit E44
+        # (31/07/2026, protocole pré-enregistré haché SHA-256) : la
+        # machine ne rejoue pas la simulation GP, elle pèse ses
+        # déclarations gelées et leur arithmétique interne —
+        # E44_T0_LienHopf (S+ a 0,06 theta, détecteur validé déclaré
+        # 0,994 vs attendu 1) et E44_Lk_PaireHopf (S+ a 0,04 theta,
+        # moyenne |Lk| = 1,004 des trois estimations, robustesse au
+        # seuil 0,5 tenue) rejoignent la fibre ; E44_P3_Filaments
+        # (S- a 25 theta, médiane déclarée 14 vs prédiction 4 ± 2 —
+        # écart 5 sigma, le corpus statue la réfutation lui-même et la
+        # machine confirme le mot) : la fibre sans dimension passe
+        # {S+ 11, P 4, S- 22}.
+        # 2026-09-16 : chantier LOI-HARMONIQUE 6e fournée C3 —
+        # LH_Anu_Pont_RMS (S- a 13,8 theta, RMS recompote 3,376 % vs
+        # 1,42 % declares ; hors bore 10B la fenetre verifiable Z=1-12
+        # donne 1,225 % — c'est l'isotope 10B choisi par le corpus qui
+        # casse la fenetre ; dette table Z=13-92 nommee).
+        # 2026-09-16 (matin) : chantier LOI-HARMONIQUE 7e fournée G11 —
+        # LH_G11_MassShift (S- a 20 022 theta, recompute strict de (21)
+        # = 1,302e-4 vs 6,5e-8 declare : numerateur P_ext au lieu de
+        # eps0.E^2, facteur 2, et P_K declare ne suit pas de ses propres
+        # intrants, facteur ~159 — la prediction experimentale du corpus
+        # est doublement non tenue sur sa propre arithmetique, cap
+        # prospectif mecanique).
+        # 2026-09-15 : chantier LOI-HARMONIQUE — ouverture de la fibre
+        # (si, MeV) : LH_Muon_Quinte (S+ a 0,059 theta, quinte 3/2 x
+        # 1/alpha) et LH_Z_Diagonale (S+ a 0,030 theta, m_p/alpha/
+        # sqrt(2)) — les deux instances les plus solides de la loi
+        # harmonique, entrées CODATA-2018 et PDG-2024 gelées datées.
+        # 2026-09-15 (soir) : chantier LOI-HARMONIQUE 2e fournée G4/G6 —
+        # LH_Strange_Quarte (P à 1,21 θ) et LH_Bottom_G6 (P à 1,30 θ)
+        # rejoignent la fibre MeV en P : les attendus S- gelés ne sont
+        # pas tenus, la frontière de la loi harmonique côté quarks est
+        # grise (bande P 1–2 θ), pas rouge.
+        # 2026-09-15 (nuit) : 4e fournée G3/G5 — LH_Up_G3 (S+ à 0,307 θ,
+        # dans la fourchette PDG) et LH_Charm_G5 (S+ à 0,149 θ, 0,95 σ)
+        # rejoignent la fibre MeV : clôture du sextuor G1-G6.
+        self.assertEqual(by[("si", "MeV")]["counts"],
+                         {"S+": 4, "P": 2, "S-": 0})
+        self.assertIn("LH_Muon_Quinte", by[("si", "MeV")]["ids"])
+        self.assertIn("LH_Z_Diagonale", by[("si", "MeV")]["ids"])
+        self.assertIn("LH_Strange_Quarte", by[("si", "MeV")]["ids"])
+        self.assertIn("LH_Bottom_G6", by[("si", "MeV")]["ids"])
+        self.assertIn("LH_Up_G3", by[("si", "MeV")]["ids"])
+        self.assertIn("LH_Charm_G5", by[("si", "MeV")]["ids"])
         # 2026-09-14 : chantier PRINCIPES — ouverture de la fibre (si, 1) :
         # PF4 (log10(rho_Planck/rho_Lambda) recompute = 122,945 vs 122
         # revendique, S+ a 0,08 theta) et PF1 (dispersion 1-loop minimale
@@ -156,10 +234,14 @@ class TestVerdictsOnline(unittest.TestCase):
         # la fibre : le couplet PF1/PF1b pese un ordre de calcul et son
         # ordre superieur sur la meme revendication.
         self.assertEqual(by[("si", "1")]["counts"],
-                         {"S+": 1, "P": 0, "S-": 2})
+                         {"S+": 2, "P": 0, "S-": 2})
         self.assertIn("PF4_Vide_Catastrophe", by[("si", "1")]["ids"])
         self.assertIn("PF1_RG_Unification", by[("si", "1")]["ids"])
         self.assertIn("PF1b_RG_Unification_2Loop", by[("si", "1")]["ids"])
+        # 2026-09-15 (nuit) : chantier LOI-HARMONIQUE 3e fournée —
+        # LH_Koide_Q (S+ à 9,2e-5 θ, le plus serré du registre : la loi
+        # empirique de Koide tient sur PDG-2024 gelé) rejoint la fibre.
+        self.assertIn("LH_Koide_Q", by[("si", "1")]["ids"])
         # 2026-09-14 : chantier PSY-RMN — ouverture des fibres (si, J) et
         # (si, T) : PF5 (unite psy, coherence interne volet I — ecart
         # structurel d'un facteur 10 entre l'equation-image et l'exemple-

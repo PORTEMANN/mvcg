@@ -1,0 +1,24 @@
+{
+  "id": "lh_masses",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE : masses de référence CODATA-2018 (m_e, m_p) et PDG-2024 (m_muon, m_Z, m_tau — curation du 2026-09-15 pour G7 Koide, acte daté : la table change de D, le sha256 trace) — emprunts à la littérature standard, corpus noétique déclarant la loi harmonique m = m_p x 2^(n/12) et ses instances m_muon ~ m_e x (3/2)/alpha (quinte), m_Z ~ m_p/alpha/sqrt(2) (diagonale)",
+  "doi_or_ref": "CODATA-2018 (Tiesinga et al., Rev. Mod. Phys. 93, 025010, 2021) : m_e c^2 = 0,51099895000 MeV, m_p c^2 = 938,27208816 MeV, alpha = 0,0072973525693 ; PDG-2024 (Workman et al., Prog. Theor. Exp. Phys. 2022, 083C01 et mises à jour 2024) : m_muon = 105,6583755 +/- 0,0000023 MeV, m_Z = 91,1876 +/- 0,0021 GeV, m_tau = 1776,86 +/- 0,12 MeV",
+  "species": "masses de référence (électron, proton, muon, boson Z)",
+  "quantity": "valeurs gelées pour recomputes harmoniques",
+  "dimension": "MeV",
+  "packet": "si",
+  "value": null,
+  "params": {
+    "m_e_MeV": 0.51099895,
+    "m_p_MeV": 938.27208816,
+    "alpha": 0.0072973525693,
+    "m_muon_PDG_MeV": 105.6583755,
+    "m_muon_unc_MeV": 0.0000023,
+    "m_Z_PDG_MeV": 91187.6,
+    "m_Z_unc_MeV": 2.1,
+    "m_tau_PDG_MeV": 1776.86,
+    "m_tau_unc_MeV": 0.12,
+    "note": "u(MeV) gelées : delta u = |valeur - reference| / valeur ; theta rel = 0,10 — les revendications du corpus sont des pourcentages (~99,4 % / ~99,7 % de précision déclarée)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

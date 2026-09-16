@@ -1,0 +1,19 @@
+{
+  "id": "lh_ko6",
+  "vintage": "LITTERATURE-2026",
+  "source": "Géométrie Spectrale et Physique (26/08/2026, histoire-des-sciences.eu) : la loi KO-6 M_min(R) = sqf(R) et la correspondance modules stables <-> nombres de racines ADE ; modules ANU de la Chimie Occulte (1908) ; comptages de racines gelés depuis la littérature standard des algèbres de Lie (Bourbaki, Groupes et algèbres de Lie, ch. 4-6)",
+  "doi_or_ref": "Bourbaki (2002) : D4 a 24 racines, E6 a 36 racines positives, E7 a 63 racines positives, E8 a 120 racines positives ; Besant & Leadbeater (1908), Occult Chemistry : modules ANU 54 (He3, stable) et 36 (deutérium, faiblement lié) ; revendication du corpus : (i) sqf(24)=6, sqf(63)=7, sqf(120)=30 tous > 1 (modules stables), (ii) sqf(36)=1 exclut E6 de la hiérarchie, (iii) 54 = 3^2 x 6 (coquille stable), 36 = 6^2 x 1 (assemblage instable)",
+  "species": "modules KO-6 et comptages de racines ADE",
+  "quantity": "identités arithmétiques exactes (écart attendu nul)",
+  "dimension": "1",
+  "packet": "1",
+  "value": 0.0,
+  "params": {
+    "modules": {"24": 24, "63": 63, "120": 120, "36": 36, "54": 54},
+    "racines": {"D4": 24, "E6_pos": 36, "E7_pos": 63, "E8_pos": 120},
+    "anu_chimie_occulte": {"He3_ANU": 54, "deuterium_ANU": 36},
+    "sqf_declares_par_le_corpus": {"24": 6, "63": 7, "120": 30, "36": 1, "54": 6},
+    "note": "sqf_declares : valeurs publiees dans l'article (table 1 et section 2.5 : 'sqf(36) = 1', table 1 : '63 = 3^2 x 7, sqf = 7') ; definition du corpus : 'produit des diviseurs premiers distincts' = rad standard ; la machine recompute rad et pese l'ecart ; identites module-racines attendues exactes"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
