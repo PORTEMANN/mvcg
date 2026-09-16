@@ -218,4 +218,47 @@ Chantier LOI-HARMONIQUE : 15 contacts pesés, **prospective épuisée** —
 la machine a atteint le cap prospectif ; l'étage 3 (prédiction hors-table
 tranchable au banc) reste à ouvrir avec des données d'expérience.
 
+## Huitième fournée — corridor F_exp (2026-09-16) : la déclaration tient en zone grise
+
+**Un contact, attendu S+ non tenu → P à 1,78 θ.** `LH_Fexp_Corridor` :
+à la demande « creuse », retour dans « Unification analytique et
+fondements mathématiques de la physique noétique » au-delà de la
+prospective épuisée — section « Loi Harmonique d'Échelle et Calibration
+Analytique ». Le corpus y déclare : le facteur de correction empirique
+F_exp (= m_exp/m_théo) « demeure strictement confiné dans un corridor
+de variance minimaliste de ±3 % pour l'intégralité du spectre
+particulaire, oscillant entre 0,973 (charm) et 1,028 (down) », avec un
+ansatz M = m_p·δ^n·(1 + Δ_k·F(α, χ, σ)), F = a_f·α + b_f·χ·α +
+c_f·s·α² (coefficients non déclarés — fit) et un Modèle Tri-Régime
+(Micro u/d/e, Méso s/c/τ, Macro b/t/W/Z/H).
+
+Pesée sur la table « Calibration de l'Approximation Harmonique de Base »
+(10 lignes transcrites verbatim de l'image) : le corridor recompté vaut
+[0,917 ; 1,016] — le maximum tient (μ à 1,016), le plancher casse :
+**5 violations de 0,973** (u 0,917, e 0,964, s 0,960, c 0,969, Z 0,970),
+soit μ_loc = 0,0833 vs 0,03 déclaré → P à 1,78 θ (b3_fail, pas S−).
+
+Dettes nommées : (1) **aucune des 10 lignes ne coïncide avec son F
+imprimé** — écart max 11,0 points (u : imprimé 1,027, recompté 0,917),
+la colonne F n'est ni m_exp/m_théo ni vérifiable ; (2) tensions
+texte/table : « down 1,028 » absent de la table (max imprimé 1,027, up),
+bottom absent alors que le texte dit « l'intégralité du spectre », et
+le charm — cité comme minimum du corridor — le viole dès qu'on le
+recompte ; (3) l'ansatz F(α, χ, σ) n'est pas pesable (coefficients du
+fit non déclarés — dette nommée, la machine refuse de deviner un fit).
+
+L'information : la prétention d'un corridor minimaliste ±3 % casse
+exactement là où l'ansatz dit agir — versant méso/macro du tri-régime
+(s, c) et boson Z. Comme G11, le motif est constant du corpus : les
+grosses déclarations (universelles, « intégralité du spectre ») se
+révèlent tenables seulement en zone grise une fois la table refaite.
+
+Curation : table `lh_fexp_LITTERATURE-2026.json` gelée (rows =
+[particule, m_exp, n, m_théo, F imprimé] ×10, transcription verbatim
+datée) ; images sources archivées `_tmp_fexp/`.
+
+Registre : **102 contacts**, 17 fibres — (1, 1) {S+ 11, P 5, S− 22} ;
+série O 23 ; détente 8. Suite complète : **330 tests OK** (4 skipped).
+Chantier LOI-HARMONIQUE : 16 contacts pesés.
+
 

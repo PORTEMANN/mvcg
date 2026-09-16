@@ -52,6 +52,19 @@
   "packet": "si"
  },
  {
+  "id": "H1s_Rydberg_Voie2",
+  "verdict": "S+",
+  "delta": 1.0024514551787433e-10,
+  "theta": 5.838364428925748e-09,
+  "thr": 5.838364428925748e-09,
+  "decide": "U",
+  "uc": 5.838364428925748e-09,
+  "marge_thr": 5.7381192834078734e-09,
+  "marge_sigma": 0.9828299266450006,
+  "dimension": "eV",
+  "packet": "si"
+ },
+ {
   "id": "CKM_Row1_Unitarity",
   "verdict": "P",
   "delta": 0.0016000000000000458,
@@ -130,6 +143,45 @@
   "packet": "si"
  },
  {
+  "id": "P31_Lamb_Mohr",
+  "verdict": "P",
+  "delta": 0.019000000000005457,
+  "theta": 0.016643316977093238,
+  "thr": 0.016643316977093238,
+  "decide": "U",
+  "uc": 0.016643316977093238,
+  "marge_thr": 0.002356683022912219,
+  "marge_sigma": 0.14159935943993626,
+  "dimension": "MHz",
+  "packet": "si"
+ },
+ {
+  "id": "H0_Hz_SNe_LOWZ_V2_SH0ES",
+  "verdict": "S+",
+  "delta": 0.024876389328013206,
+  "theta": 0.027737,
+  "thr": 0.027737,
+  "decide": "theta",
+  "uc": 0.027737,
+  "marge_thr": 0.0028606106719867956,
+  "marge_sigma": 0.10313338399923551,
+  "dimension": "mag",
+  "packet": "1"
+ },
+ {
+  "id": "P32_Lamb_Modern",
+  "verdict": "S+",
+  "delta": 0.0029999999999290594,
+  "theta": 0.009848857801796104,
+  "thr": 0.009848857801796104,
+  "decide": "U",
+  "uc": 0.009848857801796104,
+  "marge_thr": 0.006848857801867045,
+  "marge_sigma": 0.6953961504671172,
+  "dimension": "MHz",
+  "packet": "si"
+ },
+ {
   "id": "O11_BEC_Healing",
   "verdict": "S+",
   "delta": 0.08975942389197233,
@@ -143,6 +195,19 @@
   "packet": "si"
  },
  {
+  "id": "CORR_Fenetre_Point",
+  "verdict": "S-",
+  "delta": 0.024999999999999994,
+  "theta": 0.007216878364870325,
+  "thr": 0.007216878364870325,
+  "decide": "U",
+  "uc": 0.007216878364870325,
+  "marge_thr": 0.010566243270259344,
+  "marge_sigma": 1.4641016151377522,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
   "id": "O5_BEC_Sound",
   "verdict": "P",
   "delta": 0.06171491620663383,
@@ -153,6 +218,32 @@
   "marge_thr": 0.011714916206633827,
   "marge_sigma": null,
   "dimension": "m/s",
+  "packet": "si"
+ },
+ {
+  "id": "NMR_Karplus_Helix_VogeliBax2007",
+  "verdict": "P",
+  "delta": 0.18687500000000057,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.013124999999999443,
+  "marge_sigma": null,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "P31_Lamb_Mohr_K2",
+  "verdict": "S+",
+  "delta": 0.019000000000005457,
+  "theta": 0.016643316977093238,
+  "thr": 0.033286633954186476,
+  "decide": "U",
+  "uc": 0.016643316977093238,
+  "marge_thr": 0.014286633954181019,
+  "marge_sigma": 0.8584006405600637,
+  "dimension": "MHz",
   "packet": "si"
  },
  {
@@ -195,6 +286,19 @@
   "packet": "1"
  },
  {
+  "id": "L4_Gap_Universel",
+  "verdict": "S+",
+  "delta": 0.010000000000000009,
+  "theta": 0.0282842712474619,
+  "thr": 0.0282842712474619,
+  "decide": "U",
+  "uc": 0.0282842712474619,
+  "marge_thr": 0.018284271247461893,
+  "marge_sigma": 0.6464466094067259,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
   "id": "Bertsch_Xi_Unitary",
   "verdict": "S-",
   "delta": 0.22060554512159947,
@@ -208,6 +312,19 @@
   "packet": "1"
  },
  {
+  "id": "LH_Strange_Quarte",
+  "verdict": "P",
+  "delta": 0.12099413161290307,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.02099413161290306,
+  "marge_sigma": null,
+  "dimension": "MeV",
+  "packet": "si"
+ },
+ {
   "id": "O4_TK_ID_IG",
   "verdict": "S-",
   "delta": 0.22222222222222232,
@@ -216,6 +333,19 @@
   "decide": "theta",
   "uc": null,
   "marge_thr": 0.02222222222222231,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Bottom_Arith",
+  "verdict": "P",
+  "delta": 0.12383289953383425,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.023832899533834245,
   "marge_sigma": null,
   "dimension": "1",
   "packet": "1"
@@ -234,6 +364,32 @@
   "packet": "1"
  },
  {
+  "id": "LH_Bottom_G6",
+  "verdict": "P",
+  "delta": 0.12996608908508733,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.029966089085087327,
+  "marge_sigma": null,
+  "dimension": "MeV",
+  "packet": "si"
+ },
+ {
+  "id": "P31_Lamb_Erickson",
+  "verdict": "S-",
+  "delta": 0.06700000000000728,
+  "theta": 0.014212670403551895,
+  "thr": 0.014212670403551895,
+  "decide": "U",
+  "uc": 0.014212670403551895,
+  "marge_thr": 0.03857465919290348,
+  "marge_sigma": 2.7141035496934673,
+  "dimension": "MHz",
+  "packet": "si"
+ },
+ {
   "id": "NMR_Karplus_Sheet",
   "verdict": "P",
   "delta": 0.16117647058823525,
@@ -242,6 +398,19 @@
   "decide": "theta",
   "uc": null,
   "marge_thr": 0.03882352941176476,
+  "marge_sigma": null,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "NMR_Karplus_Sheet_VogeliBax2007",
+  "verdict": "P",
+  "delta": 0.16000000000000014,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.03999999999999987,
   "marge_sigma": null,
   "dimension": "Hz",
   "packet": "si"
@@ -299,6 +468,19 @@
   "packet": "si"
  },
  {
+  "id": "PF2_Graviton_25THz",
+  "verdict": "S+",
+  "delta": 0.03391692423096471,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.0660830757690353,
+  "marge_sigma": null,
+  "dimension": "eV",
+  "packet": "si"
+ },
+ {
   "id": "O12_Cu_Gamma",
   "verdict": "S-",
   "delta": 0.2680080105680276,
@@ -309,6 +491,19 @@
   "marge_thr": 0.06800801056802758,
   "marge_sigma": null,
   "dimension": "J m^-3 K^-2",
+  "packet": "si"
+ },
+ {
+  "id": "LH_Up_G3",
+  "verdict": "S+",
+  "delta": 0.03075442984202148,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.06924557015797853,
+  "marge_sigma": null,
+  "dimension": "MeV",
   "packet": "si"
  },
  {
@@ -338,6 +533,19 @@
   "packet": "1"
  },
  {
+  "id": "LH_Charm_G5",
+  "verdict": "S+",
+  "delta": 0.014937440251968526,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.08506255974803148,
+  "marge_sigma": null,
+  "dimension": "MeV",
+  "packet": "si"
+ },
+ {
   "id": "O7_Carbon_D_Levier",
   "verdict": "S+",
   "delta": 0.013570472577342896,
@@ -362,6 +570,19 @@
   "marge_sigma": null,
   "dimension": "m/s",
   "packet": "si"
+ },
+ {
+  "id": "PF3_Tau5_Jeu",
+  "verdict": "S+",
+  "delta": 0.01052855882826187,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.08947144117173814,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
  },
  {
   "id": "O13_CO2_Isotopologue",
@@ -403,6 +624,19 @@
   "packet": "si"
  },
  {
+  "id": "PF4_Vide_Catastrophe",
+  "verdict": "S+",
+  "delta": 0.007749953822161482,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09225004617783852,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "si"
+ },
+ {
   "id": "O10_PMMA_Carbonyl",
   "verdict": "S+",
   "delta": 0.006340057636887497,
@@ -413,6 +647,136 @@
   "marge_thr": 0.09365994236311251,
   "marge_sigma": null,
   "dimension": "cm^-1",
+  "packet": "1"
+ },
+ {
+  "id": "E44_T0_LienHopf",
+  "verdict": "S+",
+  "delta": 0.006000000000000005,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.094,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Muon_Quinte",
+  "verdict": "S+",
+  "delta": 0.00587268194413737,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09412731805586264,
+  "marge_sigma": null,
+  "dimension": "MeV",
+  "packet": "si"
+ },
+ {
+  "id": "PF7_F4_Recompute",
+  "verdict": "S+",
+  "delta": 0.00458225180960059,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09541774819039942,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "E44_Lk_PaireHopf",
+  "verdict": "S+",
+  "delta": 0.0040000000000000036,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.096,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Z_Diagonale",
+  "verdict": "S+",
+  "delta": 0.002959765464572328,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09704023453542768,
+  "marge_sigma": null,
+  "dimension": "MeV",
+  "packet": "si"
+ },
+ {
+  "id": "LH_Zmax_Modes",
+  "verdict": "S+",
+  "delta": 0.0021459057202100063,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09785409427979,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Anu_Gamme",
+  "verdict": "S+",
+  "delta": 0.0011711700550647297,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09882882994493528,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Koide_Q",
+  "verdict": "S+",
+  "delta": 9.232783921730991e-06,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.09999076721607827,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "si"
+ },
+ {
+  "id": "L4_Fenetre_Branche",
+  "verdict": "P",
+  "delta": 0.6963572720020315,
+  "theta": 0.5815053896029518,
+  "thr": 0.5815053896029518,
+  "decide": "U",
+  "uc": 0.5815053896029518,
+  "marge_thr": 0.11485188239907962,
+  "marge_sigma": 0.19750785539150334,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "H0_Hz_SNe_LOWZ_V2_PLANCK",
+  "verdict": "S-",
+  "delta": 0.17828500273805192,
+  "theta": 0.027737,
+  "thr": 0.027737,
+  "decide": "theta",
+  "uc": 0.027737,
+  "marge_thr": 0.12281100273805193,
+  "marge_sigma": 4.42769595623362,
+  "dimension": "mag",
   "packet": "1"
  },
  {
@@ -455,6 +819,32 @@
   "packet": "si"
  },
  {
+  "id": "O17_H2_Anharmonique",
+  "verdict": "S-",
+  "delta": 1.480000000000473,
+  "theta": 0.5025932749251625,
+  "thr": 0.5025932749251625,
+  "decide": "U",
+  "uc": 0.5025932749251625,
+  "marge_thr": 0.474813450150148,
+  "marge_sigma": 0.9447270264824952,
+  "dimension": "cm^-1",
+  "packet": "1"
+ },
+ {
+  "id": "L4_Kelvin_Gap",
+  "verdict": "S-",
+  "delta": 0.6007234289041223,
+  "theta": 0.02,
+  "thr": 0.02,
+  "decide": "U",
+  "uc": 0.02,
+  "marge_thr": 0.5607234289041223,
+  "marge_sigma": 28.036171445206115,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
   "id": "AAL_dice_lissage",
   "verdict": "S-",
   "delta": 0.6826171875,
@@ -468,7 +858,33 @@
   "packet": "1"
  },
  {
+  "id": "PF5_Psy_Energie",
+  "verdict": "S-",
+  "delta": 0.8996190476190477,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.6996190476190476,
+  "marge_sigma": null,
+  "dimension": "J",
+  "packet": "si"
+ },
+ {
   "id": "KSS_EtaS_QGP",
+  "verdict": "S-",
+  "delta": 1.0,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.8,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Addendum_Corps",
   "verdict": "S-",
   "delta": 1.0,
   "theta": 0.1,
@@ -533,6 +949,84 @@
   "packet": "1"
  },
  {
+  "id": "P31_Lamb_Dirac",
+  "verdict": "S-",
+  "delta": 1.0,
+  "theta": 0.05,
+  "thr": 0.05,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 0.9,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "L4_Branche_k2_RegimeFin",
+  "verdict": "S-",
+  "delta": 1.2048398843919652,
+  "theta": 0.02138372495786989,
+  "thr": 0.02138372495786989,
+  "decide": "U",
+  "uc": 0.02138372495786989,
+  "marge_thr": 1.1620724344762254,
+  "marge_sigma": 54.34377952231124,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "CORR_Stabilite_Energie",
+  "verdict": "S-",
+  "delta": 4.0,
+  "theta": 1.4142135623730951,
+  "thr": 1.4142135623730951,
+  "decide": "U",
+  "uc": 1.4142135623730951,
+  "marge_thr": 1.1715728752538097,
+  "marge_sigma": 0.82842712474619,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_Anu_Pont_RMS",
+  "verdict": "S-",
+  "delta": 1.3778119619761222,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 1.1778119619761223,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "O18_H2_Tare_Lecture",
+  "verdict": "S+",
+  "delta": 1.480000000000473,
+  "theta": 2.887201644037585,
+  "thr": 2.887201644037585,
+  "decide": "U",
+  "uc": 2.887201644037585,
+  "marge_thr": 1.4072016440371122,
+  "marge_sigma": 0.4873929214272758,
+  "dimension": "cm^-1",
+  "packet": "1"
+ },
+ {
+  "id": "E44_P3_Filaments",
+  "verdict": "S-",
+  "delta": 2.5,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 2.3,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
   "id": "HLbL_lat_vs_pheno",
   "verdict": "S+",
   "delta": 19.200000000000003,
@@ -546,6 +1040,19 @@
   "packet": "1"
  },
  {
+  "id": "LH_Alpha_DoubleUsage",
+  "verdict": "S-",
+  "delta": 6.299270072992701,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 6.0992700729927005,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
   "id": "KSS_EtaS_He4",
   "verdict": "S-",
   "delta": 7.800000000000001,
@@ -554,6 +1061,19 @@
   "decide": "theta",
   "uc": null,
   "marge_thr": 7.6000000000000005,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_KO6_Racines",
+  "verdict": "S-",
+  "delta": 14.0,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 13.8,
   "marge_sigma": null,
   "dimension": "1",
   "packet": "1"
@@ -572,6 +1092,58 @@
   "packet": "1"
  },
  {
+  "id": "SPEC_CO_Rot_Kratzer",
+  "verdict": "P",
+  "delta": 97.55144740839023,
+  "theta": 70.0,
+  "thr": 70.0,
+  "decide": "theta",
+  "uc": 70.0,
+  "marge_thr": 27.55144740839023,
+  "marge_sigma": 0.39359210583414617,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "PF1b_RG_Unification_2Loop",
+  "verdict": "S-",
+  "delta": 32.70435597278,
+  "theta": 0.05,
+  "thr": 0.05,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 32.60435597278,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "si"
+ },
+ {
+  "id": "PF1_RG_Unification",
+  "verdict": "S-",
+  "delta": 32.792548020489306,
+  "theta": 0.05,
+  "thr": 0.05,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 32.692548020489305,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "si"
+ },
+ {
+  "id": "PF8_Hz_Filtrage_Ecart",
+  "verdict": "S-",
+  "delta": 33.13615757455439,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 32.936157574554386,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
   "id": "HVP_LO_lat_vs_ee",
   "verdict": "P",
   "delta": 201.0,
@@ -581,6 +1153,32 @@
   "uc": 72.94518489934754,
   "marge_thr": 55.109630201304924,
   "marge_sigma": 0.7554937351567101,
+  "dimension": "1e-11",
+  "packet": "1"
+ },
+ {
+  "id": "SPEC_CO_Rot_Kratzer_Fine",
+  "verdict": "S-",
+  "delta": 97.55144740839023,
+  "theta": 5.0990195135927845,
+  "thr": 5.0990195135927845,
+  "decide": "U",
+  "uc": 5.0990195135927845,
+  "marge_thr": 87.35340838120466,
+  "marge_sigma": 17.131412842869313,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "HVP_Pipi_CMD3_vs_PreAvg",
+  "verdict": "S-",
+  "delta": 200.0,
+  "theta": 54.037024344425184,
+  "thr": 54.037024344425184,
+  "decide": "U",
+  "uc": 54.037024344425184,
+  "marge_thr": 91.92595131114963,
+  "marge_sigma": 1.7011660509880262,
   "dimension": "1e-11",
   "packet": "1"
  },
@@ -596,5 +1194,122 @@
   "marge_sigma": 1.6710526315789473,
   "dimension": "1e-11",
   "packet": "1"
+ },
+ {
+  "id": "L4_Kappa_Eff",
+  "verdict": "S-",
+  "delta": 134.46016557364314,
+  "theta": 0.6283185307179586,
+  "thr": 0.6283185307179586,
+  "decide": "U",
+  "uc": 0.6283185307179586,
+  "marge_thr": 133.2035285122072,
+  "marge_sigma": 211.99999999999997,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "O20_Carbon_D_Raman_Fine",
+  "verdict": "S-",
+  "delta": 232.77128572525498,
+  "theta": 5.0124844139408555,
+  "thr": 5.0124844139408555,
+  "decide": "U",
+  "uc": 5.0124844139408555,
+  "marge_thr": 222.74631689737328,
+  "marge_sigma": 44.438306137743844,
+  "dimension": "cm^-1",
+  "packet": "1"
+ },
+ {
+  "id": "O19_CO2_nu3_Fine",
+  "verdict": "S-",
+  "delta": 340.0852194736094,
+  "theta": 0.1414213562373095,
+  "thr": 0.14142135623730953,
+  "decide": "U",
+  "uc": 0.14142135623730953,
+  "marge_thr": 339.8023767611348,
+  "marge_sigma": 2402.765648711045,
+  "dimension": "cm^-1",
+  "packet": "1"
+ },
+ {
+  "id": "LH_G11_MassShift",
+  "verdict": "S-",
+  "delta": 2002.2099123981902,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 2002.0099123981902,
+  "marge_sigma": null,
+  "dimension": "1",
+  "packet": "1"
+ },
+ {
+  "id": "SPEC_CO_Rot_Dunham",
+  "verdict": "S+",
+  "delta": 280.0000074785203,
+  "theta": 10000.0,
+  "thr": 10000.0,
+  "decide": "theta",
+  "uc": 10000.0,
+  "marge_thr": 9719.99999252148,
+  "marge_sigma": 0.971999999252148,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "SPEC_CO_Rot_AlphaE",
+  "verdict": "S-",
+  "delta": 76006.63008880615,
+  "theta": 3000.0,
+  "thr": 3000.0,
+  "decide": "theta",
+  "uc": 3000.0,
+  "marge_thr": 70006.63008880615,
+  "marge_sigma": 23.335543362935383,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "SPEC_CO13_Rot_MuRule",
+  "verdict": "S-",
+  "delta": 4940938.131599978,
+  "theta": 12000.0,
+  "thr": 12000.0,
+  "decide": "theta",
+  "uc": 12000.0,
+  "marge_thr": 4916938.131599978,
+  "marge_sigma": 409.74484429999814,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "SPEC_CO_Rot_AbInitio",
+  "verdict": "S-",
+  "delta": 262394407.3800888,
+  "theta": 3000.0,
+  "thr": 3000.0,
+  "decide": "theta",
+  "uc": 3000.0,
+  "marge_thr": 262388407.3800888,
+  "marge_sigma": 87462.8024600296,
+  "dimension": "Hz",
+  "packet": "si"
+ },
+ {
+  "id": "PF6_RMN_DeltaB",
+  "verdict": "S-",
+  "delta": 8.372533023771414e+35,
+  "theta": 0.1,
+  "thr": 0.1,
+  "decide": "theta",
+  "uc": null,
+  "marge_thr": 8.372533023771414e+35,
+  "marge_sigma": null,
+  "dimension": "T",
+  "packet": "si"
  }
 ]

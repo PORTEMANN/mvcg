@@ -481,3 +481,48 @@ def lh_g11_mass_shift() -> tuple[float, dict[str, Any]]:
         "P_K_ratio_recompute_sur_declare": pk_recompute / pk,
         "note": "le recompute strict de (21) donne 1,302e-4, pas 6,5e-8 : le corpus a mis P_ext = ε₀E²/2 au numérateur (facteur 2, dette type PF5) et P_K déclaré ne suit pas de ses propres intrants (0,5 MeV, 3,9e-13 m → 1,35e24 Pa, facteur ~159) ; la prédiction expérimentale est donc doublement non tenue sur sa propre arithmétique",
     }
+
+
+def lh_fexp_corridor() -> tuple[float, dict[str, Any]]:
+    """Corridor des corrections harmoniques F_exp (table du corpus).
+
+    « Unification analytique » (2026) : F_exp = m_exp / m_théo « demeure
+    strictement confiné dans un corridor ±3 % pour l'intégralité du
+    spectre, entre 0,973 (charm) et 1,028 (down) ». Table gelée :
+    10 lignes verbatim (e, μ, τ, u, s, c, t, W, Z, H — pas de bottom,
+    pas de down). mu_loc = déviation maximale recomptée depuis les
+    colonnes voisines de la table (|1 − m_exp/m_théo|), mu_ref = 3 %
+    déclaré (le corridor lui-même est le seuil, theta abs gelé 0,03).
+    Extras : les 10 F recomptés vs imprimés (aucune ligne ne coïncide),
+    les violations du plancher déclaré 0,973, les tensions texte/table
+    (« down 1.028 » absent, bottom absent).
+    """
+    t = load_table("lh_fexp_LITTERATURE-2026.json")
+    p = t["params"]
+    rows = p["rows"]
+    borne_inf = float(p["borne_inf_declaree"])
+    f_rec = {}
+    f_imp = {}
+    for nom, m_exp, _n, m_theo, f_pr in rows:
+        f_rec[nom] = float(m_exp) / float(m_theo)
+        f_imp[nom] = float(f_pr)
+    dev = {k: abs(1.0 - v) for k, v in f_rec.items()}
+    pire = max(dev, key=dev.get)
+    violations = sorted(k for k, v in f_rec.items() if v < borne_inf)
+    incoherence = {k: abs(f_imp[k] - f_rec[k]) for k in f_rec}
+    mu_loc = float(dev[pire])
+    return mu_loc, {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "F_recomputes": f_rec,
+        "F_imprimes": f_imp,
+        "deviations_pct": {k: v * 100.0 for k, v in dev.items()},
+        "pire_ligne": pire,
+        "mu_loc_pct": mu_loc * 100.0,
+        "corridor_declare_pct": float(p["ecart_max_declare"]) * 100.0,
+        "borne_inf_declaree": borne_inf,
+        "n_violations_plancher": len(violations),
+        "violations_plancher": violations,
+        "ecart_colonnes_max": max(incoherence.values()),
+        "note": "recompute F = m_exp/m_théo depuis les colonnes voisines : corridor [0.9167, 1.0159] — 5 violations du plancher déclaré 0.973 (u 0.917, e 0.964, s 0.960, c 0.970, Z 0.970), dont le charm lui-même (le texte dit « 0.973 (charm) », la table recomptée donne 0.9695) ; aucune des 10 lignes ne coïncide avec son F imprimé (écart max u : 11,0 pts) ; le texte cite « down 1.028 » absent de la table, et le bottom est absent alors que le texte dit « intégralité du spectre » — la déclaration du corridor tient au mieux en zone P",
+    }

@@ -1,0 +1,32 @@
+{
+  "id": "lh_fexp",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelées datées pour le chantier LOI-HARMONIQUE (8e fournée, 2026-09-16) : « Unification analytique et fondements mathématiques de la physique noétique » (histoire-des-sciences.eu) — section « Loi Harmonique d'Échelle et Calibration Analytique » : la masse exacte M = m_p·δ^n·(1 + Δ_k·F(α, χ, σ)) avec F(α, χ, σ) = a_f·α + b_f·χ·α + c_f·s·α² (ansatz polynomial des corrections harmoniques, coefficients a_f/b_f/c_f non déclarés — fit) ; Modèle Tri-Régime (Micro s_k ≤ 2 : u, d, e ; Méso 2 < s_k ≤ 4 : s, c, τ ; Macro s_k > 4 : b, t, W, Z, H)",
+  "doi_or_ref": "corpus noétique, texte déclaré : « le facteur de correction empirique (F_exp), calculé en divisant la masse expérimentale mesurée par la prédiction harmonique pure m_p.δ^n(int), demeure strictement confiné dans un corridor de variance minimaliste de ±3 % pour l'intégralité du spectre particulaire, oscillant entre 0,973 (pour le quark charm massif) et 1,028 (pour le quark down hyper-léger) » + Table « Calibration de l'Approximation Harmonique de Base » (10 lignes transcrites verbatim depuis l'image du site, copie _tmp_fexp/table7_fexp.png)",
+  "species": "déclarations du corpus sur le corridor des corrections harmoniques F_exp",
+  "quantity": "valeurs gelées pour le contact LH_Fexp_Corridor",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "corridor_texte": "F_exp confine a ±3 % pour l'integralite du spectre, entre 0.973 (charm) et 1.028 (down)",
+    "borne_inf_declaree": 0.973,
+    "borne_sup_texte": 1.028,
+    "ecart_max_declare": 0.03,
+    "note_corridor": "le texte cite « down 1.028 » mais la table ne contient aucune ligne down ni valeur 1.028 (max imprime 1.027, up) ; la table ne contient pas non plus le quark bottom alors que le texte dit « integralite du spectre » — deux tensions texte/table nommees",
+    "rows": [
+      ["e", 0.511, -11, 0.53, 1.011],
+      ["mu", 105.65, -2, 104.0, 0.991],
+      ["tau", 1776.86, 1, 1810.0, 1.024],
+      ["u", 2.2, -8, 2.4, 1.027],
+      ["s", 96.0, -2, 100.0, 0.981],
+      ["c", 1270.0, 4, 1310.0, 0.973],
+      ["t", 172700.0, 14, 175000.0, 0.998],
+      ["W", 80370.0, 12, 82000.0, 1.004],
+      ["Z", 91180.0, 12, 94000.0, 1.023],
+      ["H", 125100.0, 13, 128000.0, 1.009]
+    ],
+    "note_rows": "colonnes : particule, masse exp (MeV), indice harmonique n^(int) (classe de hauteur — le registre absolu en octaves n'est pas declare), MTR theorique (MeV), F_exp imprime. Transcription verbatim de l'image ; la ligne W a ete verifiee en zoom (premiere lecture OCR « Quark Bottom » etait fausse)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

@@ -279,3 +279,68 @@ NON TENU. Verdict : S− à 20 022 θ.**
 - **Tare de transport** : premier run du runner avec une conversion
   MeV→J sans le 10⁶ (ratio P_K renvoyé 1,6e-4 au lieu de 158,9) —
   corrigé, re-run vérifié.
+
+## Huitième fournée — corridor des corrections harmoniques F_exp (2026-09-16)
+
+Population : 1 contact — `LH_Fexp_Corridor`. Table gelée :
+`lh_fexp_LITTERATURE-2026.json` (transcription verbatim de la table
+« Calibration de l'Approximation Harmonique de Base », 10 lignes,
+depuis l'image du site — copie `_tmp_fexp/table7_fexp.png` ; ligne W
+revérifiée en zoom après une première lecture OCR fautive). Déclaration
+gelée datée du texte : « le facteur de correction empirique (F_exp),
+calculé en divisant la masse expérimentale mesurée par la prédiction
+harmonique pure m_p·δ^n(int), demeure strictement confiné dans un
+corridor de variance minimaliste de ±3 % pour l'intégralité du spectre
+particulaire, oscillant entre 0,973 (pour le quark charm massif) et
+1,028 (pour le quark down hyper-léger) ». Ansatz du même paragraphe :
+M_exact = m_p·δ^n·(1 + Δ_k·F(α, χ, σ)), F = a_f·α + b_f·χ·α +
+c_f·s·α², avec Modèle Tri-Régime (Micro s_k ≤ 2 : u, d, e ;
+Méso 2 < s_k ≤ 4 : s, c, τ ; Macro s_k > 4 : b, t, W, Z, H).
+Coefficients a_f/b_f/c_f non déclarés (fit) — dette nommée.
+
+**Attendu gelé : S+ (le corpus affirme le corridor ±3 % comme tenu
+pour l'intégralité du spectre) — NON TENU. Verdict : P à 1,78 θ.**
+
+| Particule | m_exp (MeV) | n | m_théo (MeV) | F imprimé | F recompté (m_exp/m_théo) |
+|---|---|---|---|---|---|
+| e | 0,511 | −11 | 0,53 | 1,011 | 0,964 |
+| μ | 105,65 | −2 | 104,0 | 0,991 | 1,016 |
+| τ | 1776,86 | 1 | 1810,0 | 1,024 | 0,982 |
+| u | 2,2 | −8 | 2,4 | 1,027 | **0,917** |
+| s | 96,0 | −2 | 100,0 | 0,981 | **0,960** |
+| c | 1270,0 | 4 | 1310,0 | 0,973 | **0,969** |
+| t | 172 700 | 14 | 175 000 | 0,998 | 0,987 |
+| W | 80 370 | 12 | 82 000 | 1,004 | 0,980 |
+| Z | 91 180 | 12 | 94 000 | 1,023 | **0,970** |
+| H | 125 100 | 13 | 128 000 | 1,009 | 0,977 |
+
+| Grandeurs | Valeur |
+|---|---|
+| Corridor recompté | [0,917 ; 1,016] |
+| Déclaration texte | [0,973 ; 1,028] ±3 % |
+| μ_loc (max déviation recomptée, u) | 0,0833 |
+| μ_ref (corridor déclaré) | 0,03 |
+| δ (rel) | 0,0533 |
+| δ/θ (abs 0,03) | 1,78 |
+
+- **Cinq violations du plancher 0,973** côté recompute : u (0,917),
+  e (0,964), s (0,960), c (0,969), Z (0,970). Le corridor tient
+  côté maximum (μ 1,016, dans les clous) et casse côté minimum —
+  précisément le versant des quarks méso/macro du tri-régime (s, c)
+  et du boson Z.
+- **Dette d'impression (type PF5, dérivée)** : aucune des 10 lignes ne
+  coïncide avec son F imprimé (écart max : u, 11,0 points, imprimé
+  1,027 vs recompté 0,917). La colonne F imprimée n'est ni
+  m_exp/m_théo, ni vérifiable depuis les colonnes voisines.
+- **Tensions texte/table nommées** : le « down 1,028 » cité par le
+  texte est absent de la table (max imprimé : 1,027, up) ; la table ne
+  contient pas le quark bottom alors que le texte dit « l'intégralité
+  du spectre » ; et le charm, cité par le texte comme le minimum du
+  corridor (0,973), viole ce plancher dès qu'on le recompte (0,969).
+- **L'information** : la déclaration « ±3 % pour l'intégralité du
+  spectre » tient au mieux en zone grise — la prétention d'un corridor
+  minimaliste casse exactement là où l'ansatz des corrections
+  harmoniques dit intervenir. Ce n'est pas une réfutation de l'ansatz
+  F(α, χ, σ) (ses coefficients ne sont pas déclarés, la pesée serait
+  sans objet) : c'est la refonte de la table qui rend la déclaration
+  pesable — et elle ne tient pas.

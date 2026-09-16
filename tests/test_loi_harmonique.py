@@ -23,6 +23,7 @@ from mvcg.loi_harmonique import (  # noqa: E402
     lh_bottom_arith,
     lh_bottom_g6,
     lh_charm_g5,
+    lh_fexp_corridor,
     lh_g11_mass_shift,
     lh_ko6_racines,
     lh_koide_q,
@@ -96,6 +97,16 @@ class TestLoiHarmoniqueCalculs(unittest.TestCase):
         # (mu_ref = 0,0142), les % restent en extras
         self.assertAlmostEqual(lh_anu_pont_rms()[0], 0.03376492986006094,
                                delta=1e-14)
+
+    def test_mu_gelés_fexp(self):
+        # 8e fournée (2026-09-16) : corridor des corrections
+        # harmoniques — deviation max recomputee depuis les colonnes
+        # voisines de la table du corpus (up : 8,333 %)
+        self.assertAlmostEqual(lh_fexp_corridor()[0],
+                               0.08333333333333326, delta=1e-15)
+        _, x = lh_fexp_corridor()
+        self.assertEqual(x["pire_ligne"], "u")
+        self.assertEqual(x["n_violations_plancher"], 5)
 
     def test_ko6_deux_sqf_faux(self):
         _, x = lh_ko6_racines()
@@ -244,6 +255,19 @@ class TestLoiHarmoniqueContacts(unittest.TestCase):
         self.assertTrue(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 0.03376492986006094,
                                delta=1e-14)
+        self.assertIsNone(r["units_kill"])
+
+    def test_fexp_attendu_splus_non_tenu(self):
+        # attendu gelé S+ (le corpus déclare la robustesse du corridor
+        # ±3 %) ; le run corrige : deviation max recompute 8,33 % vs
+        # 3 % déclaré -> P à 1,78 theta — la déclaration des corrections
+        # harmoniques tient au mieux en zone grise.
+        r = _contact("LH_Fexp_Corridor")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "P")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.08333333333333326,
+                               delta=1e-15)
         self.assertIsNone(r["units_kill"])
 
     def test_g11_attendu_splus_non_tenu(self):

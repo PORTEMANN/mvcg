@@ -2156,6 +2156,12 @@ def _lh_g11_mass_shift() -> tuple[float, dict]:
     return lh_g11_mass_shift()
 
 
+def _lh_fexp_corridor() -> tuple[float, dict]:
+    from mvcg.loi_harmonique import lh_fexp_corridor
+
+    return lh_fexp_corridor()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2304,6 +2310,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "lh_alpha_double": _lh_alpha_double,
     "lh_anu_pont_rms": _lh_anu_pont_rms,
     "lh_g11_mass_shift": _lh_g11_mass_shift,
+    "lh_fexp_corridor": _lh_fexp_corridor,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3062,6 +3069,14 @@ CONTACTS: list[Contact] = [
         "chantier E44 (nucléation de l'enlacement, 1re fournée 2026-09-16) : la machine pèse les déclarations gelées de la note et leur arithmétique interne, elle ne rejoue pas la simulation GP ; mu_loc = 0,994 déclaré vs mu_ref = 1 attendu — le détecteur se valide à 0,6 % près déclaré ; extra : témoin 0,007 vs 0 ; attendu S+",
         "e44_t0_lien",
         "ouverte", "S+", "E44",
+    ),
+    Contact(
+        "LH_Fexp_Corridor", "micro", "pred", "1", "1", "abs", 0.03,
+        0.03, "deviation max F_exp recompute<-corridor ±3 % declare", "—",
+        "corridor des corrections harmoniques déclaré par « Unification analytique » (2026) : F_exp = m_exp/m_théo confiné à ±3 % pour l'intégralité du spectre, entre 0,973 (charm) et 1,028 (down) — table gelée de 10 lignes verbatim (e, μ, τ, u, s, c, t, W, Z, H)",
+        "chantier LOI-HARMONIQUE (8e fournée, corrections harmoniques du corpus) : mu_loc = déviation max recomptée depuis les colonnes voisines de la table (u : 8,33 %) vs mu_ref = 3 % déclaré (corridor = seuil) ; extras : 5 violations du plancher 0,973 (u, e, s, c, Z — dont le charm lui-même, que le texte cite comme minimum), aucune des 10 lignes ne coïncide avec son F imprimé, « down 1.028 » et bottom absents de la table — attendu S+ (le corpus déclare la robustesse)",
+        "lh_fexp_corridor",
+        "ouverte", "S+", "LOI-HARMONIQUE",
     ),
     Contact(
         "E44_Lk_PaireHopf", "micro", "pred", "1", "1", "rel", 0.10,
