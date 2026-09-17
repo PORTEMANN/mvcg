@@ -1,0 +1,23 @@
+{
+  "id": "tr_sn132_liaison",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelées datées pour la fouille transversale (contact TR_KZN_Sn132_Preference, 2026-09-17) : déclaration verbatim de « Linéarisation du calcul de l'énergie de liaison par nucléon » (histoire-des-sciences.eu, 2025-04-20) : « 132Sn est favorisé par rapport à 133Sn car 8,40 MeV > 8,35 MeV ».",
+  "doi_or_ref": "corpus noétique, deux valeurs d'énergie de liaison déclarées + une inégalité (même modèle deltashell ajusté que le contact B11, article unique) ; excès de masse 132Sn : NUBASE2020, ligne 132 0500 : Δ = −76546.6 ± 2.0 keV ; excès de masse 133Sn : NUBASE2020, ligne 133 0500 : Δ = −70873.9 ± 1.9 keV (T1/2 = 1.37 s, état fondamental 7/2−) ; constantes de conversion : u = 931.49410242 MeV, m(H) = 1.00782503223 u, m(n) = 1.00866491588 u (CODATA-2018 / AME2020 gelé)",
+  "species": "énergie de liaison par nucléon du tin 132 (Z=50, N=82, couche magique) et du tin 133 (Z=50, N=83)",
+  "quantity": "valeurs gelées pour le contact TR_KZN_Sn132_Preference",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "u_MeV": 931.49410242,
+    "m_H_u": 1.00782503223,
+    "m_n_u": 1.00866491588,
+    "rows": [
+      ["132Sn", 132, 50, -76.5466, 2.0, 8.40],
+      ["133Sn", 133, 50, -70.8739, 1.9, 8.35]
+    ],
+    "m_ref": "NUBASE2020 gelé (mirroir php1ic/nuclearmasses, fichier nubase_1.mas20, 762032 octets, citation Kondev et al. 2021 en tête de fichier)",
+    "note_rows": "colonnes : nucléide, A, Z, excès de masse Δ (MeV, signé), incertitude Δ (keV), B/A déclarée (MeV) ; B/A(132Sn) = 8,354873 MeV et B/A(133Sn) = 8,310089 MeV gelés — l'inégalité déclarée (132Sn > 133Sn) est vraie côté NUBASE2020 (le neutron de 133Sn est moins lié : départ de la couche magique N=82) ; écarts relatifs : 0,537 % (132Sn) et 0,478 % (133Sn) ; déclaration à deux colonnes : mu_loc = écart relatif maximal"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

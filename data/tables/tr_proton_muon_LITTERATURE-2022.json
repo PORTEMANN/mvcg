@@ -1,0 +1,24 @@
+{
+  "id": "tr_proton_muon",
+  "vintage": "LITTERATURE-2022",
+  "source": "Gelées datées pour la fouille transversale (contact TR_Alpha_ProtonMuonNeuf, 2026-09-17) : « La Constante ALPHA de Structure fine » (histoire-des-sciences.eu, 2022-12-11), paragraphe verbatim : « Le muon vaut 200 fois la masse de l'electron et le proton vaut 1800 fois la masse de l'electron, donc la masse d'un proton est 9 fois superieure a celle du muon. »",
+  "doi_or_ref": "corpus noétique, trois déclarations chiffrées enchaînées : (1) m_mu/m_e = 200 ; (2) m_p/m_e = 1800 ; (3) m_p/m_mu = 9 (inférée : « donc ») — nombres ronds de vulgarisation sans tolérance déclarée : dette nommée, theta 1 % gelé = même calibration que TR_Davies_TrioMesons (le « presque exactement » du même article)",
+  "species": "déclarations du corpus sur les rapports de masse muon/électron, proton/électron, proton/muon",
+  "quantity": "valeurs gelées pour le contact TR_Alpha_ProtonMuonNeuf",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "m_e_MeV": 0.51099895,
+    "m_mu_MeV": 105.6583755,
+    "m_p_MeV": 938.27208816,
+    "m_ref": "PDG-2024 / CODATA-2018 gelé",
+    "declarations": [
+      ["muon/electron", 200.0],
+      ["proton/electron", 1800.0],
+      ["proton/muon", 9.0]
+    ],
+    "note_rows": "colonnes : rapport, valeur déclarée (nombres ronds verbatim). Le « donc » du corpus est arithmétiquement exact (1800/200 = 9) : l'inférence interne tient, ce sont les prémisses qui portent l'écart — l'extra du runner sépare les deux"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

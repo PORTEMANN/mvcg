@@ -1,0 +1,25 @@
+{
+  "id": "tr_b11_liaison",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelées datées pour la fouille transversale (contact TR_KZN_B11_Liaison, 2026-09-17) : déclaration verbatim de « Linéarisation du calcul de l'énergie de liaison par nucléon » (histoire-des-sciences.eu, 2025-04-20) : « Pour 11B (Z=5 et N=6) on a Elie/A = 6,8 MeV avec deltashell ajusté pour Z=5 ».",
+  "doi_or_ref": "corpus noétique, une déclaration chiffrée semi-empirique (modèle deltashell « ajusté » — calibration déclarée dans le texte, pas calcul ab initio : dette nommée) ; excès de masse 11B : NUBASE2020 (Kondev et al., Chin. Phys. C 45, 030001 (2021)), ligne 011 0050 : Δ = 8667.708 ± 0.012 keV, stable ; constantes de conversion : u = 931.49410242 MeV, m(H) = 1.00782503223 u, m(n) = 1.00866491588 u (CODATA-2018 / AME2020 gelé)",
+  "species": "énergie de liaison par nucléon du bore 11 (Z=5, N=6)",
+  "quantity": "valeurs gelées pour le contact TR_KZN_B11_Liaison",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "A": 11,
+    "Z": 5,
+    "N": 6,
+    "exces_masse_MeV": 8.667708,
+    "exces_masse_incertitude_MeV": 0.000012,
+    "u_MeV": 931.49410242,
+    "m_H_u": 1.00782503223,
+    "m_n_u": 1.00866491588,
+    "BA_declare_MeV": 6.8,
+    "m_ref": "NUBASE2020 gelé (mirroir php1ic/nuclearmasses, fichier nubase_1.mas20, 762032 octets, citation Kondev et al. 2021 en tête de fichier)",
+    "note_rows": "B = Z·m(H) + N·m(n) − M avec M = A·u + Δ (masses atomiques, électrons compensés par m(H)) ; B/A(11B) = 6,927732 MeV gelé ; écart relatif sur déclaré 6,8 = 1,878 % ; « ajusté pour Z=5 » nommé par le corpus = le modèle revendique son calage, la machine pèse le résidu"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

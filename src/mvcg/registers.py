@@ -2162,6 +2162,30 @@ def _lh_fexp_corridor() -> tuple[float, dict]:
     return lh_fexp_corridor()
 
 
+def _tr_davies_trio() -> tuple[float, dict]:
+    from mvcg.transversale import tr_davies_trio
+
+    return tr_davies_trio()
+
+
+def _tr_alpha_proton_muon() -> tuple[float, dict]:
+    from mvcg.transversale import tr_alpha_proton_muon
+
+    return tr_alpha_proton_muon()
+
+
+def _tr_b11_liaison() -> tuple[float, dict]:
+    from mvcg.transversale import tr_b11_liaison
+
+    return tr_b11_liaison()
+
+
+def _tr_sn132_liaison() -> tuple[float, dict]:
+    from mvcg.transversale import tr_sn132_liaison
+
+    return tr_sn132_liaison()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2311,6 +2335,10 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "lh_anu_pont_rms": _lh_anu_pont_rms,
     "lh_g11_mass_shift": _lh_g11_mass_shift,
     "lh_fexp_corridor": _lh_fexp_corridor,
+    "tr_davies_trio": _tr_davies_trio,
+    "tr_alpha_proton_muon": _tr_alpha_proton_muon,
+    "tr_b11_liaison": _tr_b11_liaison,
+    "tr_sn132_liaison": _tr_sn132_liaison,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3077,6 +3105,38 @@ CONTACTS: list[Contact] = [
         "chantier LOI-HARMONIQUE (8e fournée, corrections harmoniques du corpus) : mu_loc = déviation max recomptée depuis les colonnes voisines de la table (u : 8,33 %) vs mu_ref = 3 % déclaré (corridor = seuil) ; extras : 5 violations du plancher 0,973 (u, e, s, c, Z — dont le charm lui-même, que le texte cite comme minimum), aucune des 10 lignes ne coïncide avec son F imprimé, « down 1.028 » et bottom absents de la table — attendu S+ (le corpus déclare la robustesse)",
         "lh_fexp_corridor",
         "ouverte", "S+", "LOI-HARMONIQUE",
+    ),
+    Contact(
+        "TR_Davies_TrioMesons", "micro", "pred", "1", "1", "abs", 0.01,
+        0.0, "deviation max des 3 rapports mesures<-0 (« presque exactement », theta 1 %)", "—",
+        "trio mésonique cité par le corpus (« La Constante ALPHA de Structure fine », 2022, citant Paul Davies, « Les forces de la nature ») : « les masses du muon, du pion et du kaon valent presque exactement 3/2 x 1/alpha, 2 x 1/alpha et 7 x 1/alpha fois la masse de l'electron » — variante chargée gelée (±/0 non tranché par le corpus, dette nommée)",
+        "chantier TRANSVERSALE (1er contact de la fouille transversale 2026-09-16) : mu_loc = écart relatif maximal des trois rapports mesurés (PDG-2024) sur déclarés (alpha 137,036 gelée verbatim) = 0,714 % (kaon ; muon 0,591 %, pion 0,343 %) vs theta 1 % = calibration déclarée de « presque exactement » ; extras : variantes neutres pion0 3,6 % et K0 1,5 % (la seule lecture qui tienne est chargée), ligne muon échole à LH_Muon_Quinte (même loi, source CTFT) — attendu S+ (le corpus dit « presque exactement »)",
+        "tr_davies_trio",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_Alpha_ProtonMuonNeuf", "micro", "pred", "1", "1", "abs", 0.01,
+        0.0, "deviation max des 3 rapports mesures<-declares (nombres ronds sans tolerance, theta 1 %)", "—",
+        "paragraphe de « La Constante ALPHA de Structure fine » (2022) : « Le muon vaut 200 fois la masse de l'electron et le proton vaut 1800 fois la masse de l'electron, donc la masse d'un proton est 9 fois superieure a celle du muon » — trois déclarations enchaînées (200, 1800, et 9 inféré par « donc »), nombres ronds sans tolérance déclarée",
+        "chantier TRANSVERSALE (2e contact, 2026-09-17) : mu_loc = écart relatif maximal des trois rapports mesurés (PDG-2024) sur déclarés = 3,38 % (premisse muon « 200 » ; proton « 1800 » 2,01 % ; conclusion « 9 » 1,33 %) vs theta 1 % — l'inférence interne 1800/200 = 9 est exacte, l'erreur vient des prémisses rondes et se transmet à la conclusion ; attendu S+ (le corpus énonce les trois valeurs comme des faits), non tenu",
+        "tr_alpha_proton_muon",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_B11_Liaison", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "ecart relatif B/A mesure(NUBASE2020)<-declare (declaration a deux chiffres, theta 2 %)", "—",
+        "« Linéarisation du calcul de l'énergie de liaison par nucléon » (2025-04-20) : « Pour 11B (Z=5 et N=6) on a Elie/A = 6,8 MeV avec deltashell ajusté pour Z=5 » — déclaration semi-empirique chiffrée, le « ajusté » est nommé dans le texte (calibration déclarée, pas ontologie)",
+        "chantier TRANSVERSALE (3e contact, 2026-09-17) : mu_loc = |6,927732/6,8 − 1| = 1,878 % (B/A NUBASE2020 gelé depuis le fichier nubase_1.mas20, citation Kondev et al. 2021 ; conversion u et masses H/n CODATA-2018) vs theta 2 % gelé = tolérance d'une déclaration à deux chiffres significatifs (6,8 arrondit 6,93 à 2 % près) ; attendu S+ tenu de justesse (0,94 theta) — le calage deltashell laisse un résidu visible pile sous le seuil ; incertitude NUBASE (12 eV) sans effet au ppm près",
+        "tr_b11_liaison",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_Sn132_Preference", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "ecart relatif max des 2 B/A mesures(NUBASE2020)<-declares + inegalite (theta 2 %)", "—",
+        "même article (2025-04-20) : « 132Sn est favorisé par rapport à 133Sn car 8,40 MeV > 8,35 MeV » — déclaration à deux colonnes (deux énergies de liaison par nucléon) plus une inégalité (le corpus invoque la magie neutronique N=82 sans la nommer — dette nommée)",
+        "chantier TRANSVERSALE (4e contact, 2026-09-17) : B/A(132Sn) = 8,354873 MeV vs 8,40 déclaré (écart 0,537 %, pire ligne) et B/A(133Sn) = 8,310089 MeV vs 8,35 (0,478 %) — mu_loc = 0,537 % vs theta 2 % (même calibration que B11, article unique) ; extra : l'inégalité déclarée est vraie côté NUBASE2020 (le 133e neutron quitte la couche magique N=82, moins lié de 45 keV/nucléon) — la physique qualitative du corpus tient, les valeurs arrondies tiennent à 0,54 % près ; attendu S+",
+        "tr_sn132_liaison",
+        "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(
         "E44_Lk_PaireHopf", "micro", "pred", "1", "1", "rel", 0.10,

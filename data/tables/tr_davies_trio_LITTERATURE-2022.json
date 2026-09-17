@@ -1,0 +1,28 @@
+{
+  "id": "tr_davies_trio",
+  "vintage": "LITTERATURE-2022",
+  "source": "Gelées datées pour la fouille transversale (contact TR_Davies_TrioMesons, 2026-09-16) : « La Constante ALPHA de Structure fine » (histoire-des-sciences.eu, 2022-12-11) — citation verbatim de Paul Davies, « Les forces de la nature » : « Nous aimerions savoir en particulier si le fait que les masses du muon, du pion et du kaon valent presque exactement 3/2 x 1/alpha, 2 x 1/alpha et 7 x 1/alpha fois la masse de l'electron a une signification quelconque. » + déclaration du même article : « 1/alpha = 137,036 environ »",
+  "doi_or_ref": "corpus noétique, texte déclaré : « les masses du muon, du pion et du kaon valent presque exactement 3/2 x 1/alpha, 2 x 1/alpha et 7 x 1/alpha fois la masse de l'electron » — le corpus ne précise ni la charge des mésons (±/0) ni le vintage d'alpha : dette nommée, arbitrée au gel par la variante chargée (la seule qui tienne, voir neutres en extras)",
+  "species": "déclaration du corpus (citant Davies) sur les rapports de masse méson/électron",
+  "quantity": "valeurs gelées pour le contact TR_Davies_TrioMesons",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "alpha_inv_declaree": 137.036,
+    "alpha_inv_codata2018": 137.035999084,
+    "m_e_MeV": 0.51099895,
+    "m_e_ref": "PDG-2024 / CODATA-2018 gelé",
+    "rows_chargees": [
+      ["muon", 1.5, 105.6583755],
+      ["pion±", 2.0, 139.57039],
+      ["kaon±", 7.0, 493.677]
+    ],
+    "m_neutres_MeV": {
+      "pion0": 134.9768,
+      "K0": 497.611
+    },
+    "note_rows": "colonnes : méson, coefficient déclaré (c x 1/alpha), masse mesurée MeV (PDG-2024 gelé). Le corpus dit « presque exactement » : theta gelé 1 % = calibration déclarée de « presque exactement », nommée comme tare d'écoute. Variantes neutres gelées en extras (le corpus ne tranche pas ±/0 — dette nommée)"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
