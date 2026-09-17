@@ -227,6 +227,47 @@ alors que les rapports ANU réels sont ~1,08 — écart d'un facteur ~9.
 Probablement S− massif, mais la définition ambiguë impose une dette
 avant tout gel (la machine ne pèse pas ce qu'elle ne sait pas figer).
 
+### B2-B6 — pesées réalisées (2026-09-17 soir, contacts 112-116)
+
+Les cinq contacts ont été montés, gelés et pesés. Bilan : **1 S+ tenu
+(B3), 4 S− dont 1 attendu-S+ non tenu (B2)**.
+
+- **B2 → contact 112 `TR_CONV4_MoyenneKi` : S− à 0,15 θ** (attendu S+
+  gelé non tenu). Table ANU complète gelée
+  (`tr_anu_complet_LITTERATURE-1908.json`, double transcription carte
+  Crookes + Occult Chemistry Gutenberg #16058, 91 lignes Z=1-92, Tc
+  absent ; arbitrage carte-vs-livre toujours vers le livre : F 340,
+  Mn 992, Mo 1746, Rb 1530, « Canadium » = Pt B 3514 — sha256
+  ec4a9ae80d54cf36…). Recompute : 92,22 % des ANU dans [1 ; 1,2] (le
+  80 % déclaré est dépassé, pas violé), mais la moyenne 1,0828 vs
+  2^(1/12) à 2,20 % casse le S+. Les deux déclarations ne tiennent pas
+  ensemble. Dette « table Z=13-92 » du chantier ANU **bouchée**.
+- **B3 → contact 113 `TR_CONV4_SeuilZ25` : S+ à 0,76 θ TENU** — seul
+  tenu des cinq. 66 ratios Z=26..92 (Tc sauté) : 1 seul hors bande
+  [1 ; 1,2] (Rn Z=86, k=0,990). La bande est calibrée sur le claim 80 %
+  de la même page (« variation significative » non définie) — dette
+  nommée.
+- **B4 → contact 114 `TR_CONV4_Alcalins` : S− à 4,7 θ.** K (Z=19)
+  seul dépassement de la régression ln(Ei) = −0,004 Z + 1,696 (table
+  Ei gelée 2018) ; Li tient à 0,048 %. Fit sans budget de résidu
+  déclaré — dette nommée dès la prospective.
+- **B5 → contact 115 `TR_MDA_SuiteStable` : S− à 290 θ.** Deux
+  lectures gelées (équation-image perdue) : multiplicative, le premier
+  terme 5,792 vs 18 déclaré ; additive, 93,3 % d'écart au terme 10.
+  Les deux cassent. ε gelé 0.
+- **B6 → contact 116 `TR_ALPHA_DeltaANU` : S− à 83 θ.** Pesée en
+  cohérence **interne** uniquement (loi vs graphe gelé
+  `tr_deltaanu_plot_LITTERATURE-2022.json`, 31 points Plotnikov ±2,
+  Si Z=14 masqué) — la définition de deltaANU n'étant pas
+  opérationnelle (équations OLE perdues), la machine ne pèse jamais ce
+  contact contre une vérité externe. Sc 167 %, Li 150 %, 13
+  violations absolues, 18 comparaisons relatives.
+
+Le motif transversal des quatre S− : le corpus déclare des régularités
+qui tiennent localement (fenêtres étroites, premiers termes) mais pas
+sur leur domaine annoncé — exactement le tranchant dont B3 mesure la
+limite (0,76 θ, juste sous le seuil).
+
 ---
 
 ## C. Exploré à faible densité pesable

@@ -18,14 +18,19 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from mvcg.registers import CONTACTS, run_contact  # noqa: E402
 from mvcg.transversale import (  # noqa: E402
+    tr_alpha_deltaanu,
     tr_alpha_proton_muon,
     tr_b11_liaison,
+    tr_conv4_alcalins,
+    tr_conv4_moyenne_ki,
+    tr_conv4_seuil_z25,
     tr_davies_trio,
     tr_kzn_comparaison,
     tr_kzn_expq65,
     tr_kzn_fusion,
     tr_kzn_grille,
     tr_kzn_sensibilite,
+    tr_mda_suite_stable,
     tr_sn132_liaison,
 )
 
@@ -334,3 +339,117 @@ class TestKZNSensibilite(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestConv4MoyenneKi(unittest.TestCase):
+    def test_mu_gelé(self):
+        # B2 : moyenne 1,0828 (écart 2,20 %) / fraction 92,22 %
+        # (écart relatif 15,278 % vs 80 % déclaré) — mu = pire = fraction.
+        self.assertAlmostEqual(tr_conv4_moyenne_ki()[0],
+                               0.15277777777777768, delta=1e-15)
+        _, x = tr_conv4_moyenne_ki()
+        self.assertEqual(x["nb_ratios"], 90)
+        self.assertAlmostEqual(x["moyenne_recompute"],
+                               1.0828133165387523, delta=1e-15)
+        self.assertAlmostEqual(x["ecart_moyenne"],
+                               0.02203967491059977, delta=1e-15)
+        self.assertAlmostEqual(x["fraction_recompute"],
+                               0.9222222222222223, delta=1e-15)
+        self.assertEqual([z for z, _ in x["positions_hors_bande"]],
+                         [2, 3, 4, 5, 7, 19, 86])
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_CONV4_MoyenneKi")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.15277777777777768,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestConv4SeuilZ25(unittest.TestCase):
+    def test_mu_gelé(self):
+        # B3 : 1 violation (Rn, Z=86) sur 67 coefficients Z=26..92.
+        self.assertAlmostEqual(tr_conv4_seuil_z25()[0],
+                               0.015151515151515152, delta=1e-15)
+        _, x = tr_conv4_seuil_z25()
+        self.assertEqual(x["nb_ratios_fenetre"], 66)
+        self.assertEqual(x["violations_hors_bande"], [(86, 0.9896)])
+        self.assertAlmostEqual(x["amplitude_k_fenetre"][0], 0.9895833333333334,
+                               delta=1e-15)
+
+    def test_attendu_splus_tenu(self):
+        r = _contact("TR_CONV4_SeuilZ25")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S+")
+        self.assertFalse(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.015151515151515152,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestConv4Alcalins(unittest.TestCase):
+    def test_mu_gelé(self):
+        # B4 : K (Z=19) pire ligne, écart 9,381 % — courbure du groupe.
+        self.assertAlmostEqual(tr_conv4_alcalins()[0],
+                               0.09381085785000343, delta=1e-15)
+        _, x = tr_conv4_alcalins()
+        self.assertEqual(x["pire_ligne"], "K")
+        self.assertEqual(len(x["lignes"]), 6)
+        self.assertAlmostEqual(x["lignes"]["Li"]["ecart_relatif"],
+                               0.0005122261168875042, delta=1e-15)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_CONV4_Alcalins")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.09381085785000343,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestMDASuiteStable(unittest.TestCase):
+    def test_mu_gelé(self):
+        # B5 : pire lecture multiplicative au terme 1 (579 %),
+        # additive 93,3 % au terme 10.
+        self.assertAlmostEqual(tr_mda_suite_stable()[0],
+                               5.792095810347826, delta=1e-15)
+        _, x = tr_mda_suite_stable()
+        self.assertAlmostEqual(x["modeles"]["additive"]["ecart_max"],
+                               0.9329966966909419, delta=1e-15)
+        self.assertAlmostEqual(x["modeles"]["multiplicative"]["ecart_max"],
+                               5.792095810347826, delta=1e-15)
+        self.assertAlmostEqual(
+            x["sous_claim_rapport_moyen"]["moyenne_rapports_suite"],
+            1.5450468259608514, delta=1e-15)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_MDA_SuiteStable")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 5.792095810347826, delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestAlphaDeltaANU(unittest.TestCase):
+    def test_mu_gelé(self):
+        # B6 : pire écart relatif Sc 166,9 % ; 13 violations absolues
+        # (11 points négatifs + Cu/Ga sous loi < 1).
+        self.assertAlmostEqual(tr_alpha_deltaanu()[0],
+                               1.6685654897798825, delta=1e-15)
+        _, x = tr_alpha_deltaanu()
+        self.assertEqual(x["pire_point"], "Sc")
+        self.assertEqual(len(x["violations_absolues"]), 13)
+        self.assertEqual(len(x["comparaison"]) - len(x["violations_absolues"]),
+                         18)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_ALPHA_DeltaANU")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 1.6685654897798825, delta=1e-15)
+        self.assertIsNone(r["units_kill"])

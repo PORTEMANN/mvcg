@@ -419,3 +419,233 @@ def tr_kzn_sensibilite() -> tuple[float, dict[str, Any]]:
         "Q_final_declare_MeV": float(p["Q_final_declare_MeV"]),
         "note": "la déclaration est cohérente en interne (2×0,1 = 0,2 → 17,6 à 17,8) mais pas avec le modèle gelé de la même page : terme de couches 4He = 0,3×S(2,2) = 0,6 MeV → 1 % = 0,006 MeV, facteur ~16,7 sous la déclaration ; la sensibilité annoncée impliquerait deltashell(4He) = 10 MeV — dette interne au corpus entre le modèle transcrit et l'exemple chiffré de sensibilité (ou identification deltashell différente non écrite, dette nommée)",
     }
+
+
+def _ratios_anu() -> tuple[list[tuple[int, float]], dict[str, Any]]:
+    """Chaîne de ratios k(Z) = N(Z)/N(Z-1) depuis la table ANU complète gelée."""
+    t = load_table("tr_anu_complet_LITTERATURE-1908.json")
+    rows = t["params"]["rows"]
+    ratios = [(b[0], b[3] / a[3]) for a, b in zip(rows, rows[1:])]
+    return ratios, {"table": t["vintage"], "table_sha256": t["_sha256"]}
+
+
+def tr_conv4_moyenne_ki() -> tuple[float, dict[str, Any]]:
+    """« La moyenne des coefficients noologiques est égale à 2^(1/12) » et
+    « 80 % des nucléides ont un coefficient entre 1 et 1,2 » (Convergences IV).
+
+    Déclarations doubles de la même page (2025-01-19), coefficient
+    noologique k(i) = N(Z_i)/N(Z_i-1) défini par le corpus lui-même
+    (« rapport entre le nombre d'ANU d'un nucléide divisé par le nombre
+    d'ANU du nucléide qui le précède »). Pesée sur la table complète gelée
+    Z=1-92 (88 valeurs, Tc absent — la chaîne saute Z=43, dette nommée).
+    mu_loc = pire des deux écarts relatifs (moyenne, fraction) vs déclarés,
+    theta abs gelé 0,02 (calibration famille CONV4, déclarations chiffrées
+    à 2-3 significations). Dette de la fouille bouclée : la « table Z=13-92 »
+    (audit E44) est gelée (double transcription carte Crookes + Occult
+    Chemistry Gutenberg #16058).
+    """
+    ratios, meta = _ratios_anu()
+    cible = 2.0 ** (1.0 / 12.0)
+    moy = sum(k for _, k in ratios) / len(ratios)
+    moy_sans_sauts = sum(k for z, k in ratios if z > 5) / len([1 for z, _ in ratios if z > 5])
+    dans = [z for z, k in ratios if 1.0 <= k <= 1.2]
+    fraction = len(dans) / len(ratios)
+    hors = [(z, round(k, 4)) for z, k in ratios if not (1.0 <= k <= 1.2)]
+    r59 = [(z, k) for z, k in ratios if z <= 59]
+    f59 = len([1 for z, k in r59 if 1.0 <= k <= 1.2]) / len(r59)
+    m59 = sum(k for _, k in r59) / len(r59)
+    e_moy = abs(moy / cible - 1.0)
+    e_frac = abs(fraction / 0.80 - 1.0)
+    mu_loc = float(max(e_moy, e_frac))
+    return mu_loc, {
+        **meta,
+        "cible_2_pow_1_12": cible,
+        "nb_ratios": len(ratios),
+        "moyenne_recompute": moy,
+        "moyenne_declaree": cible,
+        "ecart_moyenne": e_moy,
+        "moyenne_Z_gt5_recompute": moy_sans_sauts,
+        "ecart_moyenne_Z_gt5": abs(moy_sans_sauts / cible - 1.0),
+        "fraction_recompute": fraction,
+        "fraction_declaree": 0.80,
+        "ecart_fraction": e_frac,
+        "positions_hors_bande": hors,
+        "fenetre_Z_le_59": {"fraction": f59, "ecart_moyenne": abs(m59 / cible - 1.0)},
+        "pire_claim": "fraction_80pct" if e_frac > e_moy else "moyenne_2pow1_12",
+        "note": "les deux claims tombent : fraction mesurée 92,2 % (déclarée 80 %, écart relatif 15,3 % — le corpus sous-vend sa propre table) et moyenne 1,0828 vs 2^(1/12) = 1,0595 (écart 2,20 %, juste au-dessus du theta 2 % — les quatre sauts H→He→Li→Be→B (4,0 ; 1,764 ; 1,291 ; 1,220) empoisonnent la moyenne ; sans eux 1,0370, écart 2,12 % de l'autre côté) ; 7 positions hors bande : Z=2,3,4,5,7 (sauts légers) et Z=19 (Ar→K = 0,982, inversion isotopique réelle) + Z=86 (Rn = 0,990, anomaly actinide) ; la fenêtre 1908 stricte (Z≤59) donne 89,5 % / écart moyenne 5,85 % ; dette gelée : Tc absent (chaîne sautée), divergences carte-vs-livre arbitrées vers le livre (F 340, Mn 992, Mo 1746, Rb 1530)",
+    }
+
+
+def tr_conv4_seuil_z25() -> tuple[float, dict[str, Any]]:
+    """« Les nucléides se stabilisent à partir de Z=25 (Manganèse) — il n'y
+    a plus de variation significative des coefficients noologiques à partir
+    de Z=25 » (Convergences IV).
+
+    Contact de seuil : la déclaration se lit « aucun coefficient hors bande
+    [1 ; 1,2] au-delà de Z=25 » (le diagramme du corpus croise la droite
+    2^(1/12) et la décroissante logarithmique à Z=25). Pesée : fraction de
+    positions hors bande dans la fenêtre Z=26..92 (66 ratios, Tc sauté)
+    mesurée vs déclarée (0). mu_loc = écart absolu de fraction, theta abs
+    gelé 0,02 (calibration famille CONV4). Extras : position réelle du
+    dernier hors-bande, amplitude des coefficients au-delà de Z=25.
+    """
+    ratios, meta = _ratios_anu()
+    fenetre = [(z, k) for z, k in ratios if z >= 26]
+    hors = [(z, round(k, 4)) for z, k in fenetre if not (1.0 <= k <= 1.2)]
+    frac_viol = len(hors) / len(fenetre)
+    mu_loc = float(abs(frac_viol - 0.0))
+    ks = [k for _, k in fenetre]
+    return mu_loc, {
+        **meta,
+        "fenetre": "Z=26..92",
+        "nb_ratios_fenetre": len(fenetre),
+        "violations_hors_bande": hors,
+        "fraction_violations": frac_viol,
+        "amplitude_k_fenetre": [min(ks), max(ks)],
+        "dernier_hors_bande_leger": "K (Z=19, k=0,982 — avant la fenêtre déclarée)",
+        "note": "le seuil déclaré tient à une violation près : sur 66 coefficients Z=26..92, un seul sort de [1 ; 1,2] — Rn (Z=86, k = 3990/4032 = 0,990, l'anomalie actinide At→Rn où le module DÉCROÎT) ; l'amplitude réelle au-delà de Z=25 est [0,990 ; 1,077] (étroite, la physique qualitative du corpus — saturation des couches — tient) ; sans la violation Rn la fenêtre serait propre ; mu_loc = 1/66 = 1,52 % vs theta 2 % — S+ TENU (0,76 theta) ; dette nommée : « variation significative » n'a pas de seuil chiffré dans le corpus, la bande [1 ; 1,2] du claim 80 % est le calibre gelé",
+    }
+
+
+def tr_conv4_alcalins() -> tuple[float, dict[str, Any]]:
+    """« ln(Ei) = -0,004 Z + 1,696 » pour les métaux alcalins (Convergences IV).
+
+    Régression déclarée (pente et ordonnée à 3-4 chiffres significatifs),
+    fenêtre nommée par le texte (« pour les métaux alcalins » — les six du
+    groupe 1, périodes 2-7, dette nommée : la fenêtre est décrite, non
+    déclarée comme telle). Ei gelées NIST/CRC (Fr = valeur calculée NIST).
+    mu_loc = écart relatif max |ln(Ei)_recompute − ln(Ei)_déclaré| /
+    ln(Ei)_déclaré sur les 6 lignes, theta abs gelé 0,02 (calibration
+    famille CONV4). Dette : la régression n'a pas de budget de résidu
+    déclaré (le corpus ne dit pas quel RMS il attend).
+    """
+    t = load_table("tr_alcalins_ei_LITERATURE-2018.json")
+    p = t["params"]
+    pente = float(p["regression_declaree"]["pente"])
+    ordonnee = float(p["regression_declaree"]["ordonnee"])
+    lignes = {}
+    for z, sym, ei in p["rows"]:
+        ln_mes = math.log(float(ei))
+        ln_decl = pente * float(z) + ordonnee
+        lignes[sym] = {
+            "Z": z, "Ei_eV": float(ei), "ln_Ei_mesure": ln_mes,
+            "ln_Ei_declare": ln_decl,
+            "ecart_relatif": abs(ln_mes / ln_decl - 1.0),
+        }
+    mu_loc = float(max(v["ecart_relatif"] for v in lignes.values()))
+    return mu_loc, {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "pente_declaree": pente,
+        "ordonnee_declaree": ordonnee,
+        "lignes": lignes,
+        "pire_ligne": max(lignes, key=lambda s: lignes[s]["ecart_relatif"]),
+        "note": "Li tient au cheveu (écart 0,048 % — la droite passe quasi exactement par Li) et Na à 0,90 % ; la dérive vient des alcalins lourds : K 9,38 % (pire ligne), Cs 7,91 %, Rb 7,47 % — la pente -0,004 sous-estime la courbure réelle du groupe (Ei décroît plus vite que logarithmique entre Na et Cs, puis remonte en Fr ce que la droite ne capture pas) ; la régression déclarée est un fit à 2 paramètres sans budget de résidu (dette nommée) — la machine pèse les écarts ligne à ligne au theta 2 % gelé ; Fr = 4,07274 eV valeur calculée NIST (pas de mesure directe), gelée en source",
+    }
+
+
+
+
+def tr_mda_suite_stable() -> tuple[float, dict[str, Any]]:
+    """« Le modèle ajusté est précis et cohérent avec les données fournies »
+    (Musique des Atomes II, 2025-02-26).
+
+    Suite déclarée (10 termes, isotopes exclus) + paramètres déclarés
+    T1=10, D1=5, T2=5, D2=3 pour h(n) = D1.sin(2πn/T1) + D2.sin(2πn/T2),
+    progression géométrique de raison 2^(1/12). L'équation complète est une
+    image perdue : deux lectures gelées et pesées, (a) additive
+    a_n = a1.q^(n-1) + h(n), (b) multiplicative a_n = a1.q^(n-1).(1+h(n)).
+    ε non chiffré par le corpus (gelé 0). mu_loc = pire écart relatif
+    modèle-vs-suite sur les 10 termes (pire des deux lectures), theta abs
+    gelé 0,02 (calibration famille CONV4/MDA). Extras : sous-claim « rapport
+    moyen ≈ 2^(1/12) » sur la suite stable.
+    """
+    t = load_table("tr_mda_suite_LITTERATURE-2025.json")
+    p = t["params"]
+    suite = [float(v) for v in p["suite"]]
+    q = 2.0 ** (1.0 / 12.0)
+    d1, t1, d2, t2 = 5.0, 10.0, 3.0, 5.0
+
+    def h(n: int) -> float:
+        return d1 * math.sin(2.0 * math.pi * n / t1) + d2 * math.sin(2.0 * math.pi * n / t2)
+
+    modeles = {}
+    for lecture, fn in (("additive", lambda n: 18.0 * q ** (n - 1) + h(n)),
+                        ("multiplicative", lambda n: 18.0 * q ** (n - 1) * (1.0 + h(n)))):
+        pred = [fn(n) for n in range(1, len(suite) + 1)]
+        ecarts = [abs(pr / da - 1.0) for pr, da in zip(pred, suite)]
+        modeles[lecture] = {
+            "prediction_termes": [round(v, 2) for v in pred],
+            "ecarts_relatifs": [round(v, 4) for v in ecarts],
+            "ecart_max": max(ecarts),
+            "terme_pire": ecarts.index(max(ecarts)) + 1,
+        }
+    mu_loc = float(max(m["ecart_max"] for m in modeles.values()))
+    rapports = [suite[i + 1] / suite[i] for i in range(len(suite) - 1)]
+    moy_rapports = sum(rapports) / len(rapports)
+    return mu_loc, {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "suite": suite,
+        "q_declaree": q,
+        "h_n_params": {"D1": d1, "T1": t1, "D2": d2, "T2": t2},
+        "modeles": modeles,
+        "sous_claim_rapport_moyen": {
+            "moyenne_rapports_suite": moy_rapports,
+            "ecart_vs_2pow1_12": abs(moy_rapports / q - 1.0),
+            "note": "le saut H→He (×4) empoisonne la moyenne stable seule : 1,5450 vs 1,0595 (écart 45,8 %) ; sans lui 1,2382 (écart 16,9 %) — la suite stable des 10 premiers termes ne porte pas la raison 2^(1/12), la convergence ne peut venir que de la table complète (voir TR_CONV4_MoyenneKi : moyenne complète 1,0828, écart 2,20 %)",
+        },
+        "note": "les deux lectures du modèle échouent massivement : la lecture additive a un écart max de 93,3 % au terme 10 (la progression pure n'atteint que 30,2 ANU vs Néon 360 — les corrections h(n), amplitude ≤ 8 ANU et nulle à n=10, ne peuvent jamais combler un facteur ×12) et la lecture multiplicative explose dès le terme 1 (écart 579 %, h(1) = 5,8 fait passer c_1 à 6,8) — le modèle ajusté déclaré « précis et cohérent » ne reproduit pas la suite déclarée sous AUCUNE lecture ; dettes nommées : équation image perdue (deux lectures pesées, même verdict), ε non chiffré (gelé 0), a1 gelé 18 ; la conclusion du corpus est un verbatim pesable, pas une métaphore — la machine la pèse telle quelle",
+    }
+
+
+def tr_alpha_deltaanu() -> tuple[float, dict[str, Any]]:
+    """« deltaANU = (1/alpha).Z^(-3/2) » (La Constante ALPHA, 2022).
+
+    Pesée de cohérence INTERNE : la loi déclarée vs les points tracés par
+    le corpus dans son propre graphe ANU-2.JPG (transcription gelée pixel
+    par pixel, ±2 unités). mu_loc = écart relatif max point/loi là où la
+    loi ≥ 1 (la division a un sens), theta abs gelé 0,02 ; les points où la
+    loi prédit < 1 sont des violations absolues listées en extra (l'écart
+    relatif y est indéfini). DETTE CENTRALE NOMMÉE : la
+    définition opérationnelle de deltaANU (« l'erreur relative de la place
+    de chaque atome dans le tout ») n'est pas récupérable (équations OLE du
+    docx perdues) — la pesée porte sur la cohérence corpus loi-vs-graphe,
+    pas sur une vérité externe ; la machine ne pèse pas ce qu'elle ne sait
+    pas figer.
+    """
+    t = load_table("tr_deltaanu_plot_LITTERATURE-2022.json")
+    p = t["params"]
+    alpha_inv = float(p["alpha_inv"])
+    expo = float(p["exposant"])
+    comparaison = {}
+    violations_absolues = []
+    for nom, z, val, u in p["points"]:
+        loi = alpha_inv * float(z) ** expo
+        if float(val) > 0.0 and loi >= 1.0:
+            ec = abs(float(val) / loi - 1.0)
+        else:
+            ec = None
+            violations_absolues.append(
+                {"point": nom, "Z": z, "valeur": float(val), "loi": round(loi, 3),
+                 "motif": "point négatif (signe opposé à la loi)" if float(val) <= 0 else "loi < 1 (échelle de la loi sous la grille)"}
+            )
+        comparaison[nom] = {
+            "Z": z, "point_gele": float(val), "u_point": float(u),
+            "loi_recompute": loi, "ecart_relatif": ec,
+        }
+    definis = {k: v["ecart_relatif"] for k, v in comparaison.items() if v["ecart_relatif"] is not None}
+    mu_loc = float(max(definis.values()))
+    pire = max(definis, key=definis.get)
+    ratios_point_sur_loi = sorted(v["point_gele"] / v["loi_recompute"] for v in comparaison.values() if v["ecart_relatif"] is not None)
+    return mu_loc, {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "alpha_inv": alpha_inv,
+        "comparaison": comparaison,
+        "pire_point": pire,
+        "ratio_point_loi_min": ratios_point_sur_loi[0],
+        "ratio_point_loi_max": ratios_point_sur_loi[-1],
+        "violations_absolues": violations_absolues,
+        "note": "le graphe du corpus contredit sa propre loi déclarée à chaque point : écart relatif max Sc 167 % (3,8 vs 1,42), Li 150 % (66 vs 26,4) ; 13 violations absolues nommées — 11 points négatifs là où la loi est positive (de K −11,7 à Ge −1,2 : signe opposé, la loi ne peut pas être réparée) et 2 points positifs (Cu 2,0, Ga 2,9) où la loi prédit déjà < 1 (0,88 ; 0,79) ; sur les 18 comparaisons relatives possibles, les rapports point/loi vont de 0,35 (D) à 2,5 (Li), des deux côtés de la courbe : aucune renormalisation ne répare ; la courbe verte du graphe coïncide visuellement avec 137.Z^(-3/2), donc le corpus a tracé la loi et des points qui ne la suivent pas ; dette centrale nommée : la définition de deltaANU n'est pas opérationnelle dans le texte récupéré (« erreur relative de la place de chaque atome dans le tout », équations OLE perdues) — la pesée est une pesée de cohérence interne ; Si (Z=14) non transcrit (point masqué, 31 points gelés) ; lectures Ga/Ge ±2,5",
+    }

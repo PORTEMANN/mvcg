@@ -2216,6 +2216,36 @@ def _tr_kzn_sensibilite() -> tuple[float, dict]:
     return tr_kzn_sensibilite()
 
 
+def _tr_conv4_moyenne_ki() -> tuple[float, dict]:
+    from mvcg.transversale import tr_conv4_moyenne_ki
+
+    return tr_conv4_moyenne_ki()
+
+
+def _tr_conv4_seuil_z25() -> tuple[float, dict]:
+    from mvcg.transversale import tr_conv4_seuil_z25
+
+    return tr_conv4_seuil_z25()
+
+
+def _tr_conv4_alcalins() -> tuple[float, dict]:
+    from mvcg.transversale import tr_conv4_alcalins
+
+    return tr_conv4_alcalins()
+
+
+def _tr_mda_suite_stable() -> tuple[float, dict]:
+    from mvcg.transversale import tr_mda_suite_stable
+
+    return tr_mda_suite_stable()
+
+
+def _tr_alpha_deltaanu() -> tuple[float, dict]:
+    from mvcg.transversale import tr_alpha_deltaanu
+
+    return tr_alpha_deltaanu()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2374,6 +2404,11 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_kzn_comparaison": _tr_kzn_comparaison,
     "tr_kzn_expq65": _tr_kzn_expq65,
     "tr_kzn_sensibilite": _tr_kzn_sensibilite,
+    "tr_conv4_moyenne_ki": _tr_conv4_moyenne_ki,
+    "tr_conv4_seuil_z25": _tr_conv4_seuil_z25,
+    "tr_conv4_alcalins": _tr_conv4_alcalins,
+    "tr_mda_suite_stable": _tr_mda_suite_stable,
+    "tr_alpha_deltaanu": _tr_alpha_deltaanu,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3211,6 +3246,46 @@ CONTACTS: list[Contact] = [
         "section Application à l'industrie (2025-04-20) : « Une variation de 1% dans deltashell peut modifier Q de 0,1 MeV, impactant le taux de réaction. Si deltashell (4He) augmente de 2% et QD-T passe de 17,6 à 17,8 MeV » — déclaration de sensibilité chiffrée, cohérente en interne (2×0,1 = 0,2)",
         "chantier TRANSVERSALE / B1 (2026-09-17, 2e fournée) : le modèle gelé de la même page donne terme de couches 4He = a_shell·S(2,2) = 0,3×2 = 0,6 MeV → 1 % = 0,006 MeV — mu_loc = |0,1/0,006 − 1| = 1 566 % vs theta 2 % = S- a 783 theta ; la sensibilité déclarée impliquerait deltashell(4He) = 10 MeV, incompatible avec le modèle transcrit de la même page ; dette nommée : l'identification deltashell = a_shell·S est la lecture naturelle du texte unique mais non écrite explicitement ; attendu S+ non tenu",
         "tr_kzn_sensibilite",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_CONV4_MoyenneKi", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "pire des deux ecarts relatifs (moyenne des k(i), fraction dans [1;1,2]) vs declares (theta 2 % = calibration famille CONV4)", "—",
+        "« Convergences cosmologiques et noologiques IV » (2025-01-19) : « La moyenne des coefficients noologiques des nucléides est égale à 2^(1/12) » et « 80 % des nucléides possèdent un coefficient noologique compris entre 1 et 1,2 » — coefficient k(i) défini par le corpus (rapport des ANU d'un nucléide sur le précédent) ; DETTE DE FOUILLE BOUCLÉE : la « table isotopique complète Z=13-92 » (audit E44) est gelée (double transcription carte Crookes corpus + Occult Chemistry Gutenberg #16058, divergences arbitrées vers le livre et nommées)",
+        "chantier TRANSVERSALE / B2 (2026-09-17) : table complète Z=1-92 gelée (88 valeurs, Tc absent — chaîne sautée) — moyenne mesurée 1,0828 vs 2^(1/12) = 1,0595 (écart 2,20 %, portée par les 4 sauts légers H→He→Li→Be→B ; sans eux 1,0370, écart 2,12 % de l'autre côté) et fraction mesurée 92,2 % vs 80 % déclaré (écart relatif 15,3 %) — mu_loc = 15,28 % vs theta 2 % = S- a 7,6 theta ; 7 positions hors bande (Z=2,3,4,5,7,19,86) ; extras : fenêtre 1908 stricte Z≤59 (89,5 % / écart moyenne 5,85 %) ; le corpus SOUS-VEND sa propre table (92 % mesuré vs 80 % déclaré) ; attendu S+ (énoncé comme fait), non tenu",
+        "tr_conv4_moyenne_ki",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_CONV4_SeuilZ25", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "fraction de coefficients hors bande [1;1,2] dans Z=26..92 mesuree vs declaree (0) (theta 2 %)", "—",
+        "même source (2025-01-19) : « les nucléides se stabilisent à partir de l'intersection (Z=25 Manganèse)… il n'y a plus de variation significative des coefficients noologiques à partir de Z=25 » — contact de seuil, dépendance B2 levée par la table complète gelée",
+        "chantier TRANSVERSALE / B3 (2026-09-17) : sur 66 coefficients Z=26..92 (Tc sauté), un seul hors bande — Rn (Z=86, k = 3990/4032 = 0,990, anomalie actinide) — mu_loc = 1/66 = 1,52 % vs déclaré 0, theta 2 % = S+ TENU (0,76 theta) ; l'amplitude réelle au-delà de Z=25 est [0,990 ; 1,077] : la physique qualitative du corpus (saturation) tient, le seuil est bon à la violation Rn près ; dette nommée : « variation significative » sans seuil chiffré — calibre gelé = la bande [1 ; 1,2] du claim 80 % ; attendu S+",
+        "tr_conv4_seuil_z25",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_CONV4_Alcalins", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "ecart relatif max ln(Ei) mesure(NIST)<-ln(Ei) declare par la regression (-0,004 Z + 1,696) sur les 6 alcalins (theta 2 %)", "—",
+        "même source (2025-01-19) : « Pour les métaux alcalins Ei décroit avec Z… ln(Ei) = -0,004 Z + 1,696 » — régression déclarée à 2 paramètres, fenêtre nommée par le texte (les alcalins), sans budget de résidu déclaré (dette nommée)",
+        "chantier TRANSVERSALE / B4 (2026-09-17) : Li tient à 0,048 % (la droite passe quasi par Li), Na à 0,90 % — la dérive vient des lourds : K 9,38 % (pire ligne), Cs 7,91 %, Rb 7,47 %, Fr 4,00 % ; la pente -0,004 sous-estime la courbure du groupe (Ei décroît plus vite que logarithmique Na→Cs, remonte en Fr) — mu_loc = 9,38 % vs theta 2 % = S- a 4,7 theta ; Ei gelées NIST/CRC (Fr = 4,07274 eV valeur calculée) ; attendu S+ (le corpus énonce la régression comme quasi-linéaire), non tenu",
+        "tr_conv4_alcalins",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_MDA_SuiteStable", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "pire ecart relatif modele ajuste declare vs suite declaree sur 10 termes, pire des deux lectures de l'equation perdue (theta 2 %)", "—",
+        "« La Musique des Atomes (II) » (2025-02-26) : suite stable déclarée « 18, 72, 127, 164, 200, 216, 261, 290, 340, 360 » + modèle a_1.2^((n-1)/12) corrigé par h(n) = D1.sin(2πn/T1) + D2.sin(2πn/T2), paramètres déclarés « T1 = 10 ; D1 = 5 ; T2 = 5 et D2 = 3 », conclusion déclarée « le modèle ajusté est précis et cohérent avec les données fournies » — équation complète en image perdue (deux lectures gelées), ε non chiffré (gelé 0)",
+        "chantier TRANSVERSALE / B5 (2026-09-17) : les deux lectures échouent massivement — additive : écart max 93,3 % au terme 10 (progression pure 30,2 ANU vs Néon 360, h(n) d'amplitude ≤ 8 ne comble jamais un facteur ×12) ; multiplicative : écart 579 % dès le terme 1 (h(1) = 5,8 fait passer c_1 à 6,8) — mu_loc = 579 % vs theta 2 % = S- a 290 theta ; extra : le sous-claim « rapport moyen ≈ 2^(1/12) » sur la suite stable seule échoue aussi (1,5450, écart 45,8 % — le saut H→He l'empoisonne ; sans lui 16,9 %) ; dettes nommées : équation image perdue, ε non chiffré ; la conclusion pesée est un verbatim du corpus, pas une métaphore ; attendu S+ non tenu",
+        "tr_mda_suite_stable",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_ALPHA_DeltaANU", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "ecart relatif max point du graphe corpus vs loi declaree (1/alpha).Z^(-3/2) sur les comparaisons ayant un sens (theta 2 %)", "—",
+        "« La Constante ALPHA de Structure fine » (2022) : « deltaANU = (1/alpha).Z^(-3/2) » décrite comme « l'erreur relative de la place de chaque atome dans le tout » — DETTE CENTRALE NOMMÉE : la définition n'est pas opérationnelle dans le texte récupéré (équations OLE du docx perdues) ; pesée de cohérence INTERNE : loi déclarée vs les 31 points du graphe corpus ANU-2.JPG (transcription gelée pixel par pixel ±2 unités) — la machine ne pèse pas ce qu'elle ne sait pas figer",
+        "chantier TRANSVERSALE / B6 (2026-09-17) : le graphe du corpus contredit sa propre loi — écart relatif max Sc 167 % (3,8 vs 1,42), Li 150 % (66 vs 26,4) ; 13 violations absolues nommées (11 points négatifs où la loi est positive, de K −11,7 à Ge −1,2 ; Cu 2,0 et Ga 2,9 où la loi prédit déjà < 1) ; sur les 18 comparaisons relatives, rapports point/loi de 0,35 (D) à 2,5 (Li), des deux côtés de la courbe : aucune renormalisation ne répare — mu_loc = 167 % vs theta 2 % = S- a 83 theta ; la courbe verte du graphe coïncide pourtant visuellement avec 137.Z^(-3/2) : le corpus a tracé la loi et des points qui ne la suivent pas ; attendu S+ non tenu",
+        "tr_alpha_deltaanu",
         "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(

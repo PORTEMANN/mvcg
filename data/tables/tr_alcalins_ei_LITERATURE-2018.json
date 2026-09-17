@@ -1,0 +1,23 @@
+{
+ "id": "tr_alcalins_ei",
+ "vintage": "LITERATURE-2018",
+ "source": "Gelée pour le contact TR_CONV4_Alcalins (chantier TRANSVERSALE, 2026-09-17) : énergies de première ionisation Ei des six métaux alcalins (groupe 1, périodes 2-7), valeurs NIST/CRC standard (vintage LITERATURE-2018, même convention que les emprunts CODATA-2018 du dépôt) ; la fenêtre (les 6 alcalins) est celle que le texte du corpus décrit (« Pour les métaux alcalins Ei décroit avec Z… ln(Ei) = -0,004 Z + 1,696 », Convergences IV, 2025-01-19) sans la déclarer explicitement — dette nommée : fenêtre arbitrée par le groupe chimique, la régression du corpus n'a pas de budget de résidu déclaré ; Fr (Z=87) valeur calculée NIST (pas de mesure directe, élément radioactif)",
+ "doi_or_ref": "NIST Atomic Spectra Database / CRC Handbook of Chemistry and Physics (valeurs standard Ei, eV) ; déclaration du corpus : « ln(Ei) = -0,004 Z + 1,696 » (Convergences cosmologiques et noologiques IV, 2025-01-19)",
+ "species": "métaux alcalins Li, Na, K, Rb, Cs, Fr",
+ "quantity": "Ei premières ionisations gelées pour la régression déclarée ln(Ei) = -0,004 Z + 1,696",
+ "dimension": "eV",
+ "packet": "1",
+ "value": null,
+ "params": {
+  "regression_declaree": {"pente": -0.004, "ordonnee": 1.696},
+  "rows": [
+   [3, "Li", 5.39171],
+   [11, "Na", 5.13908],
+   [19, "K", 4.34066],
+   [37, "Rb", 4.17713],
+   [55, "Cs", 3.89391],
+   [87, "Fr", 4.07274]
+  ],
+  "notes_rows": "Fr = 4,07274 eV valeur calculée NIST (Z=87, radioactif) ; les cinq autres sont mesurées"
+ }
+}

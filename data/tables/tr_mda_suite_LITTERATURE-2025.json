@@ -1,0 +1,18 @@
+{
+ "id": "tr_mda_suite",
+ "vintage": "LITTERATURE-2025",
+ "source": "Gelée pour le contact TR_MDA_SuiteStable (chantier TRANSVERSALE, 2026-09-17) : transcription textuelle de « La Musique des Atomes (II) » (2025-02-26, histoire-des-sciences.eu) — suite déclarée des modules ANU « en enlevant les isotopes (Deutérium, Hélium-3, Méta-Néon…) » : « 18, 72, 127, 164, 200, 216, 261, 290, 340, 360, … » (10 premiers termes gelés, H..Ne — identiques à la table tr_anu_complet LITTERATURE-1908 Z=1..10, F=340 cohérent livre) ; modèle déclaré : progression géométrique de raison 2^(1/12) modulée par corrections périodiques h(n) = Σ D_k·sin(2πn/T_k), K=2, paramètres déclarés verbatim « T₁ = 10 ; D₁ = 5 ; T₂ = 5 et D₂ = 3 » ; conclusion déclarée : « Finalement, le modèle ajusté est précis et cohérent avec les données fournies. Il combine une progression géométrique modifiée par des corrections périodiques. » ; DETTES NOMMÉES : (1) l'équation complète du modèle (a_n = a_1·2^((n-1)/12)·c_n, c_n = h(n)+ε_n selon le texte) est une IMAGE non récupérée dans la version texte — deux lectures gelées et pesées : (a) additive h(n) en unités ANU, (b) multiplicative c_n = 1 + h(n) ; (2) ε_n non déclaré (distribution « uniforme ou normale », amplitude delta/sigma non chiffrée) — gelé ε=0 ; (3) l'article dit aussi « le rapport moyen entre deux termes consécutifs soit approximativement égal à 2^(1/12) » — sous-claim pesé en extra",
+ "doi_or_ref": "« La Musique des Atomes (II) », P. Portemann, 2025-02-26 : suite « 18, 72, 127, 164, 200, 216, 261, 290, 340, 360 » ; « Ajustement des paramètres : T1 = 10 ; D1 = 5 ; T2 = 5 et D2 = 3 » ; « le modèle ajusté est précis et cohérent avec les données fournies »",
+ "species": "suite stable des modules ANU (isotopes exclus), 10 premiers termes",
+ "quantity": "données gelées pour peser la cohérence du modèle ajusté déclaré",
+ "dimension": "1",
+ "packet": "1",
+ "value": null,
+ "params": {
+  "suite": [18, 72, 127, 164, 200, 216, 261, 290, 340, 360],
+  "raison_declaree": "2^(1/12)",
+  "h_n": "D1=5, T1=10, D2=3, T2=5 (sinus, K=2)",
+  "conclusion_declaree": "le modèle ajusté est précis et cohérent avec les données fournies",
+  "dettes": "équation image perdue (deux lectures pesées) ; ε non chiffré (gelé 0) ; a1 gelé 18"
+ }
+}
