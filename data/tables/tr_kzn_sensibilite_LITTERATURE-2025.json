@@ -1,0 +1,22 @@
+{
+  "id": "tr_kzn_sensibilite",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelée datée pour le chantier k(Z,N) (contact TR_KZN_SensibiliteShell, 2026-09-17) : déclarations verbatim de « Linéarisation du calcul de l'énergie de liaison par nucléon » (histoire-des-sciences.eu, 2025-04-20), section Application à l'industrie : « Une variation de 1% dans deltashell peut modifier Q de 0,1 MeV, impactant le taux de réaction. Si deltashell (4He) augmente de 2% et QD-T passe de 17,6 à 17,8 MeV. »",
+  "doi_or_ref": "corpus noétique, déclaration de sensibilité chiffrée ; identification gelée : « deltashell » = terme de couches du modèle k(Z,N) a_shell·S(Z,N) (le seul objet « shell » de l'article — dette nommée : le corpus n'écrit pas deltashell = a_shell·S, l'identification est la lecture naturelle du texte unique) ; paramètres du modèle gelés dans tr_kzn_modele_LITTERATURE-2025.json : a_shell = 0,3 MeV, S(2,2) = e^0 + e^0 = 2 (4He double magique Z=2, N=2) → terme de couches 4He = 0,6 MeV ; Q(D-T) gelé = 17,6 MeV (contact TR_KZN_FusionDT_Liaisons)",
+  "species": "sensibilité de la Q-value D-T à une variation du terme de couches de 4He",
+  "quantity": "valeurs gelées pour le contact TR_KZN_SensibiliteShell",
+  "dimension": "MeV",
+  "packet": "si",
+  "value": null,
+  "params": {
+    "sensibilite_declaree_MeV_par_pct": 0.1,
+    "variation_declaree_pct": 2.0,
+    "Q_initial_declare_MeV": 17.6,
+    "Q_final_declare_MeV": 17.8,
+    "a_shell_MeV": 0.3,
+    "S_4He": 2.0,
+    "termes_couches_4He_MeV": 0.6,
+    "note_rows": "déclaration : 1 % de deltashell → 0,1 MeV sur Q, et +2 % → Q passe 17,6 à 17,8 (cohérent en interne : 2×0,1 = 0,2) ; le modèle gelé donne terme de couches 4He = 0,3×2 = 0,6 MeV → 1 % = 0,006 MeV (facteur ~16,7 sous la déclaration) ; la sensibilité déclarée impliquerait deltashell(4He) = 10 MeV, incompatible avec le modèle transcrit de la même page — dette interne au corpus"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

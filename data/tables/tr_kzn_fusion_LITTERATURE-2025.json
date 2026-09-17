@@ -1,0 +1,31 @@
+{
+  "id": "tr_kzn_fusion",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelées datées pour le chantier k(Z,N) (contacts TR_KZN_FusionDT_Liaisons et TR_KZN_TableComparaison, 2026-09-17) : transcription verbatim de l'image « Énergies de liaison » (section Application à l'industrie, réaction D+T=>4He+n) et de l'image « Comparaison des Réactions » de « Linéarisation du calcul de l'énergie de liaison par nucléon » (histoire-des-sciences.eu, 2025-04-20).",
+  "doi_or_ref": "corpus noétique, déclarations chiffrées verbatim : « D (Z=1, N=1) : Elie ≈ 2,2 MeV (soit Elie/A ≈ 1,1 MeV) ; T (Z=1, N=2) : Elie ≈ 8,5 MeV (soit ≈ 2,8 MeV) ; 4He (Z=2, N=2) : Elie ≈ 28,3 MeV (soit ≈ 7,1 MeV) ; Q-value : Q = Elie(4He) − [Elie(D) + Elie(T)] = 28,3 − (2,2 + 8,5) = 17,6 MeV » ; table comparaison : « D+T 17,6 MeV ; D+D ~3,6 MeV ; p+11B 8,7 MeV » ; masses NUBASE2020 gelées (Kondev et al., Chin. Phys. C 45, 030001 (2021), nubase_1.mas20) : 2H Δ = 13135,722895 keV ; 3H Δ = 14949,81090 keV ; 3He Δ = 14931,21888 keV ; 4He Δ = 2424,91587 keV ; 11B Δ = 8667,708 keV ; 1H Δ = 7288,971064 keV ; n Δ = 8071,3181 keV ; constantes u, m(H), m(n) CODATA-2018 gelées",
+  "species": "énergies de liaison des noyaux de la filière fusion D-T et Q-values des réactions de fusion comparées",
+  "quantity": "valeurs gelées pour les contacts fusion du chantier k(Z,N)",
+  "dimension": "MeV",
+  "packet": "si",
+  "value": null,
+  "params": {
+    "u_MeV": 931.49410242,
+    "m_H_u": 1.00782503223,
+    "m_n_u": 1.00866491588,
+    "liaisons_declarees_MeV": [
+      ["D", 2, 1, 13135.722895, 2.2],
+      ["T", 3, 1, 14949.81090, 8.5],
+      ["4He", 4, 2, 2424.91587, 28.3]
+    ],
+    "Q_DT_declare_MeV": 17.6,
+    "table_comparaison_declare_MeV": [
+      ["D+T", 17.6],
+      ["D+D", 3.6],
+      ["p+11B", 8.7]
+    ],
+    "mex_annexes_keV": {"3He": 14931.21888, "11B": 8667.708, "1H": 7288.971064, "n": 8071.3181},
+    "note_rows": "D+D a DEUX canaux ouverts (3He+n et T+p) dont les Q-values NUBASE sont 3,269 et 4,033 MeV — le corpus déclare « ~3,6 » sans nommer le canal : DETTE NOMMÉE, la ligne est nommée en extra mais EXCLUE du mu_loc (la machine ne devine pas le canal) ; les lignes D+T et p+11B sont sans ambiguïté (canal unique : 3alpha pour p+11B)",
+    "E_sur_A_declare": {"D": 1.1, "T": 2.8, "4He": 7.1}
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

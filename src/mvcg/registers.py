@@ -2186,6 +2186,36 @@ def _tr_sn132_liaison() -> tuple[float, dict]:
     return tr_sn132_liaison()
 
 
+def _tr_kzn_grille() -> tuple[float, dict]:
+    from mvcg.transversale import tr_kzn_grille
+
+    return tr_kzn_grille()
+
+
+def _tr_kzn_fusion() -> tuple[float, dict]:
+    from mvcg.transversale import tr_kzn_fusion
+
+    return tr_kzn_fusion()
+
+
+def _tr_kzn_comparaison() -> tuple[float, dict]:
+    from mvcg.transversale import tr_kzn_comparaison
+
+    return tr_kzn_comparaison()
+
+
+def _tr_kzn_expq65() -> tuple[float, dict]:
+    from mvcg.transversale import tr_kzn_expq65
+
+    return tr_kzn_expq65()
+
+
+def _tr_kzn_sensibilite() -> tuple[float, dict]:
+    from mvcg.transversale import tr_kzn_sensibilite
+
+    return tr_kzn_sensibilite()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2339,6 +2369,11 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_alpha_proton_muon": _tr_alpha_proton_muon,
     "tr_b11_liaison": _tr_b11_liaison,
     "tr_sn132_liaison": _tr_sn132_liaison,
+    "tr_kzn_grille": _tr_kzn_grille,
+    "tr_kzn_fusion": _tr_kzn_fusion,
+    "tr_kzn_comparaison": _tr_kzn_comparaison,
+    "tr_kzn_expq65": _tr_kzn_expq65,
+    "tr_kzn_sensibilite": _tr_kzn_sensibilite,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3136,6 +3171,46 @@ CONTACTS: list[Contact] = [
         "même article (2025-04-20) : « 132Sn est favorisé par rapport à 133Sn car 8,40 MeV > 8,35 MeV » — déclaration à deux colonnes (deux énergies de liaison par nucléon) plus une inégalité (le corpus invoque la magie neutronique N=82 sans la nommer — dette nommée)",
         "chantier TRANSVERSALE (4e contact, 2026-09-17) : B/A(132Sn) = 8,354873 MeV vs 8,40 déclaré (écart 0,537 %, pire ligne) et B/A(133Sn) = 8,310089 MeV vs 8,35 (0,478 %) — mu_loc = 0,537 % vs theta 2 % (même calibration que B11, article unique) ; extra : l'inégalité déclarée est vraie côté NUBASE2020 (le 133e neutron quitte la couche magique N=82, moins lié de 45 keV/nucléon) — la physique qualitative du corpus tient, les valeurs arrondies tiennent à 0,54 % près ; attendu S+",
         "tr_sn132_liaison",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_Modele_Grille", "micro", "pred", "si", "MeV", "abs", 0.02,
+        0.0, "RMS relatif du modele k(Z,N) transcrit vs NUBASE2020 sur 235 noyaux stables (theta 2 % = calibration famille article)", "—",
+        "modèle k(Z,N) de « Linéarisation du calcul de l'énergie de liaison par nucléon » (2025-04-20), transcription gelée de l'image « Equations et calibrage » : El/A = -0,185.k(Z,N) + 8,090 + δ_pairing, k(Z,N) = -aC.Z²/A^{4/3} - aA.((N-Z)/A)² - aS.A^{-1/3} + a_shell.S(Z,N), paramètres recalibrés par morceaux (aC 0,25/0,7 ; aS 5/10/15 ; aA 18,0 ; a_shell 0,3 ; aP 3,0 MeV), revendication « gains computationnels jusqu'à un facteur 100 000 » vs DFT",
+        "chantier TRANSVERSALE / B1 k(Z,N) (5e contact, 2026-09-17) : pesée systématique sur le domaine déclaré du modèle (235 noyaux stables, 12 ≤ A ≤ 200, grille NUBASE2020 gelée, masses mesurées uniquement) — mu_loc = écart relatif RMS = 12,36 % (max 22,1 % en 12C 9,38 vs 7,68 MeV ; médiane 10,9 % ; seulement 3/235 lignes dans ±2 %) vs theta 2 % gelé = S- à 6,2 theta ; extras : le modèle ne reproduit pas ses propres exemples publiés (11B : 8,55 vs 6,8 déclaré, 25,7 % ; 132Sn : 9,46 vs 8,40 ; 133Sn : 9,22 vs 8,35) — deux jeux de coefficients cohabitent dans l'article (BW typique aV 15,8/aS 18/aC 0,72/asym 23,2 vs recalibré gelé) ; dettes nommées : signe ± du pairing non déclaré (gelé + pour pairs-pairs), couplage -0,185 non dérivé ; attendu S+ (le corpus présente le modèle comme donnant les valeurs d'énergie de liaison), non tenu — le prix en justesse du facteur 10⁵",
+        "tr_kzn_grille",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_FusionDT_Liaisons", "micro", "pred", "si", "MeV", "abs", 0.02,
+        0.0, "ecart relatif max des 3 liaisons D/T/4He + Q-value D-T recompute (theta 2 %)", "—",
+        "image « Énergies de liaison » (Application à l'industrie, 2025-04-20) : « D (Z=1, N=1) : Elie ≈ 2,2 MeV (soit Elie/A ≈ 1,1 MeV) ; T (Z=1, N=2) : Elie ≈ 8,5 MeV (soit ≈ 2,8 MeV) ; 4He (Z=2, N=2) : Elie ≈ 28,3 MeV (soit ≈ 7,1 MeV) ; Q-value : Q = Elie(4He) − [Elie(D) + Elie(T)] = 28,3 − (2,2 + 8,5) = 17,6 MeV » — données standard de la filière fusion citées en exemple",
+        "chantier TRANSVERSALE / B1 (2026-09-17, 2e fournée) : D 2,2246 MeV (écart 1,12 %, pire ligne — arrondi de vulgarisation à deux chiffres), T 8,4818 (0,21 %), 4He 28,2957 (0,015 %), Q_DT 17,589 (0,061 %) — NUBASE2020 gelé (excès de masse 2H/3H/4He transcrits de nubase_1.mas20) ; mu_loc = 1,12 % vs theta 2 % ; attendu S+ (le corpus cite des données standard), TENU — première fournée k(Z,N) verte ; la ligne D+D de la table comparaison a deux canaux non déclarés (dette nommée, contact jumeau TR_KZN_TableComparaison)",
+        "tr_kzn_fusion",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_TableComparaison", "micro", "pred", "si", "MeV", "abs", 0.02,
+        0.0, "ecart relatif max des lignes a canal unique (D+T, p+11B — D+D hors mu_loc, canal non declare)", "—",
+        "table « Comparaison des Réactions » (2025-04-20) : « D+T 17,6 MeV haut rendement énergétique / neutrons destructeurs ; D+D ~3,6 MeV combustible abondant / faible Q-value ; p+11B 8,7 MeV aneutronique peu de déchets / température extrême requise » — avantages/inconvénients non pesables (qualitatifs), Q-values oui",
+        "chantier TRANSVERSALE / B1 (2026-09-17, 2e fournée) : D+T 17,589 vs 17,6 déclaré (0,061 %), p+11B 8,682 vs 8,7 déclaré (0,208 %, pire ligne) — mu_loc = 0,208 % vs theta 2 % ; attendu S+ TENU ; la ligne D+D « ~3,6 » est indécidable : deux canaux ouverts NUBASE 3,269 (3He+n) et 4,033 (T+p) que le corpus ne déclare pas — la machine nomme la dette au lieu de choisir à la place du corpus (hors mu_loc, extra nommé)",
+        "tr_kzn_comparaison",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_ExpQ65", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "ecart relatif de l'exponentielle declaree vs recompute (chaine exp(-Q/kT), theta 2 %)", "—",
+        "image « Exemple chiffré dans une simulation galactique » (2025-04-20) : « Avec un facteur exponentiel pour Q = 6,5 MeV : exp(−6,5/0,086) ≈ exp(−75,6) ≈ 1,7×10⁻³³ » — chaîne arithmétique en deux étapes déclarées (rapport puis exponentielle)",
+        "chantier TRANSVERSALE / B1 (2026-09-17, 2e fournée) : étape 1 TIENT (6,5/0,086 = 75,581 → « 75,6 » arrondi, écart 0,025 %) ; étape 2 CASSE : exp(−75,581) = 1,498×10⁻³3 ≠ 1,7×10⁻³3 déclaré — mu_loc = 11,90 % vs theta 2 % = S- a 5,95 theta ; dette arithmétique interne au corpus (pendant PF5/LH_Bottom_Arith) : le taux neutronique est sous-estimé d'un facteur ~1,14 par la faute de calcul, pas par la physique ; la machine vérifie l'arithmétique déclarée, kT = 0,086 MeV pris tel que gelé ; attendu S+ non tenu",
+        "tr_kzn_expq65",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_KZN_SensibiliteShell", "micro", "pred", "si", "MeV", "abs", 0.02,
+        0.0, "ecart relatif de la sensibilite declaree (0,1 MeV/1 %) vs recomputee depuis le modele gele (0,006 MeV/1 %)", "—",
+        "section Application à l'industrie (2025-04-20) : « Une variation de 1% dans deltashell peut modifier Q de 0,1 MeV, impactant le taux de réaction. Si deltashell (4He) augmente de 2% et QD-T passe de 17,6 à 17,8 MeV » — déclaration de sensibilité chiffrée, cohérente en interne (2×0,1 = 0,2)",
+        "chantier TRANSVERSALE / B1 (2026-09-17, 2e fournée) : le modèle gelé de la même page donne terme de couches 4He = a_shell·S(2,2) = 0,3×2 = 0,6 MeV → 1 % = 0,006 MeV — mu_loc = |0,1/0,006 − 1| = 1 566 % vs theta 2 % = S- a 783 theta ; la sensibilité déclarée impliquerait deltashell(4He) = 10 MeV, incompatible avec le modèle transcrit de la même page ; dette nommée : l'identification deltashell = a_shell·S est la lecture naturelle du texte unique mais non écrite explicitement ; attendu S+ non tenu",
+        "tr_kzn_sensibilite",
         "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(

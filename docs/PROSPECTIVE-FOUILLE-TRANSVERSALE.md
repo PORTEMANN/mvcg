@@ -120,6 +120,59 @@ de ce gain, comme PF1/PF1b l'ont fait pour les couplages).
 Dette nommée d'office : coefficients « ajustés sur données
 expérimentales » — calibration déclarée, pas ontologie.
 
+**MONTÉ (2026-09-17)** — contact n° 107 `TR_KZN_Modele_Grille` :
+transcription gelée pixel par pixel de l'image « Equations et
+calibrage » (formule complète El/A = −0,185·k(Z,N) + 8,090 + δ_pairing,
+k(Z,N) avec dénominateur coulombien A^{4/3} **vérifié au zoom** — pas
+le A^{1/3} standard, terme surface A^{−1/3}, paramètres recalibrés par
+morceaux, S(Z,N) gaussienne σ² = 4 sur 7 nombres magiques) + grille
+NUBASE2020 gelée de 235 noyaux stables mesurés du domaine déclaré
+(12 ≤ A ≤ 200). **Verdict : S− à 6,18 θ — RMS 12,36 % (max 22,1 % en
+12C, médiane 10,9 %, 3/235 lignes dans ±2 %) vs θ = 2 % gelé
+(calibration famille article). Attendu S+ non tenu : le prix en
+justesse du facteur 10⁵.** Extra décisif : le modèle ne reproduit pas
+ses propres exemples publiés (11B : 8,55 vs 6,8 déclaré ; 132Sn : 9,46
+vs 8,40 ; 133Sn : 9,22 vs 8,35) — deux jeux de coefficients cohabitent
+dans l'article. Dettes nommées : signe ± du pairing non déclaré (gelé +
+pour pairs-pairs), couplage −0,185 non dérivé. Verrous :
+tests/test_transversale.py (TestKZNGrille). Suite du chantier B1 :
+images restantes (réseau réactionnel image3, Q = 6,5 MeV image9,
+fusion D-T image16, deltashell image18) et pesée par régime.
+
+**2e fournée MONTÉE (2026-09-17 soir)** — contacts 108-111 + extras
+régimes de la grille 107 :
+
+- **108 `TR_KZN_FusionDT_Liaisons`** (image « Énergies de liaison ») :
+  **S+ à 0,56 θ TENU** — D 2,2246 vs 2,2 (1,12 %, pire ligne), T 8,4818
+  vs 8,5, 4He 28,2957 vs 28,3, Q_DT 17,589 vs 17,6 (0,061 %). Première
+  fournée k(Z,N) verte : données standard citées correctement.
+- **109 `TR_KZN_TableComparaison`** (image « Comparaison des
+  Réactions ») : **S+ à 0,10 θ TENU** — D+T 0,061 %, p+11B 8,682 vs 8,7
+  (0,208 %). La ligne D+D « ~3,6 » a deux canaux ouverts NUBASE
+  (3,269 ³He+n ; 4,033 T+p) non déclarés par le corpus — **dette
+  nommée, hors mu_loc** (la machine ne devine pas le canal).
+- **110 `TR_KZN_ExpQ65`** (image « Exemple chiffré Q = 6,5 MeV ») :
+  **S− à 5,95 θ** — étape 1 tient (75,581 → « 75,6 », 0,025 %), étape 2
+  casse : exp(−75,581) = 1,498×10⁻³3 ≠ 1,7×10⁻³3 déclaré (11,90 %).
+  Dette arithmétique interne au corpus (pendant PF5).
+- **111 `TR_KZN_SensibiliteShell`** (texte « 1 % dans deltashell → 0,1
+  MeV ») : **S− à 783 θ** — le modèle gelé donne terme de couches 4He
+  = 0,3×S(2,2) = 0,6 MeV → 1 % = 0,006 MeV ; la déclaration implique
+  deltashell(4He) = 10 MeV, incompatible avec le modèle de la même
+  page. Dette nommée : identification deltashell = a_shell·S non écrite.
+- **Extras régimes de la grille 107** : RMS par bande — A<20 : 14,35 %
+  (n=8), 20≤A≤100 : **7,07 %** (n=98), A>100 : 15,08 % (n=129) : le
+  calage casse aux deux extrémités, tient le mieux en vallée. Verrous :
+  tests/test_transversale.py (TestKZNFusion, TestKZNComparaison,
+  TestKZNExpQ65, TestKZNSensibilite, TestKZNGrille.test_regimes).
+
+Le chantier B1 est épuisé côté déclarations chiffrées pesables de
+l'article (le réseau réactionnel image3 est une équation générique sans
+nombre ; image19 est un résumé qualitatif). Reste en perspective :
+pesée par sous-régimes fins (par Z parcouru, par distance aux nombres
+magiques) si la machine veut cartographier plus finement le résidu du
+calage.
+
 ### B2. CONV4-MoyenneKi — la moyenne 2^(1/12) et les 80 %
 
 Source : « Convergences IV », 2025-01-19 : « La moyenne des

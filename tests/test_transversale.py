@@ -21,6 +21,11 @@ from mvcg.transversale import (  # noqa: E402
     tr_alpha_proton_muon,
     tr_b11_liaison,
     tr_davies_trio,
+    tr_kzn_comparaison,
+    tr_kzn_expq65,
+    tr_kzn_fusion,
+    tr_kzn_grille,
+    tr_kzn_sensibilite,
     tr_sn132_liaison,
 )
 
@@ -143,6 +148,186 @@ class TestSn132Preference(unittest.TestCase):
         self.assertEqual(r["verdict"], "S+")
         self.assertFalse(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 0.005372251109505455,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestKZNGrille(unittest.TestCase):
+    def test_mu_gelé(self):
+        # mu_loc = écart relatif RMS du modèle k(Z,N) transcrit vs
+        # NUBASE2020 sur les 235 noyaux stables du domaine déclaré
+        # (12 ≤ A ≤ 200, grille gelée, masses mesurées) — 12,36 %.
+        self.assertAlmostEqual(tr_kzn_grille()[0],
+                               0.12356358712158289, delta=1e-15)
+        _, x = tr_kzn_grille()
+        self.assertEqual(x["n_lignes"], 235)
+        self.assertEqual(x["n_dans_2pct"], 3)
+        self.assertAlmostEqual(x["max_relatif"],
+                               0.2210438367430141, delta=1e-15)
+        self.assertAlmostEqual(x["mediane_relatif"],
+                               0.1094999098900542, delta=1e-15)
+        # pire noyau : 12C, modèle 9,378 vs NUBASE 7,680 MeV
+        self.assertEqual(x["pire_noyau"]["A"], 12)
+        self.assertEqual(x["pire_noyau"]["Z"], 6)
+        self.assertAlmostEqual(x["pire_noyau"]["ecart"],
+                               0.2210438367430141, delta=1e-15)
+
+    def test_regimes_ou_casse_le_calage(self):
+        # découpage par bande du domaine déclaré (les mêmes que les
+        # morceaux du modèle) : le calage casse aux deux extrémités,
+        # tient le mieux en vallée.
+        _, x = tr_kzn_grille()
+        r = x["regimes"]
+        self.assertEqual(r["A<20"]["n"], 8)
+        self.assertEqual(r["20<=A<=100"]["n"], 98)
+        self.assertEqual(r["A>100"]["n"], 129)
+        self.assertAlmostEqual(r["A<20"]["rms_relatif"],
+                               0.1434846556617462, delta=1e-12)
+        self.assertAlmostEqual(r["20<=A<=100"]["rms_relatif"],
+                               0.07073463654191978, delta=1e-12)
+        self.assertAlmostEqual(r["A>100"]["rms_relatif"],
+                               0.1507844022815636, delta=1e-12)
+        self.assertLess(r["20<=A<=100"]["rms_relatif"],
+                        r["A<20"]["rms_relatif"])
+        self.assertLess(r["20<=A<=100"]["rms_relatif"],
+                        r["A>100"]["rms_relatif"])
+
+    def test_modele_ne_se_reproduit_pas_lui_meme(self):
+        # extras : le modèle ne reproduit pas ses propres exemples
+        # publiés par le corpus (même article).
+        _, x = tr_kzn_grille()
+        ex = x["exemples_corpus_recomputes"]
+        self.assertAlmostEqual(ex["11B"]["modele"],
+                               8.547572258645268, delta=1e-12)
+        self.assertAlmostEqual(ex["11B"]["ecart"],
+                               0.25699592038901, delta=1e-12)
+        self.assertAlmostEqual(ex["132Sn"]["modele"],
+                               9.462530996228681, delta=1e-12)
+        self.assertAlmostEqual(ex["133Sn"]["modele"],
+                               9.216803252057836, delta=1e-12)
+
+    def test_attendu_splus_non_tenu(self):
+        # attendu gelé S+ (le corpus présente le modèle comme donnant
+        # les énergies de liaison sur son domaine) ; le run : RMS
+        # 12,36 % vs theta 2 % -> S- a 6,18 theta — le prix en justesse
+        # du facteur 10⁵ revendiqué.
+        r = _contact("TR_KZN_Modele_Grille")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.12356358712158289,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestKZNFusion(unittest.TestCase):
+    def test_mu_gelé(self):
+        # mu_loc = écart relatif maximal des trois liaisons et de la
+        # Q-value D-T recompute — la ligne D est la pire (1,12 %).
+        self.assertAlmostEqual(tr_kzn_fusion()[0],
+                               0.011166599398620747, delta=1e-15)
+        _, x = tr_kzn_fusion()
+        self.assertEqual(x["pire_ligne"], "D")
+        self.assertAlmostEqual(x["liaisons"]["D"]["nubase"],
+                               2.2245665186769656, delta=1e-12)
+        self.assertAlmostEqual(x["liaisons"]["T"]["nubase"],
+                               8.481796553861841, delta=1e-12)
+        self.assertAlmostEqual(x["liaisons"]["4He"]["nubase"],
+                               28.295662957354125, delta=1e-12)
+        self.assertAlmostEqual(x["Q_DT"]["nubase"],
+                               17.58929988481532, delta=1e-12)
+        self.assertAlmostEqual(x["Q_DT"]["ecart"],
+                               0.0006079610900387999, delta=1e-15)
+        # D+D : deux canaux, dette nommée, hors mu_loc
+        self.assertAlmostEqual(x["D+D_deux_canaux"]["3He+n"],
+                               3.268908809999857, delta=1e-12)
+        self.assertAlmostEqual(x["D+D_deux_canaux"]["T+p"],
+                               4.032663825999407, delta=1e-12)
+
+    def test_attendu_splus_tenu(self):
+        # première fournée k(Z,N) verte : données standard citées
+        # correctement (pire 1,12 % vs theta 2 %).
+        r = _contact("TR_KZN_FusionDT_Liaisons")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S+")
+        self.assertFalse(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.011166599398620747,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestKZNComparaison(unittest.TestCase):
+    def test_mu_gelé(self):
+        # mu_loc = écart relatif max des lignes à canal unique —
+        # p+11B est la pire (0,208 %).
+        self.assertAlmostEqual(tr_kzn_comparaison()[0],
+                               0.0020768087938919377, delta=1e-15)
+        _, x = tr_kzn_comparaison()
+        self.assertEqual(x["pire_ligne"], "p+11B")
+        self.assertAlmostEqual(x["comparaison"]["D+T"]["ecart"],
+                               0.0006079610900387999, delta=1e-15)
+        self.assertAlmostEqual(x["comparaison"]["p+11B"]["nubase"],
+                               8.68193176349314, delta=1e-12)
+
+    def test_attendu_splus_tenu(self):
+        r = _contact("TR_KZN_TableComparaison")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S+")
+        self.assertFalse(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.0020768087938919377,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestKZNExpQ65(unittest.TestCase):
+    def test_mu_gelé(self):
+        # étape 1 (rapport) tient à 0,025 % ; étape 2 (exponentielle)
+        # casse à 11,90 % — dette arithmétique interne au corpus.
+        self.assertAlmostEqual(tr_kzn_expq65()[0],
+                               0.11901575042118973, delta=1e-15)
+        _, x = tr_kzn_expq65()
+        self.assertEqual(x["pire_etape"], "exponentielle")
+        self.assertAlmostEqual(x["rapport_recompute"],
+                               75.58139534883722, delta=1e-12)
+        self.assertAlmostEqual(x["ecart_rapport"],
+                               0.0002460932693488793, delta=1e-15)
+        self.assertAlmostEqual(x["exponentielle_recompute"],
+                               1.4976732242839775e-33, delta=1e-45)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_KZN_ExpQ65")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.11901575042118973,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestKZNSensibilite(unittest.TestCase):
+    def test_mu_gelé(self):
+        # sensibilité déclarée 0,1 MeV/1 % vs modèle gelé 0,006 MeV/1 %
+        # (terme de couches 4He = 0,3×S(2,2) = 0,6 MeV) — le delta
+        # shell impliqué par la déclaration serait 10 MeV.
+        self.assertAlmostEqual(tr_kzn_sensibilite()[0],
+                               15.666666666666668, delta=1e-15)
+        _, x = tr_kzn_sensibilite()
+        self.assertAlmostEqual(x["sensibilite_recompute_MeV_par_pct"],
+                               0.006, delta=1e-15)
+        self.assertAlmostEqual(x["terme_couches_4He_MeV"],
+                               0.6, delta=1e-15)
+        self.assertAlmostEqual(x["delta_shell_implique_MeV"],
+                               10.0, delta=1e-12)
+        self.assertAlmostEqual(x["Q_final_recompute_MeV"],
+                               17.612000000000002, delta=1e-12)
+        self.assertAlmostEqual(x["Q_final_declare_MeV"], 17.8, delta=1e-12)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_KZN_SensibiliteShell")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 15.666666666666668,
                                delta=1e-15)
         self.assertIsNone(r["units_kill"])
 

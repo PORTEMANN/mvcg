@@ -1,0 +1,21 @@
+{
+  "id": "tr_kzn_expq65",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelée datée pour le chantier k(Z,N) (contact TR_KZN_ExpQ65, 2026-09-17) : transcription verbatim de l'image « Exemple chiffré dans une simulation galactique » de « Linéarisation du calcul de l'énergie de liaison par nucléon » (histoire-des-sciences.eu, 2025-04-20) : « Avec un facteur exponentiel pour Q = 6,5 MeV : exp(−6,5/0,086) ≈ exp(−75,6) ≈ 1,7×10⁻³³ ».",
+  "doi_or_ref": "corpus noétique, chaîne arithmétique déclarée en deux étapes (rapport puis exponentielle) ; contexte : taux de réaction neutronique exp(−Q/kT) avec Q = 6,5 MeV et kT = 0,086 MeV (T ≈ 10⁹ K, texte « la température influence les taux via exp(−Q/kBT) ») ; la pesée est purement arithmétique (la machine vérifie le calcul déclaré, pas la physique — même grammaire que PF3/PF7)",
+  "species": "facteur de Boltzmann du taux de capture neutronique déclaré par le corpus",
+  "quantity": "valeurs gelées pour le contact TR_KZN_ExpQ65",
+  "dimension": "1",
+  "packet": "1",
+  "value": null,
+  "params": {
+    "Q_MeV": 6.5,
+    "kT_MeV": 0.086,
+    "etapes_declarees": [
+      ["rapport_Q_sur_kT", 75.6],
+      ["exponentielle", 1.7e-33]
+    ],
+    "note_rows": "le rapport 6,5/0,086 = 75,581 tient l'arrondi à 75,6 (écart 0,025 %) ; l'exponentielle exp(−75,581) = 1,498×10⁻³3 NE vaut pas 1,7×10⁻³3 (écart ~11,9 %) — dette arithmétique interne au corpus, pendant de PF5/LH_Bottom_Arith dans le même registre"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}

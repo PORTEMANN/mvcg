@@ -1,0 +1,29 @@
+{
+  "id": "tr_kzn_modele",
+  "vintage": "LITTERATURE-2025",
+  "source": "Transcription gelée des images de l'article « Linéarisation du calcul de l'énergie de liaison par nucléon » (histoire-des-sciences.eu, 2025-04-20) pour le chantier k(Z,N) (contact TR_KZN_Modele_Grille, 2026-09-17) : image « Equations et calibrage du modèle k(Z,N) » (formule complète + table « Paramètres Recalibrés » + fonction de couches + domaine d'application).",
+  "doi_or_ref": "corpus noétique, transcription verbatim pixel par pixel vérifiée (zooms contrôlés) — les valeurs typiques Bethe-Weizsäcker citées par le corpus lui-même dans l'image de présentation : aV ≈ 15,8 MeV, aS ≈ 18,0 MeV, aC ≈ 0,72 MeV, a_sym ≈ 23,2 MeV ; dettes nommées : (1) le modèle linéarisé recalibre aC/aS par morceaux et aA = 18,0 MeV (le corpus note « Proche de Bethe-Weizsäcker (aA ≈ 23,2 MeV) ») — deux jeux de coefficients cohabitent dans l'article, celui gelé ici est celui de la « Formule Complète » ; (2) δ_pairing s'écrit « ± aP/A^{1/2} » sans règle de signe pour impairs — gelé +aP/sqrt(A) pour pairs-pairs, 0 sinon (lecture minimale du texte « pour les noyaux pairs-pairs ») ; (3) le couplage -0,185 et l'offset 8,090 ne sont pas dérivés dans l'article (régression déclarée, coefficients non montrés)",
+  "species": "modèle k(Z,N) linéarisé : énergie de liaison par nucléon El/A = -0,185.k(Z,N) + 8,090 + δ_pairing",
+  "quantity": "paramètres gelés pour la pesée systématique vs NUBASE2020",
+  "dimension": "MeV",
+  "packet": "si",
+  "value": null,
+  "params": {
+    "pente": -0.185,
+    "offset": 8.090,
+    "aA_MeV": 18.0,
+    "aC_MeV": {"Z<20": 0.25, "Z>=20": 0.7},
+    "aS_MeV": {"A<20": 5.0, "20<=A<=100": 10.0, "A>100": 15.0},
+    "a_shell_MeV": 0.3,
+    "aP_MeV": 3.0,
+    "sigma2_couches": 4.0,
+    "magics": [2, 8, 20, 28, 50, 82, 126],
+    "kZN": "k(Z,N) = -aC.Z^2/A^{4/3} - aA.((N-Z)/A)^2 - aS.A^{-1/3} + a_shell.S(Z,N)  (denominateur coulombien A^{4/3} VERIFIE au zoom — pas le A^{1/3} standard ; terme surface A^{-1/3})",
+    "SZN": "S(Z,N) = somme sur Z_magic exp(-(Z-Z_magic)^2/4) + somme sur N_magic exp(-(N-N_magic)^2/4)",
+    "pairing": "delta_pairing = +aP/sqrt(A) si Z ET N pairs, 0 sinon (lecture gelée, dette (2) nommée)",
+    "domaine_declare": "Noyaux stables (12 ≤ A ≤ 200) ; noyaux exotiques N/Z >> 1 ; noyaux magiques",
+    "revendication": "gains computationnels jusqu'a un facteur 100 000 vs DFT (image de présentation) ; la machine pèse le PRIX EN JUSTESSE de ce gain (prospective B1)",
+    "note_rows": "formule complète telle qu'imprimée : El/A = -0,185.k(Z,N) + 8,090 + δ_pairing ; table « Paramètres Recalibrés » : Coulombien aC 0,25 (Z<20) / 0,7 (Z≥20) MeV « Adapté aux noyaux lourds » ; Asymétrie aA 18,0 MeV « Pénalise l'excès de neutrons » ; Surface aS 5 (A<20) / 10 (20≤A≤100) / 15 (A>100) MeV « Segmentation par taille » ; Couches a_shell 0,3 MeV « Gaussiennes autour des nombres magiques » ; Appariement aP 3,0 MeV « Stabilise les noyaux pairs-pairs »"
+  },
+  "sha256_note": "figer ce fichier ; changer params = autre D"
+}
