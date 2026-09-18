@@ -2258,6 +2258,30 @@ def _tr_pred23_edm() -> tuple[float, dict]:
     return tr_pred23_edm()
 
 
+def _tr_electron_h_assemblage() -> tuple[float, dict]:
+    from mvcg.transversale import tr_electron_h_assemblage
+
+    return tr_electron_h_assemblage()
+
+
+def _tr_electron_masse_uud() -> tuple[float, dict]:
+    from mvcg.transversale import tr_electron_masse_uud
+
+    return tr_electron_masse_uud()
+
+
+def _tr_electron_bilan_argile() -> tuple[float, dict]:
+    from mvcg.transversale import tr_electron_bilan_argile
+
+    return tr_electron_bilan_argile()
+
+
+def _tr_electron_modele_lineaire() -> tuple[float, dict]:
+    from mvcg.transversale import tr_electron_modele_lineaire
+
+    return tr_electron_modele_lineaire()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2423,6 +2447,10 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_alpha_deltaanu": _tr_alpha_deltaanu,
     "tr_tov_sn195pt": _tr_tov_sn195pt,
     "tr_pred23_edm": _tr_pred23_edm,
+    "tr_electron_h_assemblage": _tr_electron_h_assemblage,
+    "tr_electron_masse_uud": _tr_electron_masse_uud,
+    "tr_electron_bilan_argile": _tr_electron_bilan_argile,
+    "tr_electron_modele_lineaire": _tr_electron_modele_lineaire,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3316,6 +3344,38 @@ CONTACTS: list[Contact] = [
         "index portemann.eu, PRED-23 (statut « en cours ») : « Moment dipolaire électrique du neutron : d_n < 3×10⁻²⁶ e·cm » — GRAMMAIRE DU PLAFOND DECLAREE AVANT LE RUN : pour une borne superieure presentee comme l'etat de l'art, mu_loc = B_decl/B_best − 1 (retard de veille), B_best = meilleure borne publiee gelee (Abel 2020, nEDM@PSI, 1,8×10⁻²⁶ e·cm, 90 % CL) ; la borne du corpus coincide EXACTEMENT avec Pendlebury 2015 (3,0×10⁻²⁶, 90 % CL, PRD 92, 092003) — veille figee d'avant 2020",
         "chantier TRANSVERSALE / PRED-23 (2026-09-18) : mu_loc = 3,0/1,8 − 1 = 66,7 % de retard sur la frontiere (meilleure borne Abel 2020 confirmee 2025-2026 par la collaboration n2EDM) — S- a 6,7 theta ; la borne reste VRAIE physiquement (le monde la satisfait : 1,8 < 3,0), c'est son statut de veille « en cours » qui casse : le corpus n'a pas integre Abel 2020 ; n2EDM phase 1 vise le bas du 10⁻²⁷ e·cm d'ici fin 2026 (noté, hors mu) ; attendu S+ non tenu",
         "tr_pred23_edm",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_ELECTRON_AssemblageH", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "charge nette assemblage H+ (lecture unitaire)<-+1 e de l'ion H+", "—",
+        "série « Electron » Part. 1/2 (décembre 2020) : H = 18 ANU (9+ / 9−) ; H+ = 18 ANU (10+ / 8−) — DETTE CENTRALE NOMMÉE : le quantum de charge de l'ANU n'est déclaré nulle part ; toutes les sommes d'assemblage tiennent (extras) ; la machine pèse la lecture naturelle à quantum unité (H neutre 9−9=0 ✓), la lecture ±e/2 qui rend H+ = +1 ✓ est gelée en extra et DISSOUT le S− (même motif que B6)",
+        "chantier ÉLECTRON / E1 (2026-09-18) : charge nette unitaire de l'assemblage H+ déclaré = 10 − 8 = +2 e vs +1 e de l'ion H+ que le corpus invoque (« sans perte d'électron ») — écart 100 % = S- à 50 theta ; lecture ±e/2 : +1 ✓ (escape nommée, quantum indéclaré par le corpus) ; attendu S+ non tenu",
+        "tr_electron_h_assemblage",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_ELECTRON_MasseUUD", "micro", "pred", "si", "MeV", "abs", 0.02,
+        0.0, "m_uud (Part.3)<-9,4 MeV/c² déclaré", "—",
+        "série « Electron » : Part. 3 déclare « m_p = 938 MeV/c² >> m_uud = 9,4 MeV/c² » ; Part. 1 déclare u = 2,01 et d = 4,79 MeV/c² → u+u+d = 8,81 MeV — tension INTERNE à la série (trois jours d'intervalle), dette de DATATION nommée (vintage implicite différent, non signalé ; PDG non utilisé, pesée purement interne)",
+        "chantier ÉLECTRON / E2 (2026-09-18) : 2×2,01 + 4,79 = 8,81 MeV vs 9,4 MeV déclaré Part. 3 — écart 6,70 % = S- à 3,35 theta ; les pourcentages du proton de la Part. 1 tiennent (2,01/938 = 0,214 %, 4,79/938 = 0,510 %, extras) ; attendu S+ non tenu",
+        "tr_electron_masse_uud",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_ELECTRON_BilanArgile", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "bilan charge couche tétraédrique<-−1 déclaré", "—",
+        "« Electron – Part. 4 » (17 décembre 2020) : « Le bilan des charges électriques (+) et (-) n'est pas neutre : 4 + 3x(-2)/2 + 2 = -1 » — grammaire PF5 : la machine recompute l'équation TELLE QU'ÉCRITE ; dette d'écriture (coquille de signe sur le dernier terme : l'O²⁻ non partagé est −2, pas +2) ; le bilan physique −1 est le bilan standard juste ; dette adjacente nommée non pesée : bilan octaédrique « +1 » confus sans référence figée",
+        "chantier ÉLECTRON / E3 (2026-09-18) : l'équation déclarée recomptée telle qu'écrite donne +3 (4 − 3 + 2), non −1 — écart 400 % = S- à 200 theta ; lecture corrigée (dernier terme −2) : −1 ✓, escape nommée ; même famille que PF5 / LH_Bottom_Arith / TR_KZN_ExpQ65 (dettes arithmétiques internes) ; attendu S+ non tenu",
+        "tr_electron_bilan_argile",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_ELECTRON_ModeleLineaire", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "ANU modèle 46,9Z−151,2<-ancres déclarées du même article", "—",
+        "« Electron – Part. 5 » (21 décembre 2020) : « ANU = 46,9 Z – 151,2 » déclaré proportionnel, ancres du même article H 18 / He 72 / Li 127 / Be 164 / B 200 / C 216 (cohérentes avec la table ANU 1908 gelée) ; hedge du corpus (« dans un premier temps ») nommé ; isotopes indistinguables en Z (He(3) 54) nommé ; DOCUMENT SOURCE des claims déjà pesés LH_Anu_Gamme/B2 (moyenne 1,059 ≈ 2^{1/12}) et B6 (137 x^{−3/2}) — non re-pesés",
+        "chantier ÉLECTRON / E4 (2026-09-18) : le modèle ne reproduit AUCUNE des six ancres du même article (Z=1 : −104,3 vs 18, pire écart 679 % ; comptages négatifs jusqu'à Z ≤ 3) — S- à 340 theta ; régime lourd : Z=82 → 3694,6 vs 3727 gelé, écart 0,87 % — le corpus ajuste l'extrémité lourde et perd la légère, motif inverse du modèle k(Z,N) du chantier B1 ; attendu S+ (hedge « premier temps ») non tenu",
+        "tr_electron_modele_lineaire",
         "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(

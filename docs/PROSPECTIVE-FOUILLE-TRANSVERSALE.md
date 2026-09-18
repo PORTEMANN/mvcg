@@ -278,6 +278,45 @@ limite (0,76 θ, juste sous le seuil).
   assemblages H (9+/9−) et H+ (10+/8−) — vérifiable mais trivial ;
   échelles 10⁻³⁰…10⁻¹⁹ m — ordres de grandeur standard. Rendement
   faible, à ne creuser que si les séries A/B s'épuisent.
+
+  **PESÉE (2026-09-18)** — la série lue en entier s'avère plus riche
+  que son résumé : c'est le **document source** des claims déjà pesés
+  LH_Anu_Gamme/B2 (moyenne des rapports = 1,059 ≈ 2^{1/12}) et B6
+  (courbe d'erreur 137 x^{−3/2}) — non re-pesés. Quatre contacts neufs
+  montés, **4 S−, 0 S+** : la série est moins « triviale » que prévu,
+  elle est **défaillante** sur ses déclarations chiffrées propres.
+
+  - **E1 → contact 119 `TR_ELECTRON_AssemblageH` : S− à 50 θ** — toutes
+    les sommes d'assemblage tiennent (extras), mais la charge nette de
+    l'ion H+ déclaré (10 ANU+ / 8 ANU−) vaut +2 e sous la lecture
+    naturelle à quantum unité, double du +1 e de l'ion ; DETTE
+    CENTRALE : le quantum de charge de l'ANU n'est déclaré nulle part —
+    la lecture ±e/2 dissout le S− (escape nommée, motif B6).
+  - **E2 → contact 120 `TR_ELECTRON_MasseUUD` : S− à 3,35 θ** —
+    tension interne : m_uud = 9,4 MeV (Part. 3) vs 2×2,01 + 4,79 =
+    8,81 MeV (Part. 1), trois jours d'intervalle ; dette de datation
+    nommée. **Rouge de bord** (fenêtre [2, 4) — population remontée
+    6 → 7).
+  - **E3 → contact 121 `TR_ELECTRON_BilanArgile` : S− à 200 θ** —
+    l'équation « 4 + 3×(−2)/2 + 2 = −1 » recomptée telle qu'écrite donne
+    +3 : coquille de signe (le bilan −1 est juste avec le dernier terme
+    −2) ; famille PF5/LH_Bottom_Arith. Dette adjacente non pesée : le
+    bilan octaédrique « +1 » est confus sans référence figée.
+  - **E4 → contact 122 `TR_ELECTRON_ModeleLineaire` : S− à 340 θ** —
+    « ANU = 46,9 Z − 151,2 » ne reproduit AUCUNE des six ancres que le
+    même article publie (comptages négatifs jusqu'à Z ≤ 3) ; régime
+    lourd Z=82 : 0,87 % (le corpus ajuste l'extrémité lourde, perd la
+    légère — motif inverse du modèle k(Z,N) B1) ; hedge « dans un
+    premier temps » nommé ; ancres cohérentes avec la table ANU 1908
+    gelée (18/72/127/164/200/216 ✓).
+
+  Non pesé dans la série (dettes nommées ou rendement nul) : les
+  échelles 10³⁰…10⁻¹⁹ m (ordres de grandeur standard), m_p/m_e = 1836
+  (0,008 % — S+ trivial, gelé en extra de la table E1), solides de
+  Platon et symétries (tout tient), volume atome/noyau 10⁵, glace Ih
+  (a₀ 4,5 Å / c₀ 7,34 Å — standard), adenovirus (720 monomères —
+  standard), bilan octaédrique « +1 » (confus), modèle non linéaire /
+  gamme / deltaANU (déjà pesés B2/LH/B6).
 - **Musique des Atomes (II), volet métaphorique** : le mappage
   Z mod 12 → note est qualitatif (le corpus le dit lui-même) :
   rien à peser hors B5.

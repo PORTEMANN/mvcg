@@ -1,0 +1,28 @@
+{
+  "id": "tr_electron_h_assemblage",
+  "vintage": "LITTERATURE-2020",
+  "source": "Gelée datée pour le chantier ÉLECTRON (contact TR_ELECTRON_AssemblageH, 2026-09-18) : déclarations verbatim de la série « Electron » (histoire-des-sciences.eu, décembre 2020). Part. 1 : « Pour l'atome d'hydrogène, il y a 18 atomes ultimes, 9+ et 9- » ; « l'ion H+ possède en chimie occulte, 10 atomes ultimes de charge (+) et 8 atomes ultimes de charges (-). Il n'y a pas de perte d'électron pour expliquer la charge électrique de l'ion H+, il n'y a pas de particule en moins. » ; « la notion de charge est validée en chimie occulte ». Part. 2 : H : « (+-+)(-+-)(++-)//(++-)(-+)(-+) = (5+4-)//(4+5-) = 9 ANU+ et 9 ANU- » ; H+ : « (+-+)(-+-)(+++)//(++-)(-+)(-+) = (6+3-)//(4+5-) = 10 ANU+ et 8 ANU- ».",
+  "doi_or_ref": "corpus noétique (série Electron, décembre 2020) ; référence de charge : l'ion H+ = proton de charge +1 e (définition du symbole H+ utilisé par le corpus lui-même : « la science fait disparaître l'électron » entre H et H+, l'électron portant −1 e)",
+  "species": "assemblages d'atomes ultimes (ANU) de l'hydrogène neutre H et de l'ion H+",
+  "quantity": "cohérence de la charge déclarée de l'assemblage H+ (10 ANU+ / 8 ANU−) avec la charge +1 de l'ion H+",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "H": {"anu_plus": 9, "anu_moins": 9, "total": 18,
+           "assemblage": "(5+4-)//(4+5-)",
+           "assemblage_note": "transcription gelée Part. 2 — sommes 5+4=9 et 4+5=9, cohérentes"},
+    "H_plus": {"anu_plus": 10, "anu_moins": 8, "total": 18,
+                "assemblage": "(6+3-)//(4+5-)", "assemblage_note": "sommes 6+3=9 et 4+5=9, cohérentes ; le passage (6+3-) du premier triangle résulte de l'inversion de polarité d'un ANU (−) déclarée par le corpus"},
+    "charge_ion_Hplus_en_e": 1.0,
+    "theta": 0.02,
+    "theta_justification": "déclarations en nombres entiers exacts (comptages) : theta 2 % = tolérance de lecture stricte (même grammaire que TR_KZN_ExpQ65, calibration famille article)"
+  },
+  "value": {
+    "sommes_verifiees": "5+4=9, 4+5=9, 9+9=18, 6+3=9, 10+8=18 — TOUTES les sommes déclarées tiennent (extras du runner)",
+    "charge_nette_lecture_unitaire": "n+ − n− : H = 0 (neutre ✓) ; H+ = +2 — sous lecture naturelle à quantum unité (chaque ANU porte ±1 e), la charge de l'assemblage H+ vaut +2 e, double de la charge +1 e de l'ion H+",
+    "charge_nette_lecture_demi": "si chaque ANU porte ±e/2 : H+ = +1 ✓ — lecture ALTERNATIVE gelée, sans support textuel dans le corpus",
+    "dette_centrale": "le quantum de charge de l'ANU N'EST PAS déclaré par le corpus — la machine ne devine pas : mu_loc est calculé sous la lecture unitaire (naturelle, unique comptage en charges entières), la lecture ±e/2 est nommée en extra et DISSOUT le S-",
+    "mu_loc_attendu": 1.0
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_electron_h_assemblage (src/mvcg/transversale.py)"
+}

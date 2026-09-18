@@ -24,6 +24,10 @@ from mvcg.transversale import (  # noqa: E402
     tr_conv4_alcalins,
     tr_conv4_moyenne_ki,
     tr_conv4_seuil_z25,
+    tr_electron_bilan_argile,
+    tr_electron_h_assemblage,
+    tr_electron_masse_uud,
+    tr_electron_modele_lineaire,
     tr_davies_trio,
     tr_kzn_comparaison,
     tr_kzn_expq65,
@@ -502,4 +506,91 @@ class TestPRED23EDMNeutron(unittest.TestCase):
         self.assertTrue(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 0.6666666666666667,
                                delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestElectronAssemblageH(unittest.TestCase):
+    def test_mu_gelé(self):
+        # E1 : charge nette unitaire de l'assemblage H+ déclaré
+        # (10 ANU+ / 8 ANU−) = +2 e vs +1 e de l'ion H+ — écart 100 % ;
+        # lecture ±e/2 : +1 ✓ (escape nommée, quantum indéclaré).
+        self.assertAlmostEqual(tr_electron_h_assemblage()[0], 1.0,
+                               delta=1e-15)
+        _, x = tr_electron_h_assemblage()
+        self.assertTrue(x["sommes_tiennent"])
+        self.assertEqual(x["charge_nette_H_unitaire"], 0)
+        self.assertEqual(x["charge_nette_Hplus_unitaire"], 2)
+        self.assertAlmostEqual(x["charge_nette_Hplus_demi"], 1.0)
+        self.assertAlmostEqual(x["mu_lecture_demi"], 0.0, delta=1e-15)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_ELECTRON_AssemblageH")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 1.0, delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestElectronMasseUUD(unittest.TestCase):
+    def test_mu_gelé(self):
+        # E2 : m_uud = 9,4 MeV (Part. 3) vs 2×2,01 + 4,79 = 8,81 MeV
+        # (Part. 1) — tension interne 6,70 %.
+        self.assertAlmostEqual(tr_electron_masse_uud()[0],
+                               0.06696935300794582, delta=1e-15)
+        _, x = tr_electron_masse_uud()
+        self.assertAlmostEqual(x["somme_Part1_MeV"], 8.81, delta=1e-12)
+        self.assertEqual(x["m_uud_declare_MeV"], 9.4)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_ELECTRON_MasseUUD")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.06696935300794582,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestElectronBilanArgile(unittest.TestCase):
+    def test_mu_gelé(self):
+        # E3 : « 4 + 3x(-2)/2 + 2 = -1 » recomptée telle qu'écrite =
+        # +3 — écart 400 % ; lecture corrigée (dernier terme −2) : −1 ✓.
+        self.assertAlmostEqual(tr_electron_bilan_argile()[0], 4.0,
+                               delta=1e-15)
+        _, x = tr_electron_bilan_argile()
+        self.assertAlmostEqual(x["somme_ecrite_recompute"], 3.0)
+        self.assertEqual(x["resultat_declare"], -1.0)
+        self.assertAlmostEqual(x["somme_corrigee_lecture"], -1.0)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_ELECTRON_BilanArgile")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 4.0, delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestElectronModeleLineaire(unittest.TestCase):
+    def test_mu_gelé(self):
+        # E4 : ANU = 46,9 Z − 151,2 vs les ancres du même article —
+        # pire écart 679,4 % à Z=1 (−104,3 vs 18) ; ancres cohérentes
+        # avec la table 1908 ; régime lourd (Z=82) 0,87 %.
+        self.assertAlmostEqual(tr_electron_modele_lineaire()[0],
+                               6.794444444444443, delta=1e-12)
+        _, x = tr_electron_modele_lineaire()
+        self.assertEqual(x["pire_ancre"], "H")
+        self.assertTrue(all(x["ancres_coherentes_table_1908"].values()))
+        self.assertAlmostEqual(
+            x["regime_lourd_Z82"]["ecart_relatif"],
+            0.008693319023343249, delta=1e-12)
+        self.assertEqual(x["regime_lourd_Z82"]["U_table"], 3727.0)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_ELECTRON_ModeleLineaire")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 6.794444444444443, delta=1e-12)
         self.assertIsNone(r["units_kill"])

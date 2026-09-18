@@ -1,0 +1,23 @@
+{
+  "id": "tr_electron_bilan_argile",
+  "vintage": "LITTERATURE-2020",
+  "source": "Gelée datée pour le chantier ÉLECTRON (contact TR_ELECTRON_BilanArgile, 2026-09-18) : déclaration verbatim de « Electron – Part. 4 » (17 décembre 2020), section Analyse cristallographique de l'argile : « La couche tétraédrique est formée de silice tétraédrique Si 4+ entouré de quatre anions O 2- qui constituent les sommets du tétraèdre. Chaque tétraèdre partage trois atomes d'oxygène avec les tétraèdres adjacents. Ces atomes d'oxygènes partagés sont arrangés en réseau héxagonal qui forme la base de la couche. Le bilan des charges électriques (+) et (-) n'est pas neutre : 4 + 3x(-2)/2 + 2 = -1. L'électroneutralité de la couche est obtenue par la liaison avec une couche chargée positivement ou par ajout d'un H+ sur certain O 2- . L'épaisseur de cette couche tétraédrique est de 4,63 A. »",
+  "doi_or_ref": "corpus noétique, dette d'écriture interne (grammaire PF5 : la machine vérifie l'arithmétique que la source déclare) ; contexte minéralogique standard : couche tétraédrique Si₄O₁₀ de charge −1 (Si⁴⁺ + 3 O²⁻ partagés à demi + 1 O²⁻ non partagé) ; les épaisseurs déclarées (tétraédrique 4,63 Å, octaédrique 5,05 Å) sont les valeurs standard de la minéralogie des argiles — gelées en extra, non pesées (référence externe non figée)",
+  "species": "bilan de charge électrique de la couche tétraédrique des argiles (minéraux aluminosilicates)",
+  "quantity": "l'équation déclarée « 4 + 3x(-2)/2 + 2 = -1 » recomptée tel qu'écrite",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "equation_declaree": "4 + 3*(-2)/2 + 2 = -1",
+    "somme_ecrite_recompute": 3.0,
+    "resultat_declare": -1.0,
+    "lecture_corrigee": "4 + 3*(-2)/2 - 2 = -1 (le dernier terme est l'oxygène NON partagé, O²⁻ = −2, pas +2 : coquille de signe dans le corpus — le bilan physique déclaré −1 est JUSTE, l'équation ÉCRITE est FAUSSE)",
+    "theta": 0.02,
+    "theta_justification": "bilan en charges entières exactes : theta 2 % = tolérance de lecture stricte (grammaire PF5/TR_KZN_ExpQ65)"
+  },
+  "value": {
+    "mu_loc_attendu": 4.0,
+    "note": "écart relatif |3 − (−1)| / |−1| = 4 = 400 % ; détection d'une coquille de signe, pas d'une erreur de physique : le bilan −1 (tétraèdre [SiO₄] partagé en réseau hexagonal) est le bilan standard juste, mais l'équation telle qu'écrite donne +3 ; même famille que PF5/LH_Bottom_Arith/TR_KZN_ExpQ65 (dettes arithmétiques internes au corpus) ; dette nommée adjacente NON pesée : le bilan de la couche octaédrique « est de +1 » du corpus est confus (la gibbsite dioctaédrique et la brucite trioctaédrique sont des feuillets NEUTRES en minéralogie standard — le +1 du corpus n'a pas de référence figée, la machine ne devine pas)"
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_electron_bilan_argile (src/mvcg/transversale.py)"
+}

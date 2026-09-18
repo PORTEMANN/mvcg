@@ -1,0 +1,23 @@
+{
+  "id": "tr_electron_modele_lineaire",
+  "vintage": "LITTERATURE-2020",
+  "source": "Gelée datée pour le chantier ÉLECTRON (contact TR_ELECTRON_ModeleLineaire, 2026-09-18) : déclarations verbatim de « Electron – Part. 5 » (21 décembre 2020) : « Un modèle linéaire est toujours plus simple à utiliser car on trouve que le nombre d'ANU est proportionnel au numéro atomique Z : ANU = 46,9 Z – 151,2 » ; ancres du même article : « Hydrogène 18/18 = 1 ; Deutérium 36/18 = 2 ; Hélium (3) 54/18 = 3 ; Hélium 72/18 = 4 ; Lithium 127/18 = 7,06 ; Béryllium 164/18 = 9,11 ; Bore 200/18 = 10,81 ; Carbone 216/18 = 12 ».",
+  "doi_or_ref": "corpus noétique ; ANCRES gelées depuis l'article (U : H 18 (Z=1), He 72 (Z=2), Li 127 (Z=3), Be 164 (Z=4), B 200 (Z=5), C 216 (Z=6)) — les mêmes valeurs que la table ANU 1908 gelée tr_anu_complet_LITTERATURE-1908.json (Occult Chemistry) : cohérence de transcription vérifiée en extra ; Hélium(3) U=54 isotope nommé (le modèle en Z ne distingue pas les isotopes — dette nommée) ; la pesée porte sur la capacité du modèle déclaré à reproduire les ancres du corpus lui-même (pas de référence externe) ; lien de campagne : cet article est le DOCUMENT SOURCE des claims déjà pesés LH_Anu_Gamme/B2 (moyenne des rapports = 1,059 ≈ 2^{1/12}) et B6 (courbe d'erreur 137 x^{-3/2}) — non re-pesés ici",
+  "species": "modèle linéaire déclaré du nombre d'atomes ultimes en fonction du numéro atomique",
+  "quantity": "ANU_modèle = 46,9 Z − 151,2 vs les ancres déclarées du même article",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "modele": {"pente": 46.9, "ordonnee": -151.2},
+    "ancres": [["H", 1, 18], ["He", 2, 72], ["Li", 3, 127], ["Be", 4, 164], ["B", 5, 200], ["C", 6, 216]],
+    "he3_isotope": {"nom": "He(3)", "Z": 2, "U": 54},
+    "theta": 0.02,
+    "theta_justification": "modèle déclaré à 3 chiffres (46,9 / 151,2) : theta 2 % = tolérance de déclaration chiffrée (même grammaire que TR_KZN_B11_Liaison)"
+  },
+  "value": {
+    "mu_loc_attendu": 6.794444444444444,
+    "regimes": "le modèle est catastrophique aux ancres légères (Z=1 : −104,3 vs 18 ; Z=2 : −57,4 vs 72 : les comptages NÉGATIFS jusqu'à Z ≤ 3) et devient raisonnable à l'extrémité lourde (Z=82 : 46,9×82 − 151,2 = 3694,6 vs U(Pb) ≈ 18×207 = 3726, écart ~0,8 % — vérifié en extra contre la table gelée) : deux régimes nommés, le corpus ajuste l'extrémité lourde et perd l'extrémité légère, exactement le motif inverse du modèle k(Z,N) du chantier B1 (RMS 14,35 % en A<20, 7,07 % en vallée, 15,08 % en A>100)",
+    "hedge_corpus": "le corpus encadre le modèle comme un premier pas (« Le plus simple, dans un premier temps ») : attendu S+ implicite non tenu — la machine pèse quand même, la déclaration est chiffrée"
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_electron_modele_lineaire (src/mvcg/transversale.py)"
+}

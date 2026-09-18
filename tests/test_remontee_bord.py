@@ -25,6 +25,9 @@ POPULATION_FIGEE = [
     "P21_H2O_dipole",
     "TR_Alpha_ProtonMuonNeuf",  # chantier TRANSVERSALE 2026-09-17 : S- a
     # 3,38 theta (premisse « 200 ») — rouge de bord, fenêtre [2, 4)
+    "TR_ELECTRON_MasseUUD",  # chantier ÉLECTRON 2026-09-18 : S- a 3,35
+    # theta (9,4 vs 8,81 MeV, tension interne Part.1/Part.3) — rouge de
+    # bord, fenêtre [2, 4)
 ]
 
 
@@ -34,7 +37,7 @@ class TestRemonteeBord(unittest.TestCase):
 
     def test_fenetre_et_direction(self):
         out = run_remontee_bord()
-        self.assertEqual(out["n"], 6)
+        self.assertEqual(out["n"], 7)
         for r in out["resultats"]:
             self.assertEqual(r["regime"], "theta")
             # fenêtre [2, 4) : pos_rouge = log2(delta / (2 thr_home)) in [0,1)

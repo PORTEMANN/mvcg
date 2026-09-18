@@ -731,3 +731,151 @@ def tr_pred23_edm() -> tuple[float, dict[str, Any]]:
         "retard_veille": mu_loc,
         "note": "la borne déclarée 3,0×10⁻²⁶ e·cm coïncide EXACTEMENT avec Pendlebury 2015 (90 % CL, PRD 92, 092003) : la veille « en cours » du corpus est figée à l'état d'avant Abel 2020 (PRL 124, 081803, |d_n| < 1,8×10⁻²⁶ e·cm, 90 % CL, meilleure borne publiée confirmée en 2025-2026) — mu = 3,0/1,8 − 1 = 66,7 % de retard ; la déclaration reste VRAIE comme borne physique (le monde la satisfait), c'est son statut de veille actuelle qui casse ; n2EDM phase 1 (données jusqu'à fin 2026) vise le bas du 10⁻²⁷ e·cm : noté, hors mu",
     }
+
+
+
+def tr_electron_h_assemblage() -> tuple[float, dict[str, Any]]:
+    """H : 9 ANU+ / 9 ANU− ; H+ : 10 ANU+ / 8 ANU− (série Électron, 2020).
+
+    Toutes les sommes déclarées tiennent (5+4=9, 4+5=9, 9+9=18, 6+3=9,
+    10+8=18 — vérifiées en extra). La pesée porte sur la COHÉRENCE DE
+    CHARGE : sous la lecture naturelle à quantum unité (chaque ANU porte
+    ±1 e — seul comptage en charges entières, H neutre 9−9=0 ✓), l'ion
+    H+ déclaré 10+/8− porte une charge nette de +2 e, DOUBLE de la
+    charge +1 e de l'ion H+ que le corpus invoque lui-même (« la science
+    fait disparaître l'électron », l'électron valant −1 e). DETTE
+    CENTRALE NOMMÉE : le quantum de charge de l'ANU n'est pas déclaré —
+    la lecture ±e/2 (H+ = +1 ✓) est gelée en extra et DISSOUT le S−.
+    mu_loc = écart relatif de charge nette unitaire vs +1, theta 2 %.
+    """
+    t = load_table("tr_electron_h_assemblage_LITTERATURE-2020.json")
+    p = t["params"]
+    sommes = {
+        "H_5plus4": 5 + 4, "H_4plus5": 4 + 5, "H_total": 9 + 9,
+        "Hplus_6plus3": 6 + 3, "Hplus_4plus5": 4 + 5, "Hplus_total": 10 + 8,
+    }
+    h = p["H"]
+    hp = p["H_plus"]
+    net_h = int(h["anu_plus"]) - int(h["anu_moins"])
+    net_hp_unitaire = int(hp["anu_plus"]) - int(hp["anu_moins"])
+    net_hp_demi = net_hp_unitaire / 2.0
+    charge_ion = float(p["charge_ion_Hplus_en_e"])
+    mu_unitaire = abs(net_hp_unitaire - charge_ion) / charge_ion
+    mu_demi = abs(net_hp_demi - charge_ion) / charge_ion
+    return float(mu_unitaire), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "sommes_declarees": sommes,
+        "sommes_tiennent": all(v in (9, 18) for v in sommes.values()),
+        "charge_nette_H_unitaire": net_h,
+        "charge_nette_Hplus_unitaire": net_hp_unitaire,
+        "charge_nette_Hplus_demi": net_hp_demi,
+        "charge_ion_Hplus": charge_ion,
+        "mu_lecture_unitaire": mu_unitaire,
+        "mu_lecture_demi": mu_demi,
+        "note": "toutes les sommes d'assemblage déclarées tiennent (extras) ; sous la lecture unitaire (quantum ±1 e, seule lecture en charges entières — H neutre : 9−9 = 0 ✓), l'assemblage H+ déclaré (10 ANU+ / 8 ANU−) porte +2 e, double de la charge +1 e de l'ion H+ que le corpus invoque pour expliquer l'ion « sans perte d'électron » ; DETTE CENTRALE NOMMÉE : le quantum de charge de l'ANU n'est déclaré nulle part — la lecture ±e/2 rend l'assemblage cohérent (+1 ✓) et DISSOUT ce S− : la machine pèse la lecture naturelle, nomme l'escape ; même motif que B6 (définition opérationnelle perdue)",
+    }
+
+
+def tr_electron_masse_uud() -> tuple[float, dict[str, Any]]:
+    """« m_uud = 9,4 MeV/c² » (Part. 3) vs masses Part. 1 (8,81 MeV).
+
+    Tension INTERNE à la série : Part. 1 déclare u = 2,01 et d = 4,79
+    MeV/c² → u+u+d = 8,81 MeV ; Part. 3 déclare m_uud = 9,4 MeV pour le
+    même objet, trois jours plus tard dans la même série. Écart 6,7 %.
+    Dette nommée : le corpus ne date pas ses sources — le 9,4 correspond
+    à un vintage de masses antérieur (u ≈ 2,3, d ≈ 4,8), la faute est
+    de datation, pas de physique ; la pesée est purement interne (PDG
+    non utilisé). mu_loc = écart relatif, theta 2 %.
+    """
+    t = load_table("tr_electron_masse_uud_LITTERATURE-2020.json")
+    p = t["params"]
+    somme = 2.0 * float(p["m_u_Part1_MeV"]) + float(p["m_d_Part1_MeV"])
+    decl = float(p["m_uud_declare_MeV"])
+    mu_loc = abs(decl / somme - 1.0)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "somme_Part1_MeV": somme,
+        "m_uud_declare_MeV": decl,
+        "ecart_relatif": mu_loc,
+        "note": "la Part. 3 déclare m_uud = 9,4 MeV/c² (contexte gluons/masse du proton) alors que la Part. 1 de la même série déclare u = 2,01 et d = 4,79 MeV/c² → u+u+d = 8,81 MeV : écart 6,7 % entre deux articles publiés à trois jours d'intervalle ; dette de DATATION nommée (vintage implicite différent, non signalé par le corpus) — pas une faute de physique ; les pourcentages du proton déclarés Part. 1 tiennent d'ailleurs (2,01/938 = 0,214 %, 4,79/938 = 0,510 %, gelés en extra de la table)",
+    }
+
+
+def tr_electron_bilan_argile() -> tuple[float, dict[str, Any]]:
+    """« 4 + 3x(-2)/2 + 2 = -1 » (Part. 4, bilan de charge argile).
+
+    Grammaire PF5 : la machine recompute l'équation TELLE QU'ÉCRITE :
+    4 + 3×(−2)/2 + 2 = +3, le corpus déclare −1. mu_loc = écart relatif
+    400 %. Dette d'écriture (coquille de signe), pas d'erreur de
+    physique : le bilan −1 est le bilan standard juste (Si⁴⁺ + 3 O²⁻
+    partagés à demi − 1 O²⁻ non partagé), obtenu en corrigeant le
+    dernier terme en −2. Dette adjacente nommée, non pesée : le bilan
+    octaédrique « +1 » du corpus est confus (feuillets gibbsite/brucite
+    neutres en minéralogie standard — pas de référence figée).
+    """
+    t = load_table("tr_electron_bilan_argile_LITTERATURE-2020.json")
+    p = t["params"]
+    somme_ecrite = 4.0 + 3.0 * (-2.0) / 2.0 + 2.0
+    resultat_declare = float(p["resultat_declare"])
+    somme_corrigee = 4.0 + 3.0 * (-2.0) / 2.0 - 2.0
+    mu_loc = abs(somme_ecrite - resultat_declare) / abs(resultat_declare)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "somme_ecrite_recompute": somme_ecrite,
+        "resultat_declare": resultat_declare,
+        "somme_corrigee_lecture": somme_corrigee,
+        "ecart_relatif": mu_loc,
+        "note": "l'équation déclarée « 4 + 3x(-2)/2 + 2 = -1 » recomptée telle qu'écrite donne +3, non −1 : coquille de signe sur le dernier terme (l'oxygène non partagé est O²⁻ = −2, pas +2) — le bilan physique déclaré −1 est le bilan standard juste de la couche tétraédrique, l'équation écrite est fausse ; détection de dette d'écriture (même famille que PF5, LH_Bottom_Arith, TR_KZN_ExpQ65) ; dette nommée adjacente non pesée : le bilan octaédrique « +1 » du corpus est confus sans référence figée, la machine ne devine pas",
+    }
+
+
+def tr_electron_modele_lineaire() -> tuple[float, dict[str, Any]]:
+    """« ANU = 46,9 Z − 151,2 » (Part. 5) vs les ancres du même article.
+
+    Le corpus déclare un modèle linéaire du nombre d'ANU en Z ET donne
+    dans le même article ses ancres propres (H 18, He 72, Li 127,
+    Be 164, B 200, C 216). Le modèle ne reproduit AUCUNE des six ancres
+    (Z=1 : −104,3 vs 18 — comptages négatifs jusqu'à Z ≤ 3 ; pire écart
+    relatif 679 % à Z=1). mu_loc = pire écart relatif sur les ancres,
+    theta 2 %. Extras : régimes — le modèle devient raisonnable à
+    l'extrémité lourde (Z=82 : 3694,6 vs U(Pb) de la table gelée,
+    écart ~0,8 %), motif inverse du modèle k(Z,N) du chantier B1 ;
+    cohérence des ancres avec la table ANU 1908 gelée (mêmes valeurs) ;
+    le modèle en Z ne distingue pas les isotopes (He(3) 54 vs He 72,
+    dette nommée) ; document source des claims déjà pesés LH_Anu_Gamme/
+    B2 (moyenne 1,059 ≈ 2^{1/12}) et B6 (137 x^{−3/2}) — nommé, non
+    re-pesé.
+    """
+    t = load_table("tr_electron_modele_lineaire_LITTERATURE-2020.json")
+    p = t["params"]
+    m = p["modele"]
+    pente = float(m["pente"])
+    ordonnee = float(m["ordonnee"])
+    ancres = [(nom, int(z), float(u)) for nom, z, u in p["ancres"]]
+    ecarts = {}
+    for nom, z, u in ancres:
+        modele = pente * z + ordonnee
+        ecarts[nom] = {"Z": z, "U_ancre": u, "U_modele": modele,
+                       "ecart_relatif": abs(modele / u - 1.0)}
+    mu_loc = max(v["ecart_relatif"] for v in ecarts.values())
+    pire = max(ecarts, key=lambda k: ecarts[k]["ecart_relatif"])
+    anu = load_table("tr_anu_complet_LITTERATURE-1908.json")
+    # rows de la table gelée : [Z, symbole, nom, ANU, source]
+    grille = {int(r[0]): float(r[3]) for r in anu["params"]["rows"]}
+    coherence = {nom: (grille.get(z) == u) for nom, z, u in ancres}
+    u_pb = grille.get(82)
+    modele_pb = pente * 82.0 + ordonnee
+    ecart_pb = abs(modele_pb / u_pb - 1.0) if u_pb else None
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "ecarts_ancres": ecarts,
+        "pire_ancre": pire,
+        "ancres_coherentes_table_1908": coherence,
+        "regime_lourd_Z82": {"U_modele": modele_pb, "U_table": u_pb,
+                             "ecart_relatif": ecart_pb},
+        "note": "le modèle linéaire déclaré ANU = 46,9 Z − 151,2 ne reproduit AUCUNE des six ancres que le même article publie (pire : Z=1, −104,3 vs 18, écart 679 % ; comptages négatifs jusqu'à Z ≤ 3) ; régime lourd : Z=82 → 3694,6 vs U(Pb) gelé, écart < 1 % — le corpus a ajusté l'extrémité lourde et perd la légère, motif inverse du modèle k(Z,N) (B1 : calage cassé aux deux extrémités, tient en vallée) ; ancres cohérentes avec la table ANU 1908 gelée (mêmes valeurs 18/72/127/164/200/216 — Occult Chemistry) ; dettes nommées : isotopes indistinguables en Z (He(3) 54 vs He 72), hedge du corpus (« dans un premier temps »), document source des claims déjà pesés LH_Anu_Gamme/B2 et B6 (non re-pesés)",
+    }

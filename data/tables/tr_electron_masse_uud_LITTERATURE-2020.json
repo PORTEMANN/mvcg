@@ -1,0 +1,23 @@
+{
+  "id": "tr_electron_masse_uud",
+  "vintage": "LITTERATURE-2020",
+  "source": "Gelée datée pour le chantier ÉLECTRON (contact TR_ELECTRON_MasseUUD, 2026-09-18) : déclarations verbatim de la série « Electron » (décembre 2020). Part. 3 : « A partir du modèle standard, on considère que la masse de la matière est contenue dans l'énergie portée par les gluons. m_p = 938 MeV/c² >> m_uud = 9,4 MeV/c² ». Part. 1 : « La masse du quark u est de 2,01 +/- 0,14 MeV/c² soit 0,214% de la masse du proton. La charge électrique est de 2/3. » ; « La masse du quark d est de 4,79 +/- 0,16 MeV/c² soit 0,510% de la masse du proton. »",
+  "doi_or_ref": "corpus noétique, TENSION INTERNE entre deux articles de la même série (Part. 1 vs Part. 3) ; la pesée est interne au corpus : la somme des masses déclarées Part. 1 (2×2,01 + 4,79 = 8,81 MeV) contre la valeur 9,4 MeV déclarée Part. 3 pour le même objet m_uud ; la référence externe (PDG) n'est PAS utilisée — dette nommée : le 9,4 correspond vraisemblablement à un vintage de masses plus ancien (u ≈ 2,3, d ≈ 4,8 → 9,4), le corpus ne date pas ses sources",
+  "species": "masse du système uud (constituants du proton) selon le corpus",
+  "quantity": "m_uud = 9,4 MeV/c² (Part. 3) vs Σ masses Part. 1 = 8,81 MeV/c²",
+  "dimension": "MeV",
+  "packet": "si",
+  "params": {
+    "m_uud_declare_MeV": 9.4,
+    "m_u_Part1_MeV": 2.01,
+    "m_d_Part1_MeV": 4.79,
+    "somme_Part1_MeV": 8.81,
+    "theta": 0.02,
+    "theta_justification": "déclarations à trois chiffres (9,4 à deux chiffres — tolérance de déclaration à deux chiffres, même grammaire que TR_KZN_B11_Liaison : theta 2 %)"
+  },
+  "value": {
+    "ecart_relatif_attendu": 0.06696935300794582,
+    "note": "le corpus croit ses deux nombres (les publie dans la même série, trois jours d'intervalle) : attendu S+ ; la tension n'est pas une faute de physique (les masses des quarks courants varient d'un vintage à l'autre) mais une dette de DATATION des sources : la Part. 3 utilise un vintage implicite différent de la Part. 1 sans le dire"
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_electron_masse_uud (src/mvcg/transversale.py)"
+}
