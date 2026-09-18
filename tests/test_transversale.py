@@ -32,6 +32,7 @@ from mvcg.transversale import (  # noqa: E402
     tr_kzn_sensibilite,
     tr_mda_suite_stable,
     tr_sn132_liaison,
+    tr_tov_sn195pt,
 )
 
 
@@ -452,4 +453,29 @@ class TestAlphaDeltaANU(unittest.TestCase):
         self.assertEqual(r["verdict"], "S-")
         self.assertTrue(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 1.6685654897798825, delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestTOVSn195Pt(unittest.TestCase):
+    def test_mu_gelé(self):
+        # C1 : S_n(196Pt) recompute NUBASE2020 = 7921,9171 keV vs
+        # 6,5 MeV déclaré (« Ex pour 195Pt=>196Pt, Sn=6,5 MeV »,
+        # article TOV 2025-01-29) — écart 21,88 %.
+        self.assertAlmostEqual(tr_tov_sn195pt()[0],
+                               0.21875647692307676, delta=1e-15)
+        _, x = tr_tov_sn195pt()
+        self.assertAlmostEqual(x["Sn_NUBASE2020_MeV"], 7.9219171,
+                               delta=1e-12)
+        self.assertAlmostEqual(x["Sn_NUBASE2020_keV"], 7921.9171,
+                               delta=1e-9)
+        self.assertEqual(x["Sn_declare_MeV"], 6.5)
+        self.assertLess(x["Sn_incertitude_keV"], 1.0)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_TOV_Sn195Pt")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.21875647692307676,
+                               delta=1e-15)
         self.assertIsNone(r["units_kill"])

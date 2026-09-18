@@ -649,3 +649,50 @@ def tr_alpha_deltaanu() -> tuple[float, dict[str, Any]]:
         "violations_absolues": violations_absolues,
         "note": "le graphe du corpus contredit sa propre loi déclarée à chaque point : écart relatif max Sc 167 % (3,8 vs 1,42), Li 150 % (66 vs 26,4) ; 13 violations absolues nommées — 11 points négatifs là où la loi est positive (de K −11,7 à Ge −1,2 : signe opposé, la loi ne peut pas être réparée) et 2 points positifs (Cu 2,0, Ga 2,9) où la loi prédit déjà < 1 (0,88 ; 0,79) ; sur les 18 comparaisons relatives possibles, les rapports point/loi vont de 0,35 (D) à 2,5 (Li), des deux côtés de la courbe : aucune renormalisation ne répare ; la courbe verte du graphe coïncide visuellement avec 137.Z^(-3/2), donc le corpus a tracé la loi et des points qui ne la suivent pas ; dette centrale nommée : la définition de deltaANU n'est pas opérationnelle dans le texte récupéré (« erreur relative de la place de chaque atome dans le tout », équations OLE perdues) — la pesée est une pesée de cohérence interne ; Si (Z=14) non transcrit (point masqué, 31 points gelés) ; lectures Ga/Ge ±2,5",
     }
+
+
+def tr_tov_sn195pt() -> tuple[float, dict[str, Any]]:
+    """« Ex pour 195Pt=>196Pt, Sn=6,5 MeV » (TOV, 2025-01-29).
+
+    Exemple numérique de l'article « Nouvelles Perspectives en
+    Astrophysique (Calculs) » (histoire-des-sciences.eu, 29 janvier
+    2025), étape 3 de la simulation r-process : l'énergie de séparation
+    neutronique du produit de capture, S_n(196Pt), déclarée 6,5 MeV.
+    Recompute depuis les masses gelées NUBASE2020 (grille du chantier
+    k(Z,N), sha256 partagé) : S_n = mex(195Pt) + mex(n) − mex(196Pt) =
+    −32793,9 + 8071,3171 − (−32644,5) = 7921,9 keV (masses atomiques,
+    les Z électroniques se compensent). mu_loc = écart relatif NUBASE vs
+    déclaré, theta abs gelé 0,02 (tolérance de déclaration à deux
+    chiffres, même grammaire que TR_KZN_B11_Liaison). Extras : la MÊME
+    valeur 6,5 sert d'intrant à l'exponentiel de « Linéarisation »
+    (TR_KZN_ExpQ65 pesait l'arithmétique, pas la valeur — trou bouché) ;
+    tension « 1 ou 2 % sur El/A » (article TOV) vs RMS 12,36 % mesuré
+    par TR_KZN_Modele_Grille sur le MÊME modèle — nommée, non pesée
+    (formulation complète du modèle en images, dette identique à B1) ;
+    « 2 % sur El/A → 10 % sur les abondances » — sensibilité sans
+    mécanisme recomposable, dette nommée.
+    """
+    t = load_table("tr_tov_sn195pt_LITERATURE-2025.json")
+    v = t["value"]
+    decl = float(v["declare_MeV"])
+    gt = load_table("tr_kzn_grille_NUBASE2020.json")
+    g = gt["grille"]
+    mex = {(r["Z"], r["A"]): (float(r["mex_keV"]), float(r["dmex_keV"]))
+           for r in g}
+    mex_195, dmex_195 = mex[(78, 195)]
+    mex_196, dmex_196 = mex[(78, 196)]
+    mex_n = 8071.3171  # CODATA-2018, m_n = 1,00866491588 u
+    sn_keV = mex_195 + mex_n - mex_196
+    sn = sn_keV / 1000.0
+    mu_loc = abs(sn / decl - 1.0)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "grille_nubase_sha256": gt["_sha256"],
+        "Sn_NUBASE2020_MeV": sn,
+        "Sn_NUBASE2020_keV": sn_keV,
+        "Sn_incertitude_keV": (dmex_195 ** 2 + dmex_196 ** 2) ** 0.5,
+        "Sn_declare_MeV": decl,
+        "ecart_relatif": mu_loc,
+        "note": "S_n(196Pt) = 7921,9 keV (NUBASE2020 gelé : mex 195Pt −32793,9 ± 0,5 ; mex 196Pt −32644,5 ± 0,5 ; mex neutron 8071,3171 keV CODATA-2018) vs 6,5 MeV déclaré — écart 21,9 %, S− à ~10,9 θ ; la valeur déclarée est l'intrant de l'exemple de taux exp(−6,5/0,086) de « Linéarisation » (TR_KZN_ExpQ65) : l'exemple du second article repose sur une S_n erronée de 22 % ; les équations complètes du modèle k sont en images en fin d'article TOV (dette nommée, la machine ne devine pas la formule) ; la revendication « précisions suffisantes (1 ou 2 % sur El/A) » tensionne avec le RMS 12,36 % du même modèle pesé par TR_KZN_Modele_Grille — nommée, non pesée ici",
+    }

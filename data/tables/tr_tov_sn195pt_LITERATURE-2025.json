@@ -1,0 +1,26 @@
+{
+  "id": "tr_tov_sn195pt",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelée datée pour le chantier TRANSVERSALE / section C de la prospective (contact TR_TOV_Sn195Pt, 2026-09-18) : déclaration verbatim de « Nouvelles Perspectives en Astrophysique (Calculs) » (histoire-des-sciences.eu, Patrice PORTEMANN, 29 janvier 2025), section « Exemple concret de calcul à grande échelle », étape 3 : « Calcul des taux de réaction des captures neutroniques n+(Z,N)=>(Z,N+1)+gamma. Ex pour 195Pt=>196Pt, Sn=6,5 MeV. »",
+  "doi_or_ref": "corpus noétique, exemple numérique de calcul de taux de capture ; référence de pesée : NUBASE2020 (F.G. Kondev, M. Wang, W.J. Huang, S. Naimi, G. Audi, Chin. Phys. C 45, 030001 (2021)), masses excédentaires gelées dans tr_kzn_grille_NUBASE2020.json (195Pt : mex = -32793,9 ± 0,5 keV ; 196Pt : mex = -32644,5 ± 0,5 keV) ; excès de masse du neutron : 8071,3171 keV (m_n = 1,00866491588 u, CODATA-2018, codata2018_extract.json)",
+  "species": "énergie de séparation neutronique S_n(196Pt) = Q de la capture 195Pt(n,gamma)196Pt",
+  "quantity": "S_n(196Pt) déclarée 6,5 MeV par le corpus vs NUBASE2020",
+  "dimension": "1",
+  "packet": "1",
+  "value": {
+    "declare_MeV": 6.5,
+    "declaration_precision": "deux chiffres significatifs (« 6,5 ») — même grammaire que TR_KZN_B11_Liaison : theta = 2 % = tolérance de déclaration à deux chiffres",
+    "theta": 0.02,
+    "sn_nubase_keV": 7921.9171,
+    "sn_nubase_MeV": 7.9219,
+    "formule": "S_n(196Pt) = mex(195Pt) + mex(n) - mex(196Pt) = -32793,9 + 8071,3171 - (-32644,5) = 7921,9 keV (masses ATOMIQUES, les Z électroniques se compensent : même Z=78 des deux côtés)",
+    "incertitude_keV": 0.7,
+    "incertitude_note": "dmex 0,5 keV sur chaque masse, indépendantes → ~0,7 keV, négligeable devant theta 2 % (158 keV) : la pesée porte sur la valeur, pas sur l'incertitude"
+  },
+  "extras": {
+    "lien_campagne_kzn": "la MÊME valeur « Sn=6,5 MeV » (195Pt=>196Pt) sert de paramètre à l'exemple exponentiel de « Linéarisation du calcul de l'énergie de liaison par nucléon » (2025-04-20) — TR_KZN_ExpQ65 (contact 110) a pesé l'arithmétique interne exp(-6,5/0,086) sans peser la valeur 6,5 elle-même ; le présent contact bouche ce trou : la valeur est fausse de 21,9 % contre NUBASE2020, l'exemple de l'article k(Z,N) repose sur un intrant erroné",
+    "tension_precision_declaree": "l'article TOV revendique « Précisions suffisantes (1 ou 2% sur El/A) » (section Simulation de la croûte) pour le modèle k(Z,N) — le MÊME modèle pesé S- à 6,18 theta par TR_KZN_Modele_Grille (RMS 12,36 % sur 235 noyaux stables) : tension inter-articles nommée, non pesée ici car la formulation complète El/A du modèle est en IMAGES en fin d'article (dette identique à B1, la machine ne devine pas la formule)",
+    "sensibilite_2pct_10pct": "« Une erreur de 2% sur El/A induit une variation de 10% sur les abondances » — déclaration de sensibilité sans mécanisme recomposable : dette nommée, hors mu"
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_tov_sn195pt (src/mvcg/transversale.py)"
+}

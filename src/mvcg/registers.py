@@ -2246,6 +2246,12 @@ def _tr_alpha_deltaanu() -> tuple[float, dict]:
     return tr_alpha_deltaanu()
 
 
+def _tr_tov_sn195pt() -> tuple[float, dict]:
+    from mvcg.transversale import tr_tov_sn195pt
+
+    return tr_tov_sn195pt()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2409,6 +2415,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_conv4_alcalins": _tr_conv4_alcalins,
     "tr_mda_suite_stable": _tr_mda_suite_stable,
     "tr_alpha_deltaanu": _tr_alpha_deltaanu,
+    "tr_tov_sn195pt": _tr_tov_sn195pt,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3286,6 +3293,14 @@ CONTACTS: list[Contact] = [
         "« La Constante ALPHA de Structure fine » (2022) : « deltaANU = (1/alpha).Z^(-3/2) » décrite comme « l'erreur relative de la place de chaque atome dans le tout » — DETTE CENTRALE NOMMÉE : la définition n'est pas opérationnelle dans le texte récupéré (équations OLE du docx perdues) ; pesée de cohérence INTERNE : loi déclarée vs les 31 points du graphe corpus ANU-2.JPG (transcription gelée pixel par pixel ±2 unités) — la machine ne pèse pas ce qu'elle ne sait pas figer",
         "chantier TRANSVERSALE / B6 (2026-09-17) : le graphe du corpus contredit sa propre loi — écart relatif max Sc 167 % (3,8 vs 1,42), Li 150 % (66 vs 26,4) ; 13 violations absolues nommées (11 points négatifs où la loi est positive, de K −11,7 à Ge −1,2 ; Cu 2,0 et Ga 2,9 où la loi prédit déjà < 1) ; sur les 18 comparaisons relatives, rapports point/loi de 0,35 (D) à 2,5 (Li), des deux côtés de la courbe : aucune renormalisation ne répare — mu_loc = 167 % vs theta 2 % = S- a 83 theta ; la courbe verte du graphe coïncide pourtant visuellement avec 137.Z^(-3/2) : le corpus a tracé la loi et des points qui ne la suivent pas ; attendu S+ non tenu",
         "tr_alpha_deltaanu",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_TOV_Sn195Pt", "micro", "pred", "1", "1", "abs", 0.02,
+        6.5, "Sn(196Pt)<-6,5 MeV declare (TOV)", "—",
+        "« Nouvelles Perspectives en Astrophysique (Calculs) » (2025-01-29), exemple r-process : « Calcul des taux de reaction des captures neutroniques n+(Z,N)=>(Z,N+1)+gamma. Ex pour 195Pt=>196Pt, Sn=6,5 MeV. » — DETTE NOMMÉE : les équations complètes du modèle k sont en images en fin d'article (même dette que B1), seul l'exemple numérique est pesable ; la revendication « précisions suffisantes (1 ou 2 % sur El/A) » tensionne avec le RMS 12,36 % du MÊME modèle pesé par TR_KZN_Modele_Grille — nommée, non pesée ici",
+        "chantier TRANSVERSALE / C1 (2026-09-18) : S_n(196Pt) recompute depuis les masses gelées NUBASE2020 = mex(195Pt) + mex(n) − mex(196Pt) = −32793,9 + 8071,3171 − (−32644,5) = 7921,9 keV vs 6,5 MeV déclaré — écart 21,9 % = S- à 10,9 theta ; la MÊME valeur 6,5 sert d'intrant à l'exemple exp(-6,5/0,086) de « Linéarisation » (TR_KZN_ExpQ65 pesait l'arithmétique sans peser la valeur : trou bouché — l'exemple du second article repose sur une S_n erronée de 22 %) ; attendu S+ non tenu",
+        "tr_tov_sn195pt",
         "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(

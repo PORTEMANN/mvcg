@@ -290,6 +290,33 @@ limite (0,76 θ, juste sous le seuil).
   repéré au catalogue, non encore lu — candidat B de la prochaine
   rotation de fouille.
 
+### C1. TOV-Sn195Pt — « Ex pour 195Pt=>196Pt, Sn=6,5 MeV »
+
+Article lu le 2026-09-18 (rotation de fouille). C'est le **même
+modèle k(Z,N)** que le chantier B1 (déjà pesé : S− à 6,18 θ, RMS
+12,36 %), appliqué à l'astrophysique. Les équations complètes du modèle
+sont en images en fin d'article (dette identique à B1 — la machine ne
+devine pas la formule), mais l'article contient un exemple numérique
+recomposable : l'énergie de séparation neutronique du produit de
+capture, S_n(196Pt), déclarée **6,5 MeV**. Référence directe : masses
+gelées NUBASE2020 déjà dans le dépôt (grille du chantier k(Z,N)).
+
+Reste dans l'article, non pesé (dettes nommées) : la revendication
+« précisions suffisantes (1 ou 2 % sur El/A) » (tension avec le RMS
+12,36 % du même modèle pesé par TR_KZN_Modele_Grille), la sensibilité
+« 2 % sur El/A → 10 % sur les abondances » (sans mécanisme
+recomposable), le pic d'or « autour de A=195 » (qualitatif), les
+scénarios « résultat envisagé » (Z=126/N=184, ⁵He, ¹⁵N — cadre
+hypothétique explicite, pas des déclarations).
+
+**PESÉ (2026-09-18)** — contact 117 `TR_TOV_Sn195Pt` : **S− à 10,9 θ**.
+S_n(196Pt) recompute = mex(195Pt) + mex(n) − mex(196Pt) = −32793,9 +
+8071,3171 − (−32644,5) = **7921,9 keV** vs 6,5 MeV déclaré — écart
+21,9 %. La valeur 6,5 est en fait l'intrant de l'exemple
+exp(−6,5/0,086) de « Linéarisation » (contact 110 TR_KZN_ExpQ65 pesait
+l'arithmétique de l'exponentielle sans peser la valeur : trou bouché —
+l'exemple du second article repose sur une S_n erronée de 22 %).
+
 ---
 
 ## Recommandation
