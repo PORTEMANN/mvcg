@@ -31,6 +31,7 @@ from mvcg.transversale import (  # noqa: E402
     tr_kzn_grille,
     tr_kzn_sensibilite,
     tr_mda_suite_stable,
+    tr_pred23_edm,
     tr_sn132_liaison,
     tr_tov_sn195pt,
 )
@@ -477,5 +478,28 @@ class TestTOVSn195Pt(unittest.TestCase):
         self.assertEqual(r["verdict"], "S-")
         self.assertTrue(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 0.21875647692307676,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestPRED23EDMNeutron(unittest.TestCase):
+    def test_mu_gelé(self):
+        # PRED-23 : retard de veille = 3,0/1,8 − 1 = 2/3 exact —
+        # la borne du corpus coïncide avec Pendlebury 2015, la frontière
+        # gelée est Abel 2020 (1,8×10⁻²⁶ e·cm, 90 % CL).
+        self.assertAlmostEqual(tr_pred23_edm()[0],
+                               0.6666666666666667, delta=1e-15)
+        _, x = tr_pred23_edm()
+        self.assertTrue(x["plafond_physiquement_vrai"])
+        self.assertAlmostEqual(x["ancrage_2015_exact"], 0.0, delta=1e-15)
+        self.assertAlmostEqual(x["borne_declaree_e_cm"], 3.0e-26)
+        self.assertAlmostEqual(x["borne_litterature_2020_e_cm"], 1.8e-26)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_PRED23_EDMNeutron")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.6666666666666667,
                                delta=1e-15)
         self.assertIsNone(r["units_kill"])

@@ -696,3 +696,38 @@ def tr_tov_sn195pt() -> tuple[float, dict[str, Any]]:
         "ecart_relatif": mu_loc,
         "note": "S_n(196Pt) = 7921,9 keV (NUBASE2020 gelé : mex 195Pt −32793,9 ± 0,5 ; mex 196Pt −32644,5 ± 0,5 ; mex neutron 8071,3171 keV CODATA-2018) vs 6,5 MeV déclaré — écart 21,9 %, S− à ~10,9 θ ; la valeur déclarée est l'intrant de l'exemple de taux exp(−6,5/0,086) de « Linéarisation » (TR_KZN_ExpQ65) : l'exemple du second article repose sur une S_n erronée de 22 % ; les équations complètes du modèle k sont en images en fin d'article TOV (dette nommée, la machine ne devine pas la formule) ; la revendication « précisions suffisantes (1 ou 2 % sur El/A) » tensionne avec le RMS 12,36 % du même modèle pesé par TR_KZN_Modele_Grille — nommée, non pesée ici",
     }
+
+
+def tr_pred23_edm() -> tuple[float, dict[str, Any]]:
+    """« Moment dipolaire électrique du neutron : d_n < 3×10⁻²⁶ e·cm »
+    (index portemann.eu, PRED-23, statut « en cours »).
+
+    Pesée de type plafond sur une veille. Grammaire déclarée AVANT le
+    run : pour une borne supérieure déclarée B présentée comme l'état de
+    l'art, mu_loc = retard de veille = B_decl/B_best − 1, où B_best est
+    la meilleure borne publiée gelée (Abel 2020, nEDM@PSI :
+    1,8×10⁻²⁶ e·cm, 90 % CL). Le plafond du corpus est VRAI physiquement
+    (1,8 < 3,0 — la déclaration « d_n < 3×10⁻²⁶ » tient contre le monde),
+    mais la veille « en cours » fige le corpus à Pendlebury 2015 dont la
+    borne 90 % CL est EXACTEMENT 3,0×10⁻²⁶ : mu = 66,7 % de retard sur
+    la frontière. Extra nommé : n2EDM phase 1 vise le bas du 10⁻²⁷ e·cm
+    d'ici fin 2026 — la veille passera un ordre de grandeur en retard si
+    la projection tient.
+    """
+    t = load_table("tr_pred23_edm_LITTERATURE.json")
+    p = t["params"]
+    b_decl = float(p["borne_declaree_e_cm"])
+    b_best = float(p["borne_litterature_2020_e_cm"])
+    b_2015 = float(p["borne_litterature_2015_e_cm"])
+    mu_loc = b_decl / b_best - 1.0
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "borne_declaree_e_cm": b_decl,
+        "borne_litterature_2020_e_cm": b_best,
+        "borne_litterature_2015_e_cm": b_2015,
+        "plafond_physiquement_vrai": b_best < b_decl,
+        "ancrage_2015_exact": abs(b_decl - b_2015) / b_2015,
+        "retard_veille": mu_loc,
+        "note": "la borne déclarée 3,0×10⁻²⁶ e·cm coïncide EXACTEMENT avec Pendlebury 2015 (90 % CL, PRD 92, 092003) : la veille « en cours » du corpus est figée à l'état d'avant Abel 2020 (PRL 124, 081803, |d_n| < 1,8×10⁻²⁶ e·cm, 90 % CL, meilleure borne publiée confirmée en 2025-2026) — mu = 3,0/1,8 − 1 = 66,7 % de retard ; la déclaration reste VRAIE comme borne physique (le monde la satisfait), c'est son statut de veille actuelle qui casse ; n2EDM phase 1 (données jusqu'à fin 2026) vise le bas du 10⁻²⁷ e·cm : noté, hors mu",
+    }

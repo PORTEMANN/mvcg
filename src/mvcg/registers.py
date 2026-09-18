@@ -2252,6 +2252,12 @@ def _tr_tov_sn195pt() -> tuple[float, dict]:
     return tr_tov_sn195pt()
 
 
+def _tr_pred23_edm() -> tuple[float, dict]:
+    from mvcg.transversale import tr_pred23_edm
+
+    return tr_pred23_edm()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2416,6 +2422,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_mda_suite_stable": _tr_mda_suite_stable,
     "tr_alpha_deltaanu": _tr_alpha_deltaanu,
     "tr_tov_sn195pt": _tr_tov_sn195pt,
+    "tr_pred23_edm": _tr_pred23_edm,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3301,6 +3308,14 @@ CONTACTS: list[Contact] = [
         "« Nouvelles Perspectives en Astrophysique (Calculs) » (2025-01-29), exemple r-process : « Calcul des taux de reaction des captures neutroniques n+(Z,N)=>(Z,N+1)+gamma. Ex pour 195Pt=>196Pt, Sn=6,5 MeV. » — DETTE NOMMÉE : les équations complètes du modèle k sont en images en fin d'article (même dette que B1), seul l'exemple numérique est pesable ; la revendication « précisions suffisantes (1 ou 2 % sur El/A) » tensionne avec le RMS 12,36 % du MÊME modèle pesé par TR_KZN_Modele_Grille — nommée, non pesée ici",
         "chantier TRANSVERSALE / C1 (2026-09-18) : S_n(196Pt) recompute depuis les masses gelées NUBASE2020 = mex(195Pt) + mex(n) − mex(196Pt) = −32793,9 + 8071,3171 − (−32644,5) = 7921,9 keV vs 6,5 MeV déclaré — écart 21,9 % = S- à 10,9 theta ; la MÊME valeur 6,5 sert d'intrant à l'exemple exp(-6,5/0,086) de « Linéarisation » (TR_KZN_ExpQ65 pesait l'arithmétique sans peser la valeur : trou bouché — l'exemple du second article repose sur une S_n erronée de 22 %) ; attendu S+ non tenu",
         "tr_tov_sn195pt",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_PRED23_EDMNeutron", "micro", "pred", "si", "e.cm", "rel", 0.10,
+        3.0, "borne EDM neutron<-3e-26 e.cm declare (PRED-23)", "—",
+        "index portemann.eu, PRED-23 (statut « en cours ») : « Moment dipolaire électrique du neutron : d_n < 3×10⁻²⁶ e·cm » — GRAMMAIRE DU PLAFOND DECLAREE AVANT LE RUN : pour une borne superieure presentee comme l'etat de l'art, mu_loc = B_decl/B_best − 1 (retard de veille), B_best = meilleure borne publiee gelee (Abel 2020, nEDM@PSI, 1,8×10⁻²⁶ e·cm, 90 % CL) ; la borne du corpus coincide EXACTEMENT avec Pendlebury 2015 (3,0×10⁻²⁶, 90 % CL, PRD 92, 092003) — veille figee d'avant 2020",
+        "chantier TRANSVERSALE / PRED-23 (2026-09-18) : mu_loc = 3,0/1,8 − 1 = 66,7 % de retard sur la frontiere (meilleure borne Abel 2020 confirmee 2025-2026 par la collaboration n2EDM) — S- a 6,7 theta ; la borne reste VRAIE physiquement (le monde la satisfait : 1,8 < 3,0), c'est son statut de veille « en cours » qui casse : le corpus n'a pas integre Abel 2020 ; n2EDM phase 1 vise le bas du 10⁻²⁷ e·cm d'ici fin 2026 (noté, hors mu) ; attendu S+ non tenu",
+        "tr_pred23_edm",
         "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(

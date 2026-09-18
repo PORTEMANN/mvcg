@@ -286,6 +286,17 @@ limite (0,76 θ, juste sous le seuil).
   par les chantiers g-2 / Z_max / G11 / KO-6. Reste PRED-23
   (EDM neutron < 3e-26 e·cm) — borne, pas valeur : pesée de type
   « plafond » possible mais mince. Veille à garder en tiroir.
+
+  **PESÉ (2026-09-18)** — contact 118 `TR_PRED23_EDMNeutron` : **S− à
+  6,7 θ**. Grammaire du plafond déclarée avant le run : mu_loc = retard
+  de veille = B_decl/B_best − 1. La borne du corpus (3,0×10⁻²⁶ e·cm)
+  coïncide **exactement** avec Pendlebury 2015 (90 % CL) : la veille
+  « en cours » est figée d'avant Abel 2020 (nEDM@PSI, 1,8×10⁻²⁶ e·cm,
+  90 % CL, toujours la meilleure borne publiée en 2025-2026) — retard
+  66,7 %. La borne reste vraie physiquement (le monde la satisfait) :
+  c'est son statut de veille actuelle qui casse. Ouvre la fibre
+  (si, e·cm). n2EDM phase 1 vise le bas du 10⁻²⁷ e·cm d'ici fin 2026
+  (noté, hors mu).
 - **Nouvelles Perspectives en Astrophysique (Calculs)** (TOV) :
   repéré au catalogue, non encore lu — candidat B de la prochaine
   rotation de fouille.

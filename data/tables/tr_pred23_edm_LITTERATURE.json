@@ -1,0 +1,24 @@
+{
+  "id": "tr_pred23_edm",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelée datée pour le chantier TRANSVERSALE (contact TR_PRED23_EDMNeutron, 2026-09-18) : déclaration verbatim de l'index portemann.eu, nœud « Prédictions en cours », PRED-23 : « Moment dipolaire électrique du neutron : d_n < 3×10⁻²⁶ e·cm », statut « en cours » (veille expérimentale).",
+  "doi_or_ref": "veille expérimentale gelée à trois ancres : (1) J.M. Pendlebury et al., Phys. Rev. D 92, 092003 (2015) — réanalyse ILL, |d_n| < 3,0×10⁻²⁶ e·cm (90 % CL) = la borne du corpus EXACTEMENT ; (2) nEDM Collaboration (C. Abel et al.), Phys. Rev. Lett. 124, 081803 (2020), PSI 2009-2017 : d_n = (0,0 ± 1,1stat ± 0,2sys)×10⁻²⁶ e·cm → |d_n| < 1,8×10⁻²⁶ e·cm (90 % CL) = meilleure borne publiée à ce jour (confirmée par la collaboration n2EDM, EuroPartStrategy 2026 : « the present best limit |d_n| < 1,8×10⁻²⁶ e·cm (90 % C.L.) ») ; (3) n2EDM phase 1 (données jusqu'à fin 2026) : sensibilité statistique visée dans le bas du régime 10⁻²⁷ e·cm (projection, pas une borne publiée)",
+  "species": "borne supérieure déclarée du moment dipolaire électrique du neutron, en veille « en cours »",
+  "quantity": "déclaration « d_n < 3×10⁻²⁶ e·cm » vs frontière expérimentale 1,8×10⁻²⁶ e·cm (2020)",
+  "dimension": "e.cm",
+  "packet": "si",
+  "params": {
+    "borne_declaree_e_cm": 3.0e-26,
+    "borne_litterature_2015_e_cm": 3.0e-26,
+    "borne_litterature_2020_e_cm": 1.8e-26,
+    "theta": 0.10,
+    "theta_justification": "déclaration à un chiffre significatif (« 3×10⁻²⁶ ») : theta rel 10 % = tolérance de déclaration de borne ronde (même grammaire que les contacts de seuil « rel » 0,10 du registre)"
+  },
+  "value": {
+    "lecture_plafond": "pour une borne supérieure déclarée B, la déclaration « d_n < B » est tenue si la borne expérimentale réelle B_exp ≤ B ; le plafond du corpus est VRAI physiquement (1,8 < 3,0) mais la veille « en cours » le présente comme l'état de l'art : mu_loc = retard de veille = B_decl/B_best − 1",
+    "mu_loc_attendu": 0.6666666666666667,
+    "ancrage_corpus_2015": "la borne du corpus coïncide EXACTEMENT avec Pendlebury 2015 (3,0×10⁻²⁶, 90 % CL) : la veille est figée à l'état d'avant Abel 2020 — le corpus n'a pas intégré la mesure PSI 2009-2017 publiée en 2020",
+    "n2EDM_projection": "n2EDM phase 1 vise le bas du 10⁻²⁷ e·cm d'ici fin 2026 : la veille du corpus sera un ordre de grandeur en retard si la projection tient — noté, hors mu"
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_pred23_edm (src/mvcg/transversale.py)"
+}
