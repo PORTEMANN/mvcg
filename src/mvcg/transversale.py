@@ -879,3 +879,67 @@ def tr_electron_modele_lineaire() -> tuple[float, dict[str, Any]]:
                              "ecart_relatif": ecart_pb},
         "note": "le modèle linéaire déclaré ANU = 46,9 Z − 151,2 ne reproduit AUCUNE des six ancres que le même article publie (pire : Z=1, −104,3 vs 18, écart 679 % ; comptages négatifs jusqu'à Z ≤ 3) ; régime lourd : Z=82 → 3694,6 vs U(Pb) gelé, écart < 1 % — le corpus a ajusté l'extrémité lourde et perd la légère, motif inverse du modèle k(Z,N) (B1 : calage cassé aux deux extrémités, tient en vallée) ; ancres cohérentes avec la table ANU 1908 gelée (mêmes valeurs 18/72/127/164/200/216 — Occult Chemistry) ; dettes nommées : isotopes indistinguables en Z (He(3) 54 vs He 72), hedge du corpus (« dans un premier temps »), document source des claims déjà pesés LH_Anu_Gamme/B2 et B6 (non re-pesés)",
     }
+
+
+def tr_pred_rhoc() -> tuple[float, dict[str, Any]]:
+    """P8 ↔ P30 : cohérence croisée H₀ déclaré vs ρ_c déclaré (2026).
+
+    La page Prédictions déclare H₀ = 67.4 km/s/Mpc (P8, « Écart < 0.5 % »)
+    et ρ_c = 8.62×10⁻³⁰ g/cm³ (P30, « Écart < 1 % »), chacune avec
+    Prédite ≡ Mesurée — la borne est trivialement tenue paire par paire
+    (motif copie, voir TR_PRED_ZeroFalsification). Cette pesée croise les
+    DEUX déclarations entre elles : ρ_c recomputée depuis H₀ déclaré avec
+    G CODATA-2018 gelé → écart ≈ 1,02 %, juste au-dessus de la borne
+    « < 1 % » de P30. mu_loc = écart relatif, theta = borne déclarée
+    0.01 gelée avant le run. Zone grise : P attendu.
+    """
+    t = load_table("tr_pred_rhoc_LITTERATURE-2026.json")
+    p = t["params"]
+    h0 = float(p["H0_declare_km_s_Mpc"]) * 1e3 / float(p["Mpc_m"])
+    g = float(p["G_CODATA2018"])
+    rho_si = 3.0 * h0 ** 2 / (8.0 * math.pi * g)
+    rho30 = rho_si * 1e-3 / 1e-30
+    decl = float(p["rho_declare_1e-30_g_cm3"])
+    mu_loc = abs(decl / rho30 - 1.0)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "rho_recompute_1e-30_g_cm3": rho30,
+        "rho_declare_1e-30_g_cm3": decl,
+        "borne_P30": float(p["borne_ecart_P30"]),
+        "ecart_vs_borne": mu_loc / float(p["borne_ecart_P30"]),
+        "note": "ρ_c(67.4) = 3H₀²/8πG = " + f"{rho30:.4f}" + " ×10⁻³⁰ g/cm³ (G CODATA-2018 gelé, Mpc exact) vs 8.62 déclaré P30 : écart "
+        + f"{mu_loc*100:.2f} % vs borne « < 1 % » déclarée — tension au cheveu dans la zone grise ; les deux paires P8/P30 étant des copies (Prédite ≡ Mesurée), cette cohérence croisée est le seul test que la copie ne triche pas ; dette nommée : le corpus pourrait répondre que sa ρ_c « prédite » vient d'un H₀ légèrement différent du 67.4 affiché — mais alors la paire P8 n'est plus ce qu'elle affiche (tension interne à la page, exactement ce que pèse ce contact)",
+    }
+
+
+def tr_pred_zero_falsif() -> tuple[float, dict[str, Any]]:
+    """« 26 vérifiées / zéro falsification » (page Prédictions, 2026).
+
+    Gel de la page : 26 cartes « vérifiées » transcrites verbatim. 25
+    ont Prédite ≡ Mesurée écrites identiquement (la seule exception :
+    P13, < 1 vs < 0.8 eV/c²). Une paire identique rend l'« Écart »
+    déclaré vrai trivialement — « vérifiée » y est vide par construction
+    et ne peut pas être falsifiée. mu_loc = fraction de paires
+    indistinguables = 25/26, theta 0.10. La revendication « zéro
+    falsification » est donc unfalsifiable par construction au taux
+    gelé : une copie post-mesure ne risque rien.
+    """
+    t = load_table("tr_pred_zero_falsif_LITTERATURE-2026.json")
+    p = t["params"]
+    cartes = p["cartes"]
+    n = len(cartes)
+    identiques = [d for d in cartes if d["predite"] == d["mesuree"]]
+    differentes = [d for d in cartes if d["predite"] != d["mesuree"]]
+    mu_loc = len(identiques) / float(n)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "n_verifiees": n,
+        "n_paires_identiques": len(identiques),
+        "fraction": mu_loc,
+        "paires_differentes": [{"P": d["P"], "predite": d["predite"],
+                                "mesuree": d["mesuree"]} for d in differentes],
+        "exemples_identiques": [d["P"] for d in identiques[:8]],
+        "note": f"{len(identiques)}/{n} prédictions « vérifiées » ont Prédite ≡ Mesurée écrites identiquement (exemples : {', '.join(d['P'] for d in identiques[:6])}…) : l'« Écart » déclaré (< 0.01 % à < 1 %) y est vrai trivialement, la carte ne peut pas échouer, « vérifiée » y est vide par construction ; seule P13 diffère (< 1 vs < 0.8 eV/c²) ; la revendication de page « 26 vérifiées / zéro falsification » est donc unfalsifiable par construction au taux gelé — une prédiction qui recopie la mesure après coup ne risque rien ; dette nommée : les 6 « en cours » (P12, P15, P16, P23, P31, P32) ne portent pas de colonne Mesurée et sont hors décompte — la machine ne compte que ce qui est écrit",
+    }

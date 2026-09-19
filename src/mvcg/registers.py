@@ -2282,6 +2282,18 @@ def _tr_electron_modele_lineaire() -> tuple[float, dict]:
     return tr_electron_modele_lineaire()
 
 
+def _tr_pred_rhoc() -> tuple[float, dict]:
+    from mvcg.transversale import tr_pred_rhoc
+
+    return tr_pred_rhoc()
+
+
+def _tr_pred_zero_falsif() -> tuple[float, dict]:
+    from mvcg.transversale import tr_pred_zero_falsif
+
+    return tr_pred_zero_falsif()
+
+
 def _e44_t0_lien() -> tuple[float, dict]:
     from mvcg.e44 import e44_t0_lien
 
@@ -2451,6 +2463,8 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_electron_masse_uud": _tr_electron_masse_uud,
     "tr_electron_bilan_argile": _tr_electron_bilan_argile,
     "tr_electron_modele_lineaire": _tr_electron_modele_lineaire,
+    "tr_pred_rhoc": _tr_pred_rhoc,
+    "tr_pred_zero_falsif": _tr_pred_zero_falsif,
     "e44_t0_lien": _e44_t0_lien,
     "e44_lk_paire": _e44_lk_paire,
     "e44_p3_filaments": _e44_p3_filaments,
@@ -3376,6 +3390,22 @@ CONTACTS: list[Contact] = [
         "« Electron – Part. 5 » (21 décembre 2020) : « ANU = 46,9 Z – 151,2 » déclaré proportionnel, ancres du même article H 18 / He 72 / Li 127 / Be 164 / B 200 / C 216 (cohérentes avec la table ANU 1908 gelée) ; hedge du corpus (« dans un premier temps ») nommé ; isotopes indistinguables en Z (He(3) 54) nommé ; DOCUMENT SOURCE des claims déjà pesés LH_Anu_Gamme/B2 (moyenne 1,059 ≈ 2^{1/12}) et B6 (137 x^{−3/2}) — non re-pesés",
         "chantier ÉLECTRON / E4 (2026-09-18) : le modèle ne reproduit AUCUNE des six ancres du même article (Z=1 : −104,3 vs 18, pire écart 679 % ; comptages négatifs jusqu'à Z ≤ 3) — S- à 340 theta ; régime lourd : Z=82 → 3694,6 vs 3727 gelé, écart 0,87 % — le corpus ajuste l'extrémité lourde et perd la légère, motif inverse du modèle k(Z,N) du chantier B1 ; attendu S+ (hedge « premier temps ») non tenu",
         "tr_electron_modele_lineaire",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_PRED_RhoC_Croise", "micro", "pred", "1", "1", "abs", 0.01,
+        0.0, "rho_c recompute(H0 declare P8)<-borne « Ecart < 1% » de P30", "—",
+        "fouille des Brouillons (page Prédictions, chronologie.histoire-des-sciences.eu, gelée 2026-09-19) : P8 declare H0 = 67.4 km/s/Mpc (« Ecart < 0.5 % ») et P30 declare rho_c = 8.62e-30 g/cm³ (« Ecart < 1 % »), chacune avec Prédite identique à Mesurée (motif copie — contact TR_PRED_ZeroFalsification) ; cette pesée CROISE les deux declarations entre elles : rho_c = 3H0²/8πG recomptee depuis H0 declare, G CODATA-2018 gele, Mpc exact ; theta = borne « < 1% » de P30 gelee avant le run",
+        "chantier TRANSVERSALE / fouille Brouillons (2026-09-19) : rho_c(67.4) = 8.5329e-30 vs 8.62 declare — écart 1,021 % vs borne 1,0 % : P AU CHEVEU à 1,02 theta (zone grise) — la copie paire par paire ne peut pas tricher ce test croise ; attendu S+ (carte « vérifiée ») non tenu, mais la casse est au cheveu : la tension est nommée, pas tranchée",
+        "tr_pred_rhoc",
+        "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_PRED_ZeroFalsification", "micro", "pred", "1", "1", "abs", 0.10,
+        0.0, "fraction paires Prédite=Mesurée<-0 (aucune copie attendue)", "—",
+        "fouille des Brouillons (page Prédictions, gelée 2026-09-19) : en-tête « 32 prédictions — zéro falsification / 26 vérifiées / 6 en cours / 0 falsifiées » ; les 26 cartes « vérifiées » sont gelees verbatim dans tr_pred_zero_falsif_LITTERATURE-2026.json ; pesée purement interne : comparaison verbatim des colonnes Prédite et Mesurée — une paire identique rend l'« Ecart » declare vrai trivialement et ne peut pas etre falsifiee",
+        "chantier TRANSVERSALE / fouille Brouillons (2026-09-19) : 25/26 prédictions « vérifiées » ont Prédite identique à Mesurée (seule exception P13 : < 1 vs < 0.8 eV/c²) — fraction 96,15 % vs theta 10 % : S- à 9,6 theta ; la revendication « zéro falsification » est unfalsifiable par construction : une prédiction qui recopie la mesure après coup ne risque rien ; les 6 « en cours » (P12, P15, P16, P23, P31, P32) ne portent pas de colonne Mesurée, hors décompte — la machine ne compte que ce qui est écrit ; attendu S+ non tenu",
+        "tr_pred_zero_falsif",
         "ouverte", "S+", "TRANSVERSALE",
     ),
     Contact(

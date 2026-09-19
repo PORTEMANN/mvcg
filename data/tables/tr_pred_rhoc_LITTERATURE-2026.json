@@ -1,0 +1,26 @@
+{
+  "id": "tr_pred_rhoc",
+  "vintage": "LITTERATURE-2026",
+  "source": "Gelée datée pour la fouille des Brouillons (contact TR_PRED_RhoC_Croise, 2026-09-19) : déclarations verbatim de la page « Prédictions » de chronologie.histoire-des-sciences.eu (Table n°5, hub de l'écosystème), gelée le 2026-09-19. Carte P8 : « Constante de Hubble H₀ — vérifiée — Prédite 67.4 km/s/Mpc — Mesurée 67.4 km/s/Mpc — Écart < 0.5% ». Carte P30 : « Densité critique de l'univers ρ_c — vérifiée — Prédite 8.62×10⁻³⁰ g/cm³ — Mesurée 8.62×10⁻³⁰ g/cm³ — Écart < 1% ».",
+  "doi_or_ref": "corpus noétique (page Prédictions, gelée 2026-09-19) ; recompute croisé : ρ_c = 3H₀²/(8πG) avec G = 6.67430×10⁻¹¹ m³ kg⁻¹ s⁻² (CODATA-2018, codata2018_extract.json déjà gelé) et 1 Mpc = 3.0856775814913673×10²² m (définition IAU exacte) — la pesée croise DEUX déclarations du corpus (P8 et P30) entre elles, aucune référence externe de mesure requise",
+  "species": "cohérence interne entre deux prédictions « vérifiées » du corpus : H₀ et ρ_c déclarés sur la même page",
+  "quantity": "ρ_c recomputée depuis H₀ déclaré vs ρ_c déclarée, contre la borne « Écart < 1% » de P30",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "H0_declare_km_s_Mpc": 67.4,
+    "rho_declare_1e-30_g_cm3": 8.62,
+    "borne_ecart_P30": 0.01,
+    "theta": 0.01,
+    "theta_justification": "theta = borne déclarée « Écart < 1% » de la carte P30 (gelée avant le run — la machine pèse la déclaration contre sa propre borne)",
+    "G_CODATA2018": 6.67430e-11,
+    "Mpc_m": 3.0856775814913673e22,
+    "note_paires": "P8 et P30 ont Prédite ≡ Mesurée écrites identiquement (motif « copie », voir contact TR_PRED_ZeroFalsification) : la borne « < 1% » est trivialement tenue pour la paire telle qu'écrite ; la pesée ici est la COHÉRENCE CROISÉE entre les deux déclarations — un test que la copie ne peut pas tricher"
+  },
+  "value": {
+    "rho_recompute_1e-30_g_cm3": 8.533,
+    "ecart_relatif": 0.0102,
+    "note": "ρ_c(67.4) = 3H₀²/8πG = 8.533×10⁻³⁰ g/cm³ vs 8.62 déclaré → écart ≈ 1,02 %, juste au-dessus de la borne « < 1% » déclarée : tension au cheveu dans la zone grise P"
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner tr_pred_rhoc (src/mvcg/transversale.py)"
+}

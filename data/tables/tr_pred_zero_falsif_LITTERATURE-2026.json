@@ -1,0 +1,231 @@
+{
+ "id": "tr_pred_zero_falsif",
+ "vintage": "LITTERATURE-2026",
+ "source": "Gelée datée pour la fouille des Brouillons (contact TR_PRED_ZeroFalsification, 2026-09-19) : page « Prédictions » de chronologie.histoire-des-sciences.eu, gelée le 2026-09-19 — en-tête : « 32 prédictions — zéro falsification / 32 prédictions · 26 vérifiées · 6 en cours · 0 falsifiées ». Les 26 cartes « vérifiées » sont transcrites verbatim dans params.cartes (P1-P32, les 6 « en cours » P12, P15, P16, P23, P31, P32 ne portent pas de colonne Mesurée et sont hors décompte).",
+ "doi_or_ref": "corpus noétique (page Prédictions, gelée 2026-09-19) ; pesée purement interne : comparaison verbatim des colonnes Prédite et Mesurée des 26 cartes « vérifiées » — aucune référence externe",
+ "species": "revendication globale de la page « Prédictions » : « 26 vérifiées / 0 falsifiées »",
+ "quantity": "proportion des paires Prédite/Mesurée indistinguables (chaînes identiques) parmi les 26 « vérifiées »",
+ "dimension": "1",
+ "packet": "1",
+ "params": {
+  "cartes": [
+   {
+    "P": "P30",
+    "titre": "Densité critique de l univers ρ_c",
+    "statut": "vérifiée",
+    "predite": "8.62×10⁻³⁰ g/cm³",
+    "mesuree": "8.62×10⁻³⁰ g/cm³",
+    "ecart": "< 1%"
+   },
+   {
+    "P": "P29",
+    "titre": "Température de transition QCD",
+    "statut": "vérifiée",
+    "predite": "154±9 MeV",
+    "mesuree": "154±9 MeV",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P28",
+    "titre": "Abondance relative des éléments légers",
+    "statut": "vérifiée",
+    "predite": "Li/H ≈ 1.6×10⁻¹⁰",
+    "mesuree": "Li/H ≈ 1.6×10⁻¹⁰",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P27",
+    "titre": "Différence de masse neutron-proton",
+    "statut": "vérifiée",
+    "predite": "1.293332 MeV/c²",
+    "mesuree": "1.293332 MeV/c²",
+    "ecart": "< 0.0001%"
+   },
+   {
+    "P": "P26",
+    "titre": "Rayon de charge du deuteron",
+    "statut": "vérifiée",
+    "predite": "2.142 fm",
+    "mesuree": "2.142 fm",
+    "ecart": "< 0.01%"
+   },
+   {
+    "P": "P25",
+    "titre": "Constante de couplage forte α_s (M_Z)",
+    "statut": "vérifiée",
+    "predite": "0.1179",
+    "mesuree": "0.1179",
+    "ecart": "< 0.001"
+   },
+   {
+    "P": "P24",
+    "titre": "Masse du boson de Higgs",
+    "statut": "vérifiée",
+    "predite": "125.10 GeV/c²",
+    "mesuree": "125.10 GeV/c²",
+    "ecart": "< 0.02%"
+   },
+   {
+    "P": "P22",
+    "titre": "Structure des résonances hadroniques",
+    "statut": "vérifiée",
+    "predite": "f₀(500): 400-550 MeV",
+    "mesuree": "f₀(500): 400-550 MeV",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P21",
+    "titre": "Décalage spectral SNe Ia",
+    "statut": "vérifiée",
+    "predite": "q₀ < 0",
+    "mesuree": "q₀ < 0",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P20",
+    "titre": "Abondance primordiale d hélium-4",
+    "statut": "vérifiée",
+    "predite": "Yp = 0.24709",
+    "mesuree": "Yp = 0.24709",
+    "ecart": "< 0.001"
+   },
+   {
+    "P": "P19",
+    "titre": "Spectre de puissance des fluctuations CMB",
+    "statut": "vérifiée",
+    "predite": "r < 0.06",
+    "mesuree": "r < 0.06",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P18",
+    "titre": "Période de demi-vie du proton",
+    "statut": "vérifiée",
+    "predite": "> 1.67×10³⁴ ans",
+    "mesuree": "> 1.67×10³⁴ ans",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P17",
+    "titre": "Structure octupolaire des noyaux lourds",
+    "statut": "vérifiée",
+    "predite": "Ra-224: β₃ ≈ 0.12",
+    "mesuree": "Ra-224: β₃ ≈ 0.12",
+    "ecart": "< 5%"
+   },
+   {
+    "P": "P14",
+    "titre": "Asymétrie matière/antimatière (CP-violation)",
+    "statut": "vérifiée",
+    "predite": "η ≈ 6×10⁻¹⁰",
+    "mesuree": "η ≈ 6×10⁻¹⁰",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P13",
+    "titre": "Masse du neutrino électronique",
+    "statut": "vérifiée",
+    "predite": "< 1 eV/c²",
+    "mesuree": "< 0.8 eV/c²",
+    "ecart": "compatible"
+   },
+   {
+    "P": "P11",
+    "titre": "Rayon de charge du proton",
+    "statut": "vérifiée",
+    "predite": "0.841 fm",
+    "mesuree": "0.841 fm",
+    "ecart": "< 0.01%"
+   },
+   {
+    "P": "P10",
+    "titre": "Densité de matière noire Ω_c",
+    "statut": "vérifiée",
+    "predite": "0.2642",
+    "mesuree": "0.2642",
+    "ecart": "< 0.01%"
+   },
+   {
+    "P": "P9",
+    "titre": "Densité d énergie noire Ω_Λ",
+    "statut": "vérifiée",
+    "predite": "0.6847",
+    "mesuree": "0.6847",
+    "ecart": "< 0.01%"
+   },
+   {
+    "P": "P8",
+    "titre": "Constante de Hubble H₀",
+    "statut": "vérifiée",
+    "predite": "67.4 km/s/Mpc",
+    "mesuree": "67.4 km/s/Mpc",
+    "ecart": "< 0.5%"
+   },
+   {
+    "P": "P7",
+    "titre": "Masse du boson Z",
+    "statut": "vérifiée",
+    "predite": "91.1876 GeV/c²",
+    "mesuree": "91.1876 GeV/c²",
+    "ecart": "< 0.001%"
+   },
+   {
+    "P": "P6",
+    "titre": "Masse du boson W",
+    "statut": "vérifiée",
+    "predite": "80.379 GeV/c²",
+    "mesuree": "80.379 GeV/c²",
+    "ecart": "< 0.02%"
+   },
+   {
+    "P": "P5",
+    "titre": "Spectre de masse des hadrons légers",
+    "statut": "vérifiée",
+    "predite": "π⁰: 134.98, π⁺: 139.57",
+    "mesuree": "π⁰: 134.98, π⁺: 139.57",
+    "ecart": "< 0.01%"
+   },
+   {
+    "P": "P4",
+    "titre": "Moment magnétique anomal de l électron",
+    "statut": "vérifiée",
+    "predite": "1.00115965218059",
+    "mesuree": "1.00115965218059",
+    "ecart": "< 10⁻¹³"
+   },
+   {
+    "P": "P3",
+    "titre": "Constante de structure fine α",
+    "statut": "vérifiée",
+    "predite": "1/137.035999084",
+    "mesuree": "1/137.035999084",
+    "ecart": "< 10⁻¹¹"
+   },
+   {
+    "P": "P2",
+    "titre": "Rapport masse proton/neutron",
+    "statut": "vérifiée",
+    "predite": "0.998623",
+    "mesuree": "0.998623",
+    "ecart": "< 0.0001%"
+   },
+   {
+    "P": "P1",
+    "titre": "Masse du proton par confinement Koïlon",
+    "statut": "vérifiée",
+    "predite": "938.272 MeV/c²",
+    "mesuree": "938.272 MeV/c²",
+    "ecart": "< 0.001%"
+   }
+  ],
+  "n_verifiees": 26,
+  "n_identiques": 25,
+  "theta": 0.1,
+  "theta_justification": "revendication de page à seuil rond : theta rel 10 % = tolérance de déclaration de taux (même grammaire que les contacts de seuil « rel » 0,10)"
+ },
+ "value": {
+  "fraction_attendue": 0.9615384615384616,
+  "note": "une paire Prédite ≡ Mesurée identique rend l'« Écart » déclaré vrai trivialement et ne peut pas être falsifiée : « vérifiée » y est vide par construction ; une prédiction qui copie la mesure après coup ne risque rien — la revendication « zéro falsification » est donc unfalsifiable par construction au taux gelé"
+ },
+ "sha256_note": "hachage de la déclaration gelée : voir runner tr_pred_zero_falsif (src/mvcg/transversale.py)"
+}

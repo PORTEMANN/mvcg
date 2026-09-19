@@ -35,6 +35,8 @@ from mvcg.transversale import (  # noqa: E402
     tr_kzn_grille,
     tr_kzn_sensibilite,
     tr_mda_suite_stable,
+    tr_pred_rhoc,
+    tr_pred_zero_falsif,
     tr_pred23_edm,
     tr_sn132_liaison,
     tr_tov_sn195pt,
@@ -593,4 +595,47 @@ class TestElectronModeleLineaire(unittest.TestCase):
         self.assertEqual(r["verdict"], "S-")
         self.assertTrue(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 6.794444444444443, delta=1e-12)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestPredRhoC(unittest.TestCase):
+    def test_mu_gelé(self):
+        # Brouillons P8↔P30 : ρ_c(67.4) = 8.5329e-30 vs 8.62 déclaré —
+        # écart 1,021 % vs borne « < 1 % » : P au cheveu à 1,02 θ.
+        self.assertAlmostEqual(tr_pred_rhoc()[0],
+                               0.010212857781883633, delta=1e-15)
+        _, x = tr_pred_rhoc()
+        self.assertAlmostEqual(x["rho_recompute_1e-30_g_cm3"],
+                               8.5329, delta=1e-3)
+        self.assertAlmostEqual(x["ecart_vs_borne"], 1.0213, delta=1e-3)
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_PRED_RhoC_Croise")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "P")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.010212857781883633,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestPredZeroFalsification(unittest.TestCase):
+    def test_mu_gelé(self):
+        # Brouillons : 25/26 prédictions « vérifiées » ont Prédite =
+        # Mesurée verbatim — fraction 0.961538…, seule exception P13.
+        self.assertAlmostEqual(tr_pred_zero_falsif()[0],
+                               0.9615384615384616, delta=1e-15)
+        _, x = tr_pred_zero_falsif()
+        self.assertEqual(x["n_verifiees"], 26)
+        self.assertEqual(x["n_paires_identiques"], 25)
+        self.assertEqual(len(x["paires_differentes"]), 1)
+        self.assertEqual(x["paires_differentes"][0]["P"], "P13")
+
+    def test_attendu_splus_non_tenu(self):
+        r = _contact("TR_PRED_ZeroFalsification")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S-")
+        self.assertTrue(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.9615384615384616,
+                               delta=1e-15)
         self.assertIsNone(r["units_kill"])
