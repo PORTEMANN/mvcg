@@ -178,6 +178,27 @@ paire de Hopf (|moyenne Lk| = 1,004 sur trois estimations, **S+** à
 réfutation, la machine confirme le mot). Doctrine :
 [`docs/CHANTIER-E44-NUCLEATION.md`](docs/CHANTIER-E44-NUCLEATION.md).
 
+Le tiroir TRANSVERSALE (2026-09-16 → 18) est la **fouille transversale du
+corpus** — toutes les déclarations chiffrées datées et gelées de la
+prospective, pesées sans exception : 20 contacts, **6 S+ tenus, 14 S−,
+0 P**. Le corpus y est fiable comme transcripteur de la physique
+standard (fusion D-T, données mésoniques, inégalité Sn132), fragile dès
+qu'il extrapole : cinq familles de défaillance nommées — dettes
+d'écriture (l'écrit ne recompte pas), définitions opérationnelles
+perdues (lectures multiples, escapes nommées), dettes de datation
+(veilles figées), modèles qui ne reproduisent pas leurs propres ancres
+(le modèle k(Z,N) à 12,36 % RMS, le linéaire ANU qui rate ses six
+ancres), tares de frontière (0,76 θ tenu, 0,94 θ tenu — le tranchant
+mesuré). Pesées notables : le seuil Z=25 tenu à 0,76 θ (un seul
+dépassement sur 66 ratios) ; la S_n(196Pt) = 7,922 MeV NUBASE2020 qui
+casse la valeur 6,5 MeV réutilisée par deux articles du corpus ; le
+plafond EDM du neutron figé à Pendlebury 2015, 66,7 % derrière Abel
+2020 ; la série « Électron » entière, 4 S− dont une équation de bilan
+fausse telle qu'écrite et un modèle qui ne reproduit aucune de ses
+propres ancres. Bilan :
+[`docs/BILAN-TRANSVERSALE.md`](docs/BILAN-TRANSVERSALE.md) ; fouille :
+[`docs/PROSPECTIVE-FOUILLE-TRANSVERSALE.md`](docs/PROSPECTIVE-FOUILLE-TRANSVERSALE.md).
+
 La paire O1 → O6 est la démonstration : même objet, même référence,
 même θ, seul le levier écrit au moment de l'échec a bougé. O3 → O7
 généralise le geste à un paramètre effectif phénoménologique. La
