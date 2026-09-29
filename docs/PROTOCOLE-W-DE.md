@@ -115,3 +115,21 @@ data/tables/wde_free_LITTERATURE-2025.json  3e9fd16c720b831c927be5b3ec6c4a23afe0
 Après la fermeture, ces octets ne bougent pas (I-G1) : un changement de
 θ, de ligne, de référence ou de table est un HOLD de protocole. Les mots
 seront découverts à la première exécution — jamais choisis.
+
+## Run (2026-09-30) — mots découverts
+
+| contact | mu_loc (σ publiée) | θ | mot |
+|---|---|---|---|
+| WDE_PantheonPlus | 2.8 | 2.0 | **P** à 1,4 θ |
+| WDE_Union3 | 3.8 | 2.0 | **P** à 1,9 θ (au cheveu de S−) |
+| WDE_DESY5 | 4.2 | 2.0 | **S−** à 2,1 θ (rouge de bord) |
+| WDE_FREE | 3.0 (plancher) | 2.0 | **P** à 1,5 θ |
+
+Lecture : la ligne pauvre documente les tensions au lieu de les
+écraser — PantheonPlus et Union3 sont en zone grise (la machine note
+que la tension existe sans la déclarer tranchée), DES Y5 dépasse la
+ligne (S−), et la reconstruction sans forme confirme la dynamique à
+bas z (pas de pli CPL, I-D7). Paysage gelé : quatre fabrications, deux
+P, un S− de bord, une borne — cohérent avec la préférence publiée
+3,1σ (DESI+CMB) et 2,8-4,2σ (avec SN) du paysage 2024-2025.
+383 tests OK au run, registre 129 contacts.

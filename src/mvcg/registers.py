@@ -1228,6 +1228,51 @@ def _h0_ecart() -> tuple[float, dict]:
     }
 
 
+def _wde_one(table_name: str) -> tuple[float, dict]:
+    """Contact ouvert W-DE — signification publiée du rejet de ΛCDM.
+
+    Protocole W-DE FERMÉ (2026-09-30) : mu_loc = σ_comb publiée par la
+    fabrication gelée (DESI DR2, arXiv:2503.14738v3, citations dans la
+    table), mu_ref = 0 (ΛCDM, aucune déviation attendue), θ = 2 (ligne
+    pauvre k = 2, grammaire k = 2 du registre). Anti-tautologie : la
+    signification est la publication gelée, elle ne pilote aucun
+    calcul — la machine lit l'écart entre (w₀, w_a) et (−1, 0) tel que
+    la collaboration l'a publié, elle ne refait pas le fit.
+    """
+    from mvcg.tables import load_table
+
+    t = load_table(table_name)
+    p = t["params"]
+    sigma = float(p["sigma_comb"] if "sigma_comb" in p else p["sigma_lowest_bin"])
+    return sigma, {
+        "table": table_name,
+        "vintage": t["vintage"],
+        "method": "signification publiée du rejet de ΛCDM (ellipse CPL)",
+        "w0": p.get("w0"),
+        "wa": p.get("wa"),
+        "sigma_comb": sigma,
+        "reference": "ΛCDM (w0, wa) = (-1, 0)",
+        "theta_ligne": "pauvre k=2 (protocole W-DE fermé)",
+        "unit_raw": "1",
+    }
+
+
+def _wde_pp() -> tuple[float, dict]:
+    return _wde_one("wde_pp_LITTERATURE-2025.json")
+
+
+def _wde_u3() -> tuple[float, dict]:
+    return _wde_one("wde_u3_LITTERATURE-2025.json")
+
+
+def _wde_y5() -> tuple[float, dict]:
+    return _wde_one("wde_y5_LITTERATURE-2025.json")
+
+
+def _wde_free() -> tuple[float, dict]:
+    return _wde_one("wde_free_LITTERATURE-2025.json")
+
+
 def _hz_sne_lowz() -> tuple[float, dict]:
     """Contact H0 bas-z — la courbe H(z) declaree vs les bins SNe.
 
@@ -2436,6 +2481,10 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "corr_stabilite_energie": _corr_stabilite_energie,
     "corr_fenetre_point": _corr_fenetre_point,
     "h0_ecart": _h0_ecart,
+    "wde_pp": _wde_pp,
+    "wde_u3": _wde_u3,
+    "wde_y5": _wde_y5,
+    "wde_free": _wde_free,
     "hz_sne_lowz": _hz_sne_lowz,
     "hz_sne_lit_sh0es": _hz_sne_lit_sh0es,
     "hz_sne_lit_planck": _hz_sne_lit_planck,
@@ -3451,6 +3500,38 @@ CONTACTS: list[Contact] = [
         "chantier TRANSVERSALE / fouille Brouillons (2026-09-19) : 25/26 prédictions « vérifiées » ont Prédite identique à Mesurée (seule exception P13 : < 1 vs < 0.8 eV/c²) — fraction 96,15 % vs theta 10 % : S- à 9,6 theta ; la revendication « zéro falsification » est unfalsifiable par construction : une prédiction qui recopie la mesure après coup ne risque rien ; les 6 « en cours » (P12, P15, P16, P23, P31, P32) ne portent pas de colonne Mesurée, hors décompte — la machine ne compte que ce qui est écrit ; attendu S+ non tenu",
         "tr_pred_zero_falsif",
         "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "WDE_PantheonPlus", "macro", "pred", "1", "1", "abs", 2.0,
+        0.0, "sigma rejet ΛCDM<-0 (protocole W-DE, ligne pauvre k=2)", "—",
+        "protocole W-DE FERMÉ (2026-09-30) : DESI DR2 (arXiv:2503.14738v3, eq. 26) — (w0, wa) = (−0,838 ± 0,055 ; −0,62 +0,22/−0,19), signification du rejet de ΛCDM publiée 2,8σ ; θ = 2 (ligne pauvre k = 2)",
+        "run W-DE (2026-09-30) : mu_loc = σ_comb publiée = 2,8 vs θ = 2 — P à 1,4 θ : la tension PantheonPlus est documentée en zone grise, pas écrasée ; la fabrication la moins tendue des trois",
+        "wde_pp",
+        "ouverte", "S+", "W-DE",
+    ),
+    Contact(
+        "WDE_Union3", "macro", "pred", "1", "1", "abs", 2.0,
+        0.0, "sigma rejet ΛCDM<-0 (protocole W-DE, ligne pauvre k=2)", "—",
+        "protocole W-DE FERMÉ (2026-09-30) : DESI DR2 (arXiv:2503.14738v3, eq. 27) — (w0, wa) = (−0,667 ± 0,088 ; −1,09 +0,31/−0,27), signification du rejet de ΛCDM publiée 3,8σ ; θ = 2",
+        "run W-DE (2026-09-30) : mu_loc = 3,8 vs θ = 2 — P à 1,9 θ, AU CHEVEU de S− : la zone grise haute, exactement le tranchant de la ligne pauvre ; la fabrication intermédiaire",
+        "wde_u3",
+        "ouverte", "S+", "W-DE",
+    ),
+    Contact(
+        "WDE_DESY5", "macro", "pred", "1", "1", "abs", 2.0,
+        0.0, "sigma rejet ΛCDM<-0 (protocole W-DE, ligne pauvre k=2)", "—",
+        "protocole W-DE FERMÉ (2026-09-30) : DESI DR2 (arXiv:2503.14738v3, eq. 28) — (w0, wa) = (−0,752 ± 0,057 ; −0,86 +0,23/−0,20), signification du rejet de ΛCDM publiée 4,2σ ; θ = 2",
+        "run W-DE (2026-09-30) : mu_loc = 4,2 vs θ = 2 — S− à 2,1 θ : la fabrication la plus tendue dépasse la ligne pauvre ; c'est elle qui porte le mot rouge du paysage w0wa — rouge de bord (fenêtre [2,4))",
+        "wde_y5",
+        "ouverte", "S+", "W-DE",
+    ),
+    Contact(
+        "WDE_FREE", "macro", "pred", "1", "1", "abs", 2.0,
+        0.0, "sigma bin le plus bas<-0 (plancher gelé > 3σ)", "—",
+        "protocole W-DE FERMÉ (2026-09-30) : reconstruction par bins sans forme fonctionnelle (compagnon arXiv:2503.14743v2 + 2503.14738 §VII.2 Fig. 12) : le bin le plus bas (z ≲ 0,3) préfère w > −1 à « more than 3σ » de ΛCDM — la valeur 3.0 est un PLANCHER gelé, pas une mesure ; θ = 2",
+        "run W-DE (2026-09-30) : mu_loc = 3.0 (plancher) vs θ = 2 — P à 1,5 θ : la dynamique à bas z est robuste aux choix de modélisation (bins + processus gaussiens), pas un pli CPL ; FREE cohérent avec Y5 (I-D7 : pas de pli) ; la machine fige la borne, pas l'extrapolation",
+        "wde_free",
+        "ouverte", "S+", "W-DE",
     ),
     Contact(
         "E44_Lk_PaireHopf", "micro", "pred", "1", "1", "rel", 0.10,
