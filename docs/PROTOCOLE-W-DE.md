@@ -1,8 +1,21 @@
 # Protocole W-DE — gel de la fibre « équation d'état de l'énergie noire »
 
-**Statut : BROUILLON EN COURS DE FERMETURE (2026-09-30).** À hasher et
-fermer *avant* le prochain data release (DR3 / nouvelle compilation SN),
-pas après avoir lu le σ. Hérite du brouillon du lot ext v0.5 (2026-09-28)
+**Statut : FERMÉ (2026-09-30, gel avant toute lecture du mot ; DESI DR3
+non publié à la fermeture).** Ligne θ choisie par le propriétaire :
+**pauvre (k = 2)** — grammaire k = 2 du registre. Les quatre tables sont
+gelées dans `data/tables/` (DESI DR2, arXiv:2503.14738v3 + compagnon
+arXiv:2503.14743v2, citations dans chaque table) :
+
+| table | fabrication | (w₀, w_a) gelés | σ_comb gelée | mot attendu |
+|---|---|---|---|---|
+| wde_pp | DESI+CMB+PantheonPlus | (−0.838 ± 0.055 ; −0.62 +0.22/−0.19) | 2.8σ | P 1,4 θ |
+| wde_u3 | DESI+CMB+Union3 | (−0.667 ± 0.088 ; −1.09 +0.31/−0.27) | 3.8σ | P 1,9 θ |
+| wde_y5 | DESI+CMB+DES Y5 | (−0.752 ± 0.057 ; −0.86 +0.23/−0.20) | 4.2σ | S− 2,1 θ |
+| wde_free | bins z (compagnon) | plancher > 3σ au bin le plus bas | > 3σ | S− > 1,5 θ |
+
+## Empreintes SHA-256 des tables gelées
+
+``` Hérite du brouillon du lot ext v0.5 (2026-09-28)
 et de la note H0/S8 absorbée en I-D5/I-D6/I-D9.
 
 ## Ce que cette fibre pèse
@@ -89,3 +102,16 @@ Chacun est une autre fibre ou une dette nommée.
 4. Un run par contact, mots découverts, jamais choisis ;
 5. La classe (R5) ne s'ouvre que si un second protocole de classe est
    gelé (I-D7).
+
+## Empreintes SHA-256 des tables gelées
+
+```
+data/tables/wde_pp_LITTERATURE-2025.json  4425ba94943ea1f9e0d500178a40c90f5f86a62720760336d7b5386a32cd8814
+data/tables/wde_u3_LITTERATURE-2025.json  676a51e3c40a25e88d09ae327681924bb6c1d912558def293d703855032b8ad4
+data/tables/wde_y5_LITTERATURE-2025.json  fb73748c86ec4e03179d06abfcdc9b767f7dd0c08e5b341132bd00ea95985657
+data/tables/wde_free_LITTERATURE-2025.json  3e9fd16c720b831c927be5b3ec6c4a23afe040a870faa1a7bee922083b98a20c
+```
+
+Après la fermeture, ces octets ne bougent pas (I-G1) : un changement de
+θ, de ligne, de référence ou de table est un HOLD de protocole. Les mots
+seront découverts à la première exécution — jamais choisis.

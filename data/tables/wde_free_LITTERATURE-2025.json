@@ -1,0 +1,20 @@
+{
+  "id": "wde_free",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelée datée pour le protocole W-DE (2026-09-30) : reconstruction par bins sans paramétrisation — DESI Collaboration, arXiv:2503.14738v3 §VII.2 (Fig. 12) : « Reference [49] also performs binned reconstruction of w(z) without assuming a functional form … The lowest redshift bin shown in the figure favors a value of w > −1 at high significance, inconsistent with the ΛCDM expectation w = −1 » ; compagnon Lodha et al., arXiv:2503.14743v2 (2025-04-03) : « The data provide the tightest constraints in the lowest redshift bin, where they prefer a w(z) that is more than 3σ away from ΛCDM value of −1, whereas the higher redshift bin amplitudes remain, at most, within 2σ of ΛCDM ».",
+  "doi_or_ref": "arXiv:2503.14738v3 §VII.2 + arXiv:2503.14743v2 (reconstruction par bins et processus gaussiens) ; dette nommée : les valeurs numériques exactes des bins sont en figures des deux publications — transcription pixel par pixel (grammaire B1) à faire si la machine a besoin des amplitudes ; la SIGNIFICATION (> 3σ pour le bin le plus bas) est écrite dans le texte des deux publications",
+  "species": "reconstruction de w(z) par bins en redshift, sans forme fonctionnelle (tueur de Taylor pour CPL)",
+  "quantity": "signification de l'écart à w = −1 du bin le plus bas (z ≲ 0,3)",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "sigma_lowest_bin": 3.0,
+    "sigma_lowest_bin_semantique": "« more than 3σ » — la valeur 3.0 est un PLANCHER gelé (la signification publiée est une borne inférieure, pas une mesure)",
+    "higher_bins": "au plus 2σ de ΛCDM (bins hauts)",
+    "reference": "ΛCDM w(z) = −1",
+    "theta": 2.0,
+    "theta_justification": "même ligne pauvre k = 2 que les trois contacts SN (choix à la fermeture, 2026-09-30)",
+    "test_pli_parametrisation": "I-D7 : si FREE restait S+ pendant que Y5 est S− → pli CPL, HOLD de récit ; ici FREE est S− comme Y5 : pas de pli"
+  },
+  "value": {"verdict_attendu": "S− (> 1,5 θ, borne)", "note": "la préférence w > −1 à bas z est robuste aux choix de modélisation (bins + processus gaussiens) — la dynamique n'est pas un pli de la paramétrisation CPL"}
+}

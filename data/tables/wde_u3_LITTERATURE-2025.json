@@ -1,0 +1,20 @@
+{
+  "id": "wde_u3",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelée datée pour le protocole W-DE (2026-09-30) : DESI Collaboration, « DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints », arXiv:2503.14738v3 (2025-10-09), équation (27) : « w_0 = −0.667 ± 0.088, w_a = −1.09^{+0.31}_{−0.27} » pour la combinaison DESI+CMB+Union3 ; §VII.1 : « The significance of rejection of ΛCDM is … 3.8σ … for combinations with the … Union3 … SNe samples ».",
+  "doi_or_ref": "arXiv:2503.14738v3 (DESI DR2, 2025) ; compagnon arXiv:2503.14743 (Lodha et al. 2025) — reconstruction non paramétrique concordante",
+  "species": "point (w₀, w_a) de la paramétrisation CPL, combinaison DESI DR2 + CMB + Union3, vs référence ΛCDM (−1, 0)",
+  "quantity": "signification publiée du rejet de ΛCDM (σ_comb) pour cette fabrication",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "w0": -0.667, "w0_sigma": 0.088,
+    "wa": -1.09, "wa_sigma_plus": 0.31, "wa_sigma_minus": 0.27,
+    "sigma_comb": 3.8,
+    "reference": "ΛCDM (w0, wa) = (−1, 0)",
+    "theta": 2.0,
+    "theta_justification": "ligne pauvre k = 2 choisie à la fermeture (2026-09-30) — grammaire k = 2 du registre ; δ = σ_comb publiée, θ = 2",
+    "contexte_DESI_CMB_seul": {"w0": -0.42, "w0_sigma": 0.21, "wa": -1.75, "wa_sigma": 0.58, "sigma_comb": 3.1}
+  },
+  "value": {"verdict_attendu": "P à 1,9 θ (au cheveu de S−)", "note": "Union3 est la fabrication intermédiaire ; la tension frôle la frontière S− (1,9 θ < 2) — zone grise haute, exactement le tranchant de la ligne pauvre"}
+}

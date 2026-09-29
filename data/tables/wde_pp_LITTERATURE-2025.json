@@ -1,0 +1,20 @@
+{
+  "id": "wde_pp",
+  "vintage": "LITTERATURE-2025",
+  "source": "Gelée datée pour le protocole W-DE (2026-09-30) : DESI Collaboration, « DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints », arXiv:2503.14738v3 (2025-10-09), équation (26) : « w_0 = −0.838 ± 0.055, w_a = −0.62^{+0.22}_{−0.19} » pour la combinaison DESI+CMB+PantheonPlus ; §VII.1 : « The significance of rejection of ΛCDM is 2.8σ … for combinations with the Pantheon+ … SNe samples ».",
+  "doi_or_ref": "arXiv:2503.14738v3 (DESI DR2, 2025) ; compagnon arXiv:2503.14743 (Lodha et al. 2025) — reconstruction non paramétrique concordante",
+  "species": "point (w₀, w_a) de la paramétrisation CPL, combinaison DESI DR2 + CMB + PantheonPlus, vs référence ΛCDM (−1, 0)",
+  "quantity": "signification publiée du rejet de ΛCDM (σ_comb) pour cette fabrication",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "w0": -0.838, "w0_sigma": 0.055,
+    "wa": -0.62, "wa_sigma_plus": 0.22, "wa_sigma_minus": 0.19,
+    "sigma_comb": 2.8,
+    "reference": "ΛCDM (w0, wa) = (−1, 0)",
+    "theta": 2.0,
+    "theta_justification": "ligne pauvre k = 2 choisie à la fermeture (2026-09-30) — grammaire k = 2 du registre (CKM decide=U k=2, HVP LO, HLbL) ; δ = σ_comb publiée, θ = 2",
+    "contexte_DESI_CMB_seul": {"w0": -0.42, "w0_sigma": 0.21, "wa": -1.75, "wa_sigma": 0.58, "sigma_comb": 3.1}
+  },
+  "value": {"verdict_attendu": "P à 1,4 θ", "note": "l'ellipse est centrée dans le quadrant w0 > −1, w_a < 0 (croisement fantôme préféré) ; PantheonPlus est la fabrication la moins tendue des trois"}
+}
