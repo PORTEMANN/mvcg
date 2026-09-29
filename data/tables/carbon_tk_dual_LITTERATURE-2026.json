@@ -1,0 +1,32 @@
+{
+  "id": "carbon_tk_dual",
+  "vintage": "LITTERATURE-2026",
+  "source": "Déclaration du corpus gelée datée (auteur du corpus, 2026-09-29, instruction « déclare une valeur puis monte le ») : valeur textbook du rapport I_D/I_G à 514 nm au point dual de la paire O4/O14, L★ = √(3×10) nm. Provenance EXPLICITE : interpolation géométrique des deux ancres déclarées du corpus — O4 (L_a = 3 nm → 1,2, table carbon_disorder_LITERATURE-2018) et O14 (L_a = 10 nm → 0,45, table carbon_tk_window_LITERATURE-2018) : √(1,2 × 0,45) = 0,7348469. Ce n'est PAS la formule TK elle-même (qui donnerait 4,4/5,477 = 0,8034) : la déclaration interpole les RATIOS OBSERVÉS des ancres du corpus, pas leurs prédictions — la pesée garde son sens (anti-tautologie : l'observé ne pilote pas le calcul).",
+  "doi_or_ref": "protocole TK-DUAL-GELE-2026-09-27 (MVC-G ext v0.5, gel/PROTOCOLE.json, SHA 88ef404b…) : L★ = √(3×10) = 5,477226 nm, mêmes C = 4,4 nm et θ = 0,10 que les ancres ; Knight & White, J. Mater. Res. 4 (1989) 385-393, Fig. 4 : formule L_a = 44·(I_D/I_G)⁻¹ à 514 nm, r² = 0,84 — le scatter documenté justifie u = 0,15",
+  "species": "rapport Raman I_D/I_G à 514 nm pour un charbon de taille de domaine L_a = 5,477 nm (point dual de la paire O4/O14)",
+  "quantity": "I_D/I_G(L★) = C(514 nm)/L★ vs ratio déclaré du corpus au point dual",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "TK_C_lambda514_nm": 4.4,
+    "La_star_nm": 5.477225575051661,
+    "La_star_definition": "sqrt(3*10) nm — point fixe de l'involution phi(L) = 30/L du protocole TK-DUAL",
+    "ID_IG_declared": 0.73484692283495345,
+    "ID_IG_declared_provenance": "sqrt(1.2 * 0.45) = 0.7348469 — interpolation géométrique des ratios OBSERVÉS déclarés aux deux ancres du corpus (O4 : 3 nm → 1,2 ; O14 : 10 nm → 0,45), déclarée par l'auteur du corpus le 2026-09-29",
+    "u_declared": 0.15,
+    "u_declared_justification": "couvre le scatter documenté du jeu de données (Knight & White 1989 Fig. 4, r² = 0,84) et la lecture d'interpolation ; avec u = 0,15 la valeur déclarée couvre [0,585 ; 0,885]",
+    "theta": 0.10,
+    "theta_justification": "même θ = 0,10 que O4/O14 (protocole TK-DUAL : « même C et même θ »)",
+    "ancres": {
+      "O4": {"La_nm": 3.0, "ID_IG_observed": 1.2, "prediction": 1.4666666666666668, "delta": 0.2222, "verdict": "S-"},
+      "O14": {"La_nm": 10.0, "ID_IG_observed": 0.45, "prediction": 0.44, "delta": 0.0222, "verdict": "S+"}
+    },
+    "modeles_courbure_protocole": {
+      "pole_1surL": 0.9277787357290459,
+      "log_wedge": 1.22,
+      "lineaire": 1.5122212642709543,
+      "note": "prédictions de tension r(L★) publiées avant d par le protocole ext (gel/PROTOCOLE.md) — lecture R5 : r ≤ 1,05 convexe (pôle 1/L) ; [1,12 ; 1,32] nulle ; ≥ 1,45 concave ; hors [0,90 ; 1,55] HOLD"
+    }
+  },
+  "sha256_note": "hachage de la déclaration gelée : voir runner o4star_tk_dual (src/mvcg/registers.py)"
+}

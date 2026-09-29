@@ -639,6 +639,41 @@ def _o14_tk_window() -> tuple[float, dict]:
     }
 
 
+def _o4star_tk_dual() -> tuple[float, dict]:
+    """Contact ouvert O4star — point dual de la paire O4/O14.
+
+    Règle déclarée AVANT le premier run : I_D/I_G = C(λ)/L★ avec
+    C = 4,4 nm (même constante) et L★ = sqrt(3×10) = 5,477226 nm
+    (point fixe de l'involution du protocole TK-DUAL-GELE-2026-09-27).
+    La référence est la valeur textbook DECLARÉE par le corpus
+    (2026-09-29) : interpolation géométrique des ratios observés des
+    deux ancres du corpus (O4 : 1,2 ; O14 : 0,45) = 0,7348469, u
+    déclarée 0,15 (scatter KW Fig. 4, r² = 0,84). La valeur déclarée NE
+    DOIT JAMAIS entrer dans le calcul — seuls C et L★ pilotent la
+    prédiction (anti-tautologie du contact, comme O4/O14).
+    """
+    from mvcg.tables import load_table
+
+    t = load_table("carbon_tk_dual_LITTERATURE-2026.json")
+    p = t["params"]
+    c_lambda = float(p["TK_C_lambda514_nm"])
+    la = float(p["La_star_nm"])
+    pred = c_lambda / la
+    return pred, {
+        "table": "carbon_tk_dual_LITTERATURE-2026.json",
+        "vintage": t["vintage"],
+        "method": "loi de Tuinstra-Koenig, phase 1, point dual O4/O14",
+        "rule": "ID/IG = C(lambda)/L*, L* = sqrt(3*10) nm",
+        "C_lambda514_nm": c_lambda,
+        "La_star_nm": la,
+        "u_declared": float(p["u_declared"]),
+        "provenance_reference": p["ID_IG_declared_provenance"],
+        "ansatz": "activation du D proportionnelle aux bords de domaine",
+        "lever": "La<-recalibrer",
+        "unit_raw": "1",
+    }
+
+
 def _o15_h2_harmonic() -> tuple[float, dict]:
     """Contact ouvert O15 — constante harmonique du H2 par force déclarée.
 
@@ -2384,6 +2419,7 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "o12_cu_gamma": _o12_cu_gamma,
     "o13_co2_isotopologue": _o13_co2_isotopologue,
     "o14_tk_window": _o14_tk_window,
+    "o4star_tk_dual": _o4star_tk_dual,
     "o15_h2_harmonic": _o15_h2_harmonic,
     "o16_cu_gamma_eff": _o16_cu_gamma_eff,
     "o17_h2_anharmonic": _o17_h2_anharmonic,
@@ -2710,6 +2746,14 @@ CONTACTS: list[Contact] = [
         "contact ouvert O14 : TK dans sa fenetre (pendant d'O4), mot inconnu au gel ; theta=0.10 fige avant run",
         "o14_tk_window",
         "ouverte", None, "O14",
+    ),
+    Contact(
+        "O4star_TK_Dual", "micro", "pred", "1", "1", "rel", 0.10,
+        0.73484692283495345, "La<-recalibrer", "—",
+        "ID/IG(L*=5.477nm) = C(514nm)/L* = ratio declare au point dual (corpus, 2026-09-29)",
+        "contact ouvert O4star : point dual de la paire O4/O14 (protocole TK-DUAL-GELE-2026-09-27) ; reference = valeur textbook declaree par le corpus (interpolation geometrique des ratios observes des ancres O4 1,2 et O14 0,45 = 0,7348469, u = 0,15 declare, scatter KW Fig. 4 r² = 0,84) ; theta = 0.10 fige (meme que O4/O14) ; la valeur declaree NE DOIT JAMAIS entrer dans le calcul",
+        "o4star_tk_dual",
+        "ouverte", None, "O4star",
     ),
     Contact(
         "O15_H2_Harmonique", "micro", "pred", "1", "cm^-1", "rel", 0.10,

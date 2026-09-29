@@ -40,7 +40,7 @@ mots.
 
 | Loi déclarée | Tient (S+) | Casse (S−) | Fenêtre délimitée |
 |---|---|---|---|
-| Tuinstra-Koenig I_D/I_G = C/L_a (514 nm) | O14 : L_a = 10 nm, δ = 2,2 % | O4 : L_a = 3 nm, δ = 22,2 % | L_a ≳ 4 nm à 514 nm ; la loi s'effondre sous ~4 nm (régime Ferrari-Robertson C'/L_a²) |
+| Tuinstra-Koenig I_D/I_G = C/L_a (514 nm) | O14 : L_a = 10 nm, δ = 2,2 % ; **O4★ : L★ = 5,477 nm, δ = 9,3 % (0,93 θ)** | O4 : L_a = 3 nm, δ = 22,2 % | la loi tient au point dual de la paire (2026-09-29) : fenêtre ≥ ~5,5 nm à 514 nm ; elle s'effondre à 3 nm (régime Ferrari-Robertson C'/L_a²) — la frontière se situe entre 3 et 5,5 nm |
 | Karplus ³J(HN,Hα) | NMR hélice φ=−60° : δ = 2,7 % | NMR brin φ=−120° : δ = 16,1 % ; Vogeli-Bax 2007 : 18,7 % / 16,0 % | la loi « devient une carte » : fenêtre conformationnelle hélice, pas brin |
 | Catalogue NIST rotationnel CO | Dunham 2B₀−4D₀ = ν(1−0) : δ = 280 Hz | règle μ ¹³CO : 412 θ | les identités internes du catalogue tiennent ; les règles de transfert isotopique approximatives ont une fenêtre étroite |
 | Loi harmonique m = m_p·2^{n/12} | quinte μ (0,59 %), diagonale Z (0,30 %), Koide (9,2e−5 θ), up (3,1 %), charm (1,5 %), Zmax modes (0,21 %), gamme ANU (0,12 %) | sqf KO-6 (14 U), α double usage (630 %), pont RMS (138 %), G11 (2 002 θ), addendum corps (1 U) | **leptons + boson Z** tiennent à θ près ; quarks moyens/lourds gris (P × 3, δ 12-13 %) ; le reste de la loi n'a pas de fenêtre |

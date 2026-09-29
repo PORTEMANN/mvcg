@@ -53,6 +53,7 @@ POPULATION_FIGEE = [
     "O14_TK_Fenetre",
     "O15_H2_Harmonique",
     "O16_Cu_Gamma_Eff",
+    "O4star_TK_Dual",
     "O7_Carbon_D_Levier",
     "O8_BEC_Tc",
     # 2026-09-14 : chantier PRINCIPES — PF2/PF3/PF4 rejoignent la
@@ -72,7 +73,7 @@ class TestSerrageSerieO(unittest.TestCase):
 
     def test_monotonie_et_bascule_en_P(self):
         out = run_serrage_serie_o()
-        self.assertEqual(out["n"], 23)  # 12 + PF2/PF3/PF4 (chantier PRINCIPES) + PF7 (chantier H(z) F4, 2026-09-14) + LH_Muon_Quinte / LH_Z_Diagonale (chantier LOI-HARMONIQUE, 2026-09-15) + LH_Koide_Q / LH_Zmax_Modes (3e fournée G7/G9, 2026-09-15) + LH_Charm_G5 / LH_Up_G3 (4e fournée G3/G5, 2026-09-15) + LH_Anu_Gamme (5e fournée C1, 2026-09-15)
+        self.assertEqual(out["n"], 24)  # 12 + PF2/PF3/PF4 (chantier PRINCIPES) + PF7 (chantier H(z) F4, 2026-09-14) + LH_Muon_Quinte / LH_Z_Diagonale (chantier LOI-HARMONIQUE, 2026-09-15) + LH_Koide_Q / LH_Zmax_Modes (3e fournée G7/G9, 2026-09-15) + LH_Charm_G5 / LH_Up_G3 (4e fournée G3/G5, 2026-09-15) + LH_Anu_Gamme (5e fournée C1, 2026-09-15) + O4star_TK_Dual (point dual O4/O14, S+ a 0,93 theta, 2026-09-29)
         for r in out["resultats"]:
             # monotonie de _adc : serrer un S+ passe par P, jamais S- direct
             self.assertEqual(r["verdict_bascule"], "P")
