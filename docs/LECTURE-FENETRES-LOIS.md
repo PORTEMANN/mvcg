@@ -5,7 +5,7 @@ contacts) — aucun verdict nouveau, aucune donnée nouvelle. Statut :
 local, non commité. Provenance : doctrine proposée par le paquet
 MVC-G ext v0.5 (2026-09-28), absorbée ici sans code (voir §1).
 
-## 1. Doctrine absorbée (proposition d'extension des invariants — non intégrée)
+## 1. Doctrine absorbée (intégrée aux invariants du dépôt, 2026-09-30 — I-D1 à I-D9)
 
 Absorbée telle quelle du paquet ext, comme *doctrine* uniquement. Pas de
 code greffé ; intégration aux invariants du dépôt en attente de décision.
@@ -82,9 +82,10 @@ de loi.
   domaine (« TK tient à 10 nm » ≠ « TK tient »). Le BILAN-TRANSVERSALE
   classait les *défaillances* ; ce document cartographie les
   *validités*. Les deux couches se superposent.
-- **Doctrine** : D1-D4/F1/R8 + note H0/S8 sont proposées pour intégration
-  aux invariants du dépôt (décision à prendre ; aucun code avant que la
-  géométrie ait ≥ 2 familles de lois porteuses d'échelle — O4★ et W-DE).
+- **Doctrine** : D1-D4/F1/R8 + note H0/S8 intégrées aux invariants
+  (I-D1 à I-D9, 2026-09-30) ; aucun code greffé — l'intégration est
+  doctrinale, l'isotherme TK (O4★, S+ 0,93 θ) en est la première
+  démonstration.
 - **O4★ inchangé** : GELE_AVANT_D, en attente de la référence observée à
   L_a ≈ 5,5 nm. R5/R6 prêts, donnée manquante — dette nommée.
 - **W-DE** : la note H0/S8 justifie l'unique fibre nouvelle prévue ;
