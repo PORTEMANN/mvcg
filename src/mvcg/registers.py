@@ -2362,6 +2362,24 @@ def _tr_electron_modele_lineaire() -> tuple[float, dict]:
     return tr_electron_modele_lineaire()
 
 
+def _tr_nq_charges() -> tuple[float, dict]:
+    from mvcg.transversale import tr_nq_charges
+
+    return tr_nq_charges()
+
+
+def _tr_nq_pourcentages() -> tuple[float, dict]:
+    from mvcg.transversale import tr_nq_pourcentages
+
+    return tr_nq_pourcentages()
+
+
+def _tr_nq_isotopes() -> tuple[float, dict]:
+    from mvcg.transversale import tr_nq_isotopes
+
+    return tr_nq_isotopes()
+
+
 def _tr_pred_rhoc() -> tuple[float, dict]:
     from mvcg.transversale import tr_pred_rhoc
 
@@ -2548,6 +2566,9 @@ RUNNERS: dict[str, Callable[[], tuple[float, dict]]] = {
     "tr_electron_masse_uud": _tr_electron_masse_uud,
     "tr_electron_bilan_argile": _tr_electron_bilan_argile,
     "tr_electron_modele_lineaire": _tr_electron_modele_lineaire,
+    "tr_nq_charges": _tr_nq_charges,
+    "tr_nq_pourcentages": _tr_nq_pourcentages,
+    "tr_nq_isotopes": _tr_nq_isotopes,
     "tr_pred_rhoc": _tr_pred_rhoc,
     "tr_pred_zero_falsif": _tr_pred_zero_falsif,
     "e44_t0_lien": _e44_t0_lien,
@@ -3484,6 +3505,30 @@ CONTACTS: list[Contact] = [
         "chantier ÉLECTRON / E4 (2026-09-18) : le modèle ne reproduit AUCUNE des six ancres du même article (Z=1 : −104,3 vs 18, pire écart 679 % ; comptages négatifs jusqu'à Z ≤ 3) — S- à 340 theta ; régime lourd : Z=82 → 3694,6 vs 3727 gelé, écart 0,87 % — le corpus ajuste l'extrémité lourde et perd la légère, motif inverse du modèle k(Z,N) du chantier B1 ; attendu S+ (hedge « premier temps ») non tenu",
         "tr_electron_modele_lineaire",
         "ouverte", "S+", "TRANSVERSALE",
+    ),
+    Contact(
+        "TR_NQ_ChargeQuarks", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "charge nette<-entier attendu (p +1, n 0)", "—",
+        "« Electron – Part. 1 » (2020) : charges u = 2/3, d = −1/3 ; p(u,u,d) POSITIVE, n(d,d,u) NEUTRE ; « trois dans un » (3 quarks → charge entière) — certification de cohérence interne (grammaire Rydberg voie 2, circularité déclarée, pas de référence externe)",
+        "chantier NQ (2026-09-30) : p(uud) = 2/3 + 2/3 − 1/3 = +1 exactement ✓ ; n(udd) = −1/3 − 1/3 + 2/3 = 0 exactement ✓ ; les deux comptages donnent des charges ENTIÈRES (« trois dans un » ✓) — mu_loc = 0, S+ à 0 θ : l'arithmétique quantique déclarée du corpus est propre, sans appel",
+        "tr_nq_charges",
+        "ouverte", "S+", "NQ",
+    ),
+    Contact(
+        "TR_NQ_PourcentagesProton", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "pourcentages du proton recomptés<-déclarés (0,214 % / 0,510 %)", "—",
+        "« Electron – Part. 1 » (2020) : u = 2,01 MeV « soit 0,214% de la masse du proton », d = 4,79 MeV « soit 0,510% » ; m_p = 938 MeV déclarée par le même corpus (Part. 3) — certification de cohérence interne (circularité déclarée)",
+        "chantier NQ (2026-09-30) : 2,01/938 = 0,21429 % vs 0,214 % (écart 0,134 %) ; 4,79/938 = 0,51066 % vs 0,510 % (écart 0,130 %) — mu_loc = 0,0013, S+ à 0,067 θ : les pourcentages du corpus sont recomptables et justes à trois chiffres (pendant de TR_ELECTRON_MasseUUD, qui pesait la tension Part.1/Part.3, pas les pourcentages)",
+        "tr_nq_pourcentages",
+        "ouverte", "S+", "NQ",
+    ),
+    Contact(
+        "TR_NQ_IsotopesHydrogene", "micro", "pred", "1", "1", "abs", 0.02,
+        0.0, "comptages (A, charge)<-déclarés isotopes H/D/T", "—",
+        "« Electron – Part. 1 » (2020), isotopes de l'hydrogène : H = p(uud) ; D = {p ; n} ; T = {p ; n ; n} — comptages de charge et de nucléons (certification de cohérence interne)",
+        "chantier NQ (2026-09-30) : H : 1 nucléon, charge +1 ✓ ; D : 2 nucléons, charge +1+0 = +1 ✓ ; T : 3 nucléons, charge +1 ✓ — mu_loc = 0, S+ à 0 θ : les trois isotopes gardent Z = 1 avec A croissant, exactement la définition d'isotope que le corpus invoque",
+        "tr_nq_isotopes",
+        "ouverte", "S+", "NQ",
     ),
     Contact(
         "TR_PRED_RhoC_Croise", "micro", "pred", "1", "1", "abs", 0.01,

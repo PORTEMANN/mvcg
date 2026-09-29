@@ -35,6 +35,9 @@ from mvcg.transversale import (  # noqa: E402
     tr_kzn_grille,
     tr_kzn_sensibilite,
     tr_mda_suite_stable,
+    tr_nq_charges,
+    tr_nq_isotopes,
+    tr_nq_pourcentages,
     tr_pred_rhoc,
     tr_pred_zero_falsif,
     tr_pred23_edm,
@@ -638,4 +641,62 @@ class TestPredZeroFalsification(unittest.TestCase):
         self.assertTrue(r["b3_fail"])
         self.assertAlmostEqual(r["mu_loc"], 0.9615384615384616,
                                delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestNQChargeQuarks(unittest.TestCase):
+    def test_mu_gelé(self):
+        # NQ1 : p(uud) = +1 exactement, n(udd) = 0 exactement,
+        # « trois dans un » vérifié — mu = 0.
+        self.assertAlmostEqual(tr_nq_charges()[0], 0.0, delta=1e-15)
+        _, x = tr_nq_charges()
+        self.assertAlmostEqual(x["charge_p_recompute"], 1.0, delta=1e-15)
+        self.assertAlmostEqual(x["charge_n_recompute"], 0.0, delta=1e-15)
+        self.assertTrue(x["trois_dans_un"])
+
+    def test_attendu_splus_tenu(self):
+        r = _contact("TR_NQ_ChargeQuarks")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S+")
+        self.assertFalse(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.0, delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestNQPourcentagesProton(unittest.TestCase):
+    def test_mu_gelé(self):
+        # NQ2 : 2,01/938 = 0,21429 % vs 0,214 % ; 4,79/938 = 0,51066 %
+        # vs 0,510 % — pire écart 0,1335 %.
+        self.assertAlmostEqual(tr_nq_pourcentages()[0],
+                               0.0013351134846459889, delta=1e-15)
+        _, x = tr_nq_pourcentages()
+        self.assertAlmostEqual(x["pct_u_recompute"],
+                               0.0021428571428571425, delta=1e-15)
+        self.assertAlmostEqual(x["pct_d_recompute"],
+                               0.005106609808102345, delta=1e-15)
+
+    def test_attendu_splus_tenu(self):
+        r = _contact("TR_NQ_PourcentagesProton")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S+")
+        self.assertFalse(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.0013351134846459889,
+                               delta=1e-15)
+        self.assertIsNone(r["units_kill"])
+
+
+class TestNQIsotopesHydrogene(unittest.TestCase):
+    def test_mu_gelé(self):
+        # NQ3 : H (A=1, +1), D (A=2, +1), T (A=3, +1) — mu = 0.
+        self.assertAlmostEqual(tr_nq_isotopes()[0], 0.0, delta=1e-15)
+        _, x = tr_nq_isotopes()
+        self.assertEqual(x["comptages"]["T"]["A_recompute"], 3)
+        self.assertEqual(x["comptages"]["T"]["charge_recompute"], 1.0)
+
+    def test_attendu_splus_tenu(self):
+        r = _contact("TR_NQ_IsotopesHydrogene")
+        self.assertEqual(r["expected"], "S+")
+        self.assertEqual(r["verdict"], "S+")
+        self.assertFalse(r["b3_fail"])
+        self.assertAlmostEqual(r["mu_loc"], 0.0, delta=1e-15)
         self.assertIsNone(r["units_kill"])

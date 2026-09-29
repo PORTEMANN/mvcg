@@ -1,0 +1,25 @@
+{
+  "id": "tr_nq_charges",
+  "vintage": "LITTERATURE-2020",
+  "source": "Gelée datée pour le chantier NQ (contact TR_NQ_ChargeQuarks, 2026-09-30) : déclarations verbatim de « Electron – Part. 1 » (histoire-des-sciences.eu, décembre 2020) : « La charge électrique est de 2/3 » (quark u), « La charge électrique est de -1/3 » (quark d) ; « Les protons sont constitués de deux quarks u et d'un quark d noté p(u,u,d). Et les neutrons sont constitués de deux quarks d et d'un quark u noté n(d,d,u). » ; « Le proton est une particule de charge électrique POSITIVE et le neutron est de charge électrique NEUTRE » ; « Les quark sont « trois dans un » c'est à dire que leur charge électrique est multiple de 3. »",
+  "doi_or_ref": "corpus noétique, arithmétique interne pure (pas de référence externe — grammaire de certification de cohérence, comme Rydberg voie 2 ; circularité déclarée)",
+  "species": "charges électriques des quarks u/d et comptages de charge du proton et du neutron",
+  "quantity": "cohérence interne : p(uud) = +1, n(udd) = 0, « trois dans un » (3 quarks → charge entière)",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "charge_u": 0.6666666666666666,
+    "charge_d": -0.3333333333333333,
+    "composition_p": ["u", "u", "d"],
+    "composition_n": ["d", "d", "u"],
+    "charge_p_declaree": 1.0,
+    "charge_n_declaree": 0.0,
+    "claim_trois_dans_un": "3 quarks assemblés → charge entière (multiple de 3 au dénominateur)",
+    "theta": 0.02,
+    "theta_justification": "charges déclarées en fractions exactes : theta 2 % = tolérance de lecture stricte (grammaire TR_KZN_ExpQ65)"
+  },
+  "value": {
+    "mu_loc_attendu": 0.0,
+    "note": "2/3 + 2/3 − 1/3 = +1 (proton POSITIVE ✓) ; −1/3 − 1/3 + 2/3 = 0 (neutron NEUTRE ✓) ; trois quarks → charge entière dans les deux cas (« trois dans un » ✓) — l'arithmétique quantique du corpus est propre"
+  }
+}

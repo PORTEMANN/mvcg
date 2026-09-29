@@ -1,0 +1,23 @@
+{
+ "id": "tr_nq_pourcentages",
+ "vintage": "LITTERATURE-2020",
+ "source": "Gelée datée pour le chantier NQ (contact TR_NQ_PourcentagesProton, 2026-09-30) : déclarations verbatim de « Electron – Part. 1 » (décembre 2020) : « La masse du quark u est de 2,01 +/- 0,14 MeV/c² soit 0,214% de la masse du proton. » ; « La masse du quark d est de 4,79 +/- 0,16 MeV/c² soit 0,510% de la masse du proton. » ; masse du proton déclarée par le même corpus (Part. 3) : « m_p = 938 MeV/c² ».",
+ "doi_or_ref": "corpus noétique, certification de cohérence interne (les pourcentages déclarés recomptés depuis les masses déclarées par le même corpus ; circularité déclarée — pas de CODATA, grammaire Rydberg voie 2)",
+ "species": "pourcentages de la masse du proton portés par les quarks u et d, selon le corpus",
+ "quantity": "2,01/938 et 4,79/938 vs 0,214 % et 0,510 % déclarés",
+ "dimension": "1",
+ "packet": "1",
+ "params": {
+  "m_u_MeV": 2.01,
+  "m_d_MeV": 4.79,
+  "m_p_corpus_MeV": 938.0,
+  "pct_u_declare": 0.00214,
+  "pct_d_declare": 0.0051,
+  "theta": 0.02,
+  "theta_justification": "déclarations à trois chiffres (0,214 % et 0,510 %) : theta 2 % = tolérance de déclaration à trois chiffres (grammaire TR_KZN_B11_Liaison)"
+ },
+ "value": {
+  "mu_loc_attendu": 0.0013351134846459889,
+  "note": "2,01/938 = 0,21429 % vs 0,214 % (écart 0,134 %) ; 4,79/938 = 0,51066 % vs 0,510 % (écart 0,130 %) — les pourcentages du corpus sont recomptables et justes à trois chiffres"
+ }
+}

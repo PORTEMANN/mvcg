@@ -1,0 +1,23 @@
+{
+  "id": "tr_nq_isotopes",
+  "vintage": "LITTERATURE-2020",
+  "source": "Gelée datée pour le chantier NQ (contact TR_NQ_IsotopesHydrogene, 2026-09-30) : déclarations verbatim de « Electron – Part. 1 » (décembre 2020), section « Exemples avec les isotopes de l'hydrogène » : « L'atome d'hydrogène : p(u,u,d) ; l'atome de deutérium : {p(u,u,d) ; n(d,d,u)} ; l'atome de tritium : {p(u,u,d) ; n(d,d,u) ; n(d,d,u)} ».",
+  "doi_or_ref": "corpus noétique, arithmétique interne pure (comptages de charge et de nucléons ; pas de référence externe — certification de cohérence)",
+  "species": "comptages de charge et de nucléons des trois isotopes de l'hydrogène selon le corpus",
+  "quantity": "cohérence interne : charge = +1 et A = nombre de nucléons pour H, D, T",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "isotopes": {
+      "H": {"nucleons": ["p", null, null], "A_declare": 1, "charge_declaree": 1.0},
+      "D": {"nucleons": ["p", "n", null], "A_declare": 2, "charge_declaree": 1.0},
+      "T": {"nucleons": ["p", "n", "n"], "A_declare": 3, "charge_declaree": 1.0}
+    },
+    "theta": 0.02,
+    "theta_justification": "comptages entiers exacts : theta 2 % = tolérance de lecture stricte"
+  },
+  "value": {
+    "mu_loc_attendu": 0.0,
+    "note": "H : 1 nucléon, charge +1 ✓ ; D : 2 nucléons (1p+1n), charge +1+0 = +1 ✓ ; T : 3 nucléons (1p+2n), charge +1 ✓ — les trois isotopes gardent Z = 1 avec A croissant, exactement la définition d'isotope que le corpus invoque"
+  }
+}

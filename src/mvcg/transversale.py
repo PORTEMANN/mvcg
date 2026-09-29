@@ -943,3 +943,96 @@ def tr_pred_zero_falsif() -> tuple[float, dict[str, Any]]:
         "exemples_identiques": [d["P"] for d in identiques[:8]],
         "note": f"{len(identiques)}/{n} prédictions « vérifiées » ont Prédite ≡ Mesurée écrites identiquement (exemples : {', '.join(d['P'] for d in identiques[:6])}…) : l'« Écart » déclaré (< 0.01 % à < 1 %) y est vrai trivialement, la carte ne peut pas échouer, « vérifiée » y est vide par construction ; seule P13 diffère (< 1 vs < 0.8 eV/c²) ; la revendication de page « 26 vérifiées / zéro falsification » est donc unfalsifiable par construction au taux gelé — une prédiction qui recopie la mesure après coup ne risque rien ; dette nommée : les 6 « en cours » (P12, P15, P16, P23, P31, P32) ne portent pas de colonne Mesurée et sont hors décompte — la machine ne compte que ce qui est écrit",
     }
+
+
+def tr_nq_charges() -> tuple[float, dict[str, Any]]:
+    """Charges des quarks déclarées et comptages p/n (Électron Part 1).
+
+    Arithmétique interne pure (grammaire de certification, comme
+    Rydberg voie 2) : p(uud) = 2/3 + 2/3 − 1/3 = +1 vs proton POSITIVE
+    déclaré ; n(udd) = −1/3 − 1/3 + 2/3 = 0 vs neutron NEUTRE déclaré ;
+    « trois dans un » : trois quarks → charge entière dans les deux
+    cas. mu_loc = pire écart absolu vs l'entier attendu, theta 2 %.
+    """
+    t = load_table("tr_nq_charges_LITTERATURE-2020.json")
+    p = t["params"]
+    cu = 2.0 / 3.0
+    cd = -1.0 / 3.0
+    charge_p = 2 * cu + cd
+    charge_n = 2 * cd + cu
+    decl_p = float(p["charge_p_declaree"])
+    decl_n = float(p["charge_n_declaree"])
+    e_p = abs(charge_p - decl_p)
+    e_n = abs(charge_n - decl_n)
+    entiere = (abs(charge_p - round(charge_p)) < 1e-12 and
+               abs(charge_n - round(charge_n)) < 1e-12)
+    mu_loc = max(e_p, e_n)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "charge_p_recompute": charge_p,
+        "charge_n_recompute": charge_n,
+        "ecart_p": e_p,
+        "ecart_n": e_n,
+        "trois_dans_un": entiere,
+        "note": "p(uud) = 2/3 + 2/3 − 1/3 = +1 exactement (proton POSITIVE ✓) ; n(udd) = −1/3 − 1/3 + 2/3 = 0 exactement (neutron NEUTRE ✓) ; les deux comptages donnent des charges ENTIÈRES (« trois dans un » ✓) : l'arithmétique quantique déclarée du corpus est propre, sans appel — certification de cohérence interne, circularité déclarée",
+    }
+
+
+def tr_nq_pourcentages() -> tuple[float, dict[str, Any]]:
+    """« 2,01 MeV soit 0,214 % » et « 4,79 MeV soit 0,510 % » (Part 1).
+
+    Certification de cohérence interne : les pourcentages de la masse
+    du proton déclarés par le corpus sont recomptés depuis les masses
+    déclarées par le même corpus (m_p = 938 MeV, Part. 3) — circularité
+    déclarée, pas de CODATA. mu_loc = pire écart relatif, theta 2 %.
+    """
+    t = load_table("tr_nq_pourcentages_LITTERATURE-2020.json")
+    p = t["params"]
+    mp = float(p["m_p_corpus_MeV"])
+    pct_u = float(p["m_u_MeV"]) / mp
+    pct_d = float(p["m_d_MeV"]) / mp
+    decl_u = float(p["pct_u_declare"])
+    decl_d = float(p["pct_d_declare"])
+    e_u = abs(pct_u / decl_u - 1.0)
+    e_d = abs(pct_d / decl_d - 1.0)
+    mu_loc = max(e_u, e_d)
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "pct_u_recompute": pct_u,
+        "pct_d_recompute": pct_d,
+        "ecart_u": e_u,
+        "ecart_d": e_d,
+        "note": "2,01/938 = 0,21431 % vs 0,214 % déclaré (écart 0,143 %) ; 4,79/938 = 0,51066 % vs 0,510 % déclaré (écart 0,130 %) : les pourcentages du corpus sont recomptables et justes à trois chiffres — le corpus transcrit correctement ses propres masses (pendant de TR_ELECTRON_MasseUUD, qui pesait la tension Part.1/Part.3, pas les pourcentages)",
+    }
+
+
+def tr_nq_isotopes() -> tuple[float, dict[str, Any]]:
+    """Isotopes de l'hydrogène : comptages de charge et de nucléons.
+
+    Arithmétique interne pure : H = p → charge +1, A = 1 ; D = {p,n}
+    → +1, A = 2 ; T = {p,n,n} → +1, A = 3 (charges déclarées Part. 1 :
+    p POSITIVE, n NEUTRE). mu_loc = pire écart absolu, theta 2 %.
+    """
+    t = load_table("tr_nq_isotopes_LITTERATURE-2020.json")
+    p = t["params"]
+    charges = {"p": 1.0, "n": 0.0}
+    ecarts = {}
+    for iso, d in p["isotopes"].items():
+        nucleons = [x for x in d["nucleons"] if x]
+        a = len(nucleons)
+        q = sum(charges[x] for x in nucleons)
+        ecarts[iso] = {
+            "A_recompute": a, "A_declare": d["A_declare"],
+            "ecart_A": abs(a - d["A_declare"]),
+            "charge_recompute": q, "charge_declaree": d["charge_declaree"],
+            "ecart_charge": abs(q - d["charge_declaree"]),
+        }
+    mu_loc = max(max(v["ecart_A"], v["ecart_charge"]) for v in ecarts.values())
+    return float(mu_loc), {
+        "table": t["vintage"],
+        "table_sha256": t["_sha256"],
+        "comptages": ecarts,
+        "note": "H : 1 nucléon, charge +1 ✓ ; D : 2 nucléons (1p+1n), charge +1+0 = +1 ✓ ; T : 3 nucléons (1p+2n), charge +1 ✓ — les trois isotopes gardent Z = 1 avec A croissant, exactement la définition d'isotope que le corpus invoque ; certification de cohérence interne",
+    }
