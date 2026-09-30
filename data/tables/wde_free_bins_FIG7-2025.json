@@ -1,0 +1,43 @@
+{
+  "id": "wde_free_bins_fig7",
+  "vintage": "LITTERATURE-2025",
+  "source": "Transcription gelée pixel par pixel (grammaire B1, 2026-09-30) de la Figure 7 panneau supérieur de Lodha et al., arXiv:2503.14743v2 (compagnon DESI DR2) — rendu pypdfium2 scale 3,0 du PDF arXiv, calibration : ligne pointillée w = −1 à y = 239 (ancre exacte), tick −2,0 à y = 368 → 129 px par unité w ; couleurs détectées par seuil RGB : bleu (3 bins uniformes), teal (4), rose (5).",
+  "doi_or_ref": "arXiv:2503.14743v2 Fig. 7 (panneau supérieur) — « Median bin amplitudes with 1σ and 2σ error bars, using DESI+(compressed CMB)+Union3 » ; déclaration textuelle gelée des deux publications : « more than 3σ away from ΛCDM value of −1 » pour le bin le plus bas",
+  "species": "amplitudes w(z) des bins de redshift, reconstruction sans forme fonctionnelle",
+  "quantity": "w du bin le plus bas (z ≲ 0,3-0,7 selon le schéma) transcrit par lecture graphique",
+  "dimension": "1",
+  "packet": "1",
+  "params": {
+    "calibration": {
+      "ancre_ligne_pointillee_w_moins1_y": 239,
+      "tick_moins2_y": 368,
+      "pixels_par_unite_w": 129,
+      "u_lecture_graphique": 0.05,
+      "methode": "pypdfium2 scale 3,0 ; détection des cercles par seuil RGB ; centres = barycentres des pixels colorés (barres d'erreur symétriques)",
+      "note_rose_5unif": "les barres d'erreur du schéma 5 bins débordent le cadre (détection contaminée en extent) ; le centre lu est fiable, les étendues ne le sont pas"
+    },
+    "bins_transcrits": {
+      "bleu_3_unif": [
+        {"z_centre_estime": 0.30, "w": -0.859, "barre_interne": [-0.938, -0.791]},
+        {"z_centre_estime": 1.02, "w": -1.460, "barre_interne": [-1.535, -1.279]},
+        {"z_centre_estime": 1.91, "w": -1.182, "barre_interne": [-1.899, -0.473]}
+      ],
+      "teal_4_unif": [
+        {"z_centre_estime": 0.24, "w": -0.857, "barre_interne": [-0.946, -0.775]},
+        {"z_centre_estime": 0.63, "w": -1.157, "barre_interne": [-1.302, -0.992]},
+        {"z_centre_estime": 1.13, "w": -1.500, "barre_interne": [-2.023, -0.969]},
+        {"z_centre_estime": 1.56, "w": -1.355, "barre_interne": [-2.287, -0.473]}
+      ],
+      "rose_5_unif": [
+        {"z_centre_estime": 0.18, "w": -0.935, "barre_interne": "contaminée — barres longues débordant le cadre"}
+      ]
+    },
+    "signification_textuelle_gelee": "« more than 3σ away from ΛCDM value of −1 » pour le bin le plus bas (2503.14738 §VII.2 et 2503.14743)",
+    "bins_hauts": "au plus 2σ de ΛCDM (compagnon)"
+  },
+  "value": {
+    "consistance_transcription_texte": "les trois schémas placent le bin le plus bas à w ≈ −0,86 à −0,94, au-dessus de −1 ; |w+1| = 0,14 avec >3σ publié → σ ≲ 0,047, cohérent avec la barre interne courte lue (±0,07) ; la transcription est concordante avec la déclaration textuelle gelée",
+    "comparaison_cpl": "la courbe CPL best-fit (DES Y5 : w0 = −0,752, wa = −0,86) au centre du bin le plus bas (z = 0,35) : w = −0,975 — le bin 3-unif transcrit (−0,859) est au-dessus de 0,12, dans les barres",
+    "note": "la transcription enrichit l'évidence du contact WDE_FREE sans re-run : le verdict (P à 1,5 θ) porte sur la borne plancher gelée ; les amplitudes transcrites documentent la géométrie du signal (w > −1 au bas z, retour vers −1 et au-delà aux hauts z — le motif du croisement fantôme)"
+  }
+}

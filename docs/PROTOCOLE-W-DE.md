@@ -133,3 +133,26 @@ bas z (pas de pli CPL, I-D7). Paysage gelé : quatre fabrications, deux
 P, un S− de bord, une borne — cohérent avec la préférence publiée
 3,1σ (DESI+CMB) et 2,8-4,2σ (avec SN) du paysage 2024-2025.
 383 tests OK au run, registre 129 contacts.
+
+---
+
+## Annexe (postérieure au gel — le cœur fermé ne bouge pas)
+
+**2026-09-30 — transcription des bins w(z) (dette nommée bouclée)** :
+table `data/tables/wde_free_bins_FIG7-2025.json` — transcription pixel
+par pixel de la Fig. 7 (panneau supérieur) du compagnon
+arXiv:2503.14743v2 (grammaire B1 : rendu pypdfium2, ancre ligne
+pointillée w = −1 à y = 239, tick −2,0 à y = 368, 129 px/unité, u =
+0,05 lecture graphique) :
+
+- bin le plus bas transcrit : w ≈ **−0,86** (3 unif), **−0,86** (4 unif),
+  **−0,94** (5 unif) — les trois schémas au-dessus de −1, concordants
+  avec la déclaration textuelle gelée « more than 3σ » ;
+- motif du croisement fantôme visible dans la transcription : le bin
+  bas est au-dessus de −1, les bins médians repassent en dessous
+  (−1,16 à −1,67) avant de revenir vers −1 — géométrie du signal, pas
+  un pli (I-D7 confirmé) ;
+- la transcription est une **annexe de preuve** : le verdict WDE_FREE
+  (P à 1,5 θ) porte sur la borne plancher gelée au gel — la table
+  transcrite ne re-run pas le contact (anti-tautologie) ;
+- sha256 de la table transcrite : `d33fdcd476a64d75c65e0b5e23edccb9d2d5af549e4df0c774dc388c985ea51e`.
